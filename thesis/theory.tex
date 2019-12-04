@@ -2,10 +2,93 @@
 \label{cha:teoria}
 
 \section{Język C++}
+\textit{C++} jest kompilowanym językiem programowania ogólnego przeznaczenia \textbf{BJARNE} opartym o statyczne typowanie. Został stworzony jako obiektowe rozszerzenie języka C (z którym jest w dużej mierze wstecznie kompatybilny), lecz wraz z rozwojem pojawiło się w nim wsparcie dla innych paradygmatów, w tym generycznego i funkcyjnego. Sprawiło to, że język ten stał się bardzo wszechstronny - pozwala zarówno na szybkie wykonywanie operacji niskopoziomowych \textbf{BJARNE strona 41}, jak i na tworzenie wysokopoziomowych abstrakcji\textbf{BJARNE, PRACA GOSCIA}. Dodatkową cechą wyróżniającą C++ wśród innych języków umożliwiających programowanie obiektowe jest jego wysoka wydajność.
+
+\paragraph*{Standardy języka} \mbox{} \
+Od ostatnich kilku lat C++ przechodzi proces intensywnego rozwoju - od 2011 roku pojawiły się trzy nowe standardy tego języka, a kolejny przewidziany jest na rok 2020. Wspomniane nowe standardy to:
+\begin{itemize}
+\item C++11 - wprowadza funkcjonalności takie jak: wsparcie dla wielowątkowości, wyrażenia lambda, referencje do \textit{r-wartości}, biblioteka do obsługi wyrażeń regularnych, dedukcja typów za pomocą słowa kluczowego \textit{auto} czy pętla zakresowa. Standard ten uważany jest za przełom w rozwoju języka.
+\item C++14 - rozszerza zmiany wprowadzone w C++11. Nie zawiera tak wielu przełomowych zmian jak poprzedni standard - twórcy skupili się na poprawie istniejących błędów oraz rozwoju istniejących rozwiązań \textbf{wiki:} np. dedukcji typu zwracanego z funkcji za pomocą słowa kluczowego \textit{auto}.
+\item C++17 - wprowadza m.in. nowe typy danych (\textit{std::variant} czy \textit{std::optional}, algorytmy współbieżne, 
+\end{itemize}
 \section{Biblioteki statyczne i dynamiczne}
 \section{Narzędzie CMake}
 \section{Język Python}
-\section{Język powłoki bash}
+\section{Powłoka systemu operacyjnego - Bash}
+Powłoka systemu jest programem, którego głównym zadaniem jest udostępnienie interfejsu umożliwiającego łatwy dostęp do funkcji systemu operacyjnego. Nazwę \textit{powłoka} zawdzięcza temu, że jest warstwą okalającą system operacyjny. Najczęściej spotykanym rodzajem powłoki są tzw. interfejsy z wierszem poleceń (ang. command-line interface). Polecenia wprowadzane są do nich w modzie interaktywnym, tj. wykonywane są one w momencie wprowadzenia końca linii.
+
+\begin{lstlisting}[language=bash,caption={Komenda wypisująca tekst na standardowe wyjście wykonana z linii poleceń}]
+user@host:~$ echo "interfejs z linią poleceń"
+interfejs z linią poleceń
+user@host:~$
+\end{lstlisting}
+
+Bash, czyli \textbf{Bourne Again Shell} jest powłoką systemu początkowo napisaną dla systemu operacyjnego GNU. Obecnie Bash jest kompatybilny z większością systemów Unixowych oraz posiada kilka portów na inne platformy, tj.: MS-DOS, OS/2, Windows. WSTAWIC REFERENCJE DO www.gnu.org\/software\/bash\/manual\/bash.html\#What-is-Bash\_003f Jest on domyślną powłoką dla większości systemów Unixowych. Oprócz pełnienia wyżej wymienionej funkcji Bash jest również językiem programowania pozwalającym na tworzenie skryptów. Są one kolejną metodą wprowadzania poleceń do powłoki systemu.\par
+Korzystając z języka skryptowego powłoki Bash jesteśmy w stanie zawrzeć dodatkową logikę podczas wykonywania komend powłoki. Wspiera on takie struktury jak: polecenia warunkowe, pętle, operacje logiczne oraz arytmetyczne. Aby wykorzystać Bash jako język używany w skrypcie należy na początku pliku zamieścić zapis \textbf{\#!/bin/bash}, gdzie \textbf{/bin/bash} to ścieżka do pliku interpretera Bash. Zachowanie skryptu jesteśmy w stanie uzależnić od argumentów wykonania. Ich obsługa odbywa się za pomocą zapisu \textbf{\$?}, gdzie \textbf{?} jest to numer porządkowy argumentu liczony od 0.
+
+\begin{lstlisting}[label={lst:prostySkrypt},language=bash,caption={Skrypt wykorzystujący argumenty wejściowe, instrukcję warunkową oraz polecenie echo}]
+#!/bin/bash
+if [ $1 == "argumenty" ]; then
+        echo "Argument 0.: $0"
+        echo "Argument 1.: $1"
+else
+        echo "Nieznane polecenie"
+fi
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash,caption={Przykład działania Skryptu z Listingu \ref{lst:prostySkrypt}}]
+user@host:~$ /home/user/prostySkrypt.sh argumenty
+Argument 0.: /home/user/prostySkrypt.sh
+Argument 1.: argumenty
+\end{lstlisting}
+
+Bash posiada wiele poleceń, które pozwalają na wykonywanie zarówno podstawowych, jak i bardziej zaawansowanych czynności, np.: obsługa plików, obsługa systemu katalogów, zarządzanie kontami, uprawnieniami, itd.\par
+Bash posiada również wiele zaawansowanych funkcjonalności, które pozwalają na kontrolowanie przepływu informacji w trakcie wykonywania poleceń. Przykładem jest wpisywanie tekstu do pliku ukazane na Listingu \ref{lis:zapisDoPliku}.
+
+\begin{lstlisting}[label={lis:zapisDoPliku},language=bash,caption={Przykład zapisu tekstu do pliku}]
+user@host:~$ echo "Ten napis zostanie zapisany do pliku plik.txt" > plik.txt
+\end{lstlisting}
+
+W celu zapisania tekstu do pliku należy na standardowe wyjście przekazać napis za pomocą komendy \textbf{echo}, a następnie przekierować za pomocą zapisu \textbf{>}, który poprzedza nazwę pliku docelowego. W wyniku działania zawartośc pliku \textbf{plik.txt} zostanie nadpisana, a w przypadku gdy takiego pliku nie ma, to zostanie on utworzony i uzupełniony o napis.\par
+Bash posiada wiele więcej mechanizmów oraz możliwości, natomiast zostały one opisane w takim stopniu, aby umożliwić analizę wykonanych prac.
+
+
+
 \section{System kontroli wersji Git i portal Gitlab}
+System kontroli wersji Git jest oprogramowaniem służącym do śledzenia i zarządzania zmianami w plikach projektowych. W przypadku Git'a, aby zarejestrować pliki projektowe w celu ich śledzenia należy wykonać kilka czynności. Po pierwsze wymagane jest utworzenie repozytorium. Sprowadza się ono do wykonania odpowiedniej komendy Git'a wewnątrz folderu projektu, tj. \textbf{git init}. Podczas działania komendy wewnątrz folderu, w którym wywołaliśmy ww. polecenie, inicjowany jest ukryty folder \textbf{.git}
+. Jest on odpowiedzialny za przechowywanie konfiguracji dla tego repozytorium oraz zapisywanie informacji o wszystkich zmianach dokonanych w projekcie.
+
+\begin{lstlisting}[language=bash,caption={Inicjalizacja repozytorium git}]
+user@host:/ścieżka/do/projektu$ git init
+Initialized empty Git repository in /ściezka/do/projektu
+user@host:/ściezka/do/projektu$ ls .git
+branches  config  description  HEAD  hooks  info  objects  refs
+\end{lstlisting}
+
+Taka inicjalizacja nie spowoduje żadnego dodatkowego działania oprócz utworzenia repozytorium. Żadne pliki nie są jeszcze poddawane rewizji. W celu rejestracji plików należy wykonać jeszcze kilka kroków. Pierwszym z nich jest wykonanie komendy \textbf{git add}, która poprzedza nazwę plików lub folderów, które chcemy poddać wersjonowaniu. Elementy te zostają dodane do tzw. poczekalni, czyli są one kandydatami do utworzenia kolejnej rewizji. Przydatną komendą w tym przypadku jest również \textbf{git status} pozwalająca na sprawdzenie obecnego stanu repozytorium. Wyświetla ono krótkie podsumowanie nt. nowych plików, usuniętych plików oraz plików zmodyfikowanych. Informuje nas również o tym, które pliki są brane pod uwagę do utworzenia kolejnej rewizji.
+
+\begin{lstlisting}[language=bash,caption={Dodawanie elementów do poczekalni}]
+user@host:/ściezka/do/projektu# git add plik1 folder1
+user@host:/ściezka/do/projektu# git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   folder1/plik3
+        new file:   folder1/plik4
+        new file:   plik1
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        plik2
+\end{lstlisting}
+
+
+ 
+
 \section{Manager pakietów - RPM}
 \section{Technologie wirtualizacji i konteneryzacji}
