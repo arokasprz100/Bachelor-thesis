@@ -23,8 +23,8 @@ interfejs z linią poleceń
 user@host:~$
 \end{lstlisting}
 
-Bash, czyli \textbf{Bourne Again Shell} jest powłoką systemu początkowo napisaną dla systemu operacyjnego GNU. Obecnie Bash jest kompatybilny z większością systemów Unixowych oraz posiada kilka portów na inne platformy, tj.: MS-DOS, OS/2, Windows. WSTAWIC REFERENCJE DO www.gnu.org\/software\/bash\/manual\/bash.html\#What-is-Bash\_003f Jest on domyślną powłoką dla większości systemów Unixowych. Oprócz pełnienia wyżej wymienionej funkcji Bash jest również językiem programowania pozwalającym na tworzenie skryptów. Są one kolejną metodą wprowadzania poleceń do powłoki systemu.\par
-Korzystając z języka skryptowego powłoki Bash jesteśmy w stanie zawrzeć dodatkową logikę podczas wykonywania komend powłoki. Wspiera on takie struktury jak: polecenia warunkowe, pętle, operacje logiczne oraz arytmetyczne. Aby wykorzystać Bash jako język używany w skrypcie należy na początku pliku zamieścić zapis \textbf{\#!/bin/bash}, gdzie \textbf{/bin/bash} to ścieżka do pliku interpretera Bash. Zachowanie skryptu jesteśmy w stanie uzależnić od argumentów wykonania. Ich obsługa odbywa się za pomocą zapisu \textbf{\$?}, gdzie \textbf{?} jest to numer porządkowy argumentu liczony od 0.
+Bash, czyli \textbf{Bourne Again Shell} jest powłoką systemu początkowo napisaną dla systemu operacyjnego GNU. Obecnie Bash jest kompatybilny z większością systemów Unixowych, gdzie zwykle jest powłoką domyślną oraz posiada kilka portów na inne platformy, tj.: MS-DOS, OS/2, Windows. WSTAWIC REFERENCJE DO www.gnu.org\/software\/bash\/manual\/bash.html\#What-is-Bash\_003f Oprócz pełnienia wyżej wymienionej funkcji, Bash jest również językiem programowania pozwalającym na tworzenie skryptów, które są kolejną metodą wprowadzania poleceń do powłoki systemu.\par
+Korzystając z języka skryptowego powłoki Bash jesteśmy w stanie zawrzeć dodatkową logikę podczas wykonywania komend. Wspiera on takie struktury jak: instrukcje warunkowe, pętle, operacje logiczne oraz arytmetyczne. Aby wykorzystać Bash w skrypcie należy na początku pliku zamieścić zapis \textbf{\#!/bin/bash}, gdzie \textbf{/bin/bash} to ścieżka do pliku interpretera Bash. Zachowanie skryptu jesteśmy w stanie uzależnić od argumentów wykonania. Ich obsługa odbywa się za pomocą zapisu \textbf{\$?}, gdzie \textbf{?} jest to numer porządkowy argumentu liczony od 0.
 
 \begin{lstlisting}[label={lst:prostySkrypt},language=bash,caption={Skrypt wykorzystujący argumenty wejściowe, instrukcję warunkową oraz polecenie echo}]
 #!/bin/bash
@@ -47,11 +47,11 @@ Bash posiada również wiele zaawansowanych funkcjonalności, które pozwalają 
 
 \begin{lstlisting}[label={lis:zapisDoPliku},language=bash,caption={Przykład zapisu tekstu do pliku}]
 user@host:~$ echo "Ten napis zostanie zapisany do pliku plik.txt" > plik.txt
+user@host:~$ cat plik.txt
+Ten napis zostanie zapisany do pliku plik.txt
 \end{lstlisting}
 
 W celu zapisania tekstu do pliku należy na standardowe wyjście przekazać napis za pomocą komendy \textbf{echo}, a następnie przekierować za pomocą zapisu \textbf{>}, który poprzedza nazwę pliku docelowego. W wyniku działania zawartośc pliku \textbf{plik.txt} zostanie nadpisana, a w przypadku gdy takiego pliku nie ma, to zostanie on utworzony i uzupełniony o napis.\par
-Bash posiada wiele więcej mechanizmów oraz możliwości, natomiast zostały one opisane w takim stopniu, aby umożliwić analizę wykonanych prac.
-
 
 
 \section{System kontroli wersji Git i portal Gitlab}
@@ -87,8 +87,45 @@ Untracked files:
         plik2
 \end{lstlisting}
 
+Tworzenie nowej wersji w ramach repozytorium odbywa się za pomocą komendy \textbf{git commit}. Sprowadza się do 'zamrożenia' obecnych wersji plików zarejestrowanych do rewizji oraz przypisanie im wspólnego, unikalnego dla każdej z nich, identyfikatora. Git udostępnia komendy pozwalające na przeglądanie oraz przywracanie plików do wcześniej utworzonych wersji. Listing \ref{lis:pierwszaRewizja} przedstawia utworzenie nowej wersji oraz wyświetlenie podsumowania o utworzonych do tej pory rewizjach.
 
- 
+\begin{lstlisting}[label={lis:pierwszaRewizja}, language=bash,caption={Utworzenie nowej rewizji}]
+user@host:/sciezka/do/projektu# git commit -m "Pierwsza rewizja"
+user@host:/sciezka/do/projektu# git log 
+commit 1d2445e961beb25940dffa9d73963f887ee553ad
+Author: user <user@host.localdomain>
+Date:   Wed Dec 4 17:29:55 2019 +0100
+
+    Pierwsza rewizja
+\end{lstlisting}
+
+Przejścia między rewizjami nie powodują utraty danych, gdyż zachowywana jest informacja o stanie plików dla każdej z nich, co ukazuje Listing \ref{lis:drugaRewizja}. Tworzona jest nowa rewizja zawierająca dodatkowo \textbf{plik2}, natomiast po powrocie do poprzedniej wersji plik ten nie występuje. Gdy powrócimy do nowszej wersji ponownie pojawi się \textbf{plik2}.
+
+\begin{lstlisting}[label={lis:drugaRewizja}, language=bash,caption={Podsumowanie rewizji, powrót do starszej wersji}]
+user@host:/sciezka/do/projektu# git add plik2
+user@host:/sciezka/do/projektu# git commit -m "Druga rewizja"
+user@host:/sciezka/do/projektu# git log 
+commit b58836df55fc2a8eb2a43aa96273853776924807
+Author: user <user@host.localdomain>
+Date:   Wed Dec 4 17:30:10 2019 +0100
+
+    Druga rewizja
+
+commit 1d2445e961beb25940dffa9d73963f887ee553ad
+Author: user <user@host.localdomain>
+Date:   Wed Dec 4 17:29:55 2019 +0100
+
+    Pierwsza rewizja
+
+user@host:/sciezka/do/projektu# ls
+folder1  plik1  plik2
+user@host:/sciezka/do/projektu# git checkout 1d2445e961beb25940dffa9d73963f887ee553ad
+user@host:/sciezka/do/projektu# ls
+folder1  plik1
+user@host:/sciezka/do/projektu# git checkout b58836df55fc2a8eb2a43aa96273853776924807
+user@host:/sciezka/do/projektu# ls
+folder1  plik1  plik2
+\end{lstlisting}
 
 \section{Manager pakietów - RPM}
 \section{Technologie wirtualizacji i konteneryzacji}
