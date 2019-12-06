@@ -106,6 +106,37 @@
     numberstyle={\footnotesize\color[rgb]{0.205, 0.142, 0.73}}
 }
 
+% Kolorowanie składni języka bash
+% TODO: Można usunąć jeśli się nie potrzebuje
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+\lstset{
+    language=bash,
+    basicstyle=\ttfamily,
+    breaklines=true,
+    breakatwhitespace=true, %%%
+    basicstyle=\footnotesize,
+    %upquote=true,
+    aboveskip={0.75\baselineskip},
+    columns=fixed,
+    showstringspaces=false,
+    %extendedchars=false,
+    breaklines=true,
+    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    %frame=single,
+    numbers=left,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    xleftmargin=1cm,
+    %backgroundcolor=\color{lbcolor},
+    identifierstyle=\ttfamily,
+    keywordstyle=\color[rgb]{0,0,1},
+    commentstyle=\color[rgb]{0.4,0.4,0.4},
+    stringstyle=\color[rgb]{0.627,0.126,0.941},
+    numberstyle={\footnotesize\color[rgb]{0.205, 0.142, 0.73}}
+}
+
 \usepackage[hidelinks]{hyperref}
 
 % --- < bibliografia > ---
