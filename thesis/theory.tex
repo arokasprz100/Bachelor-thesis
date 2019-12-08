@@ -446,7 +446,7 @@ postuninstall program: /bin/sh
 
 \section{Technologie wirtualizacji i konteneryzacji}
 
-\textbf{Wirtualizacja}, czyli proces uruchamiania instancji wirtualnego systemu komputerowego odseparowanego od rzeczywistego systemu komputerowego oraz jego sprzętu (ang. hardware). Pozwala na uruchomienie \textbf{wielu różnych} systemów operacyjnych na jednym komputerze \textbf{jednocześnie}. Wykorzystywany przede wszystkim do separacji środowisk dla aplikacji, czy też całych systemów. Pozwala na uruchomienie oprogramowania nieprzystosowanego do naszego systemu operacyjnego, wystarczy utworzyć instancję maszyny wirtualnej z odpowiednim systemem operacyjnym. Aplikacje uruchamiane w takiej instacji zachowują się tak, jakby znajdowały się na \textbf{odseparowanym komputerze} z własnym, dedykowanym systemem operacyjnym, bibliotekami oraz innym oprogramowaniem. Dużym plusem jest pełna separacja instancji uruchomionych na systemie gospodarza. Jedna instancja \textbf{nie jest afektowana} przez procesy innej instancji \cite{Virt}.\par
+\textbf{Wirtualizacja}, czyli proces uruchamiania instancji wirtualnego systemu komputerowego odseparowanego od rzeczywistego systemu komputerowego oraz jego sprzętu (ang. hardware). Pozwala na uruchomienie \textbf{wielu różnych} systemów operacyjnych na jednym komputerze \textbf{jednocześnie}. Wykorzystywany przede wszystkim do separacji środowisk dla aplikacji, czy też całych systemów. Pozwala na uruchomienie oprogramowania nieprzystosowanego do naszego systemu operacyjnego, wystarczy utworzyć instancję maszyny wirtualnej z odpowiednim systemem operacyjnym. Aplikacje uruchamiane w takiej instacji zachowują się tak, jakby znajdowały się na \textbf{odseparowanym komputerze} z własnym, dedykowanym systemem operacyjnym, bibliotekami oraz innym oprogramowaniem. Dużym plusem jest pełna separacja instancji uruchomionych na systemie gospodarza. Procesy jednej instancji \textbf{nie mają wpływu} na drugą instancję \cite{Virt}.\par
 
 Proces wirtualizacji odbywa się za pomocą oprogramowania, które nazywa się hipernadzorcą (ang. hipervisor). Odpowiada on za zapewnienie środowiska, które pozwoli na uruchomienie maszyny wirtualnej. Wyróżnanie są dwa rodzaje hipernadzorców. Pierwsze z nich bazują na wspomaganiu procesu przez fizyczny sprzęt, co pozwala na częściowe ominięcie systemu operacyjnego gospodarza, dzięki czemu narzut na wydajność jest mniejszy, natomiast drugie bazują na rozwiązaniach aplikacyjnych, dzięki czemu można je uruchamiać bez wsparcia sprzętowego, natomiast są znacznie mniej wydajne.
 
@@ -459,6 +459,33 @@ Konteneryzacja jest procesem utworzenia odseparowanego kontenera, czyli ustandar
 Informacje te są poprzedzone odpowiednimi słowami kluczowymi, np.: \textbf{ENV}, czy \textbf{RUN}. Listing \ref{lis:dockerfile} ukazuje przykładowy Dockerfile, którego użycie, za pomocą odpowiedniej komendy Dockera, spowoduje utworzenie obrazu bazującego na dystrybucji centos z zainstalowanym kompilatorem języka c++.
 
 \begin{lstlisting}[label={lis:dockerfile}, language=Dockerfile, caption={Przykładowy Dockerfile}]
+FROM cern/cc7-base:latest
 
+# requirements.txt from https://gitlab.cern.ch/atlas-trt-dcs-ggss/external-dim-lib/blob/master/requirements.txt
+COPY PYTHON/requirements.txt requirements.txt
+# BOOST
+# if you want to insert your own BOOST version to Docker image
+# COPY <local_path_to_boost> /usr/local/boost
+# if you want to install default BOOST from repositories (1.53.0)
+# RUN yum -y install boost
+
+ENV BOOST="/usr/local/boost"
+
+RUN yum -y install cmake \
+make \
+unzip \
+gcc \
+gcc-c++ \
+python3-pip \
+git \
+kernel-3.10.0-862.14.4.el7 \
+kernel-devel-3.10.0-862.14.4.el7 \
+rpm-build \
+gsl \
+gsl-devel \
+libicu
+
+RUN ln -s /usr/bin/pip3 /usr/bin/pip
+RUN pip install -r requirements.txt
 \end{lstlisting}
 
