@@ -77,6 +77,18 @@
     {ć}{{\'c}}1 {Ć}{{\'C}}1
 }
 
+% Definicja listingu dla Dockerfile
+% https://gordonlesti.com/custom-code-highlighting-in-latex/
+\lstdefinelanguage{Dockerfile}
+{
+  morekeywords={FROM, RUN, CMD, LABEL, MAINTAINER, EXPOSE, ENV, ADD, COPY,
+    ENTRYPOINT, VOLUME, USER, WORKDIR, ARG, ONBUILD, STOPSIGNAL, HEALTHCHECK,
+    SHELL},
+  morecomment=[l]{\#},
+  morestring=[b]"
+}
+
+
 % Kolorowanie składni języka C++
 % TODO: Można usunąć jeśli się nie potrzebuje
 \definecolor{listinggray}{gray}{0.9}
@@ -229,6 +241,7 @@
 \usepackage{booktabs}
 \usepackage{makecell}
 \usepackage[flushleft]{threeparttable}
+\usepackage{float}
 
 % defines the X column to use m (\parbox[c]) instead of p (`parbox[t]`)
 \newcolumntype{C}[1]{>{\hsize=#1\hsize\centering\arraybackslash}X}
@@ -280,7 +293,7 @@
 \thispagestyle{empty}
 
 %% ------------------------ NAGLOWEK STRONY ---------------------------------
-\includegraphics[height=37.5mm]{images/agh_nzw_a_pl_1w_wbr_cmyk}\\
+\includegraphics[height=37.5mm]{res/agh_nzw_a_pl_1w_wbr_cmyk.pdf}\\
 \rule{30mm}{0pt}
 {\Large\textsf{Wydział Fizyki i Informatyki Stosowanej}}\\
 \rule{\textwidth}{3pt}\\

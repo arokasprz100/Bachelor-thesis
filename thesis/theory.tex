@@ -97,7 +97,7 @@ complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.a
 \centering
 \caption{Proces tworzenia biblioteki statycznej z uwzględnieniem komend koniecznych do wykonania poszczególnych etapów}
 \label{fig:staticlibflow}
-\includegraphics[width=\textwidth]{images/StaticLibFlow}
+\includegraphics[width=\textwidth]{res/StaticLibFlow}
 \end{figure}
 
 Zawartość powstałego archiwum można zbadać za pomocą komendy \textit{ar -t} - wyświetla ona wszyskie pliki obiektowe wchodzące w skład danej biblioteki. Istnieje również możliwość wylistowania symboli - służy do tego narzędzie \textit{nm}. Użycie tych narzędzi na wykonanym przez autorów przykładzie ilustruje listing \ref{lst:libstat3}. Wynikiem polecenia \textit{nm} są tam dwa symbole, oznaczające dwie udostępnione dla użytkowników biblioteki funkcje (dodawanie i odejmowanie liczb zespolonych).
@@ -120,7 +120,7 @@ Rysunek \ref{fig:staticliblink} przedstawia schematycznie proces dołączania ut
 \centering
 \caption{Proces dołączania biblioteki statycznej do programu z uwzględnieniem komend koniecznych do wykonania poszczególnych etapów}
 \label{fig:staticliblink}
-\includegraphics[width=\textwidth]{images/StaticLibLink}
+\includegraphics[width=\textwidth]{res/StaticLibLink}
 \end{figure}
 
 \begin{itemize}
@@ -176,7 +176,6 @@ user@host:~/app$ ./app
 \paragraph*{Wersjonowanie bibliotek współdzielonych}
 
 \subsection{Porównanie rodzajów bibliotek}
-
 
 \section{Narzędzie CMake}
 
@@ -257,8 +256,209 @@ Python funkcjonuje w dwóch wersjach: Python 2 oraz 3. Wersje te nie są ze sob�
 Jedną z największych zalet Pythona jest bardzo duża liczba bibliotek zewnętrznych tworzonych przez społeczność Pythona. Rozbudowują one język o wiele nowych funkcjonalności, np. przetwarzanie plików HTML czy wykonywanie obliczeń numerycznych. W niniejszej pracy zastosowanych zostało kilka tego typu bibliotek, m.in. \textit{Beautiful Soup} do wspomnianego wyżej przetwarzania dokumentów w formacie HTML. Omówienie ich działania na przykładach znaleźć można w dalszej części pracy - przy opisie konkretnego ich zastosowania. 
 
 
+\section{Powłoka systemu operacyjnego - Bash}
+Powłoka systemu jest programem, którego głównym zadaniem jest udostępnienie interfejsu umożliwiającego łatwy dostęp do funkcji systemu operacyjnego. Nazwę \textit{powłoka} zawdzięcza temu, że jest warstwą okalającą system operacyjny. Najczęściej spotykanym rodzajem powłoki są tzw. interfejsy z wierszem poleceń (ang. command-line interface). Polecenia wprowadzane są do nich w modzie interaktywnym, tj. wykonywane są one w momencie wprowadzenia końca linii.
 
-\section{Język powłoki bash}
+\begin{lstlisting}[language=bash,caption={Komenda wypisująca tekst na standardowe wyjście wykonana z linii poleceń}]
+user@host:~$ echo "interfejs z linią poleceń"
+interfejs z linią poleceń
+user@host:~$
+\end{lstlisting}
+
+Bash, czyli \textbf{Bourne Again Shell} jest powłoką systemu początkowo napisaną dla systemu operacyjnego GNU. Obecnie Bash jest kompatybilny z większością systemów Unixowych, gdzie zwykle jest powłoką domyślną oraz posiada kilka portów na inne platformy, tj.: MS-DOS, OS/2, Windows \cite{BashMan}. Oprócz pełnienia wyżej wymienionej funkcji, Bash jest również językiem programowania pozwalającym na tworzenie skryptów, które są kolejną metodą wprowadzania poleceń do powłoki systemu.\par
+Korzystając z języka skryptowego powłoki Bash jesteśmy w stanie zawrzeć dodatkową logikę podczas wykonywania komend. Wspiera on takie struktury jak: instrukcje warunkowe, pętle, operacje logiczne oraz arytmetyczne. Aby wykorzystać Bash w skrypcie należy na początku pliku zamieścić zapis \textbf{\#!/bin/bash}, gdzie \textbf{/bin/bash} to ścieżka do pliku interpretera Bash. Zachowanie skryptu jesteśmy w stanie uzależnić od argumentów wykonania. Ich obsługa odbywa się za pomocą zapisu \textbf{\$?}, gdzie \textbf{?} jest to numer porządkowy argumentu liczony od 0.
+
+\begin{lstlisting}[label={lst:prostySkrypt},language=bash,caption={Skrypt wykorzystujący argumenty wejściowe, instrukcję warunkową oraz polecenie echo}]
+#!/bin/bash
+if [ $1 == "argumenty" ]; then
+        echo "Argument 0.: $0"
+        echo "Argument 1.: $1"
+else
+        echo "Nieznane polecenie"
+fi
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash,caption={Przykład działania Skryptu z Listingu \ref{lst:prostySkrypt}}]
+user@host:~$ /home/user/prostySkrypt.sh argumenty
+Argument 0.: /home/user/prostySkrypt.sh
+Argument 1.: argumenty
+\end{lstlisting}
+
+Bash posiada wiele poleceń, które pozwalają na wykonywanie zarówno podstawowych, jak i bardziej zaawansowanych czynności, np.: obsługa plików, obsługa systemu katalogów, zarządzanie kontami, uprawnieniami, itd.\par
+Bash posiada również wiele zaawansowanych funkcjonalności, które pozwalają na kontrolowanie przepływu informacji w trakcie wykonywania poleceń. Przykładem jest wpisywanie tekstu do pliku ukazane na Listingu \ref{lis:zapisDoPliku}.
+
+\begin{lstlisting}[label={lis:zapisDoPliku},language=bash,caption={Przykład zapisu tekstu do pliku}]
+user@host:~$ echo "Ten napis zostanie zapisany do pliku plik.txt" > plik.txt
+user@host:~$ cat plik.txt
+Ten napis zostanie zapisany do pliku plik.txt
+\end{lstlisting}
+
+W celu zapisania tekstu do pliku należy na standardowe wyjście przekazać napis za pomocą komendy \textbf{echo}, a następnie przekierować za pomocą zapisu \textbf{>}, który poprzedza nazwę pliku docelowego. W wyniku działania zawartośc pliku \textbf{plik.txt} zostanie nadpisana, a w przypadku gdy takiego pliku nie ma, to zostanie on utworzony i uzupełniony o napis.\par
+
+
 \section{System kontroli wersji Git i portal Gitlab}
+System kontroli wersji Git jest oprogramowaniem służącym do śledzenia i zarządzania zmianami w plikach projektowych. W przypadku Git'a, aby zarejestrować pliki projektowe w celu ich śledzenia należy wykonać kilka czynności. Po pierwsze wymagane jest utworzenie repozytorium. Sprowadza się ono do wykonania odpowiedniej komendy Git'a wewnątrz folderu projektu, tj. \textbf{git init}. Podczas działania komendy wewnątrz folderu, w którym wywołaliśmy ww. polecenie, inicjowany jest ukryty folder \textbf{.git}
+. Jest on odpowiedzialny za przechowywanie konfiguracji dla tego repozytorium oraz zapisywanie informacji o wszystkich zmianach dokonanych w projekcie.
+
+\begin{lstlisting}[language=bash,caption={Inicjalizacja repozytorium git}]
+user@host:/ścieżka/do/projektu$ git init
+Initialized empty Git repository in /ściezka/do/projektu
+user@host:/ściezka/do/projektu$ ls .git
+branches  config  description  HEAD  hooks  info  objects  refs
+\end{lstlisting}
+
+Taka inicjalizacja nie spowoduje żadnego dodatkowego działania oprócz utworzenia repozytorium. Żadne pliki nie są jeszcze poddawane rewizji. W celu rejestracji plików należy wykonać jeszcze kilka kroków. Pierwszym z nich jest wykonanie komendy \textbf{git add}, która poprzedza nazwę plików lub folderów, które chcemy poddać wersjonowaniu. Elementy te zostają dodane do tzw. poczekalni, czyli są one kandydatami do utworzenia kolejnej rewizji. Przydatną komendą w tym przypadku jest również \textbf{git status} pozwalająca na sprawdzenie obecnego stanu repozytorium. Wyświetla ono krótkie podsumowanie nt. nowych plików, usuniętych plików oraz plików zmodyfikowanych. Informuje nas również o tym, które pliki są brane pod uwagę do utworzenia kolejnej rewizji.
+
+\begin{lstlisting}[language=bash,caption={Dodawanie elementów do poczekalni}]
+user@host:/ściezka/do/projektu# git add plik1 folder1
+user@host:/ściezka/do/projektu# git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   folder1/plik3
+        new file:   folder1/plik4
+        new file:   plik1
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        plik2
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{res/fileStates.pdf}
+\caption{Możliwe stany pliku w repozytorium GIT WSTAWIC REFERENCJE DO TEGO} 
+\end{figure}
+
+Tworzenie nowej wersji w ramach repozytorium odbywa się za pomocą komendy \textbf{git commit}. Sprowadza się do 'zamrożenia' obecnych wersji plików zarejestrowanych do rewizji oraz przypisanie im wspólnego, unikalnego dla każdej z nich, identyfikatora. Git udostępnia komendy pozwalające na przeglądanie oraz przywracanie plików do wcześniej utworzonych wersji. Listing \ref{lis:pierwszaRewizja} przedstawia utworzenie nowej wersji oraz wyświetlenie podsumowania o utworzonych do tej pory rewizjach.
+
+\begin{lstlisting}[label={lis:pierwszaRewizja}, language=bash,caption={Utworzenie nowej rewizji}]
+user@host:/sciezka/do/projektu# git commit -m "Pierwsza rewizja"
+user@host:/sciezka/do/projektu# git log 
+commit 1d2445e961beb25940dffa9d73963f887ee553ad
+Author: user <user@host.localdomain>
+Date:   Wed Dec 4 17:29:55 2019 +0100
+
+    Pierwsza rewizja
+\end{lstlisting}
+
+Przejścia między rewizjami nie powodują utraty danych, gdyż zachowywana jest informacja o stanie plików dla każdej z nich, co ukazuje Listing \ref{lis:drugaRewizja}. Tworzona jest nowa rewizja zawierająca dodatkowo \textbf{plik2}, natomiast po powrocie do poprzedniej wersji plik ten nie występuje. Gdy powrócimy do nowszej wersji ponownie pojawi się \textbf{plik2}.
+
+\begin{lstlisting}[language=bash,caption={Podsumowanie rewizji, powrót do starszej wersji},label={lis:drugaRewizja}]
+user@host:/sciezka/do/projektu# git add plik2
+user@host:/sciezka/do/projektu# git commit -m "Druga rewizja"
+user@host:/sciezka/do/projektu# git log 
+commit b58836df55fc2a8eb2a43aa96273853776924807
+Author: user <user@host.localdomain>
+Date:   Wed Dec 4 17:30:10 2019 +0100
+
+    Druga rewizja
+
+commit 1d2445e961beb25940dffa9d73963f887ee553ad
+Author: user <user@host.localdomain>
+Date:   Wed Dec 4 17:29:55 2019 +0100
+
+    Pierwsza rewizja
+
+user@host:/sciezka/do/projektu# ls
+folder1  plik1  plik2
+user@host:/sciezka/do/projektu# git checkout 1d2445e961beb25940dffa9d73963f887ee553ad
+user@host:/sciezka/do/projektu# ls
+folder1  plik1
+user@host:/sciezka/do/projektu# git checkout b58836df55fc2a8eb2a43aa96273853776924807
+user@host:/sciezka/do/projektu# ls
+folder1  plik1  plik2
+\end{lstlisting}
+
+Głównym celem portalu \textbf{GitLab} jest udostępnienie środowiska do przechowywania repozytoriów Gitowych na zdalnych serwerach. Pozwala to na uniezależnienie się od maszyny na której pracujemy, zwiększa bezpieczeństwo plików źródłowych poprzez umieszczenie kopii na zdalnym serwerze oraz wspiera zespołową pracę nad kodem.\par
+
+Ze względu na to, że portale typu \textbf{GitLab} są traktowane jako podstawowe narzędzie do wspólnej pracy nad kodem, to rozwinęły one wiele narzędzi wspomagających organizację oraz śledzenie pracy.Oprócz ww. funkcji \textbf{Gitlab} dostarcza wiele narzędzi do wspomagania procesu zapewniania jakości, jak i automatyzacji dostarczania kodu.\par
+
+\textbf{Git} posiada specjalne komendy pozwalające na przekazywanie oraz pobieranie repozytoriów z ww. portali, czyli:
+\begin{itemize}
+\item \textbf{git clone}, która pozwala na pobranie repozytorium z portalu oraz zainicjalizowanie go lokalnie
+\item \textbf{git pull} - za pomocą tej komendy możemy zaktualizować repozytorium lokalne do najnowszej rewizji, która znajduje się na portalu
+\item oraz komenda \textbf{git push} aktualizująca zdalne repozytorium do naszej wersji
+\end{itemize}
+
+Jest to tylko podstawowy opis technologii jaką jest \textbf{Git}, przykłady bardziej zaawansowanych zastosowań pojawią się w części manuskryptu przeznaczonej na prezentację wykonanych prac w ramach projektu.
+
+
 \section{Manager pakietów - RPM}
+Menadżer pakietów jest zbiorem oprogramowania, które w sposób automatyczny zarządza instalacją, aktualizacją, konfiguracją oraz usuwaniem programów komputerowych \cite{ManagerWiki}. Ze względu na to, że procesy te różnią się w zależności od systemów operacyjnych oraz ich dystrybucji istnieje wiele menadżerów pakietów.\par
+
+Zastosowanie technologii zarządzania pakietami pozwala znacząco zmniejszyć próg wejścia wynikający z użycia wcześniej niewykorzystywanego oprogramowania. Pozwala on odejść od żmudnego procesu ręcznej instalacji zależności oraz konfiguracji środowiska. Dzięki manadżerom wszystko jest wykonywane automatycznie. Jeżeli w trakcie procedur nie wystąpi żaden problem, to pakiet, którego zleciliśmy instalacje, powinien być od razu gotowy do działania. Jeżeli domyślna konfiguracja, jaka zostanie nam zapewniona w podczas działania menadżera pakietów, nie będzie dla nas odpowiednia możemy dokonać jej modyfikacji po procesie instalacji.
+
+\newpage
+RPM, czyli RedHat Package Manager jest darmowym, open-source'owym menadżerem pakietów dla systemów z rodziny RedHat oraz SUSE, czyli m.in.:
+\begin{itemize}
+\item RedHat Linux
+\item CentOS
+\item Fedora
+\item openSUSE
+\end{itemize}\par
+RPM jest domyślnym manadżerem pakietów dla ww. dystrybucji. Obsługuje on pakiety w ramach formatu \textbf{.rpm}. Pakiety \textbf{.rpm} zawierają w sobie wiele ważnych elementów. Po pierwsze wewnątrz nich przechowywane są dane aplikacji, czyli: pliki wykonywalne, dokumentacja, testy, konfiguracja.\par 
+Kolejnym ważnym elementem są informacje o zależnościach, czyli innych wymaganych pakietach, które pozwalają na automatyzację procesu instalacji. W momencie, gdy któraś z zależności jest niespełniona menadżer pakietów stara się odnaleźć, w bazie danych pakietów, odpowiedni wpis, aby \textbf{pobrać} oraz \textbf{zainstalować} brakujące oprogramowanie. Trzecim ważnym elementem jest logika pakietu, która jest podstawą do realizacji akcji wykonywanych przez menadżer pakietów, dostarczona w postaci skryptów powłoki, np. \textbf{bash}, zaszytych wewnątrz pliku *.rpm.
+
+Listing \ref{lst:zawRPM} pokazuje przykładową zawartość pakietu, czyli moduł kernela \textbf{modułAplikacji}, plik w formacie \textbf{JSON} pozwalający na konfigurację aplikacji oraz plik wykonywalny \textbf{aplikacji}, natomiast  listing \ref{lis:skryptRPM} pokazuje przykładową logikę pakietu RPM w postaci skryptów shell. Skrypty te nie zawierają ani kopiowania, ani usuwania plików zawartych pakiecie, proces ten odbuwa się automatycznie na podstawie ścieżek ukazanych na Listingu \ref{lis:zawRPM} w trakcie instalacji/dezinstalacji.
+
+\begin{lstlisting}[language=bash,caption={Przykładowa zawartość pakietu RPM},label={lst:zawRPM}]
+user@host:~# rpm -qpl pakiet.rpm
+/ścieżka
+/ścieżka/do
+/ścieżka/do/konfiguracjaAplikacji.json
+/ścieżka/do/aplikacji
+/usr
+/usr/lib
+/usr/lib/modules
+/usr/lib/modules/3.10.0-862
+/usr/lib/modules/3.10.0-862/extra
+/usr/lib/modules/3.10.0-862/extra/modułAplikacji.ko
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[label={lis:skryptRPM}, language=bash, caption={Skrypty pakietu RPM}]
+user@host:~# rpm -qp --scripts pakiet.rpm
+preinstall program: /bin/sh
+postinstall scriptlet (using /bin/sh):
+
+#!/bin/sh
+echo "Post-instajacja przykładowego pakietu"
+echo "Przypisywanie uprawnień"
+chmod 777 /ścieżka/do/konfiguracjaAplikacji.json
+echo "Ładowanie modułu aplikacji"
+/sbin/modrpobe modułAplikacji
+
+preuninstall scriptlet (using /bin/sh):
+#!/bin/sh
+echo "Odinstalowywanie przykładowego pakietu"
+echo "Usuwanie modułu aplikacji"
+/sbin/rmmod modułAplikacji
+
+postuninstall program: /bin/sh
+\end{lstlisting}
+
 \section{Technologie wirtualizacji i konteneryzacji}
+
+\textbf{Wirtualizacja}, czyli proces uruchamiania instancji wirtualnego systemu komputerowego odseparowanego od rzeczywistego systemu komputerowego oraz jego sprzętu (ang. hardware). Pozwala na uruchomienie \textbf{wielu różnych} systemów operacyjnych na jednym komputerze \textbf{jednocześnie}. Wykorzystywany przede wszystkim do separacji środowisk dla aplikacji, czy też całych systemów. Pozwala na uruchomienie oprogramowania nieprzystosowanego do naszego systemu operacyjnego, wystarczy utworzyć instancję maszyny wirtualnej z odpowiednim systemem operacyjnym. Aplikacje uruchamiane w takiej instacji zachowują się tak, jakby znajdowały się na \textbf{odseparowanym komputerze} z własnym, dedykowanym systemem operacyjnym, bibliotekami oraz innym oprogramowaniem. Dużym plusem jest pełna separacja instancji uruchomionych na systemie gospodarza. Jedna instancja \textbf{nie jest afektowana} przez procesy innej instancji \cite{Virt}.\par
+
+Proces wirtualizacji odbywa się za pomocą oprogramowania, które nazywa się hipernadzorcą (ang. hipervisor). Odpowiada on za zapewnienie środowiska, które pozwoli na uruchomienie maszyny wirtualnej. Wyróżnanie są dwa rodzaje hipernadzorców. Pierwsze z nich bazują na wspomaganiu procesu przez fizyczny sprzęt, co pozwala na częściowe ominięcie systemu operacyjnego gospodarza, dzięki czemu narzut na wydajność jest mniejszy, natomiast drugie bazują na rozwiązaniach aplikacyjnych, dzięki czemu można je uruchamiać bez wsparcia sprzętowego, natomiast są znacznie mniej wydajne.
+
+Konteneryzacja jest procesem utworzenia odseparowanego kontenera, czyli ustandaryzowanej jednostki, która zawiera w sobie oprogramowanie oraz zależności wymagane do uruchomienia aplikacji, w celu której została utworzone [referencej edureka]. Kontenery są tworzone na podstawie obrazu, czyli wzorcowego środowiska, które zostało zamrożone w celu późniejszego odwtorzenia. W przypadku \textbf{Dockera} obrazy te są tworzone na podstawie tzw. \textbf{Dockerfile}. Wewnątrz takiego pliku zapisywane są informacje o krokach podejmowanych w celu utworzenia obrazu, np.:
+\begin{itemize}
+\item informacje o bazowym systemie operacyjnym
+\item informacje o zmiennych środowiskowych
+\item komendy menadżera pakietów w celu instalacji zależności
+\end{itemize}
+Informacje te są poprzedzone odpowiednimi słowami kluczowymi, np.: \textbf{ENV}, czy \textbf{RUN}. Listing \ref{lysyng} ukazuje przykładowy Dockerfile, którego użycie, za pomocą odpowiedniej komendy Dockera, spowoduje utworzenie obrazu bazującego na dystrybucji centos z zainstalowanym kompilatorem języka c++.
+
+\begin{lstlisting}[label={lis:dockerfile}, language=Dockerfile, caption={Przykładowy Dockerfile}]
+
+\end{lstlisting}
+
