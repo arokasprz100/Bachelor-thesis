@@ -332,7 +332,7 @@ Untracked files:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{res/fileStates.pdf}
-\caption{Możliwe stany pliku w repozytorium GIT WSTAWIC REFERENCJE DO TEGO} 
+\caption{Możliwe stany pliku w repozytorium \cite{GitChart}} 
 \end{figure}
 
 Tworzenie nowej wersji w ramach repozytorium odbywa się za pomocą komendy \textbf{git commit}. Sprowadza się do 'zamrożenia' obecnych wersji plików zarejestrowanych do rewizji oraz przypisanie im wspólnego, unikalnego dla każdej z nich, identyfikatora. Git udostępnia komendy pozwalające na przeglądanie oraz przywracanie plików do wcześniej utworzonych wersji. Listing \ref{lis:pierwszaRewizja} przedstawia utworzenie nowej wersji oraz wyświetlenie podsumowania o utworzonych do tej pory rewizjach.
@@ -377,7 +377,7 @@ folder1  plik1  plik2
 
 Głównym celem portalu \textbf{GitLab} jest udostępnienie środowiska do przechowywania repozytoriów Gitowych na zdalnych serwerach. Pozwala to na uniezależnienie się od maszyny na której pracujemy, zwiększa bezpieczeństwo plików źródłowych poprzez umieszczenie kopii na zdalnym serwerze oraz wspiera zespołową pracę nad kodem.\par
 
-Ze względu na to, że portale typu \textbf{GitLab} są traktowane jako podstawowe narzędzie do wspólnej pracy nad kodem, to rozwinęły one wiele narzędzi wspomagających organizację oraz śledzenie pracy.Oprócz ww. funkcji \textbf{Gitlab} dostarcza wiele narzędzi do wspomagania procesu zapewniania jakości, jak i automatyzacji dostarczania kodu.\par
+Ze względu na to, że portale typu \textbf{GitLab} są traktowane jako podstawowe narzędzie do wspólnej pracy nad kodem, to rozwinęły one wiele narzędzi wspomagających organizację oraz śledzenie pracy. Oprócz ww. funkcji \textbf{Gitlab} dostarcza wiele narzędzi do wspomagania procesu zapewniania jakości, jak i automatyzacji dostarczania kodu.\par
 
 \textbf{Git} posiada specjalne komendy pozwalające na przekazywanie oraz pobieranie repozytoriów z ww. portali, czyli:
 \begin{itemize}
@@ -405,7 +405,7 @@ RPM, czyli RedHat Package Manager jest darmowym, open-source'owym menadżerem pa
 RPM jest domyślnym manadżerem pakietów dla ww. dystrybucji. Obsługuje on pakiety w ramach formatu \textbf{.rpm}. Pakiety \textbf{.rpm} zawierają w sobie wiele ważnych elementów. Po pierwsze wewnątrz nich przechowywane są dane aplikacji, czyli: pliki wykonywalne, dokumentacja, testy, konfiguracja.\par 
 Kolejnym ważnym elementem są informacje o zależnościach, czyli innych wymaganych pakietach, które pozwalają na automatyzację procesu instalacji. W momencie, gdy któraś z zależności jest niespełniona menadżer pakietów stara się odnaleźć, w bazie danych pakietów, odpowiedni wpis, aby \textbf{pobrać} oraz \textbf{zainstalować} brakujące oprogramowanie. Trzecim ważnym elementem jest logika pakietu, która jest podstawą do realizacji akcji wykonywanych przez menadżer pakietów, dostarczona w postaci skryptów powłoki, np. \textbf{bash}, zaszytych wewnątrz pliku *.rpm.
 
-Listing \ref{lst:zawRPM} pokazuje przykładową zawartość pakietu, czyli moduł kernela \textbf{modułAplikacji}, plik w formacie \textbf{JSON} pozwalający na konfigurację aplikacji oraz plik wykonywalny \textbf{aplikacji}, natomiast  listing \ref{lis:skryptRPM} pokazuje przykładową logikę pakietu RPM w postaci skryptów shell. Skrypty te nie zawierają ani kopiowania, ani usuwania plików zawartych pakiecie, proces ten odbuwa się automatycznie na podstawie ścieżek ukazanych na Listingu \ref{lis:zawRPM} w trakcie instalacji/dezinstalacji.
+Listing \ref{lst:zawRPM} pokazuje przykładową zawartość pakietu, czyli moduł kernela \textbf{modułAplikacji}, plik w formacie \textbf{JSON} pozwalający na konfigurację aplikacji oraz plik wykonywalny \textbf{aplikacji}, natomiast  listing \ref{lst:skryptRPM} pokazuje przykładową logikę pakietu RPM w postaci skryptów shell. Skrypty te nie zawierają ani kopiowania, ani usuwania plików zawartych pakiecie, proces ten odbuwa się automatycznie na podstawie ścieżek ukazanych na Listingu \ref{lst:zawRPM} w trakcie instalacji/dezinstalacji.
 
 \begin{lstlisting}[language=bash,caption={Przykładowa zawartość pakietu RPM},label={lst:zawRPM}]
 user@host:~# rpm -qpl pakiet.rpm
@@ -423,7 +423,7 @@ user@host:~# rpm -qpl pakiet.rpm
 
 \newpage
 
-\begin{lstlisting}[label={lis:skryptRPM}, language=bash, caption={Skrypty pakietu RPM}]
+\begin{lstlisting}[label={lst:skryptRPM}, language=bash, caption={Skrypty pakietu RPM}]
 user@host:~# rpm -qp --scripts pakiet.rpm
 preinstall program: /bin/sh
 postinstall scriptlet (using /bin/sh):
