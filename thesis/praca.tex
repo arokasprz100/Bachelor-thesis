@@ -18,6 +18,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{float} 
 
 % Paczka wyłącza pokazywanie numeru strony oraz nagłówków na pustych stronach
 % TODO: Można wyłączyć
@@ -106,7 +107,35 @@
     breaklines=true,
     prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
     %frame=single,
-    numbers=left,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    %backgroundcolor=\color{lbcolor},
+    identifierstyle=\ttfamily,
+    keywordstyle=\color[rgb]{0,0,1},
+    commentstyle=\color[rgb]{0.4,0.4,0.4},
+    stringstyle=\color[rgb]{0.627,0.126,0.941},
+    numberstyle={\footnotesize\color[rgb]{0.205, 0.142, 0.73}}
+}
+
+% Kolorowanie składni języka bash
+% TODO: Można usunąć jeśli się nie potrzebuje
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+\lstset{
+    language=bash,
+    basicstyle=\ttfamily,
+    breaklines=true,
+    breakatwhitespace=true, %%%
+    basicstyle=\footnotesize,
+    %upquote=true,
+    aboveskip={0.75\baselineskip},
+    columns=fixed,
+    showstringspaces=false,
+    %extendedchars=false,
+    breaklines=true,
+    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    %frame=single,
     showtabs=false,
     showspaces=false,
     showstringspaces=false,
@@ -256,7 +285,6 @@
 %---------------------------------------------------------------------------
 \setcounter{secnumdepth}{4}
 
-\geometry{hmargin={2cm, 2cm}, height=10.0in}
 \begin{document}
 
 % =====  STRONA TYTULOWA PRACY INŻYNIERSKIEJ ====
@@ -265,7 +293,7 @@
 \thispagestyle{empty}
 
 %% ------------------------ NAGLOWEK STRONY ---------------------------------
-\includegraphics[height=37.5mm]{images/agh_nzw_a_pl_1w_wbr_cmyk}\\
+\includegraphics[height=37.5mm]{res/agh_nzw_a_pl_1w_wbr_cmyk.pdf}\\
 \rule{30mm}{0pt}
 {\Large\textsf{Wydział Fizyki i Informatyki Stosowanej}}\\
 \rule{\textwidth}{3pt}\\
@@ -315,6 +343,7 @@ Jednocześnie Uczelnia informuje, że zgodnie z art. 15a ww. ustawy o prawie aut
 \end{center}
 
 %% =====  TYL STRONY TYTULOWEJ PRACY INŻYNIERSKIEJ  ====
+
 \newpage
 %\titlepages
 
