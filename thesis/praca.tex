@@ -18,6 +18,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{float} 
 
 % Paczka wyłącza pokazywanie numeru strony oraz nagłówków na pustych stronach
 % TODO: Można wyłączyć
@@ -94,7 +95,6 @@
     breaklines=true,
     prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
     %frame=single,
-    numbers=left,
     showtabs=false,
     showspaces=false,
     showstringspaces=false,
@@ -124,11 +124,9 @@
     breaklines=true,
     prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
     %frame=single,
-    numbers=left,
     showtabs=false,
     showspaces=false,
     showstringspaces=false,
-    xleftmargin=1cm,
     %backgroundcolor=\color{lbcolor},
     identifierstyle=\ttfamily,
     keywordstyle=\color[rgb]{0,0,1},
@@ -274,7 +272,6 @@
 %---------------------------------------------------------------------------
 \setcounter{secnumdepth}{4}
 
-\geometry{hmargin={2cm, 2cm}, height=10.0in}
 \begin{document}
 
 % =====  STRONA TYTULOWA PRACY INŻYNIERSKIEJ ====
@@ -333,6 +330,7 @@ Jednocześnie Uczelnia informuje, że zgodnie z art. 15a ww. ustawy o prawie aut
 \end{center}
 
 %% =====  TYL STRONY TYTULOWEJ PRACY INŻYNIERSKIEJ  ====
+
 \newpage
 %\titlepages
 
