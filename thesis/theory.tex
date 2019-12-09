@@ -17,7 +17,7 @@ Zmiany wprowadzane w nowych standardach pozwalają na tworzenie czytelniejszego 
 
 \begin{lstlisting}[language=c++,caption={Przykład kodu w języku C++ napisany z wykorzystaniem standardu C++03},label={lst:cpp03}]
 // kontener zawierający 6 elementów typu int - inicjalizacja
-// za pomocą tymczasowej tablicy, możliwa w statym standardzie
+// za pomocą tymczasowej tablicy, możliwa w starym standardzie
 // języka
 int tmp_arr[] = {1, 2, 3, 4, 5, 6};
 std::vector<int> a (tmp_arr, tmp_arr + 6);
@@ -45,12 +45,12 @@ for (const auto& elem: a) {
 \textit{Boost} jest zestawem bibliotek dla języka C++, poszerzających w znacznym stopniu wachlarz narzędzi programistycznych dostarczanych przez język. Biblioteki wchodzące w skład Boost dostarczają funkcjonalności takich, jak: wygodne przetwarzanie tekstu, zapewnienie interfejsu między C++ a językiem Python czy programowanie sieciowe \cite{BoostDocs}. Boost to projekt aktywnie rozwijany, bardzo popularny. Niektóre z bibliotek wchodzących w jego skład zostały przeniesione (nie zawsze w postaci identycznej względem oryginału) do standardu C++.
 
 \section{Biblioteki}
-Biblioteki są jedym z podstawowych narzędzi wprowadzających podział programu na niezależne komponenty oraz dających możliwość wielokrotnego użycia tego samego kodu. Stanowią więc zbiór funkcji, struktur itp. udostępnionych do użycia przez inne programy. Niniejsza część pracy skupia się na bibliotekach opisywanych z perspektywy języków C oraz C++. Opis dotyczył będzie rozwiązań związanych z systemami typu UNIX (nie zostanie poruszony sposób działania bibliotek na systemach Windows). Autorzy zdecydowali się opisać to zagadnienie szczegółowo z uwagi na fakt, iż architektura projektu GGSS w dużej mierze opiera się o mechanizm bibliotek. Rozważania teoretyczne wzbogacone zostaną więc prostym przykładem.
+Biblioteki są jednym z podstawowych narzędzi wprowadzających podział programu na niezależne komponenty oraz dających możliwość wielokrotnego użycia tego samego kodu. Stanowią więc zbiór funkcji, struktur itp. udostępnionych do użycia przez inne programy. Niniejsza część pracy skupia się na bibliotekach opisywanych z perspektywy języków C oraz C++. Opis dotyczył będzie rozwiązań związanych z systemami typu UNIX (nie zostanie poruszony sposób działania bibliotek na systemach Windows). Autorzy zdecydowali się opisać to zagadnienie szczegółowo z uwagi na fakt, iż architektura projektu GGSS w dużej mierze opiera się o mechanizm bibliotek. Rozważania teoretyczne wzbogacone zostaną więc prostym przykładem.
 
 \paragraph*{Opis przykładu}\mbox{}\\
 Przykład prezentujący działanie bibliotek został napisany w języku C i  składa się z dwóch katalogów: \textit{app}, zawierającego kod źródłowy programu, oraz \textit{complex}, zawierającego kod źródłowy, który zostanie wykorzystany do stworzenia prostej biblioteki pozwalającej na wykonywanie podstawowych operacji na liczbach zespolonych. Listing \ref{lst:libexample} zawiera wynik polecenia \textit{tree}, które wypisuje na standardowe wyjście strukturę katalogu z projektem. Autorzy zdecydowali się pokazać proces budowania bibliotek bez wykorzystania narzędzi automatyzujących ten proces (takich jak \textit{CMake}), gdyż znajomość zasad działania tego mechanizmu okazała się dla nich bardzo pomocna podczas rozwiązywania problemów związanych z wykorzystaniem bibliotek w systemie GGSS, gdzie wspomniane narzędzia były już używane.
 
-\begin{lstlisting}[language=bash, caption={Struktura katalogów projektu stanowiącego bazę przykładu dotyczącego bibliotek.},label={lst:libexample}]
+\begin{lstlisting}[style=Cmd, caption={Struktura katalogów projektu stanowiącego bazę przykładu dotyczącego bibliotek.},label={lst:libexample}]
 user@host:~$ tree --charset=ascii
 .
 |-- app
@@ -63,20 +63,24 @@ user@host:~$ tree --charset=ascii
 2 directories, 4 files
 \end{lstlisting}
 
+
 \subsection{Rodzaje bibliotek}
 Na systemach z rodziny UNIX wyróżniamy dwa podstawowy typy bibliotek: \textbf{statyczne} oraz \textbf{współdzielone (shared)}, nazywane również \textbf{dynamicznymi}. Podejścia te znacznie różnią się od siebie. Każde z nich oferuje pewne zalety względem drugiego, przez co oba pozostają dziś w użyciu.
 
+
+%%%%%%%% BIBLIOTEKI STATYCZNE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Biblioteki statyczne}
-Koncepcja stojąca za bibliotekami statycznymi jest bardzo prosta - są to archiwa zawierające w sobie kolekcję plików obiektowych (\textit{*.o}). Do tego typu bibliotek dołączone muszą być pliki nagłówkowe zawierające m.in. deklaracje funkcji stanowiących interfejs pomiędzy biblioteką, a używającym ją programem. Cechą bibliotek statycznych odróźniającą je od bibliotek dynamicznych jest fakt, że są one dołączane do plików obiektowych głównego programu w czasie linkowania - stanowią więc część wynikowego pliku wykonywalnego. 
+Koncepcja stojąca za bibliotekami statycznymi jest bardzo prosta \cite{Compiling} - są to archiwa zawierające w sobie kolekcję plików obiektowych (\textit{*.o}). Do tego typu bibliotek dołączone muszą być pliki nagłówkowe zawierające m.in. deklaracje funkcji stanowiących interfejs programistyczny pomiędzy biblioteką, a używającym ją programem. Cechą bibliotek statycznych odróźniającą je od bibliotek dynamicznych jest fakt, że są one dołączane do plików obiektowych głównego programu w czasie linkowania - stanowią więc część wynikowego pliku wykonywalnego. 
 
 
 
 \paragraph*{Tworzenie biblioteki statycznej}\mbox{}\\
-Rysunek \ref{fig:staticlibflow} przedstawia schematycznie proces tworzenia bibliotek statycznych. Składa się on z dwóch etapów:
+Rysunek \ref{fig:staticlibflow} przedstawia schematycznie proces tworzenia bibliotek statycznych. Składa się on z dwóch etapów \cite{Static1}:
 \begin{itemize}
 \item kompilacja plików źródłowych biblioteki do postaci obiektowej za pomocą \textit{gcc} (listing \ref{lst:libstat1}). Wynikiem powinny być pliki o rozszerzeniu \textit{*.o} odpowiadające wykorzystanym plikom źródłowym.
 
-\begin{lstlisting}[language=bash, caption={Kompilacja plików źródłowych biblioteki do postaci obiektowej - polecenie oraz jego wynik},label={lst:libstat1}]
+\begin{lstlisting}[style=Cmd, caption={Kompilacja plików źródłowych biblioteki do postaci obiektowej - polecenie oraz jego wynik},label={lst:libstat1}]
 user@host:~/complex$ gcc -c *.c
 user@host:~/complex$ ls
 complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o
@@ -85,7 +89,7 @@ complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o
 
 \item utworzenie archiwum zawierającego pliki obiektowe za pomocą programu \textit{archiver} (listing \ref{lst:libstat2}). Wynikiem powinien być plik o rozszerzeniu \textit{*.a}. Podczas tworzenia biblioteki należy nadać jej odpowiednią nazwę, zgodną z formatem \textit{lib<nazwa>.a}.
 
-\begin{lstlisting}[language=bash, caption={Utworzenie biblioteki statycznej z plików obiektowych - polecenie oraz jego wynik},label={lst:libstat2}]
+\begin{lstlisting}[style=Cmd, caption={Utworzenie biblioteki statycznej z plików obiektowych - polecenie oraz jego wynik},label={lst:libstat2}]
 user@host:~/complex$ ar -rc libcoml.a *.o
 user@host:~/complex$ ls
 complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.a
@@ -93,16 +97,16 @@ complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.a
 
 \end{itemize}
 
-\begin{figure}%[H]
+\begin{figure}[H]
 \centering
-\caption{Proces tworzenia biblioteki statycznej z uwzględnieniem komend koniecznych do wykonania poszczególnych etapów}
+\caption{Proces tworzenia biblioteki statycznej z uwzględnieniem komend koniecznych do wykonania poszczególnych etapów \cite{Compiling}}
 \label{fig:staticlibflow}
 \includegraphics[width=\textwidth]{res/StaticLibFlow}
 \end{figure}
 
 Zawartość powstałego archiwum można zbadać za pomocą komendy \textit{ar -t} - wyświetla ona wszyskie pliki obiektowe wchodzące w skład danej biblioteki. Istnieje również możliwość wylistowania symboli - służy do tego narzędzie \textit{nm}. Użycie tych narzędzi na wykonanym przez autorów przykładzie ilustruje listing \ref{lst:libstat3}. Wynikiem polecenia \textit{nm} są tam dwa symbole, oznaczające dwie udostępnione dla użytkowników biblioteki funkcje (dodawanie i odejmowanie liczb zespolonych).
 
-\begin{lstlisting}[language=bash, caption={Użycie poleceń \textit{ar -t} oraz \textit{nm} na bibliotece statycznej.},label={lst:libstat3}]
+\begin{lstlisting}[style=Cmd, caption={Użycie poleceń \textit{ar -t} oraz \textit{nm} na bibliotece statycznej.},label={lst:libstat3}]
 user@host:~/complex$ ar -t libcoml.a
 complex_opers.o
 user@host:~/complex$ nm libcoml.a
@@ -112,13 +116,13 @@ complex_opers.o:
 0000000000000091 T subtract_complex_numbers
 \end{lstlisting}
 
-
+\newpage
 \paragraph*{Dołączanie utworzonej biblioteki do programu}\mbox{}\\
 Rysunek \ref{fig:staticliblink} przedstawia schematycznie proces dołączania utworzonej biblioteki statycznej do programu. Proces ten składa się z następujących etapów:
 
 \begin{figure}[H]
 \centering
-\caption{Proces dołączania biblioteki statycznej do programu z uwzględnieniem komend koniecznych do wykonania poszczególnych etapów}
+\caption{Proces dołączania biblioteki statycznej do programu z uwzględnieniem komend koniecznych do wykonania poszczególnych etapów \cite{Compiling}}
 \label{fig:staticliblink}
 \includegraphics[width=\textwidth]{res/StaticLibLink}
 \end{figure}
@@ -147,7 +151,7 @@ int main(void) {
 
 \item kompilacja plików źródlowych programu do postaci plików obiektowych za pomoca \textit{gcc} (listing \ref{lst:libstat5}). Wynikiem powinien być zestaw plików obiektowych odpowiadający wykorzystanym plikom źródłowym.
 
-\begin{lstlisting}[language=bash, caption={Kompilacja plików źródłowych głównego programu do postaci obiektowej.},label={lst:libstat5}]
+\begin{lstlisting}[style=Cmd, caption={Kompilacja plików źródłowych głównego programu do postaci obiektowej.},label={lst:libstat5}]
 user@host:~/app$ gcc -c *.c
 user@host:~/app$ ls
 app.c  app.o
@@ -156,7 +160,7 @@ app.c  app.o
 
 \item połączenie plików obiektowych i biblioteki w plik wykonywalny za pomocą \textit{gcc} (listing \ref{lst:libstat6}). Opcja \textit{-L} pozwala określić ścieżkę do dołączanej biblioteki, natomiast \textit{-l} - nazwę bibliteki (bez przedrostka \textit{lib} i rozszerzenie \textit{.a}).
 
-\begin{lstlisting}[language=bash, caption={Linkowanie plików obiektowych programu z biblioteką statyczną, wynik uruchomienia programu obrazuący poprawne działanie przykładu.},label={lst:libstat6}]
+\begin{lstlisting}[style=Cmd, caption={Linkowanie plików obiektowych programu z biblioteką statyczną, wynik uruchomienia programu obrazuący poprawne działanie przykładu.},label={lst:libstat6}]
 user@host:~/app$ gcc -o app app.o -L../complex -lcoml
 user@host:~/app$ ls
 app  app.c  app.o
@@ -167,15 +171,113 @@ user@host:~/app$ ./app
 
 \end{itemize}
 
-\subsection{Biblioteki współdzielone}
 
+%%%%%%%% BIBLIOTEKI DYNAMICZNE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Biblioteki współdzielone}
+Działanie bibliotek współdzielonych jest bardziej skomplikowane. Z uwagi na fakt, iż w projekcie GGSS biblioteki współdzielone są używane jedynie w postaci zewnętrznych zależności, przedstawiony opis dotyczył będzie jedynie podstaw tworzenia i działania tych bibliotek. Główna różnica w stosunku do bibliotek statycznych polega na zmianie czasu, w którym biblioteka jest dołączana do programu. W przypadku bibliotek współdzielonych dzieje się to w trakcie ładowania programu do pamięci. Oznacza to, że biblioteki te nie są częścią pliku wykonywalnego programu, dzięki czemu programy te mają mniejszy rozmiar i nie ma konieczności ich rekompilacji w wypadku wprowadzenia zmian w bibliotece. Ponadto kod bibliotek tego typu jest ładowany do pamięci tylko raz - przy pierwszym użyciu biblioteki, i może być współdzielony. Podobnie jak wcześniej do tego typu bibliotek dołączone muszą być pliki nagłówkowe zawierające m.in. deklaracje funkcji stanowiących interfejs programistyczny pomiędzy biblioteką, a używającym ją programem.
+
+\paragraph*{Nazwy i wersjonowanie bibliotek współdzielonych}\mbox{}\\
+Podczas pracy z bibliotekami współdzielonymi istotne jest przestrzeganie narzuconych konwencji dotyczących sposobu nadawania im nazw oraz ich wersjonowania. Rys. \ref{fig:sharedName} przedstawia poszczególne części składające się na poprawną nazwę pliku biblioteki. Składa się ona z przedrostka \textit{lib}, po którym następuje właściwa nazwa biblioteki. Następnie po kropce powinno znaleźć się rozszerzenie \textit{.so} a po nim, rozdzielone kropkami, liczby określające wersję biblioteki. 
+
+\begin{figure}[H]
+\centering
+\caption{Elementy poprawnej nazwy biblioteki współdzielonej}
+\label{fig:sharedName}
+\includegraphics[width=\textwidth]{res/sharedLibName}
+\end{figure}
+
+Wersja biblioteki składa się z trzech liczb \cite{TLDP}: 
+\begin{itemize}
+\item nadrzędny numer wersji (\textit{major version number}) - różnica na tym poziomie oznacza zmianę interfejsu skutkującą brakiem kompatybilności miedzy wersjami bibliotek
+\item podrzędny numer wersji (\textit{minor version number}) - różnica na tym poziomie oznacza zwykle zachowaną kompatybilność między wersjami biblioteki
+\item numer wydania (\textit{release number}) - opcjonalny
+\end{itemize}
+
+Poza nazwą samego pliku bibliotekę współdzieloną określają również dwie inne nazwy \cite{SharedNames}. Pierwsza z nich to tzw. \textbf{soname}. Stanowi ona pozbiór nazwy przedstawionej na Rys. \ref{fig:sharedName}, bez dwóch ostatnich numerów wersji (przykład: \textit{libname.so.1}). Nazwa \textit{soname} stanowi zwyklę nazwę dowiązania symbolicznego do pliku biblioteki. Druga z nazw to tzw. \textbf{linker name} - stanowi ona nazwę biblioteki bez numeru wersji (tzn. np. \textit{libname.so}).
 
 
 \paragraph*{Tworzenie biblioteki współdzielonej}\mbox{}\\
-\paragraph*{Dołączanie utworzonej biblioteki do programu}\mbox{}\\
-\paragraph*{Wersjonowanie bibliotek współdzielonych}
+Proces tworzenia biblioteki współdzielonej przedstawiony został na Rys. \ref{fig:sharedCreate}. Składa się on z następujących etapów \cite{Shared1}:
+\begin{itemize}
+\item kompilacja plików źródłowych biblioteki do postaci obiektowej za pomocą \textit{gcc} (listing \ref{lst:socomp}). Konieczne jest zastosowanie flagi \textbf{-fPIC}, pozwalającej na wygenerowanie tzw. \textbf{Position Independent Code} - jest to taki kod maszynowy, który po załadowaniu do pamięci może być współdzielony przez kilka procesów. Wynikiem tej operacji są pliki obiektowe (\textit{*.o})
 
-\subsection{Porównanie rodzajów bibliotek}
+\begin{lstlisting}[language=bash, style=Cmd, caption={Kompilacja plików źródłowych biblioteki (zastosowanie flagi -fPIC)}, label={lst:socomp}]
+user@host:~/complex$ gcc -fPIC -c *.c
+user@host:~/complex$ ls
+complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o
+\end{lstlisting}
+
+\item utworzenie obiektu współdzielonego w procesie linkowania (listing \ref{lst:socreation}). W tym celu należy zastosować flagę \textbf{-shared}. Należy również przekazać do wynikowego pliku \textit{nazwę so (soname)}. Wartość pola \textit{SONAME} w pliku biblioteki można następnie sprawdzić za pomocą narzędzia \textit{objdump} z flagą \textit{-p}. Podobnie jak w przypadku biblioteki statycznej możliwe jest również zbadanie występujących w niej symboli za pomocą narzędzia \textit{nm} - z uwagi na bardziej skomplikowaną naturę samego pliku ich lista jest jednak dłuższa. 
+
+\begin{lstlisting}[language=bash, style=Cmd, caption={Utworzenie biblioteki współdzielonej, zbadanie wartości pola \textit{SONAME} w utworzonym pliku}, label={lst:socreation}]
+user@host:~/complex$ gcc -shared -Wl,-soname,libcoml.so.1 -o libcoml.so.1.0.0 *.o
+user@host:~/complex$ ls
+complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.so.1.0.0
+user@host:~/complex$ objdump -p libcoml.so.1.0.0 | grep SONAME
+  SONAME               libcoml.so.1
+\end{lstlisting}
+
+\item utworzenie odpowiednich dowiązań symbolicznych. Istnieje kilka sposobów na linkowanie bibliotek współdzielonych. W zależności od zastosowanego sposobu potrzebne mogą okazać się inne dowiązania. W tym przypadku autorzy posłużyli się narzędziem \textbf{ldconfig} z flagą \textit{-n} do wygenerowania dowiązania odpowiadającego nazwie \textit{soname} biblioteki (listing \ref{lst:ldconfig}).
+
+\begin{lstlisting}[language=bash, style=Cmd, caption={Utworzenie dowiązania symbolicznego wskazującego na bibliotekę za pomocą programu \textit{ldcongfig}}, label={lst:ldconfig}]
+user@host:~/complex$ ldconfig -n .
+user@host:~/complex$ ls
+complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.so.1  libcoml.so.1.0.0
+\end{lstlisting}
+
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\caption{Proces tworzenia biblioteki współdzielonej z uwzględnieniem koniecznych poleceń \cite{Compiling}}
+\label{fig:sharedCreate}
+\includegraphics[width=\textwidth]{res/sharedLibFlow}
+\end{figure}
+
+
+\paragraph*{Dołączanie utworzonej biblioteki do programu}\mbox{}\\
+Proces dołączania utworzonej biblioteki współdzielonej do programu składa się z następujących etapów:
+
+\begin{itemize}
+\item dołączenie do źródeł programu plików nagłówkowych zawierających deklaracje stanowiące interfejs między programem a biblioteką (dyrektywa \textit{include}, identycznie jak w przypadku biblioteki statycznej)
+
+\item kompilacja plików źródłowych programu do postaci obiektowej (również analogicznie jak w przypadku bibliotek statycznych)
+
+\item linkowanie w celu uzyskania pliku wykonywalnego (listing \ref{lst:sharedLinking}). W zaprezentowanym przykładzie użyte zostało stworzone wcześniej dowiązanie symboliczne \textit{libcoml.so.1}.
+
+\begin{lstlisting}[language=bash, style=Cmd, caption={Linkowanie w celu uzyskania pliku wykonywalnego zależnego od biblioteki współdzielonej}, label={lst:sharedLinking}]
+user@host:~/app$ gcc -o app app.o -L../complex -l:libcoml.so.1
+user@host:~/app$  ls
+app  app.c  app.o
+\end{lstlisting}
+
+\end{itemize}
+
+Istnieje możliwośc wyświetlenia, od jakich bibliotek współdzielonych jest zależny dany plik wykonywalny. Można to osiągnąć za pomocą narzędzie \textbf{ldd} \cite{shared2}, co zostało ukazane na listingu \ref{lst:sharedFailed}. Aktualnie stworzona przez autorów biblioteka jest oznaczona jako nie znaleziona (\textit{not found}). Z tego też powodu próba uruchomienia programu zakończy się porażką. 
+
+\begin{lstlisting}[language=bash, style=Cmd, caption={Użycie polecenia \textit{ldd} i pierwsza, nieudana próba uruchomienia aplikacji zależnej od biblioteki współdzielonej}, label={lst:sharedFailed}]
+user@host:~/app$ ldd app
+        linux-vdso.so.1 (0x00007fffc16b6000)
+        libcoml.so.1 => not found
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f3e5e8b0000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f3e5f000000)
+user@host:~/app$ ./app
+./app: error while loading shared libraries: libcoml.so.1: cannot open shared object file: No such file or directory
+\end{lstlisting}
+
+\paragraph*{Uruchamianie programu zależnego od biblioteki współdzielonej}\mbox{}\\
+Poprzednia próba uruchomienia biblioteki zakończyła się porażką. Wynika to z tego, że program \textbf{loader} (linker dynamiczny) nie zna ścieżki, pod którą powinien znaleźć bibliotekę. Rozwiązaniem tego problemu jest dodanie tej ścieżki do zmiennej środowiskowej \textbf{LD\_LIBRARY\_PATH} \cite{shared3}. Odpowiednie polecenie oraz poprawne uruchomienie programu ilustruje listing \ref{lst:sharedOK}.
+
+\begin{lstlisting}[language=bash, style=Cmd, caption={Dodanie ścieżki zawierającej bibliotekę do zmiennej \textit{LD\_LIBRARY\_PATH} i poprawne uruchomienie przykładowej aplikacji}, label={lst:sharedOK}]
+user@host:~/complex$ export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH
+user@host:~/complex$ cd ../app/
+user@host:~/app$ ./app
+6.000000 3.700000
+-1.000000 3.700000
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%% KONIEC BIBLIOTEK %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Narzędzie CMake}
 
@@ -259,7 +361,7 @@ Jedną z największych zalet Pythona jest bardzo duża liczba bibliotek zewnętr
 \section{Powłoka systemu operacyjnego - Bash}
 Powłoka systemu jest programem, którego głównym zadaniem jest udostępnienie interfejsu umożliwiającego łatwy dostęp do funkcji systemu operacyjnego. Nazwę \textit{powłoka} zawdzięcza temu, że jest warstwą okalającą system operacyjny. Najczęściej spotykanym rodzajem powłoki są tzw. interfejsy z wierszem poleceń (ang. command-line interface). Polecenia wprowadzane są do nich w modzie interaktywnym, tj. wykonywane są one w momencie wprowadzenia końca linii.
 
-\begin{lstlisting}[language=bash,caption={Komenda wypisująca tekst na standardowe wyjście wykonana z linii poleceń}]
+\begin{lstlisting}[language=bash,style=Cmd,caption={Komenda wypisująca tekst na standardowe wyjście wykonana z linii poleceń}]
 user@host:~$ echo "interfejs z linią poleceń"
 interfejs z linią poleceń
 user@host:~$
@@ -278,7 +380,7 @@ else
 fi
 \end{lstlisting}
 
-\begin{lstlisting}[language=bash,caption={Przykład działania Skryptu z Listingu \ref{lst:prostySkrypt}}]
+\begin{lstlisting}[language=bash,style=Cmd,caption={Przykład działania Skryptu z Listingu \ref{lst:prostySkrypt}}]
 user@host:~$ /home/user/prostySkrypt.sh argumenty
 Argument 0.: /home/user/prostySkrypt.sh
 Argument 1.: argumenty
@@ -287,7 +389,7 @@ Argument 1.: argumenty
 Bash posiada wiele poleceń, które pozwalają na wykonywanie zarówno podstawowych, jak i bardziej zaawansowanych czynności, np.: obsługa plików, obsługa systemu katalogów, zarządzanie kontami, uprawnieniami, itd.\par
 Bash posiada również wiele zaawansowanych funkcjonalności, które pozwalają na kontrolowanie przepływu informacji w trakcie wykonywania poleceń. Przykładem jest wpisywanie tekstu do pliku ukazane na Listingu \ref{lis:zapisDoPliku}.
 
-\begin{lstlisting}[label={lis:zapisDoPliku},language=bash,caption={Przykład zapisu tekstu do pliku}]
+\begin{lstlisting}[label={lis:zapisDoPliku},language=bash,style=Cmd,caption={Przykład zapisu tekstu do pliku}]
 user@host:~$ echo "Ten napis zostanie zapisany do pliku plik.txt" > plik.txt
 user@host:~$ cat plik.txt
 Ten napis zostanie zapisany do pliku plik.txt
@@ -300,7 +402,7 @@ W celu zapisania tekstu do pliku należy na standardowe wyjście przekazać napi
 System kontroli wersji Git jest oprogramowaniem służącym do śledzenia i zarządzania zmianami w plikach projektowych. W przypadku Git'a, aby zarejestrować pliki projektowe w celu ich śledzenia należy wykonać kilka czynności. Po pierwsze wymagane jest utworzenie repozytorium. Sprowadza się ono do wykonania odpowiedniej komendy Git'a wewnątrz folderu projektu, tj. \textbf{git init}. Podczas działania komendy wewnątrz folderu, w którym wywołaliśmy ww. polecenie, inicjowany jest ukryty folder \textbf{.git}
 . Jest on odpowiedzialny za przechowywanie konfiguracji dla tego repozytorium oraz zapisywanie informacji o wszystkich zmianach dokonanych w projekcie.
 
-\begin{lstlisting}[language=bash,caption={Inicjalizacja repozytorium git}]
+\begin{lstlisting}[language=bash,style=Cmd,caption={Inicjalizacja repozytorium git}]
 user@host:/ścieżka/do/projektu$ git init
 Initialized empty Git repository in /ściezka/do/projektu
 user@host:/ściezka/do/projektu$ ls .git
@@ -309,6 +411,7 @@ branches  config  description  HEAD  hooks  info  objects  refs
 
 Taka inicjalizacja nie spowoduje żadnego dodatkowego działania oprócz utworzenia repozytorium. Żadne pliki nie są jeszcze poddawane rewizji. W celu rejestracji plików należy wykonać jeszcze kilka kroków. Pierwszym z nich jest wykonanie komendy \textbf{git add}, która poprzedza nazwę plików lub folderów, które chcemy poddać wersjonowaniu. Elementy te zostają dodane do tzw. poczekalni, czyli są one kandydatami do utworzenia kolejnej rewizji. Przydatną komendą w tym przypadku jest również \textbf{git status} pozwalająca na sprawdzenie obecnego stanu repozytorium. Wyświetla ono krótkie podsumowanie nt. nowych plików, usuniętych plików oraz plików zmodyfikowanych. Informuje nas również o tym, które pliki są brane pod uwagę do utworzenia kolejnej rewizji.
 
+%% Jesli chcemy uzywac mojego stylu, musimy miec konsystentnie $ albo # na koncu command-prompt
 \begin{lstlisting}[language=bash,caption={Dodawanie elementów do poczekalni}]
 user@host:/ściezka/do/projektu# git add plik1 folder1
 user@host:/ściezka/do/projektu# git status

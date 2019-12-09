@@ -88,6 +88,11 @@
   morestring=[b]"
 }
 
+\lstdefinestyle{Cmd}
+{
+    moredelim=[s][\color{red}\bfseries]{user@host}{\$}
+}
+
 
 % Kolorowanie składni języka C++
 % TODO: Można usunąć jeśli się nie potrzebuje
@@ -178,7 +183,7 @@
 	% Nie podawaj URL-i, o ile nie jest to konieczne.
 	url=false,
 	% Ustawienia związane z polskimi normami dla bibliografii.
-	maxbibnames=3,
+	maxnames=50,
 ]{biblatex}
 
 \usepackage{csquotes}

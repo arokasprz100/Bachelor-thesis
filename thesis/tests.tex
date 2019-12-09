@@ -1,6 +1,6 @@
 \chapter{Testy nowej wersji oprogramowania}
 \label{cha:test}
-Niniejszy rozdział zawiera opis testów systemu GGSS przeprowadzonych na koniec trwania prac związanych z oprogramowaniem systemu GGSS. Celem testów była weryfikacja poprawności działania czterach konfiguracji programu \textit{ggssrunner}: wersja deweloperska (\textit{debug}) ze statycznie linkowaną biblioteką \textit{Boost}, wersja deweloperska z dynamicznie linkowaną biblioteką \textit{Boost} oraz analogiczne wersje produkcyjne (\textit{release}). Z uwagi na powtarzalny charakter procesu testowania zaprezentowany zostanie jedynie przebieg testów dla wersji \textbf{deweloperskiej ze statycznie linkowaną biblioteką Boost}. 
+Niniejszy rozdział zawiera opis testów systemu GGSS przeprowadzonych na koniec trwania prac związanych z jego oprogramowaniem. Celem testów była weryfikacja poprawności działania czterach konfiguracji programu \textit{ggssrunner}: wersja deweloperska (\textit{debug}) ze statycznie linkowaną biblioteką \textit{Boost}, wersja deweloperska z dynamicznie linkowaną biblioteką \textit{Boost} oraz analogiczne wersje produkcyjne (\textit{release}). Z uwagi na powtarzalny charakter procesu testowania zaprezentowany zostanie jedynie przebieg testów dla wersji \textbf{deweloperskiej ze statycznie linkowaną biblioteką Boost}. 
 
 \section{Przebieg testu}
 Ze względu na fakt, że środowisko w którym osadzony jest program \textit{ggssrunner} jest ciągle monitorowane, pierwszym krokiem było umieszczenie informacji o przeprowadzaniu testów w dedykowanym do tego celu systemie \textbf{ELisA (Electronic Logbook for Information Storage for Atlas)}.
@@ -21,21 +21,46 @@ Pliki wykonywalne aplikacji \textit{ggssrunner} wygenerowane zostały za pomocą
 \includegraphics[width=\textwidth]{res/png/ggssStraw}
 \end{figure}
 
+\newpage
 Następnym etapem było przeprowadzenie procesu wyłączania systemu GGSS za pomocą przycisku \textit{Stop} znajdującego się na dedykowanym panelu konfiguracyjnym ukazanym na Rys. \ref{fig:ggsspanel}. 
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \caption{Panel konfiguracyjny systemu GGSS podczas działania systemu}
 \label{fig:ggsspanel}
 \includegraphics[width=\textwidth]{res/png/ggssConfig}
 \end{figure}
 
-Po wyłączeniu systemu należało również przerwać działanie poprzedniej wersji aplikacji \textit{ggssrunner} za pomocą skryptu \textit{ggss\_monitor.sh} (listing). Za pomocą tego skryptu został również potwierdzony stan aplikacji po wyłączeniu.
 
-\textbf{tu kiedys bedzie listing jak Jarek nie wylaczy konsoli}
+\newpage
+Po wyłączeniu systemu należało również przerwać działanie poprzedniej wersji aplikacji \textit{ggssrunner} za pomocą skryptu \textit{ggss\_monitor.sh} (listing \ref{lst:ggssstop}). Za pomocą tego skryptu został również potwierdzony stan aplikacji po wyłączeniu.
 
 
-Po wykonaniu wyżej wymienionych czynności podmieniony został plik wykonywalny aplikacji \textit{ggssrunner} na przygotowany przez autorów. Zmiana została wykonana poprzez modyfikacje \textbf{dowiązania symbolicznego}. Następnie aplikacja uruchomiona została ponownie za pomocą skryptu \textit{ggss\_monitor.sh} (listing) oraz z poziomu panelu \textit{WinCC OA}. Stan panelu monitorującego system GGSS jest widoczny na Rys. \ref{fig:ggssafterstart}.
+\begin{lstlisting}[language=bash, caption={Zatrzymanie działania aplikacji \textit{ggssrunner}}, label={lst:ggssstop}]
+user@host:~$ ./ggss_monitor.sh check
+ggssrunner is running.
+
+user@host:~$ ./ggss_monitor.sh stop
+ggssrunner: no process found
+Creating lock /localdisk/ggss/bin/autostartggss.lock
+
+user@host:~$ ./ggss_monitor.sh check
+ggssrunner is NOT running. /localdisk/ggss/bin/autostartggss.lock exists. Remove it or start GGSS manually
+\end{lstlisting}
+
+
+
+Po wykonaniu wyżej wymienionych czynności podmieniony został plik wykonywalny aplikacji \textit{ggssrunner} na przygotowany przez autorów. Zmiana została wykonana poprzez modyfikacje \textbf{dowiązania symbolicznego}. Następnie aplikacja uruchomiona została ponownie za pomocą skryptu \textit{ggss\_monitor.sh} (listing \ref{lst:ggssstart}) oraz z poziomu panelu \textit{WinCC OA}. Stan panelu monitorującego system GGSS jest widoczny na Rys. \ref{fig:ggssafterstart}.
+
+\begin{lstlisting}[language=bash, caption={Ponowne uruchomienie aplikacji \textit{ggssrunner}}, label={lst:ggssstart}]
+user@host:~$ ./ggss_monitor.sh remove_lock
+Removing lock /localdisk/ggss/bin/autostartggss.lock
+
+user@host:~$ ./ggss_monitor.sh check
+ggssrunner is NOT running.
+
+user@host:~$ ./ggss_monitor.sh check_start
+\end{lstlisting}
 
 \begin{figure}
 \centering
@@ -44,6 +69,7 @@ Po wykonaniu wyżej wymienionych czynności podmieniony został plik wykonywalny
 \includegraphics[width=\textwidth]{res/png/ggssPoStarcie}
 \end{figure}
 
+\newpage
 Dodatkowo użyty został skrypt pozwalający na monitorowanie zużycia zasobów pamięci przez aplikację (listing \ref{lst:ggssmem1}). Sposób użycia oraz fragment generowanego przez ten skrypt wyjścia przedstawia listing \ref{lst:ggssmem2}. 
 
 \begin{lstlisting}[language=bash, caption={Skrypt \textit{check\_mem\_ggssrunner.sh} służacy do monitorowania pamięci używanej przez aplikację \textit{ggssrunner}}, label={lst:ggssmem1}]
@@ -67,6 +93,8 @@ user@host:~$ ./check_mem_ggssrunner.sh
 2019.12.08 15:21:27 638800
 2019.12.08 15:22:27 638800
 \end{lstlisting}
+
+W takim stanie system pozostawiony został na dłuższy (ponad 6 godzin) czas. Idea testu polegała na sprawdzeniu, czy przez ten czas działanie systemu pozostanie stabilne i nie pojawią się żadne błędy.
 
 \section{Wyniki testu}
 Test każdej z czterech przygotowanych konfiguracji trwał \textbf{ponad 6 godzin}. Tabela \ref{tab:wyniki} przedstawia rezultaty.
