@@ -267,7 +267,7 @@ user@host:~/app$ ./app
 \end{lstlisting}
 
 \paragraph*{Uruchamianie programu zależnego od biblioteki współdzielonej}\mbox{}\\
-Poprzednia próba uruchomienia biblioteki zakończyła się porażką. Wynika to z tego, że program \textbf{loader} (linker dynamiczny) nie zna ścieżki, pod którą powinien znaleźć bibliotekę. Rozwiązaniem tego problemu jest dodanie tej ścieżki do zmiennej środowiskowej \textbf{LD\_LIBRARY\_PATH} \cite{shared3}. Odpowiednie polecenie oraz poprawne uruchomienie programu ilustruje listing \ref{lst:sharedOK}.
+Poprzednia próba uruchomienia biblioteki zakończyła się porażką. Wynika to z tego, że program \textbf{loader} (linker dynamiczny) nie zna ścieżki, pod którą powinien znaleźć bibliotekę. Jednym z rozwiązań tego problemu jest dodanie tej ścieżki do zmiennej środowiskowej \textbf{LD\_LIBRARY\_PATH} \cite{shared3}. Odpowiednie polecenie oraz poprawne uruchomienie programu ilustruje listing \ref{lst:sharedOK}.
 
 \begin{lstlisting}[language=bash, style=Cmd, caption={Dodanie ścieżki zawierającej bibliotekę do zmiennej \textit{LD\_LIBRARY\_PATH} i poprawne uruchomienie przykładowej aplikacji}, label={lst:sharedOK}]
 user@host:~/complex$ export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH

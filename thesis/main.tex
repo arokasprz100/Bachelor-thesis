@@ -161,10 +161,22 @@ Dostępna wersja narzędzia CMake stanowiła zdaniem autorów największe ograni
 
 \section{Wykorzystanie funkcjonalności portalu Gitlab wspierających zarządzanie projektem}
 
+\newpage
 \section{Migracja projektu do systemu kontroli wersji Git i zmiany w architekturze}
 
+
+
+\section{Zmiana sposobu budowania aplikacji} \label{buildingNew}
+% Zarys rozwiazania
+% Szablony + Boost + GSL
+% Budowanie bibliotek
+% Budowanie aplikacji
+% DIM - skrypt do pobierania, budowanie jak external_project
+% Skrypty do budowania calosci (+ sposoby budowania) + glowny CMake
+
+\newpage
 \section{Zastosowanie podejścia CI/CD}
-Ważną częścia wykonanych prac było przygotowanie środowiska pozwalającego na zautomatyzowane budowanie i dystrybucję aplikacji. Standardowym dziś sposobem na rozwiązanie tego problemu jest podejście \textbf{CI/CD}. Skrót CI oznacza tzw. \textbf{ciągłą integrację} (\textit{Continous Integration}) - praktykę polegającą na stosowaniu współdzielonego repozytorium kodu źródłowego, za pomocą którego programiści pracujący nad projektem regularnie integrują swoje zmiany. Nowa wersja kodu jest automatycznie sprawdzana - serwer ciągłej integracji samodzielnie buduje projekt i uruchamia przygotowane dla niego testy. Skrót CD oznacza natomiast \textbf{ciągłe dostarczanie} (\textit{Continous Delivery}). Polega ono na przygotowaniu produktu do stanu, w którym jest on możliwy do wdrożenia w środowisku produkcyjnym. Może to być np. przeprowadzenie różnego rodzaju testów czy przygotowanie odpowiedniej paczki z aplikacją. Ważne jest, że w podejściu tym nie następuje automatyczne wdrożenie aplikacji do środowiska produkcyjnego (jest to domena \textbf{ciągłego wdrażania}, które jednak nie znalazło zastosowania w projekcie GGSS). Podejście \textbf{CI/CD} porównuje się czasem do działania linii produkcyjnej. Rysunek \ref{fig:cicd} obrazuje schematycznie jego działanie. 
+Ważną częścia wykonanych prac było przygotowanie środowiska pozwalającego na zautomatyzowane budowanie i dystrybucję aplikacji. Standardowym dziś sposobem na rozwiązanie tego problemu jest podejście \textbf{CI/CD}. Skrót CI oznacza tzw. \textbf{ciągłą integrację} (\textit{Continous Integration}) - praktykę polegającą na stosowaniu współdzielonego repozytorium kodu źródłowego, za pomocą którego programiści pracujący nad projektem regularnie integrują swoje zmiany. Nowa wersja kodu jest automatycznie sprawdzana - serwer ciągłej integracji samodzielnie buduje projekt i uruchamia przygotowane dla niego testy. Skrót CD oznacza natomiast \textbf{ciągłe dostarczanie} (\textit{Continous Delivery}). Polega ono na przygotowaniu produktu do stanu, w którym jest on możliwy do wdrożenia w środowisku produkcyjnym. Może to być np. przeprowadzenie różnego rodzaju testów czy przygotowanie odpowiedniej paczki z aplikacją. Ważne jest, że w podejściu tym nie następuje automatyczne wdrożenie aplikacji do środowiska produkcyjnego (jest to domena \textbf{ciągłego wdrażania} \cite{CICDDef}, które jednak nie znalazło zastosowania w projekcie GGSS). Podejście \textbf{CI/CD} porównuje się czasem do działania linii produkcyjnej. Rysunek \ref{fig:cicd} obrazuje schematycznie jego działanie. 
 
 \begin{figure}[H]
 \centering
@@ -175,50 +187,189 @@ Ważną częścia wykonanych prac było przygotowanie środowiska pozwalającego
 
 W kontekście systemu GGSS podejście to jest pożądane, z uwagi na konieczność zachowania poprawności działania systemu pomimo zmian (które aktualnie mają miejsce) w strukturze jego oprogramowania. Głównym celem jego zastosowania było ułatwienie autorom pracy działania jako zespół. Miało również znacząco przyspieszyć proces testowania aplikacji w środowisku produkcyjnym poprzez automatyczne tworzenie paczki z odpowiednią wersją oprogramowania.
 
-\paragraph*{Możliwe sposoby implementacji podejścia CI/CD w projekcie GGSS}\mbox{}\\
-Istnieje wiele narzędzi pozwalających na implementację ciągłej integracji oraz ciągłego dostarczania w projekcie. Prawodopodobnie najpopularniejszym z nich jest \textbf{Jenkins}. Jest to darmowe oprogramowanie do automatyzacji, charakteryzujące się dużą konfigurowalnością. Przez lata stał się standardem dla wielu firm wytwarzających oprogramowanie. Jednak jego główną wadą, wykluczającą jego użycie w projekcie GGSS, jest duży narzut pracy związanej z jego konfiguracją i utrzymaniem. Narzędzie to sprawdza się dobrze przy dużej wielkości projektach. W przypadku systemu GGSS użytkowanie go przyniosłoby więcej pracy niż dałoby realnych korzyści. 
+\subsection{Możliwe sposoby implementacji podejścia CI/CD w projekcie GGSS}
+Istnieje wiele narzędzi pozwalających na implementację ciągłej integracji oraz ciągłego dostarczania w projekcie. Prawodopodobnie najpopularniejszym z nich jest \textbf{Jenkins}. Jest to darmowe \cite{JenkinsWiki} oprogramowanie do automatyzacji, charakteryzujące się dużą konfigurowalnością. Przez lata stał się standardem dla wielu firm wytwarzających oprogramowanie. Jednak jego główną wadą, wykluczającą jego użycie w projekcie GGSS, jest zbyt duża ilość pracy związanej z jego konfiguracją i utrzymaniem. Narzędzie to sprawdza się dobrze przy dużej wielkości projektach. W przypadku systemu GGSS użytkowanie go przyniosłoby więcej pracy niż dałoby realnych korzyści. 
 
 Autorzy zdecydowali się więc wykorzystać narzędzie CI/CD udostępniane przez portal \textbf{GitLab}. GitLab CI/CD udostępnia wystarczająco dużo możliwości, by możliwe było wprowadzenie automatyzacji budowania i testowania w systemie GGSS. Narzędzie to można wykorzystać na dwa sposoby:
 \begin{itemize}
 \item implementując mechanizm budowania i testowania manualnie, co daje większą kontrolę nad całym procesem
 \item używając narzędzia \textbf{Auto DevOps}, oferującego predefiniowane konfiguracje ciągłej integracji i ciągłego dostarczania
 \end{itemize}
-Początkowo podjęta została decyzja o zastosowania drugiego z wyżej wymienionych rozwiązań. Przemawiającym za tym argumentem było potencjalne uproszczenie procedury wdrażania podejścia CI/CD do projektu - w portalu GitLab włączenie narzędzia Auto DevOps sprowadza się do zaznaczenia jednej opcji w ustawieniach na poziomie grupy lub repozytorium. Oferuje ono funkcjonalności takie, jak automatyzacja budowania i testowania projektu czy testy jakości kodu. Podczas prób integracji tego rozwiązania do projektu pojawiło się jednak wiele problemów natury technicznej, związanych m.in. z niestandardowym sposobem działania projektu GGSS czy infrastrukturą tzw. \textit{runner-ów} używaną w CERN. Ostatecznie pomysł ten został więc porzucony na rzecz manualnej konfiguracji środowiska CI/CD. 
+Początkowo podjęta została decyzja o zastosowania drugiego z wyżej wymienionych rozwiązań. Przemawiającym za tym argumentem było potencjalne uproszczenie procedury wdrażania podejścia CI/CD do projektu - w portalu GitLab włączenie narzędzia Auto DevOps sprowadza się do zaznaczenia jednej opcji w ustawieniach na poziomie grupy lub repozytorium. Oferuje ono funkcjonalności takie, jak automatyzacja budowania i testowania projektu czy testy jakości kodu \cite{AutoDevOpsPage}. Podczas prób integracji tego rozwiązania do projektu pojawiło się jednak wiele problemów natury technicznej, związanych m.in. z niestandardowym sposobem działania projektu GGSS czy infrastrukturą tzw. \textit{runner-ów} używaną w CERN. Ostatecznie pomysł ten został więc porzucony na rzecz manualnej konfiguracji środowiska CI/CD. 
 
-\paragraph*{Szczegółowy opis działania mechanizmu GitLab CI/CD}
-Manualna konfiguracja GitLab CI/CD polega na umieszczeniu w repozytorium pliku \textit{gitlab-ci.yml} zawierającego szczegółowy opis przebiegu całego procesu ciągłej integracji i dostarczania (w tym konieczne do wykonania komendy). Przebieg ten określany jest słowem \textbf{pipeline}. Składa się on z etapów (\textit{stages}), przy czym każdy etap może zawierać w sobie kilka równoległych zadań (\textit{jobs}). Idea ta została zilustrowana na rysunku \textbf{tutaj dac odnosnik do rysunku}
+\subsection{Opis działania GitLab CI/CD}
+Przed przystąpieniem do opisu sposobu zastosowania narzędzia GitLab CI/CD w projekcie GGSS przedstawiony zostanie sposób jego działania oraz najważniejsze pojęcia z nim zmiązane. Manualna konfiguracja polega na umieszczeniu w repozytorium pliku \textit{.gitlab-ci.yml} zawierającego szczegółowy opis przebiegu całego procesu ciągłej integracji i dostarczania (w tym konieczne do wykonania komendy). Przebieg ten określa się słowem \textbf{pipeline}. Składa się on z etapów (\textit{stages}), przy czym każdy etap może zawierać w sobie kilka równoległych zadań (\textit{jobs}). Idea ta została zilustrowana na Rys. \ref{fig:pipeline}.
 
-\textbf{tutaj dac rysunek}
+\begin{figure}
+\centering
+\caption{Idea działania \textit{pipeline}. Kolorem czerwonym oznaczone zostały poszczególne etapy (\textit{stages}), natomiast zadania (\textit{jobs}) przedstawione zostały za pomocą ciemnoniebieskich prostokątów. Rysunek przedstawia przykładową strukturę, liczba etapów i zadań różni sie zwykle od pokazanej.}
+\label{fig:pipeline}
+\includegraphics[width=\textwidth]{res/Pipeline.pdf}
+\end{figure}
 
-Wynikiem każdego z zadań może być tzw. \textbf{artefakt}, czyli możliwe do pobrania archiwum zawierające np. plik wykonywalny z produktem. 
+Wynikiem każdego z zadań może być tzw. \textbf{artefakt}, czyli możliwe do pobrania archiwum zawierające np. plik wykonywalny z produktem. Artefakty mogą być również przekazywane między poszczególnymi etapami procesu. 
+
+Zadania składające się na pipeline uruchamiane są przez specjalne narzędzie \textbf{GitLab Runner}. Może on znajdować się na serwerach GitLab lub na skonfigurowanej przez klienta maszynie \cite{CIzGitLab}. Przebieg całego procesu koordynowany jest przez \textbf{GitLab Server} \cite{GitLabPage}.
+
+Jak zostało wspomniane przebieg procesu CI/CD konfigurowany jest za pomocą specjalnego pliku \textit{.gitlab-ci.yml}. Zastosowany format \textit{YAML} (skrót od \textit{YAML Ain't Markup Language} \cite{YAMLWiki}), ze względu na swoją czytelność, pozwala na stosunkowo szybkie przygotowanie funkcjonalnego systemu. Listing \ref{lst:yml1} przedstawia przykład prostego pliku w tym formacie konfigurującego GitLab CI/CD. Na początku zostaje w nim określony użyty obraz \textit{Docker'a}, następnie wymienione są poszczególne etapy (klucz \textit{stages} - w tym przypadku jeden etap: \textit{software\_test}) procesu CI/CD, a na końcu pojawia sie opis zadania (\textit{dim\_software\_test}) należącego do zdefiniowanego etapu. Podczas definicji zadań możliwe jest wyspecyfikowanie mających się wykonać komend (klucz \textit{script}).
+
+\begin{lstlisting}[caption={Przykład prostego pliku \textit{.gitlab-ci.yml} generującego jeden etap procesu CI/CD oraz jedno zadanie w ramach tego etapu}, label={lst:yml1}]
+image: gitlab-registry.cern.ch/atlas-trt-dcs-ggss/ggss-misc/centos7
+
+stages:
+  - software_test
+
+dim_software_test:
+  stage: software_test
+  script:
+    - echo "Test"
+
+\end{lstlisting}
+
+\subsection{Opis automatyzacji za pomocą GitLab CI/CD w projekcie GGSS}
+Na potrzeby projektu GGSS przygotowane zostało środowisko zapewniające ciągłą integrację i dostarczanie. Pozwala ono na automatyzację procesu budowania i testowania poszczególnych komponentów projektu oraz, dzięki mechanizmowi artekfaktów, przygotowuje gotowe paczki z najważniejszymi aplikacjami w projekcie (m.in. \textit{ggssrunner}). Każde repozytorium zawierające kompilowalny komponent projektu zostało wyposażone w plik \textit{.gitlab-ci.yml} konfigurujący zautomatyzowany proces budowania i testowania. W niniejszej części pracy zostaną przedstawione konfiguracje zrealizowane w ramach dwóch repozytoriów: \textit{ggss-all} oraz \textit{external-dim-lib}. 
+
+W ramach repozytorium \textit{ggss-all} przygotowana została konfiguracja budująca aplikacje: \textit{ggss-runner}, \textit{ggss-dim-cs} oraz \textit{mca-n957}. Listing \ref{lst:ggssyml1} przedstawia fragment przygotowanego pliku \textit{.yml}. Plik ten zawiera siedem zadań zdefiniowanych w ramach etapu \textit{build} (nie ma konieczności bezpośredniej jego definicji, jest to jeden z trzech, obok \textit{test} i \textit{deploy}, etapów które mogą zostać, w razie pojawienia się przypisanego do nich zadania, wygenerowane automatycznie). Zadania te odpowiadają za:
+\begin{itemize}
+\item \textbf{build\_all\_debug\_static\_boost} - zbudowanie wszystkich trzech wymienionych wyżej aplikacji w wersji deweloperskiej (debug) ze statycznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
+\item \textbf{build\_all\_debug\_dynamic\_boost} - zbudowanie wszystkich trzech aplikacji w wersji deweloperskiej z dynamicznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
+\item \textbf{build\_all\_release\_static\_boost} oraz \textbf{build\_all\_release\_dynamic\_boost} - analogicznie do dwóch powyższych ale w wersji produkcyjnej (release).
+\item \textbf{build\_only\_ggss\_runner}, \textbf{build\_only\_ggss\_dim\_cs} i \textbf{build\_only\_mca\_n957} - zbudowanie każdej aplikacji z osobna, bez produkowania artefaktu, w wersji debug z dynamicznie linkowaną biblioteką Boost (konfiguracja domyślna).
+\end{itemize}
+
+\begin{lstlisting}[caption={Fragment pliku \textit{.gitlab-ci.yml} konfigurującego \textit{pipeline} CI/CD dla repozytorium \textit{ggss-all}}, label={lst:ggssyml1}]
+image: gitlab-registry.cern.ch/atlas-trt-dcs-ggss/ggss-misc/centos7
+
+before_script:
+  - git submodule update --init --remote --recursive
+
+# Debug builds 
+
+build_all_debug_static_boost:
+  stage: build
+  script:
+    - mkdir build
+    - cd build
+    - python ../build.py -s --debug
+  artifacts:
+    name: all_debug_static_boost
+    paths:
+       - build/ggss-dim-cs-build/ggss-dim-cs
+       - build/ggss-runner-build/ggss-runner
+       - build/mca-n957-build/mca-n957
+
+# Dalsza część pliku ...
+
+\end{lstlisting}
+
+Generowane w repozytorium \textit{ggss-all} artefakty są tymi trafiającymi ostatecznie do środowiska produkcyjnego. Pliki mające trafić do artefaktu specyfikowane są za pomocą klucza \textit{paths} (widoczne na listingu \ref{lst:ggssyml1}). Do przeprowadzenia budowania używany jest specjalnie w tym celu przygotowany przez autorów obraz, oparty na oficjalnych obrazach dostarczonych przez CERN. Rys. \ref{fig:pipelineall} przedstawia wynikowy \textit{pipeline} oraz dostępnie do pobrania artefakty.
+
+\begin{figure}[H]
+\centering
+
+\begin{subfigure}{0.4\textwidth}
+\centering
+\includegraphics[height=9cm]{res/png/runnerPipeline}
+\caption{\textit{Pipeline} wygenerowany na podstawie konfiguracji zamieszczonej w pliku \textit{.yml} (listing \ref{lst:ggssyml1})}
+\end{subfigure}
+\hspace{0.5cm}
+\begin{subfigure}{0.4\textwidth}
+\centering
+\includegraphics[height=9cm]{res/png/runnerArtifacts}
+\caption{Możliwe do pobrania artefakty}
+\end{subfigure}
+
+\caption{Zrzuty ekranu wykonane w serwisie GitLab przedstawiające elementy działania ciągłej integracji i dostarczania dla repozytorium \textit{ggss-all}}
+\label{fig:pipelineall}
+
+\end{figure}
+
+Konfiguracja stworzona na potrzeby repozytorium \textit{external-dim-lib} różni się nieznacznie od opisanej do tej pory jeśli chodzi o techniczną stronę jej realizacji. Przygotowany \textit{pipeline} (Rys. \ref{fig:pipelineDIM}) składa się z innych etapów i zadań, ale zostały one skonfigurowane z użyciem zaprezentowanych już technik. Na potrzeby przugotowania biblioteki obsługującej protokół \textit{DIM} zostały więc stworzone dwa etapy: odpowiadający za przeprowadzenie testów skryptu pobierającego bibliotekę ze strony internetowej (\textit{Software\_test}), oraz odpowiadający na zbudowanie jej w dwóch wersjach (\textit{Build}). Obie wersje udostępniane są do pobrania za pomocą mechanizmu artefaktów.  
+
+\begin{figure}[H]
+\centering
+\caption{\textit{Pipeline} wygenerowany na potrzeby repozytorium \textit{external-dim-lib}}
+\label{fig:pipelineDIM}
+\includegraphics[width=\textwidth]{res/png/pipelineDIM}
+\end{figure}
+
+Podobnego typu prace zostały wykonane dla większości pozostałych repozytoriów. Z uwagi na ich powtarzalny charakter nie zostaną one jednak omówione w niniejszym manuskrypcie. 
+
+W przedstawionym przykładzie dotyczącym aplikacji \textit{ggssrunner} (listing \ref{lst:ggssyml1}) znajduje się klucz \textit{before\_script} z instrukcją pobierającą submoduły projektu. Istnieją dwa wykluczające się sposoby na wykonanie tej czynności. Submoduł może zostać pobrany w swojej najnowszej wersji znajdującej się na \textbf{zdalnej rewizji} (tak jak w przytoczonym przykładzie, służy temu opcja \textbf{--remote}) lub w wersji \textbf{aktualnie powiązanej z repozytorium nadrzędnym} (realizację przedstawia listing \ref{lst:ggsscicdsoft}). Oba wymienione podejścia mają swoje wady i zalety. Rys. \ref{fig:submoduleProblem} stanowi uproszczoną (ograniczoną tylko do jednej gałęzi na repozytorium) ilustrację opisywanego problemu. Pierwszy z wymienionych sposobów jest wygodniejszy, ponieważ pozwala na dostarczenie i przetestowanie najnowszej możliwej wersji produktu. Jest to jednak ryzykowne - najnowsza wersja submodułu może nie być kompatybilna z modułem nadrzędnym (np. mógł zmienić się jej interfejs). Spowoduje to błąd, którego źródło może być trudne do odnalezienia (jeśli programista owej najnowszej wersji nie używał pojawi się sprzeczność w wynikach otrzymywanych przez niego lokalnie, a generowanych przez mechanizm CI/CD). Drugie rozwiązanie jest zatem bezpieczniejsze i gwarantuje stabilność. Autorzy skłaniają się w większości przypadków do tego własnie rozwiązania, jednak z uwagi na zalety pierwszej z wymienionych opcji, jest ona wciąż używana w niektórych repozytoriach (np. \textit{ggss-all}). 
+
+\begin{lstlisting}[caption={Fragment pliku \textit{.gitlab-ci.yml} znajdującego się w repozytorium \textit{ggss-software-libs} pobierający submoduły projektu w wersji aktualnie powiązanej z repozytorium narzędnym}, label={lst:ggsscicdsoft}]
+image: gitlab-registry.cern.ch/atlas-trt-dcs-ggss/ggss-misc/centos7
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+# Dalsza część pliku
+
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\caption{Uproszczona (ograniczona do jednej gałęzi na repozytorium) ilustracja problemu dotyczacego pobieranej przez mechanizm CI/CD wersji submodułu. Problem polega na podjęciu decyzji, czy podczas powinna zostać pobrana wersja najnowsza (tutaj oznaczona jako \textit{commit\_D}) czy ta aktualnie powiązana z repozytorium nadrzędnym (\textit{commit\_B})}
+\label{fig:submoduleProblem}
+\includegraphics[width=\textwidth]{res/SubmodulesProblem}
+\end{figure}
 
 
-\paragraph*{Opis automatyzacji w projekcie GGSS za pomocą GitLab CI/CD}
+W ramach prac nad mechanizmem CI/CD w projekcie GGSS został również przygotowany specjalny \textbf{szablon} ułatwiający tworzenie \textit{pipeline'ów}. Został on umieszczony w repozytorium \textit{aux}, a jego fragment przedstawia listing \ref{lst:ggsscicdtempl}. Zawartość tego szablonu, zmodyfikowana zgodnie ze specyfiką danego repozytorium, posłużyła autorom do napisania większości plików \textit{.yml}, które znalazły się w projekcie.
 
-% Czym jest CI/CD
-% Realiacja za pomocą platformy gitLab
-%   - mozliwe opcje, czemu nie autodevops
-%   - pipeline (z przykladem)
-%   - artefakty i ich znaczenie w GGSS
-%   - pliki .yml (z przykladem)
+\begin{lstlisting}[caption={Fragment szablonu ułatwiającego pisanie plików \textit{.gitlab-ci.yml} znajdującego się w repozytorium \textit{aux}}, label={lst:ggsscicdtempl}]
+# This is gitlab-ci.yml for TRT GGSS project.
 
-\section{Zmiana sposobu budowania aplikacji}
-% Zarys rozwiazania
-% Szablony + Boost + GSL
-% Budowanie bibliotek
-% Budowanie aplikacji
-% DIM - skrypt do pobierania, budowanie jak external_project
-% Skrypty do budowania calosci (+ sposoby budowania) + glowny CMake
+# actual image being used by ggss project
+image: gitlab-registry.cern.ch/atlas-trt-dcs-ggss/ggss-misc/centos7
 
+# variable needed for submodule clone - can be moved to job locally
+# to use submodules on docker without adding ssh key please use relative submodules path
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+build:
+  stage: build
+# input your building under scripts
+  script:
+#    e.g:
+#   - cmake
+#   - make
+
+#   artifacts are being used to store and share files, for,
+#   insert proper path that should be shared, e.g.:
+  artifacts:
+    paths:
+#     - build/ggss-driver-cc7*
+
+#   tags allow to choose on which runner jobs should be executed
+  tags:
+    - ggss-builder # default ggss runner
+
+# Dalsza część pliku
+
+\end{lstlisting}
+
+
+\newpage
 \section{Budowanie i dystrybucja sterownika oraz aplikacji testującej}
 
+\newpage
 \section{Maszyna wirtualna oraz konteneryzacja - Docker}
 
+\newpage
 \section{Pomniejsze prace}
 \subsection{Integracja bibliotek napisanych w języku C z aplikacją w C++}
 \subsection{Integracja zewnętrznej biblioteki dynamicznej z użyciem narzędzia CMake}
 
+\newpage
 \section{Dokumentacja projektu}
+% Jednym z wymagań postawionych przed autorami było przygotowanie dokumentacji przygotowanego projektu w języku angielskim. Wymóg ten wynika z międzynarodowego charakteru zespołu pracującego nad detektorem TRT. Przygotowana dokumentacja powinna spełniać następujące założenia:
+% \begin{itemize}
+% \item niski próg wejścia - dokumentacja powinna być napisana w taki sposób, by umożliwić osobie niezaznajomionej z dokładnym działaniem systemu GGSS szybkie jego zbudowanie i umieszczenie w środowisku produkcyjnym
+% \item opis każdego z repozytoriów - 
+% \end{itemize}
+
 % Czemu potrzebna
 % Realizacja - pliki README.md, one-linery
 

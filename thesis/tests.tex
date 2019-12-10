@@ -97,20 +97,42 @@ user@host:~$ ./check_mem_ggssrunner.sh
 W takim stanie system pozostawiony został na dłuższy (ponad 6 godzin) czas. Idea testu polegała na sprawdzeniu, czy przez ten czas działanie systemu pozostanie stabilne i nie pojawią się żadne błędy.
 
 \section{Wyniki testu}
-Test każdej z czterech przygotowanych konfiguracji trwał \textbf{ponad 6 godzin}. Tabela \ref{tab:wyniki} przedstawia rezultaty.
+Test każdej z przygotowanych konfiguracji trwał \textbf{ponad 6 godzin}. Tabela \ref{tab:wyniki} przedstawia rezultaty.
 
-\begin{table}[H]
+\begin{table}[]
 \begin{tabular}{|c|c|c|c|}
 \hline
 \rowcolor[HTML]{ECF4FF} 
-\textbf{\begin{tabular}[c]{@{}c@{}}Konfiguracja \\ (debug/release)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Sposób linkowania \\ biblioteki Boost\end{tabular}} & \textbf{Wygenerowane błędy} & \textbf{Zużycie pamięci} \\ \hline
-debug                                                                            & statyczne                                                                              &                             &                          \\ \hline
-release                                                                          & statyczne                                                                              &                             &                          \\ \hline
-debug                                                                            & dynamiczne                                                                             &                             &                          \\ \hline
-release                                                                          & dynamiczne                                                                             &                             &                          \\ \hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Konfiguracja \\ (debug/release)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Sposób linkowania \\ biblioteki Boost\end{tabular}} & \textbf{Wygenerowane błędy}                                                              & \textbf{\begin{tabular}[c]{@{}c@{}}Zaalokowana \\ pamięć\end{tabular}} \\ \hline
+debug                                                                            & statyczne                                                                              & brak                                                                                     & stała                                                                  \\ \hline
+release (-O3)                                                                    & statyczne                                                                              & \begin{tabular}[c]{@{}c@{}}błąd zarejestrowany\\ dla całego systemu \\ GGSS\end{tabular} & stała                                                                  \\ \hline
+release (-O2)                                                                    & statyczne                                                                              & brak                                                                                     & stała                                                                  \\ \hline
+debug                                                                            & dynamiczne                                                                             & brak                                                                                     & stała                                                                  \\ \hline
+release (-O3)                                                                    & dynamiczne                                                                             & \begin{tabular}[c]{@{}c@{}}błąd zarejestrowany\\ dla konkretnej\\ słomki\end{tabular}    & stała                                                                  \\ \hline
 \end{tabular}
-\caption{Wyniki testów aplikacji \textit{ggssrunner}}
+\caption{Wyniki testów systemu GGSS po wprowadzonych zmianach}
 \label{tab:wyniki}
 \end{table}
 
-\textbf{jakos to skomentowac jak beda wszystkie}
+Podczas przeprowadzania testów wersji produkcyjnej zostały wykryte błędy w działaniu, co zostało zakomunikowane na panelu WinCC OA. Błędy te pojawiły się zarówno na poziomie całego systemu (Rys. \ref{fig:ggssErrorScada}) , jak i pojedynczej słomki (Rys. \ref{fig:ggssErrorStrawScada}). Pojawienie się błędów było skutkiem zastosowania w czasie kompilacji flagi optymalizacji \textit{-O3}. Jest to domyślna flaga stosowana przez narzędzie \textit{CMake} dla wersji produkcyjnej. Podczas kompilacji aplikacji \textit{ggssrunner} w takiej konfiguracji widoczne były dwa ostrzeżenia, zatem błędy nie były dla autorów zaskoczeniem. Flaga \textit{-O3} oznacza agresywną politykę optymalizacji, co często prowadzi do zmiany zachowania aplikacji. Została więc wprowadzona zmiana w sposobie kompilacji aplikacji w wersji produkcyjnej - flaga ta została zastąpiona przez jej łagodniejszy i stabilniejszy odpowiednik \textit{-O2}, powszechnie wykorzystywany do tworzenia wersji produkcyjnych oprogramowania. Testy wykonane z użyciem tej flagi nie wyprodukowały żadnych błędów. 
+
+Testy wersji deweloperskiej (w obu konfiguracjach) odbyły się bez problemów - nie zostały wygenerowane żadne błędy ani ostrzeżenia. 
+
+W każdym z przypadków ilość zaalokowanej przez program pamięci pozostawała stała przez cały czas trwania testu. Oznacza to brak znaczących problemów z zarządzaniem pamięcią (takich jak wycieki pamięci).
+
+Wyniki przeprowadzonych testów stanowią potwierdzenie poprawności wprowadzonych przez autorów zmian w systemie. 
+
+\begin{figure}
+\centering
+\caption{Błąd w działaniu aplikacji \textit{ggssrunner} na poziomie całego systemu widoczny w panelu WinCC OA (czerwone koło w prawym górnym rogu panelu GGSS)}
+\label{fig:ggssErrorScada}
+\includegraphics[width=\textwidth]{res/png/ggssError}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\caption{Błąd w działaniu aplikacji \textit{ggssrunner} na poziomie pojedynczej słomki widoczny w panelu WinCC OA (czerwone koło obok drugiej słomki)}
+\label{fig:ggssErrorStrawScada}
+\includegraphics[width=\textwidth]{res/png/errStraw}
+\end{figure}
