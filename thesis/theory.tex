@@ -456,36 +456,22 @@ Konteneryzacja jest procesem utworzenia odseparowanego kontenera, czyli ustandar
 \item informacje o zmiennych środowiskowych
 \item komendy menadżera pakietów w celu instalacji zależności
 \end{itemize}
-Informacje te są poprzedzone odpowiednimi słowami kluczowymi, np.: \textbf{ENV}, czy \textbf{RUN}. Listing \ref{lis:dockerfile} ukazuje przykładowy Dockerfile, którego użycie, za pomocą odpowiedniej komendy Dockera, spowoduje utworzenie obrazu bazującego na dystrybucji centos z zainstalowanym kompilatorem języka c++.
+Informacje te są poprzedzone odpowiednimi słowami kluczowymi, np.: \textbf{ENV}, czy \textbf{RUN}. Listing \ref{lis:dockerfile} ukazuje przykładowy Dockerfile, którego użycie, za pomocą odpowiedniej komendy Dockera, spowoduje utworzenie obrazu bazującego na dystrybucji centos7 z zainstalowanym kompilatorem języka c++.
 
 \begin{lstlisting}[label={lis:dockerfile}, language=Dockerfile, caption={Przykładowy Dockerfile}]
 FROM cern/cc7-base:latest
 
-# requirements.txt from https://gitlab.cern.ch/atlas-trt-dcs-ggss/external-dim-lib/blob/master/requirements.txt
-COPY PYTHON/requirements.txt requirements.txt
-# BOOST
-# if you want to insert your own BOOST version to Docker image
-# COPY <local_path_to_boost> /usr/local/boost
-# if you want to install default BOOST from repositories (1.53.0)
-# RUN yum -y install boost
-
-ENV BOOST="/usr/local/boost"
-
-RUN yum -y install cmake \
-make \
-unzip \
-gcc \
-gcc-c++ \
-python3-pip \
-git \
-kernel-3.10.0-862.14.4.el7 \
-kernel-devel-3.10.0-862.14.4.el7 \
-rpm-build \
-gsl \
-gsl-devel \
-libicu
-
-RUN ln -s /usr/bin/pip3 /usr/bin/pip
-RUN pip install -r requirements.txt
+RUN yum -y install gcc-c++
 \end{lstlisting}
 
+Zasadniczą różnicą między konteneryzacją, a wirtualizacją, jest używanie jądra systemu operacyjnego gospodarza w celu zapewnienia wymaganych funkcjonalności. Pomimo tego, że wykorzystywane jest to samo jądro systemu, to kontenery są w pełni odseparowane od siebie. W przypadku Linuksa osiągane jest to za pomocą \textbf{cgroups}, które pozwalają na limitowanie zasobów przypadających na grupę, oraz \textbf{przestrzeni nazw}, które służą do separacji procesów. Procesy wykonywane w ramach przestrzeni nazw "nie widzą" procesów z poza tej przestrzenii. Ze względu na brak warstwy pośredniej, jaką w przypadku wirtualizacji jest system operacyjny gościa oraz warstwa integracji tego systemu z systemem gospodarze, kontenery są znacznie szybsze zarówno w kwestii tworzenia, uruchamiania, jak i działania. Minusem natomiast jest przywiązanie do jądra gospodarza, ze względu na to nie jesteśmy w stanie podmienić wersji jądra w obrazie, czy też nie jesteśmy w stanie w prosty sposób uruchomić systemu operacyjnego z niezgodnym jądrem (np.: kontener Windows na systemie operacyjnym Linuks). W przypadku niezgodności jąder wymagana jest dodatkowa warstwa w postaci maszyny wirtualnej, która zapewni nam odpowiedni rodzaj jądra systemu operacyjnego. Obecnie takie rozwiązanie jest stosowane w aplikacjach wykorzystujących technologię \textbf{Docker} na Windows, np.: \textit{Doccker-for-Windows}.
+
+referencje do https://pl.euro-linux.com/blog/podstawy-konteneryzacji/ oraz https://stackoverflow.com/questions/42158596/can-windows-containers-be-hosted-on-linux
+
+
+
+\begin{figure} [H]
+\centering
+\caption{Porównanie klasycznej architektury z technologiami wirtualizacji oraz konteneryzacji ref do https://blog.netapp.com/blogs/containers-vs-vms/}
+\includegraphics[width=\textwidth]{res/virtualizationAndContenerizatrionComparison}
+\end{figure}

@@ -9,7 +9,65 @@
 \chapter{Stan początkowy projektu}
 \label{cha:pocz}
 
+Niniejszy rozdział został przygotowany w oparciu o wiedzę przekazaną przez opiekuna pracy dr. hab. inż. Bartosza Mindura, pracę magisterskią mgr. Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzetu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego TUTAJ DODAC REF MOZNA?} oraz pracę magisterską mgr. Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego TUTAJ DODAC REF MOZNA?}.
+
 \section{Architektura}
+
+Główna logika projektu została wykonana z użyciem języka C++, dzięki czemu aplikacja jest szybka i wydajna. Część kodu źródłowego została napisana z użyciem standardu 11. Wykorzystano również zewnętrzne biblioteki takie jak biblioteka Boost, czy też GSL. Początkowa architektura projektu oparta była o płaską strukturę folderów. Konwencja jaka została przyjęta, to \textbf{nazwaLib} dla folderów zawierających pliki bibliotek oraz \textbf{\_nazwa} dla folderów zawierających aplikacje uzytkowe.\par
+\bigskip
+Biblioteki, które były zawarte w ramach projektu, to:
+\begin{itemize}
+\item ggssLib - biblioteka zawierająca logikę aplikacji \textbf{ggssrunner}, czyli głownego programu wykonywalnego projektu
+\item fifoLib - biblioteka implementująca kolejkę FIFO (first in first out)
+\item FitLib - biblioteka wspierająca obliczenia numeryczne z wykorzystanie biblioteki zewnętrznej \textbf{GSL}
+\item utilsLib - biblioteka zawierająca pliki pomocnicze projektu
+\item xmlLib - biblioteka wykonywująca parsowanie pliku konfiguracyjnego aplikacji, który jest napisany w formacie \textbf{xml}
+\item handleLib - biblioteka realizująca obsługuę mechanizmu sygnałów i slotów
+\item logLib - biblioteka odpowiedzialna za mechanizm logowania
+\item ThreadLib - biblioteka odpowiadająca za wykorzystanie wielowątkowości w aplikacji
+\item CaenHVLib - biblioteka okalająca (ang. wrapper) bibliotekę \textbf{CaenN1470Lib}
+\item CaenN1470Lib - biblioteka implementująca komunikację z urządzeniem sprzętowym \textbf{(CAEN N1470)}
+\item OrtecMcbLib - biblioteka okalająca (ang. wrapper) bibliotekę \textbf{mcaLib}
+\item mcaLib - biblioteka odpowiedzialna za komunikację z urządzeniem sprzętowym \textbf{(CAEN N957)}
+\item usbrmLib - biblioteka, której zadaniem jest komunikacja z multiplekserami
+\end{itemize}
+
+\par Aplikacje, które były zawarte w ramach projektu, to:
+\begin{itemize}
+\item \_ggss - aplikacja ggssrunner, która odpowiada za człon projektu, jest to główny program wykonywalny
+\item \_dimCS - aplikacja odpowiedzialna za wysyłanie komend, za pomocą technologii dim
+\item \_ggssspector - aplikacja, której zadaniem zapisywanie parametrów pracy, np.: ustawione napięcie, odczytane napięcie, ciśnienie itp
+\end{itemize}
+
+\par Oprócz opisanych wcześniej katalogów występowały również:
+\begin{itemize}
+\item zawierające pliki nagłówkowe wspólne dla wielu bibliotek (include)
+\item zawierakące biblioteki zewnętrzne (lib)
+\item zawierające konfigurację aplikacji oraz skrypt pomocniczy w języku Python dla biblioteki serial (misc)
+\item zawierające skrypty pomocnicze w języku Python i Bash oraz skrypty watchdog (obserwatorzy)
+\end{itemize}
+
+\par Dodatkowo projekt wykorzystywał następujące biblioteki zewnętrzne:
+\begin{itemize}
+\item Boost - biblioteka C++ ogólnego przeznaczenia
+\item GSL (GNU Scietific Library) - biblioteka numeryczna dla języka C oraz C++
+\item dim - biblioteka wspierająca komunikacja protokołem dim
+\item QT oraz QWT - biblioteki wykorzystywane w ramach modułu GGSS Spector
+\end{itemize}
+
+W ramach projektu został również przygotowany panel informacyjno-administracyjny w technologii Scada (WinCC OA), który komunikuje się z główną cześcią aplikacji za pomocą protokołu dim. Rysunek \ref{fig:highLevelArch} przedstawia wysokopoziomową architekturę wraz z przepływem informacji.
+
+\begin{figure}[H]
+\centering
+\caption{Wysokopoziomowa architektura projektu GGSS}
+\label{fig:highLevelArch}
+\includegraphics[width=\textwidth]{res/highLevelArch}
+\end{figure}
+
+W ramach architektury projektu utworzone zostały również pliki CMAKE, które służyły jako szablon akcji wykorzystywanych wielokrotnie w pozostałych miejscach, np.: wyszukiwanie odpowiedniej biblioteki.\par 
+Architektura projektu charakteryzowała się całkowiecie płaską strukturą, nie było żadnej gradacji bibliotek, z której nie wynikały żadne zależności między modułami. Plusem takiego rozwiązania była łatwość w budowie całego systemu (np. brak problemów z skomplikowanymi ściezkami), aczkolwiek nie wynikała z niego żadna informacja nt. systemu ze względu na co próg wejścia, czy też utrzymanie projektu jest utrudnione. Widoczny był podział na moduły, lecz nie był on w żaden sposób uporządkowany, np. ze względu na przeznaczenie bibliotek (programowe, sprzętowe). 
+
+\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu ggss (ggss-driver). Zawierał on archiwum z sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W ramach modułu został również zawarty plik CMAKE, którego zadaniem było przygotowanie pakietu RPM w skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu.
 
 \section{Budowanie} 
 Niniejsza część pracy zawiera opis pierwotnego sposobu budowania aplikacji, wraz z zastosowanymi rozwiązaniami technologicznymi (struktura i zawartość plików CMake) oraz listą potencjalnych ograniczeń wynikających z dotychczasowego podejścia do budowania.
