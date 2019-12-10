@@ -222,6 +222,37 @@ Dostępna wersja narzędzia CMake stanowiła zdaniem autorów największe ograni
 \section{Migracja projektu do systemu kontroli wersji Git i zmiany w architekturze}
 
 \section{Zastosowanie podejścia CI/CD}
+Ważną częścia wykonanych prac było przygotowanie środowiska pozwalającego na zautomatyzowane budowanie i dystrybucję aplikacji. Standardowym dziś sposobem na rozwiązanie tego problemu jest podejście \textbf{CI/CD}. Skrót CI oznacza tzw. \textbf{ciągłą integrację} (\textit{Continous Integration}) - praktykę polegającą na stosowaniu współdzielonego repozytorium kodu źródłowego, za pomocą którego programiści pracujący nad projektem regularnie integrują swoje zmiany. Nowa wersja kodu jest automatycznie sprawdzana - serwer ciągłej integracji samodzielnie buduje projekt i uruchamia przygotowane dla niego testy. Skrót CD oznacza natomiast \textbf{ciągłe dostarczanie} (\textit{Continous Delivery}). Polega ono na przygotowaniu produktu do stanu, w którym jest on możliwy do wdrożenia w środowisku produkcyjnym. Może to być np. przeprowadzenie różnego rodzaju testów czy przygotowanie odpowiedniej paczki z aplikacją. Ważne jest, że w podejściu tym nie następuje automatyczne wdrożenie aplikacji do środowiska produkcyjnego (jest to domena \textbf{ciągłego wdrażania}, które jednak nie znalazło zastosowania w projekcie GGSS). Podejście \textbf{CI/CD} porównuje się czasem do działania linii produkcyjnej. Rysunek \ref{fig:cicd} obrazuje schematycznie jego działanie. 
+
+\begin{figure}[H]
+\centering
+\caption{Przykładowy schemat działana podejścia \textit{Continous Integration / Continous Delivery}. Należy zwrócić uwagę, że w zastosowaniu praktycznym kolejność oraz liczba etapów może być różna od widocznej}
+\label{fig:cicd}
+\includegraphics[width=\textwidth]{res/CICD.pdf}
+\end{figure}
+
+W kontekście systemu GGSS podejście to jest pożądane, z uwagi na konieczność zachowania poprawności działania systemu pomimo zmian (które aktualnie mają miejsce) w strukturze jego oprogramowania. Głównym celem jego zastosowania było ułatwienie autorom pracy działania jako zespół. Miało również znacząco przyspieszyć proces testowania aplikacji w środowisku produkcyjnym poprzez automatyczne tworzenie paczki z odpowiednią wersją oprogramowania.
+
+\paragraph*{Możliwe sposoby implementacji podejścia CI/CD w projekcie GGSS}\mbox{}\\
+Istnieje wiele narzędzi pozwalających na implementację ciągłej integracji oraz ciągłego dostarczania w projekcie. Prawodopodobnie najpopularniejszym z nich jest \textbf{Jenkins}. Jest to darmowe oprogramowanie do automatyzacji, charakteryzujące się dużą konfigurowalnością. Przez lata stał się standardem dla wielu firm wytwarzających oprogramowanie. Jednak jego główną wadą, wykluczającą jego użycie w projekcie GGSS, jest duży narzut pracy związanej z jego konfiguracją i utrzymaniem. Narzędzie to sprawdza się dobrze przy dużej wielkości projektach. W przypadku systemu GGSS użytkowanie go przyniosłoby więcej pracy niż dałoby realnych korzyści. 
+
+Autorzy zdecydowali się więc wykorzystać narzędzie CI/CD udostępniane przez portal \textbf{GitLab}. GitLab CI/CD udostępnia wystarczająco dużo możliwości, by możliwe było wprowadzenie automatyzacji budowania i testowania w systemie GGSS. Narzędzie to można wykorzystać na dwa sposoby:
+\begin{itemize}
+\item implementując mechanizm budowania i testowania manualnie, co daje większą kontrolę nad całym procesem
+\item używając narzędzia \textbf{Auto DevOps}, oferującego predefiniowane konfiguracje ciągłej integracji i ciągłego dostarczania
+\end{itemize}
+Początkowo podjęta została decyzja o zastosowania drugiego z wyżej wymienionych rozwiązań. Przemawiającym za tym argumentem było potencjalne uproszczenie procedury wdrażania podejścia CI/CD do projektu - w portalu GitLab włączenie narzędzia Auto DevOps sprowadza się do zaznaczenia jednej opcji w ustawieniach na poziomie grupy lub repozytorium. Oferuje ono funkcjonalności takie, jak automatyzacja budowania i testowania projektu czy testy jakości kodu. Podczas prób integracji tego rozwiązania do projektu pojawiło się jednak wiele problemów natury technicznej, związanych m.in. z niestandardowym sposobem działania projektu GGSS czy infrastrukturą tzw. \textit{runner-ów} używaną w CERN. Ostatecznie pomysł ten został więc porzucony na rzecz manualnej konfiguracji środowiska CI/CD. 
+
+\paragraph*{Szczegółowy opis działania mechanizmu GitLab CI/CD}
+Manualna konfiguracja GitLab CI/CD polega na umieszczeniu w repozytorium pliku \textit{gitlab-ci.yml} zawierającego szczegółowy opis przebiegu całego procesu ciągłej integracji i dostarczania (w tym konieczne do wykonania komendy). Przebieg ten określany jest słowem \textbf{pipeline}. Składa się on z etapów (\textit{stages}), przy czym każdy etap może zawierać w sobie kilka równoległych zadań (\textit{jobs}). Idea ta została zilustrowana na rysunku \textbf{tutaj dac odnosnik do rysunku}
+
+\textbf{tutaj dac rysunek}
+
+Wynikiem każdego z zadań może być tzw. \textbf{artefakt}, czyli możliwe do pobrania archiwum zawierające np. plik wykonywalny z produktem. 
+
+
+\paragraph*{Opis automatyzacji w projekcie GGSS za pomocą GitLab CI/CD}
+
 % Czym jest CI/CD
 % Realiacja za pomocą platformy gitLab
 %   - mozliwe opcje, czemu nie autodevops
