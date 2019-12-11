@@ -489,13 +489,29 @@ Ze względu na to, że portale typu \textbf{GitLab} są traktowane jako podstawo
 \item oraz komenda \textbf{git push} aktualizująca zdalne repozytorium do naszej wersji
 \end{itemize}
 
+Bardzo ważnym aspektem technologii \textbf{GIT} jest mechanizm gałęzi (ang. \textit{branch}). Pozwala on na równoległą pracę nad jedną częścią kodu. Polega to na tym, że w momencie utworzenia nowej gałęzi tworzymy tak na prawdę osobny łańcuch rewizji, których jedyną wspólną częścią jest rewizja wzorcowa, czyli wersja na podstawie której została utworzona gałąź, co przedstawia Rysunek \ref{fig:branch}. W celu utworzenia nowej gałęzi należy wykorzystać komendę \textbf{git branch <nazwa-gałęzi>}, a w celu zmiany aktualnie używanej gałęzi \textbf{git checkout <nazwa-gałęzi>}. Główna gałąź projektu nazywa się \textbf{master}. Zmiany na jednej gałęzi nie wpływają w żaden sposób na inną gałąź do momentu tzw. \textbf{merge}, czyli złączenia dwóch gałęzi. Ważnym aspektem łączenia gałęzi jest rozwiązywanie konfliktów, które pojawiają się w momencie, gdy łączone gałęzie wprowadzały zmiany do tego samego pliku, a system rozwiązujący konflikty nie był w stanie wykonać swojego zadania automatyczne. W takim przypadku wymagana jest akcja programisty, aby w gałęzi wynikowej zachować odpowiedni kod.
+
+\begin{figure} [H]
+\centering
+\caption{Schemat tworzenia rewizja w ramach nowej gałęzi}
+\includegraphics[width=\textwidth]{res/branch}
+\label{fig:branch}
+\end{figure}
+
+\begin{figure} [H]
+\centering
+\caption{Schemat złączania gałęzi w ramach polecenie \textbf{git merge}}
+\includegraphics[width=\textwidth]{res/branchMerge}
+\label{fig:branch}
+\end{figure}
+
 Jest to tylko podstawowy opis technologii jaką jest \textbf{Git}, przykłady bardziej zaawansowanych zastosowań pojawią się w części manuskryptu przeznaczonej na prezentację wykonanych prac w ramach projektu.
 
 
 \section{Manager pakietów - RPM}
 Menadżer pakietów jest zbiorem oprogramowania, które w sposób automatyczny zarządza instalacją, aktualizacją, konfiguracją oraz usuwaniem programów komputerowych \cite{ManagerWiki}. Ze względu na to, że procesy te różnią się w zależności od systemów operacyjnych oraz ich dystrybucji istnieje wiele menadżerów pakietów.\par
 
-Zastosowanie technologii zarządzania pakietami pozwala znacząco zmniejszyć próg wejścia wynikający z użycia wcześniej niewykorzystywanego oprogramowania. Pozwala on odejść od żmudnego procesu ręcznej instalacji zależności oraz konfiguracji środowiska. Dzięki manadżerom wszystko jest wykonywane automatycznie. Jeżeli w trakcie procedur nie wystąpi żaden problem, to pakiet, którego zleciliśmy instalacje, powinien być od razu gotowy do działania. Jeżeli domyślna konfiguracja, jaka zostanie nam zapewniona w podczas działania menadżera pakietów, nie będzie dla nas odpowiednia możemy dokonać jej modyfikacji po procesie instalacji.
+Zastosowanie technologii zarządzania pakietami pozwala znacząco zmniejszyć próg wejścia wynikający z użycia wcześniej niewykorzystywanego oprogramowania. Pozwala on odejść od żmudnego procesu ręcznej instalacji zależności oraz konfiguracji środowiska. Dzięki menadżerom wszystko jest wykonywane automatycznie. Jeżeli w trakcie procedur nie wystąpi żaden problem, to pakiet, którego zleciliśmy instalacje, powinien być od razu gotowy do działania. Jeżeli domyślna konfiguracja, jaka zostanie nam zapewniona w podczas działania menadżera pakietów, nie będzie dla nas odpowiednia możemy dokonać jej modyfikacji po procesie instalacji.
 
 \newpage
 RPM, czyli RedHat Package Manager jest darmowym, open-source'owym menadżerem pakietów dla systemów z rodziny RedHat oraz SUSE, czyli m.in.:

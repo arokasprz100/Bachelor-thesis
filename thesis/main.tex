@@ -9,7 +9,7 @@
 \chapter{Stan początkowy projektu}
 \label{cha:pocz}
 
-Niniejszy rozdział został przygotowany w oparciu o wiedzę przekazaną przez opiekuna pracy dr. hab. inż. Bartosza Mindura, pracę magisterskią mgr. Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzetu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego TUTAJ DODAC REF MOZNA?} oraz pracę magisterską mgr. Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego TUTAJ DODAC REF MOZNA?}.
+Niniejszy rozdział został przygotowany w oparciu o wiedzę przekazaną przez opiekuna pracy dra hab. inż. Bartosza Mindura, pracę magisterską Pana Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzetu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego TUTAJ DODAC REF MOZNA?} oraz pracę magisterską Pana Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego TUTAJ DODAC REF MOZNA?}.
 
 \section{Architektura}
 
@@ -21,8 +21,8 @@ Biblioteki, które były zawarte w ramach projektu, to:
 \item fifoLib - biblioteka implementująca kolejkę FIFO (first in first out)
 \item FitLib - biblioteka wspierająca obliczenia numeryczne z wykorzystanie biblioteki zewnętrznej \textbf{GSL}
 \item utilsLib - biblioteka zawierająca pliki pomocnicze projektu
-\item xmlLib - biblioteka wykonywująca parsowanie pliku konfiguracyjnego aplikacji, który jest napisany w formacie \textbf{xml}
-\item handleLib - biblioteka realizująca obsługuę mechanizmu sygnałów i slotów
+\item xmlLib - biblioteka dokonywująca parsowanie pliku konfiguracyjnego aplikacji, który jest napisany w formacie \textbf{xml}
+\item handleLib - biblioteka realizująca obsługę mechanizmu sygnałów i slotów
 \item logLib - biblioteka odpowiedzialna za mechanizm logowania
 \item ThreadLib - biblioteka odpowiadająca za wykorzystanie wielowątkowości w aplikacji
 \item CaenHVLib - biblioteka okalająca (ang. wrapper) bibliotekę \textbf{CaenN1470Lib}
@@ -53,9 +53,8 @@ Biblioteki, które były zawarte w ramach projektu, to:
 \item GSL (GNU Scietific Library) - biblioteka numeryczna dla języka C oraz C++
 \item dim - biblioteka wspierająca komunikacja protokołem dim
 \item QT oraz QWT - biblioteki wykorzystywane w ramach modułu GGSS Spector
-\end{itemize}
-
-W ramach projektu został również przygotowany panel informacyjno-administracyjny w technologii Scada (WinCC OA), który komunikuje się z główną cześcią aplikacji za pomocą protokołu dim. Rysunek \ref{fig:highLevelArch} przedstawia wysokopoziomową architekturę wraz z przepływem informacji.
+\end{itemize}ę
+W ramach projektu został również przygotowany panel informacyjno-administracyjny w technologii Scada (WinCC OA), który komunikuje się z główną częścią aplikacji za pomocą protokołu dim. Rysunek \ref{fig:highLevelArch} przedstawia wysokopoziomową architekturę wraz z przepływem informacji.
 
 \begin{figure}[H]
 \centering
@@ -65,16 +64,16 @@ W ramach projektu został również przygotowany panel informacyjno-administracy
 \end{figure}
 
 W ramach architektury projektu utworzone zostały również pliki CMAKE, które służyły jako szablon akcji wykorzystywanych wielokrotnie w pozostałych miejscach, np.: wyszukiwanie odpowiedniej biblioteki.\par 
-Architektura projektu charakteryzowała się całkowiecie płaską strukturą, nie było żadnej gradacji bibliotek, z której nie wynikały żadne zależności między modułami. Plusem takiego rozwiązania była łatwość w budowie całego systemu (np. brak problemów ze skomplikowanymi ściezkami), aczkolwiek nie wynikała z niego żadna informacja nt. systemu ze względu na co próg wejścia, czy też utrzymanie projektu jest utrudnione. Widoczny był podział na moduły, lecz nie był on w żaden sposób uporządkowany, np. ze względu na przeznaczenie bibliotek (programowe, sprzętowe). 
+Architektura projektu charakteryzowała się całkowicie płaską strukturą, nie było żadnej gradacji bibliotek, z której nie wynikały żadne zależności między modułami. Plusem takiego rozwiązania była łatwość w budowie całego systemu (np. brak problemów ze skomplikowanymi ścieżkami), aczkolwiek nie wynikała z niego żadna informacja nt. systemu ze względu na co próg wejścia, czy też utrzymanie projektu jest utrudnione. Widoczny był podział na moduły, lecz nie był on w żaden sposób uporządkowany, np. ze względu na przeznaczenie bibliotek (programowe, sprzętowe). 
 
-\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu ggss (ggss-driver). Zawierał on archiwum z sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W ramach modułu został również zawarty plik CMAKE, którego zadaniem było przygotowanie pakietu RPM w skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu. W celu sprawdzenia poprawności działania pakietu odpowiedzialnego za instalacje sterownika został utworzony osobny moduł (mcaN957), którego zadaniem jest zebranie napięc rejestrowanych przez analizator wielokanałowy (MCA) oraz zapisanie ich w pliku tekstowym w postaci zgrupowanej zakresami. Aplikacja \textbf(mcaN957) przyjmuje dwa parametry wejściowe jakimi są czas działania oraz wartość progowa rejestrowania napięć.
+\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu ggss (ggss-driver). Zawierał on archiwum z sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W ramach modułu został również zawarty plik CMAKE, którego zadaniem było przygotowanie pakietu RPM w skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu. W celu sprawdzenia poprawności działania pakietu odpowiedzialnego za instalacje sterownika został utworzony osobny moduł (mcaN957), którego zadaniem jest zebranie napięć rejestrowanych przez analizator wielokanałowy (MCA) oraz zapisanie ich w pliku tekstowym w postaci zgrupowanej zakresami. Aplikacja \textbf(mcaN957) przyjmuje dwa parametry wejściowe jakimi są czas działania oraz wartość progowa rejestrowania napięć.
 
 \section{Budowanie} 
 Niniejsza część pracy zawiera opis pierwotnego sposobu budowania aplikacji, wraz z zastosowanymi rozwiązaniami technologicznymi (struktura i zawartość plików CMake) oraz listą potencjalnych ograniczeń wynikających z dotychczasowego podejścia do budowania.
 
 \paragraph*{Struktura plików CMake}\mbox{}\\
 % Opisac co gdzie jest, za co odpowiadają poszczegolne szablony
-Projekt w swojej oryginalnej postaci budowany był za pomocą narzędzia CMake w wersji \textbf{2.8}. Wyróżnić można było jeden nadrzędny plik \textit{CMakeLists.txt} znajdujący się w katalogu głownym projektu oraz pomniejsze pliki dla każdego z modułów. Rysunek przedstawia w uproszczeniu pierwotną strukturę projektu, z wyszczególnieniem plików odpowiedzialnych za jego budowanie.
+Projekt w swojej oryginalnej postaci budowany był za pomocą narzędzia CMake w wersji \textbf{2.8}. Wyróżnić można było jeden nadrzędny plik \textit{CMakeLists.txt} znajdujący się w katalogu głównym projektu oraz pomniejsze pliki dla każdego z modułów. Rysunek przedstawia w uproszczeniu pierwotną strukturę projektu, z wyszczególnieniem plików odpowiedzialnych za jego budowanie.
 
 \textbf{TODO: tutaj dac jakis fajny rysuneczek}
 
@@ -96,7 +95,7 @@ Projekt w swojej oryginalnej postaci budowany był za pomocą narzędzia CMake w
 
 \paragraph*{Ograniczenia pierwotnego systemu budowania}\mbox{}\\
 % Cos jeszcze dopisac, zrobic zeby sie to lepiej czytalo
-Pierwotna wersja projektu narzuca daleko idące ograniczenia na sposób jego budowania. Najważniejszym z nich jest brak bezpośredniej możliwości zbudowania pojedynczych komponentów projektu. Listing \ref{lst:orig} przedstawia fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w katalogu głównym projektu. \textbf{TUTAJ REF DO PRACY PLUTECKIEGO} Plik ten pozwala na zbudowanie trzech aplikacji wchodzących w skład oprogramowania projektu GGSS: \textit{ggssrunner}, \textit{dimCS} oraz opcjonalnie \textit{ggsspector}. Jest to jedyny plik w całym projekcie zawierający wszystkie informacje konieczne do zbudowania wymienionych aplikacji - tzn. posiadający listę bibliotek, od których aplikacje te są zależne. Oznacza to, że niemożliwe jest zbudowanie aplikacji \textit{ggssrunner} jedynie za pomocą dedykowanego jej pliku \textit{CMakeLists.txt}. Zatem pomimo, iż struktura projektu jest zmodularyzowana jeśli chodzi o architekturę (oprogramowanie zostało podzielone na biblioteki), to niemożliwe jest (w prosty sposób, za pomocą dostarczonych plików \textit{CMakeLists.txt}) zbudowanie pojedynczych modułów projektu.
+Pierwotna wersja projektu narzuca daleko idące ograniczenia na sposób jego budowania. Najważniejszym z nich jest brak bezpośredniej możliwości zbudowania pojedynczych komponentów projektu. Listing \ref{lst:orig} przedstawia fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w katalogu głównym projektu. \textbf{TUTAJ REF DO PRACY PLUTECKIEGO} Plik ten pozwala na zbudowanie trzech aplikacji wchodzących w skład oprogramowania projektu GGSS: \textit{ggssrunner}, \textit{dimCS} oraz opcjonalnie \textit{ggsspector}. Jest to jedyny plik w całym projekcie zawierający wszystkie informacje konieczne do zbudowania wymienionych aplikacji - tzn. posiadający listę bibliotek, od których aplikacje te są zależne. Oznacza to, że niemożliwe jest zbudowanie aplikacji \textit{ggssrunner} jedynie za pomocą dedykowanego jej pliku \textit{CMakeLists.txt}. Zatem pomimo, iż struktura projektu jest modularna jeśli chodzi o architekturę (oprogramowanie zostało podzielone na biblioteki), to niemożliwe jest (w prosty sposób, za pomocą dostarczonych plików \textit{CMakeLists.txt}) zbudowanie pojedynczych modułów projektu.
 
 \begin{lstlisting}[language=bash, caption={Fragment oryginalnego pliku CMakeLists.txt znajdującego się w katalogu głównym pierwotnej wersji projektu}, label={lst:orig}]
 # array with used libraries
@@ -161,7 +160,7 @@ Technologią kontroli wersji zastosowaną był do tej pory \textbf{SVN} (Subvers
 
 \chapter{Stan docelowy projektu}
 \label{cha:docel}
-Niniejszy rozdział zawiera opis docelowej wersji systemu GGSS, jaka powinna zostać osiągnięta po zakończeniu przez autorów prac. Cele do zrealizowania podzielone zostały na dwie główne części, wynikające z organizacji czasowej prac tzn. wkład autorów w system nie zamyka się wraz z zakończeniem prac nad niniejszym manuskryptem. Z tego powodu niniejszy rodział podzielony został na dwie części - pierwsza z nich opisuje finalną wersję projektu, natomiast druga - wersję po zakończeniu prac w ramach projektu inżynierkiego.
+Niniejszy rozdział zawiera opis docelowej wersji systemu GGSS, jaka powinna zostać osiągnięta po zakończeniu przez autorów prac. Cele do zrealizowania podzielone zostały na dwie główne części, wynikające z organizacji czasowej prac tzn. wkład autorów w system nie zamyka się wraz z zakończeniem prac nad niniejszym manuskryptem. Z tego powodu niniejszy rodział podzielony został na dwie części - pierwsza z nich opisuje finalną wersję projektu, natomiast druga - wersję po zakończeniu prac w ramach projektu inżynierskiego.
 
 \section{Finalna wersja projektu}
 Projekt w swojej wersji finalnej ma charakteryzować się modularną architekturą zarówno jeśli chodzi o organizację kodu, jak i sposób jego budowania. Pozwala to na proste i efektywne testowanie każdego komponentu z osobna. Ułatwia to również podmianę komponentów w środowisku produkcyjnym. Większa modularyzacja pozwala skrócić czas poszukiwania źródła ewentualnych błędów w działaniu systemu. Z drugiej natomiast strony podział systemu na dużą liczbę komponentów utrudnia proces budowania, przez co wymagana jest jego znacząca automatyzacja. Konieczne jest przygotowanie więc prostej w użytkowaniu infrastruktury wspomagającej proces produkcyjny. Powinna być ona dobrze udokumentowana, by próg wejścia do projektu był możliwie niski. Powinny więc zostać przygotowane instrukcje w języku angielskim zawierające zestaw najczęściej używanych komend wraz z wariantami ich użycia (np. flagi). Kluczowym celem jest również modernizacja kodu źródłowego - zarówno jeśli chodzi o jego jakość, jak i zastosowane technologie. Projekt charakteryzować się ma więc ustandaryzowanym, ogólnoprzyjętym przez społeczność programistów jako tzw. \textit{dobre praktyki}, nazewnictwem, odpowiednim podziałem na poziomie kodu źródłowego (funkcje, klasy itp.). W swojej ostatecznej wersji projekt powinien bazować na najnowszych, dostępnych w ramach infrastruktury produkcyjnej CERN-u, technologiach, np. standard języka C++. Dzięki temu zależności zewnętrzne powinny zostać ograniczone do minimum, na rzecz standardowych rozwiązań (np. biblioteka standardowa), by zagwarantować możliwie duża przenośność. Zaplanowano również rozszerzenie projektu o nowe komponenty ułatwiające korzystanie z systemu (np. graficzny interfejs użytkownika).
@@ -169,7 +168,7 @@ Projekt w swojej wersji finalnej ma charakteryzować się modularną architektur
 \section{Stan oczekiwany w ramach projektu inżynierskiego}
 Z uwagi na brak możliwości realizowania wszystkich powyższych postulatów dotyczących celów pracy w ramach projektu inżynierkiego (co wynika z ograniczonego czasu), wybrany został następujący podzbiór wymagań:
 \begin{itemize}
-\item przygotowanie środowiska umożliwijącego zarządzanie prowadzonym projektem
+\item przygotowanie środowiska umożliwiającego zarządzanie prowadzonym projektem
 \item modularyzacja projektu (z poziomu architektury i systemu budowania \textit{CMake})
 \item przygotowanie infrastruktury automatyzującej proces produkcyjny, zapewniającej spójne środowisko do testowania
 \item wykonanie dokumentacji zgodnej z wymienionymi założeniami
@@ -193,7 +192,7 @@ Z uwagi na silny związek oprogramowania GGSS z infrastrukturą CERN oraz wymóg
 
 
 \section{Ograniczone uprawnienia w środowisku docelowym}
-Ze względu na ograniczone uprawnienia w środowisku docelowym proces wprowadzania zmian w systemie \textbf{GGSS} wymagał komunikacji z administratorami środowiska. Każdorazowa instalacja poprawek dla modułu sterownika \textbf{(ggss-driver)} wymagała autoryzacji oraz przeprowadznie procesu instalacji przez osobę upoważnioną. Ze względu na to zostało przygotowane specjalne środowisko pozwalające na testowanie pakietów \textbf{RPM} przed ich instalacją w środowisku docelowym. Dodatkowo uprawnienia autorów w środowisku docelowym są ograniczone ze względu na możliwości instalacji dodatkowych pakietów, czy tez modułów. Nie jest możliwe również budowanie komponentów w środowisku docelowym, restart maszyny produkcyjnej, czy też ładowanie/usuwanie modułów spoza listy określonej przed administratorów. Wszystkie te czynniki negatywnie wpłynęły na czas, który był wymagany w celu wykonania testów w środowisku produkcyjnym oraz wykonane zmiany w projekcie.
+Ze względu na ograniczone uprawnienia w środowisku docelowym proces wprowadzania zmian w systemie \textbf{GGSS} wymagał komunikacji z administratorami środowiska. Każdorazowa instalacja poprawek dla modułu sterownika \textbf{(ggss-driver)} wymagała autoryzacji oraz przeprowadzenie procesu instalacji przez osobę upoważnioną. Ze względu na to zostało przygotowane specjalne środowisko pozwalające na testowanie pakietów \textbf{RPM} przed ich instalacją w środowisku docelowym. Dodatkowo uprawnienia autorów w środowisku docelowym są ograniczone ze względu na możliwości instalacji dodatkowych pakietów, czy tez modułów. Nie jest możliwe również budowanie komponentów w środowisku docelowym, restart maszyny produkcyjnej, czy też ładowanie/usuwanie modułów spoza listy określonej przed administratorów. Wszystkie te czynniki negatywnie wpłynęły na czas, który był wymagany w celu wykonania testów w środowisku produkcyjnym oraz wykonane zmiany w projekcie.
 
 
 \section{Wersje kompilatorów i interpreterów}
@@ -223,15 +222,17 @@ Ze względu na mocny związek modułu \textbf{ggss-driver} z jądrem systemu ope
 \chapter{Wykonane prace}
 \label{cha:prace}
 
+Niniejszy rozdział zawiera opis wykonanych przez autorów prac w ramach projektu \textbf{GGSS}. Rozdział został podzielony na sekcję według obszarów tematycznych poruszanych przez autorów: zarządzanie projektem, kontrola wersji i nowa architektura projektu, zastosowanie podejścia CI/CD, budowanie aplikacji, budowanie i dystrybucja sterownika, wirtualizacja i konteneryzacja, pomniejsze prace w projekcie oraz zasady i sposób tworzenia dokumentacji projektu.
+
 \section{Wykorzystanie funkcjonalności portalu Gitlab wspierających zarządzanie projektem}
 
-Ze względu na zespołowy charakter pracy bardzo ważną częścią było planowanie oraz zarządzanie projektem. W celu usprawnienia tego procesu autorzy wykorzystali funkcjonalności dostarczane w ramach portalu Gitlab oraz dobre praktyki programistyczne. \par
+Ze względu na zespołowy charakter pracy bardzo ważną częścią było planowanie oraz zarządzanie projektem. W celu usprawnienia tego procesu autorzy wykorzystali funkcjonalności dostarczane w ramach portalu Gitlab oraz dobre praktyki programistyczne.
 
-Pierwszym krokiem było utworzenie grupy, o odpowiedniej nazwie \textbf{(atlas-trt-dcs-ggss)} definiującej projekt, na portalu Gitlab udostępnianego w ramach infrastruktury CERN. Oprócz oczywistej zalety w postaci identyfikacji przynależności oraz odpowiedzialności za repozytoria zawarte w ramach takiej grupy dodatkowym atutem jest możliwość wykorzystania systemu rang, w celu przyznawania odpowiednich uprawnień. Rysunek \ref{fig:memMan} przedstawia panel zarządzania członkami zespołu, widoczne jest pole odpowiedzialne za dodawanie zarejestrowanych w systemie osób do grupy. W trakcie dodawania możemy również zdefiniować jeden z predefiniowanych zestawów uprawnień w postaci rangi (Guest, Reporter, Developer, Maintainer, Owner) oraz datę automatycznego wygaśnięcia członkostwa. Pełny opis uprawnień powiązanych z rangą dostępny jest w oficjalnej dokumentacji portalu Gitlab REF DO https://docs.gitlab.com/ee/user/permissions.html. Poniżej formularza odpowiedzialnego za dodawanie nowych osób do grupy widoczny jest również spis obecnych członków, czas który upłynął od ich dołączenia, ranga, czy też pola oraz przyciski odpowiedzialne za modyfikację ich obecnego statusu w zespole.
+Pierwszym krokiem było utworzenie grupy, o odpowiedniej nazwie (\textbf{atlas-trt-dcs-ggss}) definiującej projekt, na portalu Gitlab udostępnianego w ramach infrastruktury CERN. Oprócz oczywistej zalety w postaci identyfikacji przynależności oraz odpowiedzialności za repozytoria zawarte w ramach takiej grupy dodatkowym atutem jest możliwość wykorzystania systemu rang, w celu przyznawania odpowiednich uprawnień. Rysunek \ref{fig:memMan} przedstawia panel zarządzania członkami zespołu, widoczne jest pole odpowiedzialne za dodawanie zarejestrowanych w systemie osób do grupy. W trakcie dodawania możemy również wybrać jeden z zdefiniowanych zestawów uprawnień w postaci rangi (Guest, Reporter, Developer, Maintainer, Owner) oraz datę automatycznego wygaśnięcia członkostwa. Pełny opis uprawnień powiązanych z rangą dostępny jest w oficjalnej dokumentacji portalu Gitlab \cite{GitLabPermissions}. Poniżej formularza odpowiedzialnego za dodawanie nowych osób do grupy widoczny jest również spis obecnych członków, czas który upłynął od ich dołączenia, ranga, czy też pola oraz przyciski odpowiedzialne za modyfikację ich obecnego statusu w zespole.
 
 \begin{figure}[H]
 \centering
-\caption{Panel zarządzania członkami zespołu na portalu Gitlab}
+\caption{Panel zarządzania członkami zespoł{}u na portalu Gitlab}
 \label{fig:memMan}
 \includegraphics[width=\textwidth]{res/png/memberManagementPanel}
 \end{figure}
@@ -239,18 +240,21 @@ Pierwszym krokiem było utworzenie grupy, o odpowiedniej nazwie \textbf{(atlas-t
 
 Podstawowym problemem do rozwiązania w trakcie pracy grupowej jest odpowiedni podział zadań ze względu na ilość oraz trudność. Wykorzystane w tym celu zostały \textbf{issues} (problemy, zagadnienia). Są one podstawową funkcjonalnością wykorzystywaną do współpracy, planowania, czy też przedstawiania swoich pomysłów lub problemów.
 
-W ramach \textbf{issue} jesteśmy w stanie precyzyjnie opisać problem, czy też zadanie. Zawdzięczamy to mnogością możliwych do wypełnienia pól, dzięki czemu zarządzanie projektem jest znacznie ułatwione. W ramach \textbf{issue} jesteśmy z stanie zdefiniować:
+W ramach \textbf{issue} jesteśmy w stanie precyzyjnie opisać problem, czy też zadanie. Zawdzięczamy to mnogością możliwych do wypełnienia pól, dzięki czemu zarządzanie projektem jest znacznie ułatwione.Na Rysunku \ref{fig:newIssue} widnieje panel w ramach którego jesteśmy z stanie zdefiniować:
 \begin{itemize}
 \item \textbf{Tytuł} (Title) - krótki opis słowny zawartości
-\item \textbf{Opis} (Description) - pełny opis problemu, zadania, czy też pomysłu, który chcemy poruszyć w ramach \textbf{issue}
+\item \textbf{Opis} (Description) - pełny opis problemu, zadania, czy też pomysłu, który jest poruszany w ramach \textbf{issue}
 \item \textbf{Osoba odpowiedzialna} (Assignee) - główna osoba koordynująca lub wykonująca zadanie
 \item \textbf{Termin} (Due date) - data do której należy zamknąć \textbf{issue}, czyli wykonać wszystkie, wymagane w ramach zadania, akcje
-\item \textbf{Kamień milowy} (Milestone) - pole wynikające z zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powienien zawierać informacje nt. tegoż celu.
-\item \textbf{Etykieta} (Label) - służy przypisaniu do zdania atrybutu. W przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (Ongoing, To Do), powodu niewykonania zadania (Blocked, Duplicate) oraz oznaczenie zadań z wysokim priorytetem (Urgent). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwośc filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{Kanban Board} (tablica Kanban).
+\item \textbf{Kamień milowy} (Milestone) - pole wynikające z zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powinien zawierać informacje nt. tegoż celu.
+\item \textbf{Etykieta} (Label) - służy przypisaniu do zdania atrybutu. W przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (Ongoing, To Do), powodu niewykonania zadania (Blocked, Duplicate) oraz oznaczenie zadań z wysokim priorytetem (Urgent). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwość filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{Kanban Board} (tablica Kanban).
 \item \textbf{Waga} (Weight) - jest to wartość definiująca trudność zadania oraz wymaganą ilość pracy na jego wykonanie. Wartość ta nie jest bezpośrednio przekładana na czas, wymaga ona interpretacji pod względem przypisanej osoby. Dokładniejsze wytłumaczenie zostanie ukazane na przykładzie.
 \end{itemize}
 
-W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablonów w języku markdown i umieszecznie ich w odpowiednim repozytorium, natomiast funkcjonalność ta nie została wykorzystana w trakcie relalizacji projektu
+Poniższy przykład pokazuje wykorzystanie wagi \textbf{issue} w celu oszacowania czasu potrzebnego na jego wykonanie.\par
+Zakładając, że do dyspozycji jest dwóch pracowników, jeden doświadczony, który w ciągu tygodnia jest w stanie wykonać pracę o równowartości wagowej 40, a drugi niedoświadczony, który w ciągu tygodnia wykonuję pracę o równowartości wagowej 20. Aby przełożyć wagę zadania, która wynosi w przykładzie 8, należy wziąć pod uwagę osobę, która zostanie do tego zadania przydzielona. Zakładając, że ww. pracownicy pracują na pełen etat, czyli 40 godzin tygodniowo, w przypadku przydzielenia zadania osobie doświadczonej waga 8 przełoży się na 8 rzeczywistych godzin, natomiast w przypadku osoby niedoświadczonej waga 8 przełoży się na 16 rzeczywistych godzin. \par
+
+Określenie wydajności pracownika wymaga zastosowania techniki nazywanej sprzężeniem zwrotnym. W pierwszej kolejności zakładamy jakąś arbitralną wartość wydajności pracownika i na podstawie tej wartości przydzielamy mu odpowiednią ilość zadań z odpowiednimi wagami. Następnie cyklicznie weryfikujemy (np. co tydzień), czy pracownik jest w stanie wykonać zadania o określonej wadze w danym cyklu. Po każdym cyklu odpowiednio modyfikujemy wartość wydajności pracownika, tak, aby była zbliżona do wartości wydajności osiągniętej za poprzedni okres. Aby zwiększyć poprawność wyznaczania wspomnianej wartości należy wziąć pod uwagę również wcześniejsze okresy, a nie jedynie ostatni.\par
 
 \newpage
 
@@ -261,25 +265,23 @@ W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablon
 \includegraphics[width=\textwidth]{res/png/newIssue}
 \end{figure}
 
+W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablonów w języku \textbf{Markdown} i umieszczenie ich w odpowiednim repozytorium, natomiast funkcjonalność ta nie została wykorzystana w trakcie realizacji projektu
+
 \newpage
 
-Poniższy przykład pokazuje wykorzystanie wagi \textbf{issue} w celu oszacowania czasu potrzebnego na jego wykonanie.\par
-Załóżmy, że mamy do dyspozycji dwóch pracowników, jednego doświadczonego, a jednego niedoświadczonego. Pracownik doświadczony w ciągu jednego tygodnia jest w stanie wykonać pracę o równowatości wagowej 40, natomiast pracownik niedoświadczony o równwarotści wagowej 20. Aby przełożyć wagę zadania, która wynosi w naszym przykładzie 8, należy wziąc pod uwagę osobę, która zostanie do tego zadania przydzielona. Zakładając, że ww. pracownicy pracują na pełen etat, czyli 40 godzin tygodniowo, w przypadku przydzielenia zadania osobie doświadczonej waga 8 przełoży się na 8 rzeczywistych godzin, natomiast w przypadku osoby niedoświadczonej waga 8 przełoży się na 16 rzeczywistych godzin. \par
+Wszystkie prace wykonywane w ramach projektu były rejestrowane na portalu Gitlab w ramach funkcjonalności \textbf{issues}. Posiadały one odpowiednio przypisane etykiety. Część zadań miała również przypisane wagi, na podstawie których były one odpowiednio przydzielane członkom zespołu. Zadania realizujące większy cel były grupowane w ramach kamieni milowych.
 
-Określenie wydajności pracownika wymaga zastosowania techniki nazywanej sprzężęniem zwrotnym. W pierwszej kolejności zakładamy jakąś arbitratną wartość wydajności pracownika i na podstawie tej wartości przydzielami mu odpowiednią ilość zadań z odpowiednimi wagami. Następnie cyklicznie weryfikujemy (np. co tydzień), czy pracownik jest w stanie wykonać zadania o określonej wadze w danym cyklu. Po każdym cyklu odpowiednio modyfikujemy wartość wydajności pracownika, tak, aby była zbliżona do wartości wydajności osiągniętej za poprzedni okres. Aby zwiększyć poprawność wyznaczania wspomnianej wartości należy wziąc pod uwagę również wcześniejsze okresy, a nie jedynie ostatni.\par
-
-Wszystkie prace wykonywane w ramach projektu były rejestrowane na portalu Gitlab w ramach funkcjonalności \textbf{issues}. Posiadały one odpowiednio przypisane etykiety. Część zadań miała również przypisane wagi, na podstawie których były one odpowiednio przydzielane członkom zespołu. Zadania realizujące większy cel były grupowane w ramach kamieni milowych. Ważną kwestią dotyczącą \textbf{issues} jest również możliwośc śledzenia zmian zachodzących w ramach zadania, która była mocno wykorzystywana w przypadku problematycznych zadań. Każde \textbf{issue} zapisuje historię zmian dotyczących jego parametrów, jak np. zmiana etykiety. W ramach zadania można również dodawać komentarze opisujące aktualny stan. \textbf{Issue} na portalu Gitlab są również zintegrowane z wiadomościami definiowanymi w ramach tworzenia nowej rewizji z użyciem technologii \textbf{GIT}, dzięki czemu tworząc nową wersję jesteśmy w stanie automatycznie zamknąć zadanie, lub dodać referencję do niego co skutkuje odpowiednim wpisem w historii zadania.
+Ważną kwestią dotyczącą \textbf{issues} jest również możliwość śledzenia zmian zachodzących w ramach nich, która była mocno wykorzystywana w przypadku problematycznych zadań. Każde \textbf{issue} zapisuje historię zmian dotyczących jego parametrów, jak np. zmiana etykiety. W ramach zadania można również dodawać komentarze opisujące aktualny stan. \textbf{Issue} na portalu Gitlab są również zintegrowane z wiadomościami definiowanymi w ramach tworzenia nowej rewizji z użyciem technologii \textbf{GIT}, dzięki czemu tworząc nową wersję jesteśmy w stanie automatycznie zamknąć zadanie, lub dodać referencję do niego co skutkuje odpowiednim wpisem w historii zadania.
 
 \begin{figure}[H]
 \centering
 \caption{Historia zmian \textbf{issue} na portalu Gitlab}
-\label{fig:kanban}
 \includegraphics[width=\textwidth]{res/png/issueOngoing}
 \end{figure}
 
 \newpage
 
-Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w ramach projektu był \textbf{Kanban Board}. Za jego pomocą jesteśmy w stanie w szybki oraz prosty sposób ocenić etap postępów w projekcie. W jednym widoku mamy podsumowanie stanów zadań pogrupowanych według etykiet. Z poziomu tablicy jesteśmy w stanie również zmieniać status zadania za pomocą prostej techniki \textbf{drag and drop} (przeciągnij i upuść). Każda wyświetlana etykieta posiada krótkie podsumowanie zadań, czyli ich ilość oraz sumę wag przypisanych do zadań. Dodatkowo dla każdego zadania wyświetlana jest nazwa repozytorium, w ramach którego zadanie jest realizowane oraz osoby do niego przypisane, co widoczne jest na Rysnku \ref{fig:kanban}
+Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w ramach projektu był \textbf{Kanban Board}. Za jego pomocą można w szybki oraz prosty sposób ocenić etap postępów w projekcie. W jednym widoku wyświetlane jest podsumowanie stanów zadań pogrupowanych według etykiet. Z poziomu widoku tabli możliwa jest również zmiana status zadania za pomocą prostej techniki \textbf{drag and drop} (przeciągnij i upuść). Każda wyświetlana etykieta posiada krótkie podsumowanie zadań, czyli ich ilość oraz sumę wag przypisanych do tych zadań. Dodatkowo dla każdego zadania wyświetlana jest nazwa repozytorium, w ramach którego zadanie jest realizowane oraz osoby do niego przypisane, co widoczne jest na Rysunku \ref{fig:kanban}
 
 \begin{figure}[H]
 \centering
@@ -288,11 +290,36 @@ Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w ramach proj
 \includegraphics[width=\textwidth]{res/png/kanban}
 \end{figure}
 
+Portal GitLab zapewnia również funkcjonalność, która wspiera wykonywanie operacji \textbf{merge} w ramach technologii \textbf{GIT}. Udostępniony jest specjalny widok, który pozwala na połączenie dwóch dowolnych gałęzi, które zostały wcześniej przekazane na platformę. Po wybraniu i zatwierdzeniu docelowych gałęzi zostaje utworzony \textbf{merge request}, którego zadaniem jest udostępnienie interfejsu zarządzania operacją \textbf{merge} oraz , podobnie jak w przypadku \textbf{issue}, śledzenie zmian dokonywanych w trakcie trwania \textbf{merge request}. W celu wykonania złączenia gałęzi należy taką operację zatwierdzić w panelu \textbf{merge request} oraz wykonać ją za pomocą specjalnego przycisku \textbf{merge}. Dopiero wtedy zostanie wykonane faktyczne złączenie.\par
+
+\begin{figure}[H]
+\centering
+\caption{Tworzenie nowego \textbf{merge request}}
+\includegraphics[width=\textwidth]{res/png/newMergeRequest}
+\end{figure}
+
+Rysunek \ref{fig:mergeRequestPanel} przedstawia panel tworzenia nowego \textbf{merge request}. Możemy w nim zdefiniować takie parametry, jak:
+\begin{itemize}
+\item Tytuł (\textit{Title})
+\item Opis (\textit{Description})
+\item Osoba przypisana (\textit{Assignee}), czyli osoba, której zadaniem jest wykonanie operacji \textbf{merge} oraz rozwiązanie ewentualnych konfliktów
+\item Kamień milowy (\textit{Milestone})
+\item Etykiety (\textit{Labels})
+\item Zasady zatwierdzenia (\textit{Approval rules}) - tutaj definiuje się wymagania odnośnie zatwierdzenia przez członków zespołu poprawności wykonanych zmian. Jest to jedna z praktyk dobrego programowania (\textit{code review}).
+\end{itemize}
+
+\begin{figure}
+\centering
+\caption{Panel tworzonego \textbf{merge request}}
+\includegraphics[width=\textwidth]{res/png/panelMergeRequest}
+\label{fig:mergeRequestPanel}
+\end{figure}
+
+\newpage
+
 \section{Migracja projektu do systemu kontroli wersji Git i zmiany w architekturze}
 
-
-
-
+\newpage
 
 \section{Zastosowanie podejścia CI/CD}
 Ważną częścia wykonanych prac było przygotowanie środowiska pozwalającego na zautomatyzowane budowanie i dystrybucję aplikacji. Standardowym dziś sposobem na rozwiązanie tego problemu jest podejście \textbf{CI/CD}. Skrót CI oznacza tzw. \textbf{ciągłą integrację} (\textit{Continous Integration}) - praktykę polegającą na stosowaniu współdzielonego repozytorium kodu źródłowego, za pomocą którego programiści pracujący nad projektem regularnie integrują swoje zmiany. Nowa wersja kodu jest automatycznie sprawdzana - serwer ciągłej integracji samodzielnie buduje projekt i uruchamia przygotowane dla niego testy. Skrót CD oznacza natomiast \textbf{ciągłe dostarczanie} (\textit{Continous Delivery}). Polega ono na przygotowaniu produktu do stanu, w którym jest on możliwy do wdrożenia w środowisku produkcyjnym. Może to być np. przeprowadzenie różnego rodzaju testów czy przygotowanie odpowiedniej paczki z aplikacją. Ważne jest, że w podejściu tym nie następuje automatyczne wdrożenie aplikacji do środowiska produkcyjnego (jest to domena \textbf{ciągłego wdrażania}, które jednak nie znalazło zastosowania w projekcie GGSS). Podejście \textbf{CI/CD} porównuje się czasem do działania linii produkcyjnej. Rysunek \ref{fig:cicd} obrazuje schematycznie jego działanie. 
