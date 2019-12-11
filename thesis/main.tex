@@ -65,9 +65,9 @@ W ramach projektu został również przygotowany panel informacyjno-administracy
 \end{figure}
 
 W ramach architektury projektu utworzone zostały również pliki CMAKE, które służyły jako szablon akcji wykorzystywanych wielokrotnie w pozostałych miejscach, np.: wyszukiwanie odpowiedniej biblioteki.\par 
-Architektura projektu charakteryzowała się całkowiecie płaską strukturą, nie było żadnej gradacji bibliotek, z której nie wynikały żadne zależności między modułami. Plusem takiego rozwiązania była łatwość w budowie całego systemu (np. brak problemów z skomplikowanymi ściezkami), aczkolwiek nie wynikała z niego żadna informacja nt. systemu ze względu na co próg wejścia, czy też utrzymanie projektu jest utrudnione. Widoczny był podział na moduły, lecz nie był on w żaden sposób uporządkowany, np. ze względu na przeznaczenie bibliotek (programowe, sprzętowe). 
+Architektura projektu charakteryzowała się całkowiecie płaską strukturą, nie było żadnej gradacji bibliotek, z której nie wynikały żadne zależności między modułami. Plusem takiego rozwiązania była łatwość w budowie całego systemu (np. brak problemów ze skomplikowanymi ściezkami), aczkolwiek nie wynikała z niego żadna informacja nt. systemu ze względu na co próg wejścia, czy też utrzymanie projektu jest utrudnione. Widoczny był podział na moduły, lecz nie był on w żaden sposób uporządkowany, np. ze względu na przeznaczenie bibliotek (programowe, sprzętowe). 
 
-\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu ggss (ggss-driver). Zawierał on archiwum z sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W ramach modułu został również zawarty plik CMAKE, którego zadaniem było przygotowanie pakietu RPM w skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu.
+\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu ggss (ggss-driver). Zawierał on archiwum z sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W ramach modułu został również zawarty plik CMAKE, którego zadaniem było przygotowanie pakietu RPM w skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu. W celu sprawdzenia poprawności działania pakietu odpowiedzialnego za instalacje sterownika został utworzony osobny moduł (mcaN957), którego zadaniem jest zebranie napięc rejestrowanych przez analizator wielokanałowy (MCA) oraz zapisanie ich w pliku tekstowym w postaci zgrupowanej zakresami. Aplikacja \textbf(mcaN957) przyjmuje dwa parametry wejściowe jakimi są czas działania oraz wartość progowa rejestrowania napięć.
 
 \section{Budowanie} 
 Niniejsza część pracy zawiera opis pierwotnego sposobu budowania aplikacji, wraz z zastosowanymi rozwiązaniami technologicznymi (struktura i zawartość plików CMake) oraz listą potencjalnych ograniczeń wynikających z dotychczasowego podejścia do budowania.
@@ -144,7 +144,11 @@ install(TARGETS ggssrunner RUNTIME DESTINATION bin)
 
 \section{Dostarczanie i uruchamianie}
 
+Projekt nie miał automatycznego systemu dostarczania gotowych do użycia plików binarnych, czy też pakietów RPM. Wszystkie akcje prowadzące do utworzenia odpowiednich plików trzeba było wykonywać ręcznie. Nie dostarczono również żadnego systemu regresji, który automatycznie testowałby wprowadzane zmiany. Uruchamianie projektu odbywało się poprzez ręczne umieszczenie plików w środowisku docelowym, a następnie uruchomienie aplikacji za pomocą skryptów pomocniczych. Aplikacja była również uruchamiana za pomocą zadania cyklicznego linux (program crontab). Zadanie to sprawdzało, czy działał proces aplikacji ggssrunner, jężeli takowy nie istniał oraz nie został utworzony plik .lock, to aplikacja była uruchamiana.
+
 \section{Kontrola wersji}
+
+Technologią kontroli wersji zastosowaną był do tej pory \textbf{SVN} (Subversion). Mgr. Plutecki w swojej pracy wspomina o wykorzystaniu technologii \textbf{GIT}, natomiast była ona prawdopodobnie używana jedynie w trakcie prac. Wniosek taki został wysnuty z powodu braku jakichkolwiek śladów wykorzystania tej technologii w projekcie. Wykorzystane zostały jedynie podstawowe funkcjonalności kontroli wersji, brak jakiegokolwiek mechanizmu pozwalającego na automatyczne wersjonowanie, czy kontrolę tworzonych rewizji.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -189,6 +193,7 @@ Z uwagi na silny związek oprogramowania GGSS z infrastrukturą CERN oraz wymóg
 
 
 \section{Ograniczone uprawnienia w środowisku docelowym}
+Ze względu na ograniczone uprawnienia w środowisku docelowym proces wprowadzania zmian w systemie \textbf{GGSS} wymagał komunikacji z administratorami środowiska. Każdorazowa instalacja poprawek dla modułu sterownika \textbf{(ggss-driver)} wymagała autoryzacji oraz przeprowadznie procesu instalacji przez osobę upoważnioną. Ze względu na to zostało przygotowane specjalne środowisko pozwalające na testowanie pakietów \textbf{RPM} przed ich instalacją w środowisku docelowym. Dodatkowo uprawnienia autorów w środowisku docelowym są ograniczone ze względu na możliwości instalacji dodatkowych pakietów, czy tez modułów. Nie jest możliwe również budowanie komponentów w środowisku docelowym, restart maszyny produkcyjnej, czy też ładowanie/usuwanie modułów spoza listy określonej przed administratorów. Wszystkie te czynniki negatywnie wpłynęły na czas, który był wymagany w celu wykonania testów w środowisku produkcyjnym oraz wykonane zmiany w projekcie.
 
 
 \section{Wersje kompilatorów i interpreterów}
@@ -204,6 +209,7 @@ Domyślną wersją Pythona jest \textbf{Python 2.7.5}, jednak dostępny jest ró
 Dostępna wersja narzędzia CMake stanowiła zdaniem autorów największe ograniczenie w czasie prac nad projektem. Na maszynach docelowych dostępna jest jedynie stara wersja \textbf{2.8.12.2}. Nowsza wersja (\textbf{3.14.6}) dostępna jest na niektórych z komputerów, jednak z uwagi na konieczność zachowania kompatybilności ze wspomnianymi maszynami docelowymi, nie było możliwe jej użycie. Stosowanie wersji o numerze niższym od \textbf{3.0} skutkuje szeregiem ograniczeń - brakuje w niej wielu funkcjonalności pozwalających na stosowanie ogólnoprzyjętych dziś praktyk, jak np. określenie zakresu wersji narzedzia CMake, w którym powinna mieścić się używana wersja, by projekt można było bez problemu zbudować, czy wsparcie dla instrukcji \textit{target\_link\_directories} \cite{NewInCMake}.
 
 \section{Związek projektu z wersją jądra systemu}
+Ze względu na mocny związek modułu \textbf{ggss-driver} z jądrem systemu operacyjnego ważnym aspektem pracy jest zapewnienie środowiska deweloperskiego zgodnego z produkcyjnym pod względem wersji jądra. Okazało się to problematyczne, ponieważ maszyna dostarczona przez administratorów w celu budowania aplikacji okazała się różnić od maszyny produkcyjnej właśnie pod względem wersji jądra systemu operacyjnego. Z powodu tego, że mocnym ograniczeniem okazało się jądro systemu nie wystarczyło zastosowanie ogólnodostępnych maszyn budujących w ramach wewnętrznego portalu opartego o technologię Gitlab. Ze względu na to autorzy postanowili utworzyć własne środowisko produkcyjne. Rozwiązanie problemu wymagało zastosowania maszyny wirtualnej, z pełnym dostępem do konta administratora oraz skonfigurowania środowiska konteneryzacyjnego Docker właśnie na tej maszynie, co opisane jest w rozdziale WSTAWIC REF.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,7 +225,74 @@ Dostępna wersja narzędzia CMake stanowiła zdaniem autorów największe ograni
 
 \section{Wykorzystanie funkcjonalności portalu Gitlab wspierających zarządzanie projektem}
 
+Ze względu na zespołowy charakter pracy bardzo ważną częścią było planowanie oraz zarządzanie projektem. W celu usprawnienia tego procesu autorzy wykorzystali funkcjonalności dostarczane w ramach portalu Gitlab oraz dobre praktyki programistyczne. \par
+
+Pierwszym krokiem było utworzenie grupy, o odpowiedniej nazwie \textbf{(atlas-trt-dcs-ggss)} definiującej projekt, na portalu Gitlab udostępnianego w ramach infrastruktury CERN. Oprócz oczywistej zalety w postaci identyfikacji przynależności oraz odpowiedzialności za repozytoria zawarte w ramach takiej grupy dodatkowym atutem jest możliwość wykorzystania systemu rang, w celu przyznawania odpowiednich uprawnień. Rysunek \ref{fig:memMan} przedstawia panel zarządzania członkami zespołu, widoczne jest pole odpowiedzialne za dodawanie zarejestrowanych w systemie osób do grupy. W trakcie dodawania możemy również zdefiniować jeden z predefiniowanych zestawów uprawnień w postaci rangi (Guest, Reporter, Developer, Maintainer, Owner) oraz datę automatycznego wygaśnięcia członkostwa. Pełny opis uprawnień powiązanych z rangą dostępny jest w oficjalnej dokumentacji portalu Gitlab REF DO https://docs.gitlab.com/ee/user/permissions.html. Poniżej formularza odpowiedzialnego za dodawanie nowych osób do grupy widoczny jest również spis obecnych członków, czas który upłynął od ich dołączenia, ranga, czy też pola oraz przyciski odpowiedzialne za modyfikację ich obecnego statusu w zespole.
+
+\begin{figure}[H]
+\centering
+\caption{Panel zarządzania członkami zespołu na portalu Gitlab}
+\label{fig:memMan}
+\includegraphics[width=\textwidth]{res/png/memberManagementPanel}
+\end{figure}
+
+
+Podstawowym problemem do rozwiązania w trakcie pracy grupowej jest odpowiedni podział zadań ze względu na ilość oraz trudność. Wykorzystane w tym celu zostały \textbf{issues} (problemy, zagadnienia). Są one podstawową funkcjonalnością wykorzystywaną do współpracy, planowania, czy też przedstawiania swoich pomysłów lub problemów.
+
+W ramach \textbf{issue} jesteśmy w stanie precyzyjnie opisać problem, czy też zadanie. Zawdzięczamy to mnogością możliwych do wypełnienia pól, dzięki czemu zarządzanie projektem jest znacznie ułatwione. W ramach \textbf{issue} jesteśmy z stanie zdefiniować:
+\begin{itemize}
+\item \textbf{Tytuł} (Title) - krótki opis słowny zawartości
+\item \textbf{Opis} (Description) - pełny opis problemu, zadania, czy też pomysłu, który chcemy poruszyć w ramach \textbf{issue}
+\item \textbf{Osoba odpowiedzialna} (Assignee) - główna osoba koordynująca lub wykonująca zadanie
+\item \textbf{Termin} (Due date) - data do której należy zamknąć \textbf{issue}, czyli wykonać wszystkie, wymagane w ramach zadania, akcje
+\item \textbf{Kamień milowy} (Milestone) - pole wynikające z zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powienien zawierać informacje nt. tegoż celu.
+\item \textbf{Etykieta} (Label) - służy przypisaniu do zdania atrybutu. W przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (Ongoing, To Do), powodu niewykonania zadania (Blocked, Duplicate) oraz oznaczenie zadań z wysokim priorytetem (Urgent). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwośc filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{Kanban Board} (tablica Kanban).
+\item \textbf{Waga} (Weight) - jest to wartość definiująca trudność zadania oraz wymaganą ilość pracy na jego wykonanie. Wartość ta nie jest bezpośrednio przekładana na czas, wymaga ona interpretacji pod względem przypisanej osoby. Dokładniejsze wytłumaczenie zostanie ukazane na przykładzie.
+\end{itemize}
+
+W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablonów w języku markdown i umieszecznie ich w odpowiednim repozytorium, natomiast funkcjonalność ta nie została wykorzystana w trakcie relalizacji projektu
+
+\newpage
+
+\begin{figure}[H]
+\centering
+\caption{Formularz tworzenia \textbf{issue} na portalu Gitlab}
+\label{fig:newIssue}
+\includegraphics[width=\textwidth]{res/png/newIssue}
+\end{figure}
+
+\newpage
+
+Poniższy przykład pokazuje wykorzystanie wagi \textbf{issue} w celu oszacowania czasu potrzebnego na jego wykonanie.\par
+Załóżmy, że mamy do dyspozycji dwóch pracowników, jednego doświadczonego, a jednego niedoświadczonego. Pracownik doświadczony w ciągu jednego tygodnia jest w stanie wykonać pracę o równowatości wagowej 40, natomiast pracownik niedoświadczony o równwarotści wagowej 20. Aby przełożyć wagę zadania, która wynosi w naszym przykładzie 8, należy wziąc pod uwagę osobę, która zostanie do tego zadania przydzielona. Zakładając, że ww. pracownicy pracują na pełen etat, czyli 40 godzin tygodniowo, w przypadku przydzielenia zadania osobie doświadczonej waga 8 przełoży się na 8 rzeczywistych godzin, natomiast w przypadku osoby niedoświadczonej waga 8 przełoży się na 16 rzeczywistych godzin. \par
+
+Określenie wydajności pracownika wymaga zastosowania techniki nazywanej sprzężęniem zwrotnym. W pierwszej kolejności zakładamy jakąś arbitratną wartość wydajności pracownika i na podstawie tej wartości przydzielami mu odpowiednią ilość zadań z odpowiednimi wagami. Następnie cyklicznie weryfikujemy (np. co tydzień), czy pracownik jest w stanie wykonać zadania o określonej wadze w danym cyklu. Po każdym cyklu odpowiednio modyfikujemy wartość wydajności pracownika, tak, aby była zbliżona do wartości wydajności osiągniętej za poprzedni okres. Aby zwiększyć poprawność wyznaczania wspomnianej wartości należy wziąc pod uwagę również wcześniejsze okresy, a nie jedynie ostatni.\par
+
+Wszystkie prace wykonywane w ramach projektu były rejestrowane na portalu Gitlab w ramach funkcjonalności \textbf{issues}. Posiadały one odpowiednio przypisane etykiety. Część zadań miała również przypisane wagi, na podstawie których były one odpowiednio przydzielane członkom zespołu. Zadania realizujące większy cel były grupowane w ramach kamieni milowych. Ważną kwestią dotyczącą \textbf{issues} jest również możliwośc śledzenia zmian zachodzących w ramach zadania, która była mocno wykorzystywana w przypadku problematycznych zadań. Każde \textbf{issue} zapisuje historię zmian dotyczących jego parametrów, jak np. zmiana etykiety. W ramach zadania można również dodawać komentarze opisujące aktualny stan. \textbf{Issue} na portalu Gitlab są również zintegrowane z wiadomościami definiowanymi w ramach tworzenia nowej rewizji z użyciem technologii \textbf{GIT}, dzięki czemu tworząc nową wersję jesteśmy w stanie automatycznie zamknąć zadanie, lub dodać referencję do niego co skutkuje odpowiednim wpisem w historii zadania.
+
+\begin{figure}[H]
+\centering
+\caption{Historia zmian \textbf{issue} na portalu Gitlab}
+\label{fig:kanban}
+\includegraphics[width=\textwidth]{res/png/issueOngoing}
+\end{figure}
+
+\newpage
+
+Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w ramach projektu był \textbf{Kanban Board}. Za jego pomocą jesteśmy w stanie w szybki oraz prosty sposób ocenić etap postępów w projekcie. W jednym widoku mamy podsumowanie stanów zadań pogrupowanych według etykiet. Z poziomu tablicy jesteśmy w stanie również zmieniać status zadania za pomocą prostej techniki \textbf{drag and drop} (przeciągnij i upuść). Każda wyświetlana etykieta posiada krótkie podsumowanie zadań, czyli ich ilość oraz sumę wag przypisanych do zadań. Dodatkowo dla każdego zadania wyświetlana jest nazwa repozytorium, w ramach którego zadanie jest realizowane oraz osoby do niego przypisane, co widoczne jest na Rysnku \ref{fig:kanban}
+
+\begin{figure}[H]
+\centering
+\caption{Tablica Kanban dla grupy na portalu Gitlab}
+\label{fig:kanban}
+\includegraphics[width=\textwidth]{res/png/kanban}
+\end{figure}
+
 \section{Migracja projektu do systemu kontroli wersji Git i zmiany w architekturze}
+
+
+
+
 
 \section{Zastosowanie podejścia CI/CD}
 Ważną częścia wykonanych prac było przygotowanie środowiska pozwalającego na zautomatyzowane budowanie i dystrybucję aplikacji. Standardowym dziś sposobem na rozwiązanie tego problemu jest podejście \textbf{CI/CD}. Skrót CI oznacza tzw. \textbf{ciągłą integrację} (\textit{Continous Integration}) - praktykę polegającą na stosowaniu współdzielonego repozytorium kodu źródłowego, za pomocą którego programiści pracujący nad projektem regularnie integrują swoje zmiany. Nowa wersja kodu jest automatycznie sprawdzana - serwer ciągłej integracji samodzielnie buduje projekt i uruchamia przygotowane dla niego testy. Skrót CD oznacza natomiast \textbf{ciągłe dostarczanie} (\textit{Continous Delivery}). Polega ono na przygotowaniu produktu do stanu, w którym jest on możliwy do wdrożenia w środowisku produkcyjnym. Może to być np. przeprowadzenie różnego rodzaju testów czy przygotowanie odpowiedniej paczki z aplikacją. Ważne jest, że w podejściu tym nie następuje automatyczne wdrożenie aplikacji do środowiska produkcyjnego (jest to domena \textbf{ciągłego wdrażania}, które jednak nie znalazło zastosowania w projekcie GGSS). Podejście \textbf{CI/CD} porównuje się czasem do działania linii produkcyjnej. Rysunek \ref{fig:cicd} obrazuje schematycznie jego działanie. 
