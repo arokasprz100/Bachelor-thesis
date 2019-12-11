@@ -9,7 +9,7 @@
 \chapter{Stan początkowy projektu}
 \label{cha:pocz}
 
-Niniejszy rozdział został przygotowany w oparciu o wiedzę przekazaną przez opiekuna pracy dr. hab. inż. Bartosza Mindura, pracę magisterskią mgr. Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzetu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego TUTAJ DODAC REF MOZNA?} oraz pracę magisterską mgr. Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego TUTAJ DODAC REF MOZNA?}.
+Niniejszy rozdział został przygotowany w oparciu o wiedzę przekazaną przez opiekuna pracy dr. hab. inż. Bartosza Mindura, pracę magisterskią mgr. Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzetu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{PluteckiMgr} oraz pracę magisterską mgr. Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{ZadrozniakMgr}.
 
 \section{Architektura}
 
@@ -69,77 +69,50 @@ Architektura projektu charakteryzowała się całkowiecie płaską strukturą, n
 
 \par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu ggss (ggss-driver). Zawierał on archiwum z sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W ramach modułu został również zawarty plik CMAKE, którego zadaniem było przygotowanie pakietu RPM w skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu. W celu sprawdzenia poprawności działania pakietu odpowiedzialnego za instalacje sterownika został utworzony osobny moduł (mcaN957), którego zadaniem jest zebranie napięc rejestrowanych przez analizator wielokanałowy (MCA) oraz zapisanie ich w pliku tekstowym w postaci zgrupowanej zakresami. Aplikacja \textbf(mcaN957) przyjmuje dwa parametry wejściowe jakimi są czas działania oraz wartość progowa rejestrowania napięć.
 
+
+
 \section{Budowanie} 
-Niniejsza część pracy zawiera opis pierwotnego sposobu budowania aplikacji, wraz z zastosowanymi rozwiązaniami technologicznymi (struktura i zawartość plików CMake) oraz listą potencjalnych ograniczeń wynikających z dotychczasowego podejścia do budowania.
+Projekt w swojej oryginalnej postaci budowany był za pomocą narzędzia CMake w wersji \textbf{2.8}. Wyróżnić można było jeden nadrzędny plik \textit{CMakeLists.txt} znajdujący się w katalogu głównym projektu oraz pomniejsze pliki dla każdego z modułów.
 
-\paragraph*{Struktura plików CMake}\mbox{}\\
-% Opisac co gdzie jest, za co odpowiadają poszczegolne szablony
-Projekt w swojej oryginalnej postaci budowany był za pomocą narzędzia CMake w wersji \textbf{2.8}. Wyróżnić można było jeden nadrzędny plik \textit{CMakeLists.txt} znajdujący się w katalogu głownym projektu oraz pomniejsze pliki dla każdego z modułów. Rysunek przedstawia w uproszczeniu pierwotną strukturę projektu, z wyszczególnieniem plików odpowiedzialnych za jego budowanie.
-
-\textbf{TODO: tutaj dac jakis fajny rysuneczek}
+Nadrzędny plik \textit{CMakeLists.txt} pozwalał na budowanie aplikacji: \textit{ggssrunner}, \textit{dimCS} oraz opcjonalnie \textit{ggsspector}. Zawierał on zmienną \textit{PROJECTS} przechowującą listę zależności, czyli nazwy wszystkich stworzonych w ramach projektu bibliotek (listing \ref{lst:orig}). Było to jedyne miejsce w całym systemie budowania określające wewnętrzne zależności w projekcie.
 
 
-
-
-
-
-
-
-
-
-
-
-\paragraph*{Obsługa bibliotek zewnętrznych}\mbox{}\\
-% Opisac, jak obsługiwany jest Boost, GSL, Caen
-
-
-
-\paragraph*{Ograniczenia pierwotnego systemu budowania}\mbox{}\\
-% Cos jeszcze dopisac, zrobic zeby sie to lepiej czytalo
-Pierwotna wersja projektu narzuca daleko idące ograniczenia na sposób jego budowania. Najważniejszym z nich jest brak bezpośredniej możliwości zbudowania pojedynczych komponentów projektu. Listing \ref{lst:orig} przedstawia fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w katalogu głównym projektu. \textbf{TUTAJ REF DO PRACY PLUTECKIEGO} Plik ten pozwala na zbudowanie trzech aplikacji wchodzących w skład oprogramowania projektu GGSS: \textit{ggssrunner}, \textit{dimCS} oraz opcjonalnie \textit{ggsspector}. Jest to jedyny plik w całym projekcie zawierający wszystkie informacje konieczne do zbudowania wymienionych aplikacji - tzn. posiadający listę bibliotek, od których aplikacje te są zależne. Oznacza to, że niemożliwe jest zbudowanie aplikacji \textit{ggssrunner} jedynie za pomocą dedykowanego jej pliku \textit{CMakeLists.txt}. Zatem pomimo, iż struktura projektu jest zmodularyzowana jeśli chodzi o architekturę (oprogramowanie zostało podzielone na biblioteki), to niemożliwe jest (w prosty sposób, za pomocą dostarczonych plików \textit{CMakeLists.txt}) zbudowanie pojedynczych modułów projektu.
-
-\begin{lstlisting}[language=bash, caption={Fragment oryginalnego pliku CMakeLists.txt znajdującego się w katalogu głównym pierwotnej wersji projektu}, label={lst:orig}]
-# array with used libraries
+\begin{lstlisting}[language=bash, caption={Fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w katalogu głównym pierwotnej wersji projektu przedstawiający zmienną \textit{PROJECTS} zawierającą listę bibliotek \cite{PluteckiMgr}}, label={lst:orig}]
 set(PROJECTS
-        logLib
-        xmlLib
-        utilsLib
-        handleLib
-        ThreadLib
-        fifoLib
-        FitLib
-        OrtecMcbLib
-        CaenHVLib
-        ggssLib
-        usbrmLib
-        CaenN1470Lib
-        mcaLib
-        daemonLib
-        )
-
-foreach (singleproject ${PROJECTS})
-        parse_directory(${singleproject})
-endforeach(singleproject)
-
-# executables
-add_subdirectory (_ggss) # ggssrunner binary
-add_subdirectory (_dimCS) #dimCS binary
-if(BUILD_GGSSPECTOR)
-    add_subdirectory (_ggsspector) #ggsspector binary
-endif()
+    logLib
+    xmlLib
+    utilsLib
+    handleLib
+    ThreadLib
+    fifoLib
+    FitLib
+    OrtecMcbLib
+    CaenHVLib
+    ggssLib
+    usbrmLib
+    CaenN1470Lib
+    mcaLib
+    daemonLib
+)
 \end{lstlisting}
 
-Budowanie projektu za pomocą pliku, którego fragment przedstawia listing \ref{lst:orig} opiera się na liście zależności przechowywanej w zmiennej \textit{PROJECTS}. Umożliwia to stosunkowo łatwe rozszerzanie projektu o nowe biblioteki - wystarczy dopisać nazwę katalogu z biblioteką do listy zależności. Wadą tego rozwiązania jest natomiast brak możliwości wywnioskowania zależności zachodzących w projekcie. Listing \ref{lst:origggss} przedstawia plik \textit{CMakeLists.txt} służący do budowania aplikacji \textit{ggssrunner}. Na podstawie tych dwóch plików można jedynie wywnioskować, że aplikacja \textit{ggssrunner} jest zależna od wszystkich bibliotek, których nazwy znaleźć można w zmiennej \textit{PROJECTS}. Nie ma natomiast możliwości identyfikacji zależności między samymi bibliotekami. Takie podejście utrudnia zrozumienie struktury projektu, co bezpośrednio prowadzi do problemów z jego rozwojem.
+Pliki \textit{CMakeLists.txt} poszczególnych komponentów projektu były bardzo proste (przykład na listingu \ref{lst:origComponent}). Pliki te nie były jednak niezależne od głównego pliku \textit{CMake}: nie znajdowały się w nich informacje na temat wewnętrznych zależności projektu czy ścieżek do użytych plików \textit{.cmake}. Sprawiało to, że niemożliwym było użycie ich do zbudowania pojedynczego komponentu projektu w sposób niezależne od całości. 
 
-%% Dodac bardziej szczegolowy opis tego projektu
-\begin{lstlisting}[language=bash, caption={Oryginalny plik CMakeLists.txt służacy budowania aplikacji ggssrunner.}, label={lst:origggss}]
-project (_ggss)
-add_executable (ggssrunner main)
-target_link_libraries (ggssrunner ${PROJECTS})
-install(TARGETS ggssrunner RUNTIME DESTINATION bin)
+\begin{lstlisting}[language=bash, caption={Oryginalny pliku \textit{CMakeLists.txt} służący do budowania biblioteki \textit{ThreadLib} oraz zawartość pliku \textit{LibraryTemplate.cmake} \cite{PluteckiMgr}}, label={lst:origComponent}]
+# Plik CMakeLists.txt dla biblioteki ThreadLib
+include(LibraryTemplate)
+target_link_libraries (ThreadLib ${Boost_LIBRARIES})
+
+# Zawartość pliku LibraryTemplate.cmake
+project (${dir_name})
+file (GLOB subdirectory_files ${dir_name} *.h *.cpp *.hxx *.cxx *.c)
+add_library (${dir_name} STATIC ${subdirectory_files})
+set_target_properties (${dir_name} PROPERTIES LINKER_LANGUAGE CXX)
 \end{lstlisting}
 
+Projekt posiadał zatem tylko jeden, z góry określony sposób budowania - budowanie \textbf{wszystkiego za pomocą głównego pliku CMakeLists.txt}. Pomimo podziału projektu na komponenty (biblioteki) na poziomie architektury nie było możliwości budowania ich osobno (za pomocą dostarczonego systemu). Zaletą takiego podejścia jest jego prostota - pliki \textit{CMakeLists.txt} są krótkie, odwołują się zwykle do jednego szablonu. Istnieje jednak szereg wad takiego rozwiązania. Jedną z nich jest brak łatwej możliwości identyfikacji wewnętrznych zależności w projekcie - niemożliwe jest np. wywnioskowanie zależności biblioteki \textbf{ThreadLib} od bibliotek \textbf{handleLib} i \textbf{logLib}. Jedyną podpowiedzią na ten temat mogłaby być kolejność ich występowania w zmiennej \textit{PROJECTS} w głównym pliku \textit{CMakeLists.txt} - taka informacja nie jest jednak informacją pełną i tego typu rozumowanie nie zawsze byłoby prawdziwe. Innym ograniczeniem tego rozwiązania był brak możliwości łatwego podziału projektu na niezależne repozytoria. Nie było również możliwość zbudowania aplikacji wchodzących w skład projektu niezależnie od siebie - dedykowane im pliki \textit{CMakeLists.txt} korzystają z elementów zdefiniowanych w pliku głównym (np. ze wspomnianej już listy zależności czy ścieżek wskazujących lokalizację plików nagłówkowych). 
 
+Projekt zawierał kilka plików o rozszerzeniu \textit{.cmake} definiujących szablony możliwe do wykorzystania w wielu miejscach systemu budującego. Udostępniały one funkcjonalności takie jak: identyfikacja systemu operacyjnego, wyszukanie w systemie potrzebnych bibliotek zewnętrznych czy przeprowadzenie podstawowych operacji koniecznych do stworzenia biblioteki statycznej. Zawartość jednego z nich (\textit{LibraryTemplate.cmake}) widoczna jest na listingu \ref{lst:origComponent}.
 
 
 \section{Dostarczanie i uruchamianie}
@@ -294,12 +267,20 @@ Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w ramach proj
 
 \newpage
 \section{Zmiana sposobu budowania aplikacji}
-% Zarys rozwiazania
-% Szablony + Boost + GSL
-% Budowanie bibliotek
-% Budowanie aplikacji
-% DIM - skrypt do pobierania, budowanie jak external_project
-% Skrypty do budowania calosci (+ sposoby budowania) + glowny CMake
+
+\subsection{Zarys rozwiązania} % out-of-source, budowanie pojedynczych projektow, struktura wynikowych katalogow, driver opisany w osobnym rozdziale
+
+\subsection{Szablony CMake}
+
+\subsection{Zewnętrzne zależności}
+
+\subsection{Budowanie poszczególnych bibliotek}
+
+\subsection{Budowanie aplikacji i całego projektu} 
+
+\subsection{Budowanie biblioteki DIM}
+
+
 
 \newpage
 \section{Zastosowanie podejścia CI/CD}

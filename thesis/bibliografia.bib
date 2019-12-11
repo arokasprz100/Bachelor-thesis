@@ -1,20 +1,15 @@
-%
 % UWAGA: Żeby bibliografia działała gdy używamy TeXstudio, to należy dołączyć
 % wykonywanie programu "bibtex" do opcji (w Options> Configure TeXstudio)
-%
-% Więcej informacji w poście:
-% 	https://tex.stackexchange.com/a/216325
-%
-%
-%
-% Poniżej znajdują się przykładowe wpisy
+% Więcej informacji w poście: https://tex.stackexchange.com/a/216325
 %
 % Aby użyć wpisu w kodzie .tex piszemy np:
-% \cite{WhatEveryScientistShouldKnowAboutMemory}
+% \cite{AtlasAGH}
 % - to wykorzysta pierwszy z poniższych wpisów
 %
 
-%% Intro
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Wstęp
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 @article{AtlasAGH,
 	author = {Bochenek, M. and Bołd, T. and Ciba, K. and 
@@ -39,12 +34,10 @@ LHC oraz eksperymentu na akceleratorze liniowym ILC).},
 	urldate = {2019-12-07}
 }
 
-@article{MindurJoI,
-	author = {Mindur, Bartosz},
-	title = {Gas gain stabilisation in the ATLAS TRT detector.},
-	journal = {Journal of Instrumentation},
-	year = {2016},
-}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Technologie
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% C++
 
@@ -120,10 +113,10 @@ LHC oraz eksperymentu na akceleratorze liniowym ILC).},
 
 
 @online{Shared2,
-    author = {Seebach, Peter},
-    title = {Dissecting shared libraries},
-    url = {https://www.ibm.com/developerworks/library/l-shlibs/},
-    urldate = {2019-12-09}
+	author = {Seebach, Peter},
+	title = {Dissecting shared libraries},
+	url = {https://www.ibm.com/developerworks/library/l-shlibs/},
+	urldate = {2019-12-09}
 }
 
 @online{Shared3,
@@ -198,8 +191,6 @@ LHC oraz eksperymentu na akceleratorze liniowym ILC).},
 	urldate = {2019-12-08}
 }
 
-
-
 %% RPM
 
 @online{ManagerWiki,
@@ -209,7 +200,7 @@ LHC oraz eksperymentu na akceleratorze liniowym ILC).},
 	urldate = {2019-12-08}
 }
 
-%% Wirt + kont
+%% Wirtualizacja i konteneryzacja
 
 @online{Virt,
 	author = {opensource.com},
@@ -219,7 +210,26 @@ LHC oraz eksperymentu na akceleratorze liniowym ILC).},
 }
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Stan początkowy
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@manual{PluteckiMgr,
+	author = {Plutecki, Przemysław},
+	title = {Aktualizacja oprogramowania oraz sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego},
+	year = {2015}
+}
+
+@manual{ZadrozniakMgr,
+	author = {Zadrożniak, Paweł},
+	title = {Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego},
+	year = {2015}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Ograniczenia
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 @online{GCC48,
 	author = {GCC Team},
