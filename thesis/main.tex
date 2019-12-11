@@ -364,12 +364,47 @@ build:
 
 \newpage
 \section{Dokumentacja projektu}
-% Jednym z wymagań postawionych przed autorami było przygotowanie dokumentacji przygotowanego projektu w języku angielskim. Wymóg ten wynika z międzynarodowego charakteru zespołu pracującego nad detektorem TRT. Przygotowana dokumentacja powinna spełniać następujące założenia:
-% \begin{itemize}
-% \item niski próg wejścia - dokumentacja powinna być napisana w taki sposób, by umożliwić osobie niezaznajomionej z dokładnym działaniem systemu GGSS szybkie jego zbudowanie i umieszczenie w środowisku produkcyjnym
-% \item opis każdego z repozytoriów - 
-% \end{itemize}
+Jednym z wymagań postawionych przed autorami niniejszej pracy było przygotowanie podstawowej dokumentacji opisującej poszczególne komponenty projektu GGSS. Dokumentacja ta miała zostać sporządzona w języku angielskiem, co wynika z międzynarodowego charakteru zespołu pracującego nad detektorem ATLAS. Przygotowana dokumentacja powinna oferować możliwie niski próg wejścia - powinna ona umożliwić osobie niezaznajomionej z całym systemem GGSS zbudowanie oraz użycie poszczególnych jego komponentów, jak i całego projektu. Autorzy zrealizowali to zadanie za pomocą plików \textbf{README.md} umieszczonych w każdym repozytorium projektu oraz dokumentów opisujących sposób wykonania niektórych czynności związanych z utrzymaniem projektu.
 
-% Czemu potrzebna
-% Realizacja - pliki README.md, one-linery
+\subsection{Język Markdown}
+Pliki \textit{readme} umieszczane w serwisach takich jak \textit{GitLab} czy \textit{GitHub} pisane są przy pomocy specjalnego języka znaczników \textbf{Markdown}. Jest to prosty w użyciu język, konwertowany zwykle do odpowiadającego mu kodu \textit{HTML} \cite{Markdown1}. Listing \ref{lst:mdexample} przedstawia prosty przykład pliku napisanego w języku Markdown, natomiast Rys. \ref{fig:markdownExample} przedstawia wygenerowaną za jego pomocą zawartość w portalu \textit{GitLab}.
 
+\begin{lstlisting}[caption={Przykład prostego pliku napisanego w języku Markdown}, label={lst:mdexample}]
+# Przykład nagłówka
+
+Ten przykład został wygenerowany na potrzeby pracy inżynierskiej dotyczącej 
+systemu GGSS.
+
+## Autorzy
+Przykład listy:
+ * Arkadiusz Kasprzak
+ * Jarosław Cierpich
+\end{lstlisting}
+
+\begin{figure}[H]
+\centering
+\caption{Przykład zawartości wygenerowanej w portalu \textit{GitLab} za pomocą języka Markdown na podstawie kodu z listingu \ref{lst:mdexample}}
+\label{fig:markdownExample}
+\includegraphics[width=\textwidth]{res/MarkdownExample}
+\end{figure}
+
+
+\subsection{Opis wykonanej dokumentacji}
+Dla każdego repozytorium w projekcie wykonany został plik \textit{README.md} zawierający informacje takie jak:
+\begin{itemize}
+\item opis zawartości repozytorium (np. lista bibliotek wraz z krótkim ich opisem)
+\item wymagania dotyczące środowiska, w którym projekt może zostać zbudowany (np. niezbędne biblioteki zewnętrzne, wersja narzędzia \textit{CMake})
+\item szczegółowy opis procesu budowania projektu wraz z gotową komendą umożliwiającą jego zbudowanie 
+\end{itemize}
+
+Rys. \ref{fig:markdownHardware} przedstawia fragment zawartości wygenerowanej za pomocą pliku \textit{README.md} znajdującego się w repozytorium \textit{ggss-hardware-libs}, opisującej proces budowania bibliotek wchodzących w skład tego repozytorium. Poza listą kroków opisującą szczegółowo budowanie zestawu biblitek, instrukcja zawiera również pojedynczą komendę, użycie której wykonuje cały proces bez konieczności dodatkowego wkładu ze strony użytkownika. Takie podejście ma na celu ułatwienie osobom nieznającym struktury projektu szybkie jego zbudowanie. Podobne komendy umieszczone zostały w repozytoriach zawierających aplikacje wchodzące w skład systemu GGSS (takie jak \textit{ggssrunner}).
+
+\begin{figure}
+\centering
+\caption{Fragment instrukcji budowania zestawu bibliotek znajdujących się w repozytorium \textit{ggss-hardware-libs}}
+\label{fig:markdownHardware}
+\includegraphics[width=\textwidth]{res/HardwareLibs}
+\end{figure}
+
+Oprócz plików \textit{.md} przygotowane zostały również dwa dokumenty opisujące ważne, zdaniem autorów, aspekty utrzymania i rozwoju projektu GGSS. Dokumenty te zostały dołączone do niniejszej pracy w formie dodatków (\ref{appendix:A2} oraz \ref{appendix:A3}). Dotyczą one rozszerzania projektu o nowe moduły (dodatek \ref{appendix:A2} - \textit{Adding new modules to the project using existing CMake
+templates}) oraz przygotowywania maszyny wirtualnej do pracy jako \textit{runner} w procesie CI/CD (dodatek \ref{appendix:A3} - \textit{Preparing virtual machine to work as a runner}). 
