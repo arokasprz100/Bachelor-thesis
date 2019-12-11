@@ -9,30 +9,30 @@
 \chapter{Stan początkowy projektu}
 \label{cha:pocz}
 
-Niniejszy rozdział został przygotowany w oparciu o wiedzę przekazaną przez opiekuna pracy dr. hab. inż. Bartosza Mindura, pracę magisterskią mgr. Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzetu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{PluteckiMgr} oraz pracę magisterską mgr. Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{ZadrozniakMgr}.
+Niniejszy rozdział został przygotowany w~oparciu o~wiedzę przekazaną przez opiekuna pracy dra hab. inż. Bartosza Mindura, pracę magisterską Pana Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{PluteckiMgr} oraz pracę magisterską Pana Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{ZadrozniakMgr}.
 
 \section{Architektura}
 
-Główna logika projektu została wykonana z użyciem języka C++, dzięki czemu aplikacja jest szybka i wydajna. Część kodu źródłowego została napisana z użyciem standardu 11. Wykorzystano również zewnętrzne biblioteki takie jak biblioteka Boost, czy też GSL. Początkowa architektura projektu oparta była o płaską strukturę folderów. Konwencja jaka została przyjęta, to \textbf{nazwaLib} dla folderów zawierających pliki bibliotek oraz \textbf{\_nazwa} dla folderów zawierających aplikacje uzytkowe.\par
+Główna logika projektu została wykonana z~użyciem języka C++, dzięki czemu aplikacja jest szybka i~wydajna. Część kodu źródłowego została napisana z~użyciem standardu 11. Wykorzystano również zewnętrzne biblioteki takie jak biblioteka Boost, czy też GSL. Początkowa architektura projektu oparta była o~płaską strukturę folderów. Konwencja jaka została przyjęta, to \textbf{nazwaLib} dla folderów zawierających pliki bibliotek oraz \textbf{\_nazwa} dla folderów zawierających aplikacje użytkowe.\par
 \bigskip
-Biblioteki, które były zawarte w ramach projektu, to:
+Biblioteki, które były zawarte w~ramach projektu, to:
 \begin{itemize}
-\item ggssLib - biblioteka zawierająca logikę aplikacji \textbf{ggssrunner}, czyli głownego programu wykonywalnego projektu
+\item ggssLib - biblioteka zawierająca logikę aplikacji \textbf{ggssrunner}, czyli głównego programu wykonywalnego projektu
 \item fifoLib - biblioteka implementująca kolejkę FIFO (first in first out)
-\item FitLib - biblioteka wspierająca obliczenia numeryczne z wykorzystanie biblioteki zewnętrznej \textbf{GSL}
+\item FitLib - biblioteka wspierająca obliczenia numeryczne z~wykorzystanie biblioteki zewnętrznej \textbf{GSL}
 \item utilsLib - biblioteka zawierająca pliki pomocnicze projektu
-\item xmlLib - biblioteka wykonywująca parsowanie pliku konfiguracyjnego aplikacji, który jest napisany w formacie \textbf{xml}
-\item handleLib - biblioteka realizująca obsługuę mechanizmu sygnałów i slotów
+\item xmlLib - biblioteka dokonywująca parsowanie pliku konfiguracyjnego aplikacji, który jest napisany w~formacie \textbf{xml}
+\item handleLib - biblioteka realizująca obsługę mechanizmu sygnałów i~slotów
 \item logLib - biblioteka odpowiedzialna za mechanizm logowania
-\item ThreadLib - biblioteka odpowiadająca za wykorzystanie wielowątkowości w aplikacji
+\item ThreadLib - biblioteka odpowiadająca za wykorzystanie wielowątkowości w~aplikacji
 \item CaenHVLib - biblioteka okalająca (ang. wrapper) bibliotekę \textbf{CaenN1470Lib}
-\item CaenN1470Lib - biblioteka implementująca komunikację z urządzeniem sprzętowym \textbf{(CAEN N1470)}
+\item CaenN1470Lib - biblioteka implementująca komunikację z~urządzeniem sprzętowym \textbf{(CAEN N1470)}
 \item OrtecMcbLib - biblioteka okalająca (ang. wrapper) bibliotekę \textbf{mcaLib}
-\item mcaLib - biblioteka odpowiedzialna za komunikację z urządzeniem sprzętowym \textbf{(CAEN N957)}
-\item usbrmLib - biblioteka, której zadaniem jest komunikacja z multiplekserami
+\item mcaLib - biblioteka odpowiedzialna za komunikację z~urządzeniem sprzętowym \textbf{(CAEN N957)}
+\item usbrmLib - biblioteka, której zadaniem jest komunikacja z~multiplekserami
 \end{itemize}
 
-\par Aplikacje, które były zawarte w ramach projektu, to:
+\par Aplikacje, które były zawarte w~ramach projektu, to:
 \begin{itemize}
 \item \_ggss - aplikacja ggssrunner, która odpowiada za człon projektu, jest to główny program wykonywalny
 \item \_dimCS - aplikacja odpowiedzialna za wysyłanie komend, za pomocą technologii dim
@@ -42,9 +42,9 @@ Biblioteki, które były zawarte w ramach projektu, to:
 \par Oprócz opisanych wcześniej katalogów występowały również:
 \begin{itemize}
 \item zawierające pliki nagłówkowe wspólne dla wielu bibliotek (include)
-\item zawierakące biblioteki zewnętrzne (lib)
-\item zawierające konfigurację aplikacji oraz skrypt pomocniczy w języku Python dla biblioteki serial (misc)
-\item zawierające skrypty pomocnicze w języku Python i Bash oraz skrypty watchdog (obserwatorzy)
+\item zawierające biblioteki zewnętrzne (lib)
+\item zawierające konfigurację aplikacji oraz skrypt pomocniczy w~języku Python dla biblioteki serial (misc)
+\item zawierające skrypty pomocnicze w~języku Python i~Bash oraz skrypty watchdog (obserwatorzy)
 \end{itemize}
 
 \par Dodatkowo projekt wykorzystywał następujące biblioteki zewnętrzne:
@@ -52,10 +52,9 @@ Biblioteki, które były zawarte w ramach projektu, to:
 \item Boost - biblioteka C++ ogólnego przeznaczenia
 \item GSL (GNU Scietific Library) - biblioteka numeryczna dla języka C oraz C++
 \item dim - biblioteka wspierająca komunikacja protokołem dim
-\item QT oraz QWT - biblioteki wykorzystywane w ramach modułu GGSS Spector
+\item QT oraz QWT - biblioteki wykorzystywane w~ramach modułu GGSS Spector
 \end{itemize}
-
-W ramach projektu został również przygotowany panel informacyjno-administracyjny w technologii Scada (WinCC OA), który komunikuje się z główną cześcią aplikacji za pomocą protokołu dim. Rysunek \ref{fig:highLevelArch} przedstawia wysokopoziomową architekturę wraz z przepływem informacji.
+W ramach projektu został również przygotowany panel informacyjno-administracyjny w~technologii Scada (WinCC OA), który komunikuje się z~główną częścią aplikacji za pomocą protokołu dim. Rysunek \ref{fig:highLevelArch} przedstawia wysokopoziomową architekturę wraz z~przepływem informacji.
 
 \begin{figure}[H]
 \centering
@@ -64,20 +63,18 @@ W ramach projektu został również przygotowany panel informacyjno-administracy
 \includegraphics[width=\textwidth]{res/highLevelArch}
 \end{figure}
 
-W ramach architektury projektu utworzone zostały również pliki CMAKE, które służyły jako szablon akcji wykorzystywanych wielokrotnie w pozostałych miejscach, np.: wyszukiwanie odpowiedniej biblioteki.\par 
-Architektura projektu charakteryzowała się całkowiecie płaską strukturą, nie było żadnej gradacji bibliotek, z której nie wynikały żadne zależności między modułami. Plusem takiego rozwiązania była łatwość w budowie całego systemu (np. brak problemów ze skomplikowanymi ściezkami), aczkolwiek nie wynikała z niego żadna informacja nt. systemu ze względu na co próg wejścia, czy też utrzymanie projektu jest utrudnione. Widoczny był podział na moduły, lecz nie był on w żaden sposób uporządkowany, np. ze względu na przeznaczenie bibliotek (programowe, sprzętowe). 
+W ramach architektury projektu utworzone zostały również pliki CMAKE, które służyły jako szablon akcji wykorzystywanych wielokrotnie w~pozostałych miejscach, np.: wyszukiwanie odpowiedniej biblioteki.\par 
+Architektura projektu charakteryzowała się całkowicie płaską strukturą, nie było żadnej gradacji bibliotek, z~której nie wynikały żadne zależności między modułami. Plusem takiego rozwiązania była łatwość w~budowie całego systemu (np. brak problemów ze skomplikowanymi ścieżkami), aczkolwiek nie wynikała z~niego żadna informacja nt. systemu ze względu na co próg wejścia, czy też utrzymanie projektu jest utrudnione. Widoczny był podział na moduły, lecz nie był on w~żaden sposób uporządkowany, np. ze względu na przeznaczenie bibliotek (programowe, sprzętowe). 
 
-\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu ggss (ggss-driver). Zawierał on archiwum z sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W ramach modułu został również zawarty plik CMAKE, którego zadaniem było przygotowanie pakietu RPM w skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu. W celu sprawdzenia poprawności działania pakietu odpowiedzialnego za instalacje sterownika został utworzony osobny moduł (mcaN957), którego zadaniem jest zebranie napięc rejestrowanych przez analizator wielokanałowy (MCA) oraz zapisanie ich w pliku tekstowym w postaci zgrupowanej zakresami. Aplikacja \textbf(mcaN957) przyjmuje dwa parametry wejściowe jakimi są czas działania oraz wartość progowa rejestrowania napięć.
-
+\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu ggss (ggss-driver). Zawierał on archiwum z~sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W~ramach modułu został również zawarty plik CMAKE, którego zadaniem było przygotowanie pakietu RPM w~skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu. W~celu sprawdzenia poprawności działania pakietu odpowiedzialnego za instalacje sterownika został utworzony osobny moduł (mcaN957), którego zadaniem jest zebranie napięć rejestrowanych przez analizator wielokanałowy (MCA) oraz zapisanie ich w~pliku tekstowym w~postaci zgrupowanej zakresami. Aplikacja \textbf(mcaN957) przyjmuje dwa parametry wejściowe jakimi są czas działania oraz wartość progowa rejestrowania napięć.
 
 
 \section{Budowanie} 
-Projekt w swojej oryginalnej postaci budowany był za pomocą narzędzia CMake w wersji \textbf{2.8}. Wyróżnić można było jeden nadrzędny plik \textit{CMakeLists.txt} znajdujący się w katalogu głównym projektu oraz pomniejsze pliki dla każdego z modułów.
+Projekt w~swojej oryginalnej postaci budowany był za pomocą narzędzia CMake w~wersji \textbf{2.8}. Wyróżnić można było jeden nadrzędny plik \textit{CMakeLists.txt} znajdujący się w~katalogu głównym projektu oraz pomniejsze pliki dla każdego z~modułów.
 
-Nadrzędny plik \textit{CMakeLists.txt} pozwalał na budowanie aplikacji: \textit{ggssrunner}, \textit{dimCS} oraz opcjonalnie \textit{ggsspector}. Zawierał on zmienną \textit{PROJECTS} przechowującą listę zależności, czyli nazwy wszystkich stworzonych w ramach projektu bibliotek (listing \ref{lst:orig}). Było to jedyne miejsce w całym systemie budowania określające wewnętrzne zależności w projekcie.
+Nadrzędny plik \textit{CMakeLists.txt} pozwalał na budowanie aplikacji: \textit{ggssrunner}, \textit{dimCS} oraz opcjonalnie \textit{ggsspector}. Zawierał on zmienną \textit{PROJECTS} przechowującą listę zależności, czyli nazwy wszystkich stworzonych w~ramach projektu bibliotek (listing \ref{lst:orig}). Było to jedyne miejsce w~całym systemie budowania określające wewnętrzne zależności w~projekcie.
 
-
-\begin{lstlisting}[language=bash, caption={Fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w katalogu głównym pierwotnej wersji projektu przedstawiający zmienną \textit{PROJECTS} zawierającą listę bibliotek \cite{PluteckiMgr}}, label={lst:orig}]
+\begin{lstlisting}[language=cmake, caption={Fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w~katalogu głównym pierwotnej wersji projektu przedstawiający zmienną \textit{PROJECTS} zawierającą listę bibliotek \cite{PluteckiMgr}}, label={lst:orig}]
 set(PROJECTS
     logLib
     xmlLib
@@ -96,9 +93,9 @@ set(PROJECTS
 )
 \end{lstlisting}
 
-Pliki \textit{CMakeLists.txt} poszczególnych komponentów projektu były bardzo proste (przykład na listingu \ref{lst:origComponent}). Pliki te nie były jednak niezależne od głównego pliku \textit{CMake}: nie znajdowały się w nich informacje na temat wewnętrznych zależności projektu czy ścieżek do użytych plików \textit{.cmake}. Sprawiało to, że niemożliwym było użycie ich do zbudowania pojedynczego komponentu projektu w sposób niezależne od całości. 
+Pliki \textit{CMakeLists.txt} poszczególnych komponentów projektu były bardzo proste (przykład na listingu \ref{lst:origComponent}). Pliki te nie były jednak niezależne od głównego pliku \textit{CMake}: nie znajdowały się w~nich informacje na temat wewnętrznych zależności projektu czy ścieżek do użytych plików \textit{.cmake}. Sprawiało to, że niemożliwym było użycie ich do zbudowania pojedynczego komponentu projektu w~sposób niezależne od całości. 
 
-\begin{lstlisting}[language=bash, caption={Oryginalny pliku \textit{CMakeLists.txt} służący do budowania biblioteki \textit{ThreadLib} oraz zawartość pliku \textit{LibraryTemplate.cmake} \cite{PluteckiMgr}}, label={lst:origComponent}]
+\begin{lstlisting}[language=cmake, caption={Oryginalny pliku \textit{CMakeLists.txt} służący do budowania biblioteki \textit{ThreadLib} oraz zawartość pliku \textit{LibraryTemplate.cmake} \cite{PluteckiMgr}}, label={lst:origComponent}]
 # Plik CMakeLists.txt dla biblioteki ThreadLib
 include(LibraryTemplate)
 target_link_libraries (ThreadLib ${Boost_LIBRARIES})
@@ -110,18 +107,18 @@ add_library (${dir_name} STATIC ${subdirectory_files})
 set_target_properties (${dir_name} PROPERTIES LINKER_LANGUAGE CXX)
 \end{lstlisting}
 
-Projekt posiadał zatem tylko jeden, z góry określony sposób budowania - budowanie \textbf{wszystkiego za pomocą głównego pliku CMakeLists.txt}. Pomimo podziału projektu na komponenty (biblioteki) na poziomie architektury nie było możliwości budowania ich osobno (za pomocą dostarczonego systemu). Zaletą takiego podejścia jest jego prostota - pliki \textit{CMakeLists.txt} są krótkie, odwołują się zwykle do jednego szablonu. Istnieje jednak szereg wad takiego rozwiązania. Jedną z nich jest brak łatwej możliwości identyfikacji wewnętrznych zależności w projekcie - niemożliwe jest np. wywnioskowanie zależności biblioteki \textbf{ThreadLib} od bibliotek \textbf{handleLib} i \textbf{logLib}. Jedyną podpowiedzią na ten temat mogłaby być kolejność ich występowania w zmiennej \textit{PROJECTS} w głównym pliku \textit{CMakeLists.txt} - taka informacja nie jest jednak informacją pełną i tego typu rozumowanie nie zawsze byłoby prawdziwe. Innym ograniczeniem tego rozwiązania był brak możliwości łatwego podziału projektu na niezależne repozytoria. Nie było również możliwość zbudowania aplikacji wchodzących w skład projektu niezależnie od siebie - dedykowane im pliki \textit{CMakeLists.txt} korzystają z elementów zdefiniowanych w pliku głównym (np. ze wspomnianej już listy zależności czy ścieżek wskazujących lokalizację plików nagłówkowych). 
+Projekt posiadał zatem tylko jeden, z~góry określony sposób budowania - budowanie \textbf{wszystkiego za pomocą głównego pliku CMakeLists.txt}. Pomimo podziału projektu na komponenty (biblioteki) na poziomie architektury nie było możliwości budowania ich osobno (za pomocą dostarczonego systemu). Zaletą takiego podejścia jest jego prostota - pliki \textit{CMakeLists.txt} są krótkie, odwołują się zwykle do jednego szablonu. Istnieje jednak szereg wad takiego rozwiązania. Jedną z~nich jest brak łatwej możliwości identyfikacji wewnętrznych zależności w~projekcie - niemożliwe jest np. wywnioskowanie zależności biblioteki \textbf{ThreadLib} od bibliotek \textbf{handleLib} i~\textbf{logLib}. Jedyną podpowiedzią na ten temat mogłaby być kolejność ich występowania w~zmiennej \textit{PROJECTS} w~głównym pliku \textit{CMakeLists.txt} - taka informacja nie jest jednak informacją pełną i~tego typu rozumowanie nie zawsze byłoby prawdziwe. Innym ograniczeniem tego rozwiązania był brak możliwości łatwego podziału projektu na niezależne repozytoria. Nie było również możliwość zbudowania aplikacji wchodzących w~skład projektu niezależnie od siebie - dedykowane im pliki \textit{CMakeLists.txt} korzystają z~elementów zdefiniowanych w~pliku głównym (np. ze wspomnianej już listy zależności czy ścieżek wskazujących lokalizację plików nagłówkowych). 
 
-Projekt zawierał kilka plików o rozszerzeniu \textit{.cmake} definiujących szablony możliwe do wykorzystania w wielu miejscach systemu budującego. Udostępniały one funkcjonalności takie jak: identyfikacja systemu operacyjnego, wyszukanie w systemie potrzebnych bibliotek zewnętrznych czy przeprowadzenie podstawowych operacji koniecznych do stworzenia biblioteki statycznej. Zawartość jednego z nich (\textit{LibraryTemplate.cmake}) widoczna jest na listingu \ref{lst:origComponent}.
+Projekt zawierał kilka plików o~rozszerzeniu \textit{.cmake} definiujących szablony możliwe do wykorzystania w~wielu miejscach systemu budującego. Udostępniały one funkcjonalności takie jak: identyfikacja systemu operacyjnego, wyszukanie w~systemie potrzebnych bibliotek zewnętrznych czy przeprowadzenie podstawowych operacji koniecznych do stworzenia biblioteki statycznej. Zawartość jednego z~nich (\textit{LibraryTemplate.cmake}) widoczna jest na listingu \ref{lst:origComponent}.
 
 
-\section{Dostarczanie i uruchamianie}
+\section{Dostarczanie i~uruchamianie}
 
-Projekt nie miał automatycznego systemu dostarczania gotowych do użycia plików binarnych, czy też pakietów RPM. Wszystkie akcje prowadzące do utworzenia odpowiednich plików trzeba było wykonywać ręcznie. Nie dostarczono również żadnego systemu regresji, który automatycznie testowałby wprowadzane zmiany. Uruchamianie projektu odbywało się poprzez ręczne umieszczenie plików w środowisku docelowym, a następnie uruchomienie aplikacji za pomocą skryptów pomocniczych. Aplikacja była również uruchamiana za pomocą zadania cyklicznego linux (program crontab). Zadanie to sprawdzało, czy działał proces aplikacji ggssrunner, jężeli takowy nie istniał oraz nie został utworzony plik .lock, to aplikacja była uruchamiana.
+Projekt nie miał automatycznego systemu dostarczania gotowych do użycia plików binarnych, czy też pakietów RPM. Wszystkie akcje prowadzące do utworzenia odpowiednich plików trzeba było wykonywać ręcznie. Nie dostarczono również żadnego systemu regresji, który automatycznie testowałby wprowadzane zmiany. Uruchamianie projektu odbywało się poprzez ręczne umieszczenie plików w~środowisku docelowym, a~następnie uruchomienie aplikacji za pomocą skryptów pomocniczych. Aplikacja była również uruchamiana za pomocą zadania cyklicznego Linux (program crontab). Zadanie to sprawdzało, czy działał proces aplikacji ggssrunner, jeżeli takowy nie istniał oraz nie został utworzony plik .lock, to aplikacja była uruchamiana.
 
 \section{Kontrola wersji}
 
-Technologią kontroli wersji zastosowaną był do tej pory \textbf{SVN} (Subversion). Mgr. Plutecki w swojej pracy wspomina o wykorzystaniu technologii \textbf{GIT}, natomiast była ona prawdopodobnie używana jedynie w trakcie prac. Wniosek taki został wysnuty z powodu braku jakichkolwiek śladów wykorzystania tej technologii w projekcie. Wykorzystane zostały jedynie podstawowe funkcjonalności kontroli wersji, brak jakiegokolwiek mechanizmu pozwalającego na automatyczne wersjonowanie, czy kontrolę tworzonych rewizji.
+Technologią kontroli wersji zastosowaną był do tej pory \textbf{SVN} (Subversion). Mgr. Plutecki w~swojej pracy wspomina o~wykorzystaniu technologii \textbf{GIT}, natomiast była ona prawdopodobnie używana jedynie w~trakcie prac. Wniosek taki został wysnuty z~powodu braku jakichkolwiek śladów wykorzystania tej technologii w~projekcie. Wykorzystane zostały jedynie podstawowe funkcjonalności kontroli wersji, brak jakiegokolwiek mechanizmu pozwalającego na automatyczne wersjonowanie, czy kontrolę tworzonych rewizji.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -134,22 +131,22 @@ Technologią kontroli wersji zastosowaną był do tej pory \textbf{SVN} (Subvers
 
 \chapter{Stan docelowy projektu}
 \label{cha:docel}
-Niniejszy rozdział zawiera opis docelowej wersji systemu GGSS, jaka powinna zostać osiągnięta po zakończeniu przez autorów prac. Cele do zrealizowania podzielone zostały na dwie główne części, wynikające z organizacji czasowej prac tzn. wkład autorów w system nie zamyka się wraz z zakończeniem prac nad niniejszym manuskryptem. Z tego powodu niniejszy rodział podzielony został na dwie części - pierwsza z nich opisuje finalną wersję projektu, natomiast druga - wersję po zakończeniu prac w ramach projektu inżynierkiego.
+Niniejszy rozdział zawiera opis docelowej wersji systemu GGSS, jaka powinna zostać osiągnięta po zakończeniu przez autorów prac. Cele do zrealizowania podzielone zostały na dwie główne części, wynikające z~organizacji czasowej prac tzn. wkład autorów w~system nie zamyka się wraz z~zakończeniem prac nad niniejszym manuskryptem. Z~tego powodu niniejszy rozdział podzielony został na dwie części - pierwsza z~nich opisuje finalną wersję projektu, natomiast druga - wersję po zakończeniu prac w~ramach projektu inżynierskiego.
 
 \section{Finalna wersja projektu}
-Projekt w swojej wersji finalnej ma charakteryzować się modularną architekturą zarówno jeśli chodzi o organizację kodu, jak i sposób jego budowania. Pozwala to na proste i efektywne testowanie każdego komponentu z osobna. Ułatwia to również podmianę komponentów w środowisku produkcyjnym. Większa modularyzacja pozwala skrócić czas poszukiwania źródła ewentualnych błędów w działaniu systemu. Z drugiej natomiast strony podział systemu na dużą liczbę komponentów utrudnia proces budowania, przez co wymagana jest jego znacząca automatyzacja. Konieczne jest przygotowanie więc prostej w użytkowaniu infrastruktury wspomagającej proces produkcyjny. Powinna być ona dobrze udokumentowana, by próg wejścia do projektu był możliwie niski. Powinny więc zostać przygotowane instrukcje w języku angielskim zawierające zestaw najczęściej używanych komend wraz z wariantami ich użycia (np. flagi). Kluczowym celem jest również modernizacja kodu źródłowego - zarówno jeśli chodzi o jego jakość, jak i zastosowane technologie. Projekt charakteryzować się ma więc ustandaryzowanym, ogólnoprzyjętym przez społeczność programistów jako tzw. \textit{dobre praktyki}, nazewnictwem, odpowiednim podziałem na poziomie kodu źródłowego (funkcje, klasy itp.). W swojej ostatecznej wersji projekt powinien bazować na najnowszych, dostępnych w ramach infrastruktury produkcyjnej CERN-u, technologiach, np. standard języka C++. Dzięki temu zależności zewnętrzne powinny zostać ograniczone do minimum, na rzecz standardowych rozwiązań (np. biblioteka standardowa), by zagwarantować możliwie duża przenośność. Zaplanowano również rozszerzenie projektu o nowe komponenty ułatwiające korzystanie z systemu (np. graficzny interfejs użytkownika).
+Projekt w~swojej wersji finalnej ma charakteryzować się modularną architekturą zarówno jeśli chodzi o~organizację kodu, jak i~sposób jego budowania. Pozwala to na proste i~efektywne testowanie każdego komponentu z~osobna. Ułatwia to również podmianę komponentów w~środowisku produkcyjnym. Większa modularyzacja pozwala skrócić czas poszukiwania źródła ewentualnych błędów w~działaniu systemu. Z~drugiej natomiast strony podział systemu na dużą liczbę komponentów utrudnia proces budowania, przez co wymagana jest jego znacząca automatyzacja. Konieczne jest przygotowanie więc prostej w~użytkowaniu infrastruktury wspomagającej proces produkcyjny. Powinna być ona dobrze udokumentowana, by próg wejścia do projektu był możliwie niski. Powinny więc zostać przygotowane instrukcje w~języku angielskim zawierające zestaw najczęściej używanych komend wraz z~wariantami ich użycia (np. flagi). Kluczowym celem jest również modernizacja kodu źródłowego - zarówno jeśli chodzi o~jego jakość, jak i~zastosowane technologie. Projekt charakteryzować się ma więc ustandaryzowanym, ogólnie przyjętym przez społeczność programistów jako tzw. \textit{dobre praktyki}, nazewnictwem, odpowiednim podziałem na poziomie kodu źródłowego (funkcje, klasy itp.). W~swojej ostatecznej wersji projekt powinien bazować na najnowszych, dostępnych w~ramach infrastruktury produkcyjnej CERN-u, technologiach, np. standard języka C++. Dzięki temu zależności zewnętrzne powinny zostać ograniczone do minimum, na rzecz standardowych rozwiązań (np. biblioteka standardowa), by zagwarantować możliwie duża przenośność. Zaplanowano również rozszerzenie projektu o~nowe komponenty ułatwiające korzystanie z~systemu (np. graficzny interfejs użytkownika).
 
-\section{Stan oczekiwany w ramach projektu inżynierskiego}
-Z uwagi na brak możliwości realizowania wszystkich powyższych postulatów dotyczących celów pracy w ramach projektu inżynierkiego (co wynika z ograniczonego czasu), wybrany został następujący podzbiór wymagań:
+\section{Stan oczekiwany w~ramach projektu inżynierskiego}
+Z uwagi na brak możliwości realizowania wszystkich powyższych postulatów dotyczących celów pracy w~ramach projektu inżynierskiego (co wynika z~ograniczonego czasu), wybrany został następujący podzbiór wymagań:
 \begin{itemize}
-\item przygotowanie środowiska umożliwijącego zarządzanie prowadzonym projektem
-\item modularyzacja projektu (z poziomu architektury i systemu budowania \textit{CMake})
+\item przygotowanie środowiska umożliwiającego zarządzanie prowadzonym projektem
+\item modularyzacja projektu (z poziomu architektury i~systemu budowania \textit{CMake})
 \item przygotowanie infrastruktury automatyzującej proces produkcyjny, zapewniającej spójne środowisko do testowania
-\item wykonanie dokumentacji zgodnej z wymienionymi założeniami
-\item wprowadzenie standardu nazewnictwa na poziomie procesu budowania i podziału na repozytoria
+\item wykonanie dokumentacji zgodnej z~wymienionymi założeniami
+\item wprowadzenie standardu nazewnictwa na poziomie procesu budowania i~podziału na repozytoria
 \item przeprowadzenie testów wynikowego produktu
 \end{itemize}
-Rezultatem zakończenia tej części prac powinien być w pełni działający, udoskonalony system.
+Rezultatem zakończenia tej części prac powinien być w~pełni działający, udoskonalony system.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -162,27 +159,25 @@ Rezultatem zakończenia tej części prac powinien być w pełni działający, u
 
 \chapter{Ograniczenia dostępnej infrastruktury}
 \label{cha:ogra}
-Z uwagi na silny związek oprogramowania GGSS z infrastrukturą CERN oraz wymóg zapewnienia możliwości budowania projektu na należących do niej maszynach, przed autorami postawiony został szereg ograniczeń związanych z możliwymi do użycia technologiami oraz sposobem wykonywania pewnych operacji. Niniejszy rozdział stanowi opis najważniejszych z tych ograniczeń z uwzględnieniem ich wpływu na obraną przez autorów pracy ścieżkę rozwoju projektu.
+Z uwagi na silny związek oprogramowania GGSS z~infrastrukturą CERN oraz wymóg zapewnienia możliwości budowania projektu na należących do niej maszynach, przed autorami postawiony został szereg ograniczeń związanych z~możliwymi do użycia technologiami oraz sposobem wykonywania pewnych operacji. Niniejszy rozdział stanowi opis najważniejszych z~tych ograniczeń z~uwzględnieniem ich wpływu na obraną przez autorów pracy ścieżkę rozwoju projektu.
 
 
-\section{Ograniczone uprawnienia w środowisku docelowym}
-Ze względu na ograniczone uprawnienia w środowisku docelowym proces wprowadzania zmian w systemie \textbf{GGSS} wymagał komunikacji z administratorami środowiska. Każdorazowa instalacja poprawek dla modułu sterownika \textbf{(ggss-driver)} wymagała autoryzacji oraz przeprowadznie procesu instalacji przez osobę upoważnioną. Ze względu na to zostało przygotowane specjalne środowisko pozwalające na testowanie pakietów \textbf{RPM} przed ich instalacją w środowisku docelowym. Dodatkowo uprawnienia autorów w środowisku docelowym są ograniczone ze względu na możliwości instalacji dodatkowych pakietów, czy tez modułów. Nie jest możliwe również budowanie komponentów w środowisku docelowym, restart maszyny produkcyjnej, czy też ładowanie/usuwanie modułów spoza listy określonej przed administratorów. Wszystkie te czynniki negatywnie wpłynęły na czas, który był wymagany w celu wykonania testów w środowisku produkcyjnym oraz wykonane zmiany w projekcie.
+\section{Ograniczone uprawnienia w~środowisku docelowym}
+Ze względu na ograniczone uprawnienia w~środowisku docelowym proces wprowadzania zmian w~systemie \textbf{GGSS} wymagał komunikacji z~administratorami środowiska. Każdorazowa instalacja poprawek dla modułu sterownika \textbf{(ggss-driver)} wymagała autoryzacji oraz przeprowadzenie procesu instalacji przez osobę upoważnioną. Ze względu na to zostało przygotowane specjalne środowisko pozwalające na testowanie pakietów \textbf{RPM} przed ich instalacją w~środowisku docelowym. Dodatkowo uprawnienia autorów w~środowisku docelowym są ograniczone ze względu na możliwości instalacji dodatkowych pakietów, czy tez modułów. Nie jest możliwe również budowanie komponentów w~środowisku docelowym, restart maszyny produkcyjnej, czy też ładowanie/usuwanie modułów spoza listy określonej przed administratorów. Wszystkie te czynniki negatywnie wpłynęły na czas, który był wymagany w~celu wykonania testów w~środowisku produkcyjnym oraz wykonane zmiany w~projekcie.
 
 
-\section{Wersje kompilatorów i interpreterów}
-Dostępne wersje kompilatorów i interpreterów stanowią jeden z kluczowych czynników, który należy uwzględnić podczas wprowadzania zmian w istniejącym systemie, ponieważ definiują one możliwy do wykorzystania podzbiór technologii. W kontekście systemu GGSS ograniczenia te dotyczą przede wszystkim kompilatora języka C++ oraz interpretera języka Python. 
+\section{Wersje kompilatorów i~interpreterów}
+Dostępne wersje kompilatorów i~interpreterów stanowią jeden z~kluczowych czynników, który należy uwzględnić podczas wprowadzania zmian w~istniejącym systemie, ponieważ definiują one możliwy do wykorzystania podzbiór technologii. W~kontekście systemu GGSS ograniczenia te dotyczą przede wszystkim kompilatora języka C++ oraz interpretera języka Python. \par
 
-\paragraph*{Wersja kompilatora języka C++}\mbox{}\\
-Dostępna w ramach infrastruktury projektu wersja kompilatora języka C++ to \textbf{g++ (GCC) 4.8.5}. Wspiera ona w pełni standard C++11, czyli funkcjonalności takie, jak referencje do r-wartości, wyrażenia lambda czy zakresowa pętla for \cite{GCC48}. Wersja ta nie wspiera niestety nowszych wydań języka (C++14/17).
+Dostępna w~ramach infrastruktury projektu wersja kompilatora języka C++ to \textbf{g++ (GCC) 4.8.5}. Wspiera ona w~pełni standard C++11, czyli funkcjonalności takie, jak referencje do r-wartości, wyrażenia lambda czy zakresowa pętla for \cite{GCC48}. Wersja ta nie wspiera niestety nowszych wydań języka (C++14/17). \par
 
-\paragraph*{Wersja interpretera języka Python}\mbox{}\\
-Domyślną wersją Pythona jest \textbf{Python 2.7.5}, jednak dostępny jest również Python 3 (w wersji \textbf{Python 3.6.8}). Z uwagi na wspomniany wcześniej koniec oficjalnego wsparcia dla Pythona 2, który ma nadejść wraz z początkiem 2020 roku, naturalnym jest więc wybór wersji 3. Infrastruktura projektu posiada jednak znaczące braki jeśli chodzi o dostępne dla wersji 3 biblioteki zewnętrzne - domyślnie nie jest np. dostępna biblioteka \textit{Beautiful Soup}, slużąca do przetwarzania dokumentów w formacie HTML. Niektóre popularne bibliteki i frameworki (np. \textit{PyTest} - wykorzystywany do przeprowadzania testów oprogramowania) nie są dostępne dla obu wersji Pythona. Taka sytuacja wymusza więc wykorzystanie narzędzia \textit{virtualenv} w celu ich instalacji w odizolowanym środowisku, nie mającym wpływu na infrastrukturę CERN-u.
+Domyślną wersją Pythona jest \textbf{Python 2.7.5}, jednak dostępny jest również Python 3 (w wersji \textbf{Python 3.6.8}). Z~uwagi na wspomniany wcześniej koniec oficjalnego wsparcia dla Pythona 2, który ma nadejść wraz z~początkiem 2020 roku, naturalnym jest więc wybór wersji 3. Infrastruktura projektu posiada jednak znaczące braki jeśli chodzi o~dostępne dla wersji 3 biblioteki zewnętrzne - domyślnie nie jest np. dostępna biblioteka \textit{Beautiful Soup}, służąca do przetwarzania dokumentów w~formacie HTML. Niektóre popularne biblioteki i~frameworki (np. \textit{PyTest} - wykorzystywany do przeprowadzania testów oprogramowania) nie są dostępne dla obu wersji Pythona.
 
 \section{Wersja narzędzia budującego CMake}
-Dostępna wersja narzędzia CMake stanowiła zdaniem autorów największe ograniczenie w czasie prac nad projektem. Na maszynach docelowych dostępna jest jedynie stara wersja \textbf{2.8.12.2}. Nowsza wersja (\textbf{3.14.6}) dostępna jest na niektórych z komputerów, jednak z uwagi na konieczność zachowania kompatybilności ze wspomnianymi maszynami docelowymi, nie było możliwe jej użycie. Stosowanie wersji o numerze niższym od \textbf{3.0} skutkuje szeregiem ograniczeń - brakuje w niej wielu funkcjonalności pozwalających na stosowanie ogólnoprzyjętych dziś praktyk, jak np. określenie zakresu wersji narzedzia CMake, w którym powinna mieścić się używana wersja, by projekt można było bez problemu zbudować, czy wsparcie dla instrukcji \textit{target\_link\_directories} \cite{NewInCMake}.
+Dostępna wersja narzędzia CMake stanowiła zdaniem autorów największe ograniczenie w~czasie prac nad projektem. Na maszynach docelowych dostępna jest jedynie stara wersja \textbf{2.8.12.2}. Nowsza wersja (\textbf{3.14.6}) dostępna jest na niektórych z~komputerów, jednak z~uwagi na konieczność zachowania kompatybilności ze wspomnianymi maszynami docelowymi, nie było możliwe jej użycie. Stosowanie wersji o~numerze niższym od \textbf{3.0} skutkuje szeregiem ograniczeń - brakuje w~niej wielu funkcjonalności pozwalających na stosowanie ogólnie przyjętych dziś praktyk, jak np. określenie zakresu wersji narzędzia CMake, w~którym powinna mieścić się używana wersja, by projekt można było bez problemu zbudować, czy wsparcie dla instrukcji \textit{target\_link\_directories} \cite{NewInCMake}.
 
-\section{Związek projektu z wersją jądra systemu}
-Ze względu na mocny związek modułu \textbf{ggss-driver} z jądrem systemu operacyjnego ważnym aspektem pracy jest zapewnienie środowiska deweloperskiego zgodnego z produkcyjnym pod względem wersji jądra. Okazało się to problematyczne, ponieważ maszyna dostarczona przez administratorów w celu budowania aplikacji okazała się różnić od maszyny produkcyjnej właśnie pod względem wersji jądra systemu operacyjnego. Z powodu tego, że mocnym ograniczeniem okazało się jądro systemu nie wystarczyło zastosowanie ogólnodostępnych maszyn budujących w ramach wewnętrznego portalu opartego o technologię Gitlab. Ze względu na to autorzy postanowili utworzyć własne środowisko produkcyjne. Rozwiązanie problemu wymagało zastosowania maszyny wirtualnej, z pełnym dostępem do konta administratora oraz skonfigurowania środowiska konteneryzacyjnego Docker właśnie na tej maszynie, co opisane jest w rozdziale WSTAWIC REF.
+\section{Związek projektu z~wersją jądra systemu}
+Ze względu na mocny związek modułu \textbf{ggss-driver} z~jądrem systemu operacyjnego ważnym aspektem pracy jest zapewnienie środowiska deweloperskiego zgodnego z~produkcyjnym pod względem wersji jądra. Okazało się to problematyczne, ponieważ maszyna dostarczona przez administratorów w~celu budowania aplikacji okazała się różnić od maszyny produkcyjnej właśnie pod względem wersji jądra systemu operacyjnego. Z~powodu tego, że mocnym ograniczeniem okazało się jądro systemu nie wystarczyło zastosowanie ogólnodostępnych maszyn budujących w~ramach wewnętrznego portalu opartego o~technologię Gitlab. Ze względu na to autorzy postanowili utworzyć własne środowisko produkcyjne. Rozwiązanie problemu wymagało zastosowania maszyny wirtualnej, z~pełnym dostępem do konta administratora oraz skonfigurowania środowiska konteneryzacyjnego Docker właśnie na tej maszynie, co opisane jest w~rozdziale \ref{sec:wirtDocker}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -196,11 +191,13 @@ Ze względu na mocny związek modułu \textbf{ggss-driver} z jądrem systemu ope
 \chapter{Wykonane prace}
 \label{cha:prace}
 
+Niniejszy rozdział zawiera opis wykonanych przez autorów prac w~ramach projektu \textbf{GGSS}. Rozdział został podzielony na sekcję według obszarów tematycznych poruszanych przez autorów: zarządzanie projektem, kontrola wersji i~nowa architektura projektu, zastosowanie podejścia CI/CD, budowanie aplikacji, budowanie i~dystrybucja sterownika, wirtualizacja i~konteneryzacja, pomniejsze prace w~projekcie oraz zasady i~sposób tworzenia dokumentacji projektu.
+
 \section{Wykorzystanie funkcjonalności portalu Gitlab wspierających zarządzanie projektem}
 
-Ze względu na zespołowy charakter pracy bardzo ważną częścią było planowanie oraz zarządzanie projektem. W celu usprawnienia tego procesu autorzy wykorzystali funkcjonalności dostarczane w ramach portalu Gitlab oraz dobre praktyki programistyczne. \par
+Ze względu na zespołowy charakter pracy bardzo ważną częścią było planowanie oraz zarządzanie projektem. W~celu usprawnienia tego procesu autorzy wykorzystali funkcjonalności dostarczane w~ramach portalu Gitlab oraz dobre praktyki programistyczne.
 
-Pierwszym krokiem było utworzenie grupy, o odpowiedniej nazwie \textbf{(atlas-trt-dcs-ggss)} definiującej projekt, na portalu Gitlab udostępnianego w ramach infrastruktury CERN. Oprócz oczywistej zalety w postaci identyfikacji przynależności oraz odpowiedzialności za repozytoria zawarte w ramach takiej grupy dodatkowym atutem jest możliwość wykorzystania systemu rang, w celu przyznawania odpowiednich uprawnień. Rysunek \ref{fig:memMan} przedstawia panel zarządzania członkami zespołu, widoczne jest pole odpowiedzialne za dodawanie zarejestrowanych w systemie osób do grupy. W trakcie dodawania możemy również zdefiniować jeden z predefiniowanych zestawów uprawnień w postaci rangi (Guest, Reporter, Developer, Maintainer, Owner) oraz datę automatycznego wygaśnięcia członkostwa. Pełny opis uprawnień powiązanych z rangą dostępny jest w oficjalnej dokumentacji portalu Gitlab REF DO https://docs.gitlab.com/ee/user/permissions.html. Poniżej formularza odpowiedzialnego za dodawanie nowych osób do grupy widoczny jest również spis obecnych członków, czas który upłynął od ich dołączenia, ranga, czy też pola oraz przyciski odpowiedzialne za modyfikację ich obecnego statusu w zespole.
+Pierwszym krokiem było utworzenie grupy, o~odpowiedniej nazwie (\textbf{atlas-trt-dcs-ggss}) definiującej projekt, na portalu Gitlab udostępnianego w~ramach infrastruktury CERN. Oprócz oczywistej zalety w~postaci identyfikacji przynależności oraz odpowiedzialności za repozytoria zawarte w~ramach takiej grupy dodatkowym atutem jest możliwość wykorzystania systemu rang, w~celu przyznawania odpowiednich uprawnień. Rysunek \ref{fig:memMan} przedstawia panel zarządzania członkami zespołu, widoczne jest pole odpowiedzialne za dodawanie zarejestrowanych w~systemie osób do grupy. W~trakcie dodawania możemy również wybrać jeden z~zdefiniowanych zestawów uprawnień w~postaci rangi (Guest, Reporter, Developer, Maintainer, Owner) oraz datę automatycznego wygaśnięcia członkostwa. Pełny opis uprawnień powiązanych z~rangą dostępny jest w~oficjalnej dokumentacji portalu Gitlab \cite{GitLabPermissions}. Poniżej formularza odpowiedzialnego za dodawanie nowych osób do grupy widoczny jest również spis obecnych członków, czas który upłynął od ich dołączenia, ranga, czy też pola oraz przyciski odpowiedzialne za modyfikację ich obecnego statusu w~zespole.
 
 \begin{figure}[H]
 \centering
@@ -210,20 +207,23 @@ Pierwszym krokiem było utworzenie grupy, o odpowiedniej nazwie \textbf{(atlas-t
 \end{figure}
 
 
-Podstawowym problemem do rozwiązania w trakcie pracy grupowej jest odpowiedni podział zadań ze względu na ilość oraz trudność. Wykorzystane w tym celu zostały \textbf{issues} (problemy, zagadnienia). Są one podstawową funkcjonalnością wykorzystywaną do współpracy, planowania, czy też przedstawiania swoich pomysłów lub problemów.
+Podstawowym problemem do rozwiązania w~trakcie pracy grupowej jest odpowiedni podział zadań ze względu na ilość oraz trudność. Wykorzystane w~tym celu zostały \textbf{issues} (problemy, zagadnienia). Są one podstawową funkcjonalnością wykorzystywaną do współpracy, planowania, czy też przedstawiania swoich pomysłów lub problemów.
 
-W ramach \textbf{issue} jesteśmy w stanie precyzyjnie opisać problem, czy też zadanie. Zawdzięczamy to mnogością możliwych do wypełnienia pól, dzięki czemu zarządzanie projektem jest znacznie ułatwione. W ramach \textbf{issue} jesteśmy z stanie zdefiniować:
+W ramach \textbf{issue} jesteśmy w~stanie precyzyjnie opisać problem, czy też zadanie. Zawdzięczamy to mnogością możliwych do wypełnienia pól, dzięki czemu zarządzanie projektem jest znacznie ułatwione.Na Rysunku \ref{fig:newIssue} widnieje panel w~ramach którego jesteśmy z~stanie zdefiniować:
 \begin{itemize}
 \item \textbf{Tytuł} (Title) - krótki opis słowny zawartości
-\item \textbf{Opis} (Description) - pełny opis problemu, zadania, czy też pomysłu, który chcemy poruszyć w ramach \textbf{issue}
+\item \textbf{Opis} (Description) - pełny opis problemu, zadania, czy też pomysłu, który jest poruszany w~ramach \textbf{issue}
 \item \textbf{Osoba odpowiedzialna} (Assignee) - główna osoba koordynująca lub wykonująca zadanie
-\item \textbf{Termin} (Due date) - data do której należy zamknąć \textbf{issue}, czyli wykonać wszystkie, wymagane w ramach zadania, akcje
-\item \textbf{Kamień milowy} (Milestone) - pole wynikające z zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powienien zawierać informacje nt. tegoż celu.
-\item \textbf{Etykieta} (Label) - służy przypisaniu do zdania atrybutu. W przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (Ongoing, To Do), powodu niewykonania zadania (Blocked, Duplicate) oraz oznaczenie zadań z wysokim priorytetem (Urgent). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwośc filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{Kanban Board} (tablica Kanban).
+\item \textbf{Termin} (Due date) - data do której należy zamknąć \textbf{issue}, czyli wykonać wszystkie, wymagane w~ramach zadania, akcje
+\item \textbf{Kamień milowy} (Milestone) - pole wynikające z~zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w~stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w~ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powinien zawierać informacje nt. tegoż celu.
+\item \textbf{Etykieta} (Label) - służy przypisaniu do zdania atrybutu. W~przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (Ongoing, To Do), powodu niewykonania zadania (Blocked, Duplicate) oraz oznaczenie zadań z~wysokim priorytetem (Urgent). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwość filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{Kanban Board} (tablica Kanban).
 \item \textbf{Waga} (Weight) - jest to wartość definiująca trudność zadania oraz wymaganą ilość pracy na jego wykonanie. Wartość ta nie jest bezpośrednio przekładana na czas, wymaga ona interpretacji pod względem przypisanej osoby. Dokładniejsze wytłumaczenie zostanie ukazane na przykładzie.
 \end{itemize}
 
-W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablonów w języku markdown i umieszecznie ich w odpowiednim repozytorium, natomiast funkcjonalność ta nie została wykorzystana w trakcie relalizacji projektu
+Poniższy przykład pokazuje wykorzystanie wagi \textbf{issue} w~celu oszacowania czasu potrzebnego na jego wykonanie.\par
+Zakładając, że do dyspozycji jest dwóch pracowników, jeden doświadczony, który w~ciągu tygodnia jest w~stanie wykonać pracę o~równowartości wagowej 40, a~drugi niedoświadczony, który w~ciągu tygodnia wykonuję pracę o~równowartości wagowej 20. Aby przełożyć wagę zadania, która wynosi w~przykładzie 8, należy wziąć pod uwagę osobę, która zostanie do tego zadania przydzielona. Zakładając, że ww. pracownicy pracują na pełen etat, czyli 40 godzin tygodniowo, w~przypadku przydzielenia zadania osobie doświadczonej waga 8 przełoży się na 8 rzeczywistych godzin, natomiast w~przypadku osoby niedoświadczonej waga 8 przełoży się na 16 rzeczywistych godzin. \par
+
+Określenie wydajności pracownika wymaga zastosowania techniki nazywanej sprzężeniem zwrotnym. W~pierwszej kolejności zakładamy jakąś arbitralną wartość wydajności pracownika i~na podstawie tej wartości przydzielamy mu odpowiednią ilość zadań z~odpowiednimi wagami. Następnie cyklicznie weryfikujemy (np. co tydzień), czy pracownik jest w~stanie wykonać zadania o~określonej wadze w~danym cyklu. Po każdym cyklu odpowiednio modyfikujemy wartość wydajności pracownika, tak, aby była zbliżona do wartości wydajności osiągniętej za poprzedni okres. Aby zwiększyć poprawność wyznaczania wspomnianej wartości należy wziąć pod uwagę również wcześniejsze okresy, a~nie jedynie ostatni.\par
 
 \newpage
 
@@ -234,25 +234,23 @@ W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablon
 \includegraphics[width=\textwidth]{res/png/newIssue}
 \end{figure}
 
+W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablonów w~języku \textbf{Markdown} i~umieszczenie ich w~odpowiednim repozytorium, natomiast funkcjonalność ta nie została wykorzystana w~trakcie realizacji projektu
+
 \newpage
 
-Poniższy przykład pokazuje wykorzystanie wagi \textbf{issue} w celu oszacowania czasu potrzebnego na jego wykonanie.\par
-Załóżmy, że mamy do dyspozycji dwóch pracowników, jednego doświadczonego, a jednego niedoświadczonego. Pracownik doświadczony w ciągu jednego tygodnia jest w stanie wykonać pracę o równowatości wagowej 40, natomiast pracownik niedoświadczony o równwarotści wagowej 20. Aby przełożyć wagę zadania, która wynosi w naszym przykładzie 8, należy wziąc pod uwagę osobę, która zostanie do tego zadania przydzielona. Zakładając, że ww. pracownicy pracują na pełen etat, czyli 40 godzin tygodniowo, w przypadku przydzielenia zadania osobie doświadczonej waga 8 przełoży się na 8 rzeczywistych godzin, natomiast w przypadku osoby niedoświadczonej waga 8 przełoży się na 16 rzeczywistych godzin. \par
+Wszystkie prace wykonywane w~ramach projektu były rejestrowane na portalu Gitlab w~ramach funkcjonalności \textbf{issues}. Posiadały one odpowiednio przypisane etykiety. Część zadań miała również przypisane wagi, na podstawie których były one odpowiednio przydzielane członkom zespołu. Zadania realizujące większy cel były grupowane w~ramach kamieni milowych.
 
-Określenie wydajności pracownika wymaga zastosowania techniki nazywanej sprzężęniem zwrotnym. W pierwszej kolejności zakładamy jakąś arbitratną wartość wydajności pracownika i na podstawie tej wartości przydzielami mu odpowiednią ilość zadań z odpowiednimi wagami. Następnie cyklicznie weryfikujemy (np. co tydzień), czy pracownik jest w stanie wykonać zadania o określonej wadze w danym cyklu. Po każdym cyklu odpowiednio modyfikujemy wartość wydajności pracownika, tak, aby była zbliżona do wartości wydajności osiągniętej za poprzedni okres. Aby zwiększyć poprawność wyznaczania wspomnianej wartości należy wziąc pod uwagę również wcześniejsze okresy, a nie jedynie ostatni.\par
-
-Wszystkie prace wykonywane w ramach projektu były rejestrowane na portalu Gitlab w ramach funkcjonalności \textbf{issues}. Posiadały one odpowiednio przypisane etykiety. Część zadań miała również przypisane wagi, na podstawie których były one odpowiednio przydzielane członkom zespołu. Zadania realizujące większy cel były grupowane w ramach kamieni milowych. Ważną kwestią dotyczącą \textbf{issues} jest również możliwośc śledzenia zmian zachodzących w ramach zadania, która była mocno wykorzystywana w przypadku problematycznych zadań. Każde \textbf{issue} zapisuje historię zmian dotyczących jego parametrów, jak np. zmiana etykiety. W ramach zadania można również dodawać komentarze opisujące aktualny stan. \textbf{Issue} na portalu Gitlab są również zintegrowane z wiadomościami definiowanymi w ramach tworzenia nowej rewizji z użyciem technologii \textbf{GIT}, dzięki czemu tworząc nową wersję jesteśmy w stanie automatycznie zamknąć zadanie, lub dodać referencję do niego co skutkuje odpowiednim wpisem w historii zadania.
+Ważną kwestią dotyczącą \textbf{issues} jest również możliwość śledzenia zmian zachodzących w~ramach nich, która była mocno wykorzystywana w~przypadku problematycznych zadań. Każde \textbf{issue} zapisuje historię zmian dotyczących jego parametrów, jak np. zmiana etykiety. W~ramach zadania można również dodawać komentarze opisujące aktualny stan. \textbf{Issue} na portalu Gitlab są również zintegrowane z~wiadomościami definiowanymi w~ramach tworzenia nowej rewizji z~użyciem technologii \textbf{GIT}, dzięki czemu tworząc nową wersję jesteśmy w~stanie automatycznie zamknąć zadanie, lub dodać referencję do niego co skutkuje odpowiednim wpisem w~historii zadania.
 
 \begin{figure}[H]
 \centering
 \caption{Historia zmian \textbf{issue} na portalu Gitlab}
-\label{fig:kanban}
 \includegraphics[width=\textwidth]{res/png/issueOngoing}
 \end{figure}
 
 \newpage
 
-Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w ramach projektu był \textbf{Kanban Board}. Za jego pomocą jesteśmy w stanie w szybki oraz prosty sposób ocenić etap postępów w projekcie. W jednym widoku mamy podsumowanie stanów zadań pogrupowanych według etykiet. Z poziomu tablicy jesteśmy w stanie również zmieniać status zadania za pomocą prostej techniki \textbf{drag and drop} (przeciągnij i upuść). Każda wyświetlana etykieta posiada krótkie podsumowanie zadań, czyli ich ilość oraz sumę wag przypisanych do zadań. Dodatkowo dla każdego zadania wyświetlana jest nazwa repozytorium, w ramach którego zadanie jest realizowane oraz osoby do niego przypisane, co widoczne jest na Rysnku \ref{fig:kanban}
+Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w~ramach projektu był \textbf{Kanban Board}. Za jego pomocą można w~szybki oraz prosty sposób ocenić etap postępów w~projekcie. W~jednym widoku wyświetlane jest podsumowanie stanów zadań pogrupowanych według etykiet. Z~poziomu widoku tabli możliwa jest również zmiana status zadania za pomocą prostej techniki \textbf{drag and drop} (przeciągnij i~upuść). Każda wyświetlana etykieta posiada krótkie podsumowanie zadań, czyli ich ilość oraz sumę wag przypisanych do tych zadań. Dodatkowo dla każdego zadania wyświetlana jest nazwa repozytorium, w~ramach którego zadanie jest realizowane oraz osoby do niego przypisane, co widoczne jest na Rysunku \ref{fig:kanban}
 
 \begin{figure}[H]
 \centering
@@ -261,14 +259,40 @@ Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w ramach proj
 \includegraphics[width=\textwidth]{res/png/kanban}
 \end{figure}
 
-\newpage
-\section{Migracja projektu do systemu kontroli wersji Git i zmiany w architekturze}
+Portal GitLab zapewnia również funkcjonalność, która wspiera wykonywanie operacji \textbf{merge} w~ramach technologii \textbf{GIT}. Udostępniony jest specjalny widok, który pozwala na połączenie dwóch dowolnych gałęzi, które zostały wcześniej przekazane na platformę. Po wybraniu i~zatwierdzeniu docelowych gałęzi zostaje utworzony \textbf{merge request}, którego zadaniem jest udostępnienie interfejsu zarządzania operacją \textbf{merge} oraz , podobnie jak w~przypadku \textbf{issue}, śledzenie zmian dokonywanych w~trakcie trwania \textbf{merge request}. W~celu wykonania złączenia gałęzi należy taką operację zatwierdzić w~panelu \textbf{merge request} oraz wykonać ją za pomocą specjalnego przycisku \textbf{merge}. Dopiero wtedy zostanie wykonane faktyczne złączenie.\par
 
+\begin{figure}[H]
+\centering
+\caption{Tworzenie nowego \textbf{merge request}}
+\includegraphics[width=\textwidth]{res/png/newMergeRequest}
+\end{figure}
+
+Rysunek \ref{fig:mergeRequestPanel} przedstawia panel tworzenia nowego \textbf{merge request}. Możemy w~nim zdefiniować takie parametry, jak:
+\begin{itemize}
+\item Tytuł (\textit{Title})
+\item Opis (\textit{Description})
+\item Osoba przypisana (\textit{Assignee}), czyli osoba, której zadaniem jest wykonanie operacji \textbf{merge} oraz rozwiązanie ewentualnych konfliktów
+\item Kamień milowy (\textit{Milestone})
+\item Etykiety (\textit{Labels})
+\item Zasady zatwierdzenia (\textit{Approval rules}) - tutaj definiuje się wymagania odnośnie zatwierdzenia przez członków zespołu poprawności wykonanych zmian. Jest to jedna z~praktyk dobrego programowania (\textit{code review}).
+\end{itemize}
+
+\begin{figure}
+\centering
+\caption{Panel tworzonego \textbf{merge request}}
+\includegraphics[width=\textwidth]{res/png/panelMergeRequest}
+\label{fig:mergeRequestPanel}
+\end{figure}
 
 \newpage
+
+\section{Migracja projektu do systemu kontroli wersji Git i~zmiany w~architekturze}
+
+\newpage
+
 \section{Zmiana sposobu budowania aplikacji}
 
-\subsection{Zarys rozwiązania} % out-of-source, budowanie pojedynczych projektow, struktura wynikowych katalogow, driver opisany w osobnym rozdziale
+\subsection{Zarys rozwiązania} % out-of-source, budowanie pojedynczych projektow, struktura wynikowych katalogow, driver opisany w~osobnym rozdziale
 
 \subsection{Szablony CMake}
 
@@ -276,52 +300,51 @@ Kolejną ważną funkcjonalnością portalu Gitlab wykorzystywaną w ramach proj
 
 \subsection{Budowanie poszczególnych bibliotek}
 
-\subsection{Budowanie aplikacji i całego projektu} 
+\subsection{Budowanie aplikacji i~całego projektu} 
 
 \subsection{Budowanie biblioteki DIM}
 
-
-
 \newpage
+
 \section{Zastosowanie podejścia CI/CD}
-Ważną częścia wykonanych prac było przygotowanie środowiska pozwalającego na zautomatyzowane budowanie i dystrybucję aplikacji. Standardowym dziś sposobem na rozwiązanie tego problemu jest podejście \textbf{CI/CD}. Skrót CI oznacza tzw. \textbf{ciągłą integrację} (\textit{Continous Integration}) - praktykę polegającą na stosowaniu współdzielonego repozytorium kodu źródłowego, za pomocą którego programiści pracujący nad projektem regularnie integrują swoje zmiany. Nowa wersja kodu jest automatycznie sprawdzana - serwer ciągłej integracji samodzielnie buduje projekt i uruchamia przygotowane dla niego testy. Skrót CD oznacza natomiast \textbf{ciągłe dostarczanie} (\textit{Continous Delivery}). Polega ono na przygotowaniu produktu do stanu, w którym jest on możliwy do wdrożenia w środowisku produkcyjnym. Może to być np. przeprowadzenie różnego rodzaju testów czy przygotowanie odpowiedniej paczki z aplikacją. Ważne jest, że w podejściu tym nie następuje automatyczne wdrożenie aplikacji do środowiska produkcyjnego (jest to domena \textbf{ciągłego wdrażania} \cite{CICDDef}, które jednak nie znalazło zastosowania w projekcie GGSS). Podejście \textbf{CI/CD} porównuje się czasem do działania linii produkcyjnej. Rysunek \ref{fig:cicd} obrazuje schematycznie jego działanie. 
+Ważną częścią wykonanych prac było przygotowanie środowiska pozwalającego na zautomatyzowane budowanie i~dystrybucję aplikacji. Standardowym dziś sposobem na rozwiązanie tego problemu jest podejście \textbf{CI/CD}. Skrót CI oznacza tzw. \textbf{ciągłą integrację} (\textit{Continous Integration}) - praktykę polegającą na stosowaniu współdzielonego repozytorium kodu źródłowego, za pomocą którego programiści pracujący nad projektem regularnie integrują swoje zmiany. Nowa wersja kodu jest automatycznie sprawdzana - serwer ciągłej integracji samodzielnie buduje projekt i~uruchamia przygotowane dla niego testy. Skrót CD oznacza natomiast \textbf{ciągłe dostarczanie} (\textit{Continous Delivery}). Polega ono na przygotowaniu produktu do stanu, w~którym jest on możliwy do wdrożenia w~środowisku produkcyjnym. Może to być np. przeprowadzenie różnego rodzaju testów czy przygotowanie odpowiedniej paczki z~aplikacją. Ważne jest, że w~podejściu tym nie następuje automatyczne wdrożenie aplikacji do środowiska produkcyjnego (jest to domena \textbf{ciągłego wdrażania} \cite{CICDDef}, które jednak nie znalazło zastosowania w~projekcie GGSS). Podejście \textbf{CI/CD} porównuje się czasem do działania linii produkcyjnej. Rysunek \ref{fig:cicd} obrazuje schematycznie jego działanie. 
 
 \begin{figure}[H]
 \centering
-\caption{Przykładowy schemat działana podejścia \textit{Continous Integration / Continous Delivery}. Należy zwrócić uwagę, że w zastosowaniu praktycznym kolejność oraz liczba etapów może być różna od widocznej}
+\caption{Przykładowy schemat działania podejścia \textit{Continous Integration / Continous Delivery}. Należy zwrócić uwagę, że w~zastosowaniu praktycznym kolejność oraz liczba etapów może być różna od widocznej}
 \label{fig:cicd}
 \includegraphics[width=\textwidth]{res/CICD.pdf}
 \end{figure}
 
-W kontekście systemu GGSS podejście to jest pożądane, z uwagi na konieczność zachowania poprawności działania systemu pomimo zmian (które aktualnie mają miejsce) w strukturze jego oprogramowania. Głównym celem jego zastosowania było ułatwienie autorom pracy działania jako zespół. Miało również znacząco przyspieszyć proces testowania aplikacji w środowisku produkcyjnym poprzez automatyczne tworzenie paczki z odpowiednią wersją oprogramowania.
+W kontekście systemu GGSS podejście to jest pożądane, z~uwagi na konieczność zachowania poprawności działania systemu pomimo zmian (które aktualnie mają miejsce) w~strukturze jego oprogramowania. Głównym celem jego zastosowania było ułatwienie autorom pracy działania jako zespół. Miało również znacząco przyspieszyć proces testowania aplikacji w~środowisku produkcyjnym poprzez automatyczne tworzenie paczki z~odpowiednią wersją oprogramowania.
 
-\subsection{Możliwe sposoby implementacji podejścia CI/CD w projekcie GGSS}
-Istnieje wiele narzędzi pozwalających na implementację ciągłej integracji oraz ciągłego dostarczania w projekcie. Prawodopodobnie najpopularniejszym z nich jest \textbf{Jenkins}. Jest to darmowe \cite{JenkinsWiki} oprogramowanie do automatyzacji, charakteryzujące się dużą konfigurowalnością. Przez lata stał się standardem dla wielu firm wytwarzających oprogramowanie. Jednak jego główną wadą, wykluczającą jego użycie w projekcie GGSS, jest zbyt duża ilość pracy związanej z jego konfiguracją i utrzymaniem. Narzędzie to sprawdza się dobrze przy dużej wielkości projektach. W przypadku systemu GGSS użytkowanie go przyniosłoby więcej pracy niż dałoby realnych korzyści. 
+\subsection{Możliwe sposoby implementacji podejścia CI/CD w~projekcie GGSS}
+Istnieje wiele narzędzi pozwalających na implementację ciągłej integracji oraz ciągłego dostarczania w~projekcie. Prawdopodobnie najpopularniejszym z~nich jest \textbf{Jenkins}. Jest to darmowe \cite{JenkinsWiki} oprogramowanie do automatyzacji, charakteryzujące się dużą możliwością konfiguracji. Przez lata stał się standardem dla wielu firm wytwarzających oprogramowanie. Jednak jego główną wadą, wykluczającą jego użycie w~projekcie GGSS, jest zbyt duża ilość pracy związanej z~jego konfiguracją i~utrzymaniem. Narzędzie to sprawdza się dobrze przy dużej wielkości projektach. W~przypadku systemu GGSS użytkowanie go przyniosłoby więcej pracy niż dałoby realnych korzyści. 
 
-Autorzy zdecydowali się więc wykorzystać narzędzie CI/CD udostępniane przez portal \textbf{GitLab}. GitLab CI/CD udostępnia wystarczająco dużo możliwości, by możliwe było wprowadzenie automatyzacji budowania i testowania w systemie GGSS. Narzędzie to można wykorzystać na dwa sposoby:
+Autorzy zdecydowali się więc wykorzystać narzędzie CI/CD udostępniane przez portal \textbf{GitLab}. GitLab CI/CD udostępnia wystarczająco dużo możliwości, by możliwe było wprowadzenie automatyzacji budowania i~testowania w~systemie GGSS. Narzędzie to można wykorzystać na dwa sposoby:
 \begin{itemize}
-\item implementując mechanizm budowania i testowania manualnie, co daje większą kontrolę nad całym procesem
-\item używając narzędzia \textbf{Auto DevOps}, oferującego predefiniowane konfiguracje ciągłej integracji i ciągłego dostarczania
+\item implementując mechanizm budowania i~testowania manualnie, co daje większą kontrolę nad całym procesem
+\item używając narzędzia \textbf{Auto DevOps}, oferującego predefiniowane konfiguracje ciągłej integracji i~ciągłego dostarczania
 \end{itemize}
-Początkowo podjęta została decyzja o zastosowania drugiego z wyżej wymienionych rozwiązań. Przemawiającym za tym argumentem było potencjalne uproszczenie procedury wdrażania podejścia CI/CD do projektu - w portalu GitLab włączenie narzędzia Auto DevOps sprowadza się do zaznaczenia jednej opcji w ustawieniach na poziomie grupy lub repozytorium. Oferuje ono funkcjonalności takie, jak automatyzacja budowania i testowania projektu czy testy jakości kodu \cite{AutoDevOpsPage}. Podczas prób integracji tego rozwiązania do projektu pojawiło się jednak wiele problemów natury technicznej, związanych m.in. z niestandardowym sposobem działania projektu GGSS czy infrastrukturą tzw. \textit{runner-ów} używaną w CERN. Ostatecznie pomysł ten został więc porzucony na rzecz manualnej konfiguracji środowiska CI/CD. 
+Początkowo podjęta została decyzja o~zastosowania drugiego z~wyżej wymienionych rozwiązań. Przemawiającym za tym argumentem było potencjalne uproszczenie procedury wdrażania podejścia CI/CD do projektu - w~portalu GitLab włączenie narzędzia Auto DevOps sprowadza się do zaznaczenia jednej opcji w~ustawieniach na poziomie grupy lub repozytorium. Oferuje ono funkcjonalności takie, jak automatyzacja budowania i~testowania projektu czy testy jakości kodu \cite{AutoDevOpsPage}. Podczas prób integracji tego rozwiązania do projektu pojawiło się jednak wiele problemów natury technicznej, związanych m.in. z~niestandardowym sposobem działania projektu GGSS czy infrastrukturą tzw. \textit{runner-ów} używaną w~CERN. Ostatecznie pomysł ten został więc porzucony na rzecz manualnej konfiguracji środowiska CI/CD. 
 
 \subsection{Opis działania GitLab CI/CD}
-Przed przystąpieniem do opisu sposobu zastosowania narzędzia GitLab CI/CD w projekcie GGSS przedstawiony zostanie sposób jego działania oraz najważniejsze pojęcia z nim zmiązane. Manualna konfiguracja polega na umieszczeniu w repozytorium pliku \textit{.gitlab-ci.yml} zawierającego szczegółowy opis przebiegu całego procesu ciągłej integracji i dostarczania (w tym konieczne do wykonania komendy). Przebieg ten określa się słowem \textbf{pipeline}. Składa się on z etapów (\textit{stages}), przy czym każdy etap może zawierać w sobie kilka równoległych zadań (\textit{jobs}). Idea ta została zilustrowana na Rys. \ref{fig:pipeline}.
+Przed przystąpieniem do opisu sposobu zastosowania narzędzia GitLab CI/CD w~projekcie GGSS przedstawiony zostanie sposób jego działania oraz najważniejsze pojęcia z~nim związane. Manualna konfiguracja polega na umieszczeniu w~repozytorium pliku \textit{.gitlab-ci.yml} zawierającego szczegółowy opis przebiegu całego procesu ciągłej integracji i~dostarczania (w tym konieczne do wykonania komendy). Przebieg ten określa się słowem \textbf{pipeline}. Składa się on z~etapów (\textit{stages}), przy czym każdy etap może zawierać w~sobie kilka równoległych zadań (\textit{jobs}). Idea ta została zilustrowana na Rys. \ref{fig:pipeline}.
 
 \begin{figure}
 \centering
-\caption{Idea działania \textit{pipeline}. Kolorem czerwonym oznaczone zostały poszczególne etapy (\textit{stages}), natomiast zadania (\textit{jobs}) przedstawione zostały za pomocą ciemnoniebieskich prostokątów. Rysunek przedstawia przykładową strukturę, liczba etapów i zadań różni sie zwykle od pokazanej.}
+\caption{Idea działania \textit{pipeline}. Kolorem czerwonym oznaczone zostały poszczególne etapy (\textit{stages}), natomiast zadania (\textit{jobs}) przedstawione zostały za pomocą ciemnoniebieskich prostokątów. Rysunek przedstawia przykładową strukturę, liczba etapów i~zadań różni się zwykle od pokazanej.}
 \label{fig:pipeline}
 \includegraphics[width=\textwidth]{res/Pipeline.pdf}
 \end{figure}
 
-Wynikiem każdego z zadań może być tzw. \textbf{artefakt}, czyli możliwe do pobrania archiwum zawierające np. plik wykonywalny z produktem. Artefakty mogą być również przekazywane między poszczególnymi etapami procesu. 
+Wynikiem każdego z~zadań może być tzw. \textbf{artefakt}, czyli możliwe do pobrania archiwum zawierające np. plik wykonywalny z~produktem. Artefakty mogą być również przekazywane między poszczególnymi etapami procesu. 
 
 Zadania składające się na pipeline uruchamiane są przez specjalne narzędzie \textbf{GitLab Runner}. Może on znajdować się na serwerach GitLab lub na skonfigurowanej przez klienta maszynie \cite{CIzGitLab}. Przebieg całego procesu koordynowany jest przez \textbf{GitLab Server} \cite{GitLabPage}.
 
-Jak zostało wspomniane przebieg procesu CI/CD konfigurowany jest za pomocą specjalnego pliku \textit{.gitlab-ci.yml}. Zastosowany format \textit{YAML} (skrót od \textit{YAML Ain't Markup Language} \cite{YAMLWiki}), ze względu na swoją czytelność, pozwala na stosunkowo szybkie przygotowanie funkcjonalnego systemu. Listing \ref{lst:yml1} przedstawia przykład prostego pliku w tym formacie konfigurującego GitLab CI/CD. Na początku zostaje w nim określony użyty obraz \textit{Docker'a}, następnie wymienione są poszczególne etapy (klucz \textit{stages} - w tym przypadku jeden etap: \textit{software\_test}) procesu CI/CD, a na końcu pojawia sie opis zadania (\textit{dim\_software\_test}) należącego do zdefiniowanego etapu. Podczas definicji zadań możliwe jest wyspecyfikowanie mających się wykonać komend (klucz \textit{script}).
+Jak zostało wspomniane przebieg procesu CI/CD konfigurowany jest za pomocą specjalnego pliku \textit{.gitlab-ci.yml}. Zastosowany format \textit{YAML} (skrót od \textit{YAML Ain't Markup Language} \cite{YAMLWiki}), ze względu na swoją czytelność, pozwala na stosunkowo szybkie przygotowanie funkcjonalnego systemu. Listing \ref{lst:yml1} przedstawia przykład prostego pliku w~tym formacie konfigurującego GitLab CI/CD. Na początku zostaje w~nim określony użyty obraz \textit{Docker'a}, następnie wymienione są poszczególne etapy (klucz \textit{stages} - w~tym przypadku jeden etap: \textit{software\_test}) procesu CI/CD, a~na końcu pojawia się opis zadania (\textit{dim\_software\_test}) należącego do zdefiniowanego etapu. Podczas definicji zadań możliwe jest wyspecyfikowanie mających się wykonać komend (klucz \textit{script}).
 
-\begin{lstlisting}[caption={Przykład prostego pliku \textit{.gitlab-ci.yml} generującego jeden etap procesu CI/CD oraz jedno zadanie w ramach tego etapu}, label={lst:yml1}]
+\begin{lstlisting}[caption={Przykład prostego pliku \textit{.gitlab-ci.yml} generującego jeden etap procesu CI/CD oraz jedno zadanie w~ramach tego etapu}, label={lst:yml1}]
 image: gitlab-registry.cern.ch/atlas-trt-dcs-ggss/ggss-misc/centos7
 
 stages:
@@ -334,15 +357,15 @@ dim_software_test:
 
 \end{lstlisting}
 
-\subsection{Opis automatyzacji za pomocą GitLab CI/CD w projekcie GGSS}
-Na potrzeby projektu GGSS przygotowane zostało środowisko zapewniające ciągłą integrację i dostarczanie. Pozwala ono na automatyzację procesu budowania i testowania poszczególnych komponentów projektu oraz, dzięki mechanizmowi artekfaktów, przygotowuje gotowe paczki z najważniejszymi aplikacjami w projekcie (m.in. \textit{ggssrunner}). Każde repozytorium zawierające kompilowalny komponent projektu zostało wyposażone w plik \textit{.gitlab-ci.yml} konfigurujący zautomatyzowany proces budowania i testowania. W niniejszej części pracy zostaną przedstawione konfiguracje zrealizowane w ramach dwóch repozytoriów: \textit{ggss-all} oraz \textit{external-dim-lib}. 
+\subsection{Opis automatyzacji za pomocą GitLab CI/CD w~projekcie GGSS}
+Na potrzeby projektu GGSS przygotowane zostało środowisko zapewniające ciągłą integrację i~dostarczanie. Pozwala ono na automatyzację procesu budowania i~testowania poszczególnych komponentów projektu oraz, dzięki mechanizmowi artefaktów, przygotowuje gotowe paczki z~najważniejszymi aplikacjami w~projekcie (m.in. \textit{ggssrunner}). Każde repozytorium zawierające komponent projektu poddawany kompilacji zostało wyposażone w~plik \textit{.gitlab-ci.yml} konfigurujący zautomatyzowany proces budowania i~testowania. W~niniejszej części pracy zostaną przedstawione konfiguracje zrealizowane w~ramach dwóch repozytoriów: \textit{ggss-all} oraz \textit{external-dim-lib}. 
 
-W ramach repozytorium \textit{ggss-all} przygotowana została konfiguracja budująca aplikacje: \textit{ggss-runner}, \textit{ggss-dim-cs} oraz \textit{mca-n957}. Listing \ref{lst:ggssyml1} przedstawia fragment przygotowanego pliku \textit{.yml}. Plik ten zawiera siedem zadań zdefiniowanych w ramach etapu \textit{build} (nie ma konieczności bezpośredniej jego definicji, jest to jeden z trzech, obok \textit{test} i \textit{deploy}, etapów które mogą zostać, w razie pojawienia się przypisanego do nich zadania, wygenerowane automatycznie). Zadania te odpowiadają za:
+W ramach repozytorium \textit{ggss-all} przygotowana została konfiguracja budująca aplikacje: \textit{ggss-runner}, \textit{ggss-dim-cs} oraz \textit{mca-n957}. Listing \ref{lst:ggssyml1} przedstawia fragment przygotowanego pliku \textit{.yml}. Plik ten zawiera siedem zadań zdefiniowanych w~ramach etapu \textit{build} (nie ma konieczności bezpośredniej jego definicji, jest to jeden z~trzech, obok \textit{test} i~\textit{deploy}, etapów które mogą zostać, w~razie pojawienia się przypisanego do nich zadania, wygenerowane automatycznie). Zadania te odpowiadają za:
 \begin{itemize}
-\item \textbf{build\_all\_debug\_static\_boost} - zbudowanie wszystkich trzech wymienionych wyżej aplikacji w wersji deweloperskiej (debug) ze statycznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
-\item \textbf{build\_all\_debug\_dynamic\_boost} - zbudowanie wszystkich trzech aplikacji w wersji deweloperskiej z dynamicznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
-\item \textbf{build\_all\_release\_static\_boost} oraz \textbf{build\_all\_release\_dynamic\_boost} - analogicznie do dwóch powyższych ale w wersji produkcyjnej (release).
-\item \textbf{build\_only\_ggss\_runner}, \textbf{build\_only\_ggss\_dim\_cs} i \textbf{build\_only\_mca\_n957} - zbudowanie każdej aplikacji z osobna, bez produkowania artefaktu, w wersji debug z dynamicznie linkowaną biblioteką Boost (konfiguracja domyślna).
+\item \textbf{build\_all\_debug\_static\_boost} - zbudowanie wszystkich trzech wymienionych wyżej aplikacji w~wersji deweloperskiej (debug) ze statycznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
+\item \textbf{build\_all\_debug\_dynamic\_boost} - zbudowanie wszystkich trzech aplikacji w~wersji deweloperskiej z~dynamicznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
+\item \textbf{build\_all\_release\_static\_boost} oraz \textbf{build\_all\_release\_dynamic\_boost} - analogicznie do dwóch powyższych ale w~wersji produkcyjnej (release).
+\item \textbf{build\_only\_ggss\_runner}, \textbf{build\_only\_ggss\_dim\_cs} i~\textbf{build\_only\_mca\_n957} - zbudowanie każdej aplikacji z~osobna, bez produkowania artefaktu, w~wersji debug z~dynamicznie linkowaną biblioteką Boost (konfiguracja domyślna).
 \end{itemize}
 
 \begin{lstlisting}[caption={Fragment pliku \textit{.gitlab-ci.yml} konfigurującego \textit{pipeline} CI/CD dla repozytorium \textit{ggss-all}}, label={lst:ggssyml1}]
@@ -370,7 +393,7 @@ build_all_debug_static_boost:
 
 \end{lstlisting}
 
-Generowane w repozytorium \textit{ggss-all} artefakty są tymi trafiającymi ostatecznie do środowiska produkcyjnego. Pliki mające trafić do artefaktu specyfikowane są za pomocą klucza \textit{paths} (widoczne na listingu \ref{lst:ggssyml1}). Do przeprowadzenia budowania używany jest specjalnie w tym celu przygotowany przez autorów obraz, oparty na oficjalnych obrazach dostarczonych przez CERN. Rys. \ref{fig:pipelineall} przedstawia wynikowy \textit{pipeline} oraz dostępnie do pobrania artefakty.
+Generowane w~repozytorium \textit{ggss-all} artefakty są tymi trafiającymi ostatecznie do środowiska produkcyjnego. Pliki mające trafić do artefaktu specyfikowane są za pomocą klucza \textit{paths} (widoczne na listingu \ref{lst:ggssyml1}). Do przeprowadzenia budowania używany jest specjalnie w~tym celu przygotowany przez autorów obraz, oparty na oficjalnych obrazach dostarczonych przez CERN. Rys. \ref{fig:pipelineall} przedstawia wynikowy \textit{pipeline} oraz dostępnie do pobrania artefakty.
 
 \begin{figure}[H]
 \centering
@@ -378,7 +401,7 @@ Generowane w repozytorium \textit{ggss-all} artefakty są tymi trafiającymi ost
 \begin{subfigure}{0.4\textwidth}
 \centering
 \includegraphics[height=9cm]{res/png/runnerPipeline}
-\caption{\textit{Pipeline} wygenerowany na podstawie konfiguracji zamieszczonej w pliku \textit{.yml} (listing \ref{lst:ggssyml1})}
+\caption{\textit{Pipeline} wygenerowany na podstawie konfiguracji zamieszczonej w~pliku \textit{.yml} (listing \ref{lst:ggssyml1})}
 \end{subfigure}
 \hspace{0.5cm}
 \begin{subfigure}{0.4\textwidth}
@@ -387,12 +410,14 @@ Generowane w repozytorium \textit{ggss-all} artefakty są tymi trafiającymi ost
 \caption{Możliwe do pobrania artefakty}
 \end{subfigure}
 
-\caption{Zrzuty ekranu wykonane w serwisie GitLab przedstawiające elementy działania ciągłej integracji i dostarczania dla repozytorium \textit{ggss-all}}
+\caption{Zrzuty ekranu wykonane w~serwisie GitLab przedstawiające elementy działania ciągłej integracji i~dostarczania dla repozytorium \textit{ggss-all}}
 \label{fig:pipelineall}
 
 \end{figure}
 
-Konfiguracja stworzona na potrzeby repozytorium \textit{external-dim-lib} różni się nieznacznie od opisanej do tej pory jeśli chodzi o techniczną stronę jej realizacji. Przygotowany \textit{pipeline} (Rys. \ref{fig:pipelineDIM}) składa się z innych etapów i zadań, ale zostały one skonfigurowane z użyciem zaprezentowanych już technik. Na potrzeby przugotowania biblioteki obsługującej protokół \textit{DIM} zostały więc stworzone dwa etapy: odpowiadający za przeprowadzenie testów skryptu pobierającego bibliotekę ze strony internetowej (\textit{Software\_test}), oraz odpowiadający na zbudowanie jej w dwóch wersjach (\textit{Build}). Obie wersje udostępniane są do pobrania za pomocą mechanizmu artefaktów.  
+\newpage
+
+Konfiguracja stworzona na potrzeby repozytorium \textit{external-dim-lib} różni się nieznacznie od opisanej do tej pory jeśli chodzi o~techniczną stronę jej realizacji. Przygotowany \textit{pipeline} (Rys. \ref{fig:pipelineDIM}) składa się z~innych etapów i~zadań, ale zostały one skonfigurowane z~użyciem zaprezentowanych już technik. Na potrzeby przygotowania biblioteki obsługującej protokół \textit{DIM} zostały więc stworzone dwa etapy: odpowiadający za przeprowadzenie testów skryptu pobierającego bibliotekę ze strony internetowej (\textit{Software\_test}), oraz odpowiadający na zbudowanie jej w~dwóch wersjach (\textit{Build}). Obie wersje udostępniane są do pobrania za pomocą mechanizmu artefaktów.  
 
 \begin{figure}[H]
 \centering
@@ -401,11 +426,11 @@ Konfiguracja stworzona na potrzeby repozytorium \textit{external-dim-lib} różn
 \includegraphics[width=\textwidth]{res/png/pipelineDIM}
 \end{figure}
 
-Podobnego typu prace zostały wykonane dla większości pozostałych repozytoriów. Z uwagi na ich powtarzalny charakter nie zostaną one jednak omówione w niniejszym manuskrypcie. 
+Podobnego typu prace zostały wykonane dla większości pozostałych repozytoriów. Z~uwagi na ich powtarzalny charakter nie zostaną one jednak omówione w~niniejszym manuskrypcie. 
 
-W przedstawionym przykładzie dotyczącym aplikacji \textit{ggssrunner} (listing \ref{lst:ggssyml1}) znajduje się klucz \textit{before\_script} z instrukcją pobierającą submoduły projektu. Istnieją dwa wykluczające się sposoby na wykonanie tej czynności. Submoduł może zostać pobrany w swojej najnowszej wersji znajdującej się na \textbf{zdalnej rewizji} (tak jak w przytoczonym przykładzie, służy temu opcja \textbf{--remote}) lub w wersji \textbf{aktualnie powiązanej z repozytorium nadrzędnym} (realizację przedstawia listing \ref{lst:ggsscicdsoft}). Oba wymienione podejścia mają swoje wady i zalety. Rys. \ref{fig:submoduleProblem} stanowi uproszczoną (ograniczoną tylko do jednej gałęzi na repozytorium) ilustrację opisywanego problemu. Pierwszy z wymienionych sposobów jest wygodniejszy, ponieważ pozwala na dostarczenie i przetestowanie najnowszej możliwej wersji produktu. Jest to jednak ryzykowne - najnowsza wersja submodułu może nie być kompatybilna z modułem nadrzędnym (np. mógł zmienić się jej interfejs). Spowoduje to błąd, którego źródło może być trudne do odnalezienia (jeśli programista owej najnowszej wersji nie używał pojawi się sprzeczność w wynikach otrzymywanych przez niego lokalnie, a generowanych przez mechanizm CI/CD). Drugie rozwiązanie jest zatem bezpieczniejsze i gwarantuje stabilność. Autorzy skłaniają się w większości przypadków do tego własnie rozwiązania, jednak z uwagi na zalety pierwszej z wymienionych opcji, jest ona wciąż używana w niektórych repozytoriach (np. \textit{ggss-all}). 
+W przedstawionym przykładzie dotyczącym aplikacji \textit{ggssrunner} (listing \ref{lst:ggssyml1}) znajduje się klucz \textit{before\_script} z~instrukcją pobierającą submoduły projektu. Istnieją dwa wykluczające się sposoby na wykonanie tej czynności. Submoduł może zostać pobrany w~swojej najnowszej wersji znajdującej się na \textbf{zdalnej rewizji} (tak jak w~przytoczonym przykładzie, służy temu opcja \textbf{--remote}) lub w~wersji \textbf{aktualnie powiązanej z~repozytorium nadrzędnym} (realizację przedstawia listing \ref{lst:ggsscicdsoft}). Oba wymienione podejścia mają swoje wady i~zalety. Rys. \ref{fig:submoduleProblem} stanowi uproszczoną (ograniczoną tylko do jednej gałęzi na repozytorium) ilustrację opisywanego problemu. Pierwszy z~wymienionych sposobów jest wygodniejszy, ponieważ pozwala na dostarczenie i~przetestowanie najnowszej możliwej wersji produktu. Jest to jednak ryzykowne - najnowsza wersja submodułu może nie być kompatybilna z~modułem nadrzędnym (np. mógł zmienić się jej interfejs). Spowoduje to błąd, którego źródło może być trudne do odnalezienia (jeśli programista owej najnowszej wersji nie używał pojawi się sprzeczność w~wynikach otrzymywanych przez niego lokalnie, a~generowanych przez mechanizm CI/CD). Drugie rozwiązanie jest zatem bezpieczniejsze i~gwarantuje stabilność. Autorzy skłaniają się w~większości przypadków do tego właśnie rozwiązania, jednak z~uwagi na zalety pierwszej z~wymienionych opcji, jest ona wciąż używana w~niektórych repozytoriach (np. \textit{ggss-all}). 
 
-\begin{lstlisting}[caption={Fragment pliku \textit{.gitlab-ci.yml} znajdującego się w repozytorium \textit{ggss-software-libs} pobierający submoduły projektu w wersji aktualnie powiązanej z repozytorium narzędnym}, label={lst:ggsscicdsoft}]
+\begin{lstlisting}[caption={Fragment pliku \textit{.gitlab-ci.yml} znajdującego się w~repozytorium \textit{ggss-software-libs} pobierający submoduły projektu w~wersji aktualnie powiązanej z~repozytorium nadrzędnym}, label={lst:ggsscicdsoft}]
 image: gitlab-registry.cern.ch/atlas-trt-dcs-ggss/ggss-misc/centos7
 
 variables:
@@ -417,15 +442,16 @@ variables:
 
 \begin{figure}[H]
 \centering
-\caption{Uproszczona (ograniczona do jednej gałęzi na repozytorium) ilustracja problemu dotyczacego pobieranej przez mechanizm CI/CD wersji submodułu. Problem polega na podjęciu decyzji, czy powinna zostać pobrana wersja najnowsza (tutaj oznaczona jako \textit{commit\_D}) czy ta aktualnie powiązana z repozytorium nadrzędnym (\textit{commit\_B})}
+\caption{Uproszczona (ograniczona do jednej gałęzi na repozytorium) ilustracja problemu dotyczacego pobieranej przez mechanizm CI/CD wersji submodułu. Problem polega na podjęciu decyzji, czy powinna zostać pobrana wersja najnowsza (tutaj oznaczona jako \textit{commit\_D}) czy ta aktualnie powiązana z~repozytorium nadrzędnym (\textit{commit\_B})}
 \label{fig:submoduleProblem}
 \includegraphics[width=\textwidth]{res/SubmodulesProblem}
 \end{figure}
 
+\newpage
 
-W ramach prac nad mechanizmem CI/CD w projekcie GGSS został również przygotowany specjalny \textbf{szablon} ułatwiający tworzenie \textit{pipeline'ów}. Został on umieszczony w repozytorium \textit{aux}, a jego fragment przedstawia listing \ref{lst:ggsscicdtempl}. Zawartość tego szablonu, zmodyfikowana zgodnie ze specyfiką danego repozytorium, posłużyła autorom do napisania większości plików \textit{.yml}, które znalazły się w projekcie.
+W ramach prac nad mechanizmem CI/CD w~projekcie GGSS został również przygotowany specjalny \textbf{szablon} ułatwiający tworzenie \textit{pipeline'ów}. Został on umieszczony w~repozytorium \textit{aux}, a~jego fragment przedstawia listing \ref{lst:ggsscicdtempl}. Zawartość tego szablonu, zmodyfikowana zgodnie ze specyfiką danego repozytorium, posłużyła autorom do napisania większości plików \textit{.yml}, które znalazły się w~projekcie.
 
-\begin{lstlisting}[caption={Fragment szablonu ułatwiającego pisanie plików \textit{.gitlab-ci.yml} znajdującego się w repozytorium \textit{aux}}, label={lst:ggsscicdtempl}]
+\begin{lstlisting}[caption={Fragment szablonu ułatwiającego pisanie plików \textit{.gitlab-ci.yml} znajdującego się w~repozytorium \textit{aux}}, label={lst:ggsscicdtempl}]
 # This is gitlab-ci.yml for TRT GGSS project.
 
 # actual image being used by ggss project
@@ -460,24 +486,25 @@ build:
 
 
 \newpage
-\section{Budowanie i dystrybucja sterownika oraz aplikacji testującej}
+\section{Budowanie i~dystrybucja sterownika oraz aplikacji testującej}
 
 \newpage
 \section{Maszyna wirtualna oraz konteneryzacja - Docker}
+\label{sec:wirtDocker}
 
 \newpage
 \section{Pomniejsze prace}
-\subsection{Integracja bibliotek napisanych w języku C z aplikacją w C++}
-\subsection{Integracja zewnętrznej biblioteki dynamicznej z użyciem narzędzia CMake}
+\subsection{Integracja bibliotek napisanych w~języku C z~aplikacją w~C++}
+\subsection{Integracja zewnętrznej biblioteki dynamicznej z~użyciem narzędzia CMake}
 
 \newpage
 \section{Dokumentacja projektu}
-Jednym z wymagań postawionych przed autorami niniejszej pracy było przygotowanie podstawowej dokumentacji opisującej poszczególne komponenty projektu GGSS. Dokumentacja ta miała zostać sporządzona w języku angielskiem, co wynika z międzynarodowego charakteru zespołu pracującego nad detektorem ATLAS. Przygotowana dokumentacja powinna oferować możliwie niski próg wejścia - powinna ona umożliwić osobie niezaznajomionej z całym systemem GGSS zbudowanie oraz użycie poszczególnych jego komponentów, jak i całego projektu. Autorzy zrealizowali to zadanie za pomocą plików \textbf{README.md} umieszczonych w każdym repozytorium projektu oraz dokumentów opisujących sposób wykonania niektórych czynności związanych z utrzymaniem projektu.
+Jednym z~wymagań postawionych przed autorami niniejszej pracy było przygotowanie podstawowej dokumentacji opisującej poszczególne komponenty projektu GGSS. Dokumentacja ta miała zostać sporządzona w~języku angielskim, co wynika z~międzynarodowego charakteru zespołu pracującego nad detektorem ATLAS. Przygotowana dokumentacja powinna oferować możliwie niski próg wejścia - powinna ona umożliwić osobie niezaznajomionej z~całym systemem GGSS zbudowanie oraz użycie poszczególnych jego komponentów, jak i~całego projektu. Autorzy zrealizowali to zadanie za pomocą plików \textbf{README.md} umieszczonych w~każdym repozytorium projektu oraz dokumentów opisujących sposób wykonania niektórych czynności związanych z~utrzymaniem projektu.
 
 \subsection{Język Markdown}
-Pliki \textit{readme} umieszczane w serwisach takich jak \textit{GitLab} czy \textit{GitHub} pisane są przy pomocy specjalnego języka znaczników \textbf{Markdown}. Jest to prosty w użyciu język, konwertowany zwykle do odpowiadającego mu kodu \textit{HTML} \cite{Markdown1}. Listing \ref{lst:mdexample} przedstawia prosty przykład pliku napisanego w języku Markdown, natomiast Rys. \ref{fig:markdownExample} przedstawia wygenerowaną za jego pomocą zawartość w portalu \textit{GitLab}.
+Pliki \textit{readme} umieszczane w~serwisach takich jak \textit{GitLab} czy \textit{GitHub} pisane są przy pomocy specjalnego języka znaczników \textbf{Markdown}. Jest to prosty w~użyciu język, konwertowany zwykle do odpowiadającego mu kodu \textit{HTML} \cite{Markdown1}. Listing \ref{lst:mdexample} przedstawia prosty przykład pliku napisanego w~języku Markdown, natomiast Rys. \ref{fig:markdownExample} przedstawia wygenerowaną za jego pomocą zawartość w~portalu \textit{GitLab}.
 
-\begin{lstlisting}[caption={Przykład prostego pliku napisanego w języku Markdown}, label={lst:mdexample}]
+\begin{lstlisting}[caption={Przykład prostego pliku napisanego w~języku Markdown}, label={lst:mdexample}]
 # Przykład nagłówka
 
 Ten przykład został wygenerowany na potrzeby pracy inżynierskiej dotyczącej 
@@ -489,30 +516,31 @@ Przykład listy:
  * Jarosław Cierpich
 \end{lstlisting}
 
-\begin{figure}[H]
+\begin{figure}
 \centering
-\caption{Przykład zawartości wygenerowanej w portalu \textit{GitLab} za pomocą języka Markdown na podstawie kodu z listingu \ref{lst:mdexample}}
+\caption{Przykład zawartości wygenerowanej w~portalu \textit{GitLab} za pomocą języka Markdown na podstawie kodu z~listingu \ref{lst:mdexample}}
 \label{fig:markdownExample}
 \includegraphics[width=\textwidth]{res/MarkdownExample}
 \end{figure}
 
+\newpage
 
 \subsection{Opis wykonanej dokumentacji}
-Dla każdego repozytorium w projekcie wykonany został plik \textit{README.md} zawierający informacje takie jak:
+Dla każdego repozytorium w~projekcie wykonany został plik \textit{README.md} zawierający informacje takie jak:
 \begin{itemize}
-\item opis zawartości repozytorium (np. lista bibliotek wraz z krótkim ich opisem)
-\item wymagania dotyczące środowiska, w którym projekt może zostać zbudowany (np. niezbędne biblioteki zewnętrzne, wersja narzędzia \textit{CMake})
-\item szczegółowy opis procesu budowania projektu wraz z gotową komendą umożliwiającą jego zbudowanie 
+\item opis zawartości repozytorium (np. lista bibliotek wraz z~krótkim ich opisem)
+\item wymagania dotyczące środowiska, w~którym projekt może zostać zbudowany (np. niezbędne biblioteki zewnętrzne, wersja narzędzia \textit{CMake})
+\item szczegółowy opis procesu budowania projektu wraz z~gotową komendą umożliwiającą jego zbudowanie 
 \end{itemize}
 
-Rys. \ref{fig:markdownHardware} przedstawia fragment zawartości wygenerowanej za pomocą pliku \textit{README.md} znajdującego się w repozytorium \textit{ggss-hardware-libs}, opisującej proces budowania bibliotek wchodzących w skład tego repozytorium. Poza listą kroków opisującą szczegółowo budowanie zestawu biblitek, instrukcja zawiera również pojedynczą komendę, użycie której wykonuje cały proces bez konieczności dodatkowego wkładu ze strony użytkownika. Takie podejście ma na celu ułatwienie osobom nieznającym struktury projektu szybkie jego zbudowanie. Podobne komendy umieszczone zostały w repozytoriach zawierających aplikacje wchodzące w skład systemu GGSS (takie jak \textit{ggssrunner}).
+Rys. \ref{fig:markdownHardware} przedstawia fragment zawartości wygenerowanej za pomocą pliku \textit{README.md} znajdującego się w~repozytorium \textit{ggss-hardware-libs}, opisującej proces budowania bibliotek wchodzących w~skład tego repozytorium. Poza listą kroków opisującą szczegółowo budowanie zestawu bibliotek, instrukcja zawiera również pojedynczą komendę, użycie której wykonuje cały proces bez konieczności dodatkowego wkładu ze strony użytkownika. Takie podejście ma na celu ułatwienie osobom nieznającym struktury projektu szybkie jego zbudowanie. Podobne komendy umieszczone zostały w~repozytoriach zawierających aplikacje wchodzące w~skład systemu GGSS (takie jak \textit{ggssrunner}).
 
 \begin{figure}
 \centering
-\caption{Fragment instrukcji budowania zestawu bibliotek znajdujących się w repozytorium \textit{ggss-hardware-libs}}
+\caption{Fragment instrukcji budowania zestawu bibliotek znajdujących się w~repozytorium \textit{ggss-hardware-libs}}
 \label{fig:markdownHardware}
 \includegraphics[width=\textwidth]{res/HardwareLibs}
 \end{figure}
 
-Oprócz plików \textit{.md} przygotowane zostały również dwa dokumenty opisujące ważne, zdaniem autorów, aspekty utrzymania i rozwoju projektu GGSS. Dokumenty te zostały dołączone do niniejszej pracy w formie dodatków (\ref{appendix:A2} oraz \ref{appendix:A3}). Dotyczą one rozszerzania projektu o nowe moduły (dodatek \ref{appendix:A2} - \textit{Adding new modules to the project using existing CMake
-templates}) oraz przygotowywania maszyny wirtualnej do pracy jako \textit{runner} w procesie CI/CD (dodatek \ref{appendix:A3} - \textit{Preparing virtual machine to work as a runner}). 
+Oprócz plików \textit{.md} przygotowane zostały również dwa dokumenty opisujące ważne, zdaniem autorów, aspekty utrzymania i~rozwoju projektu GGSS. Dokumenty te zostały dołączone do niniejszej pracy w~formie dodatków (\ref{appendix:A2} oraz \ref{appendix:A3}). Dotyczą one rozszerzania projektu o~nowe moduły (dodatek \ref{appendix:A2} - \textit{Adding new modules to the project using existing CMake
+templates}) oraz przygotowywania maszyny wirtualnej do pracy jako \textit{runner} w~procesie CI/CD (dodatek \ref{appendix:A3} - \textit{Preparing virtual machine to work as a~runner}). 

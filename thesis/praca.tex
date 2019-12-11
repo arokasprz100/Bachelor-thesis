@@ -25,7 +25,6 @@
 % TODO: Można wyłączyć
 \usepackage{emptypage}
 
-
 % Dodatkowe kolory:
 \usepackage{colortbl}
 \definecolor{redi}{RGB}{255,38,0}
@@ -100,9 +99,39 @@
     stringstyle=\color{green}
 }
 
-\lstdefinestyle{Cmd}
+% Definicja listingu dla CMAKE
+\lstdefinelanguage{cmake}
 {
-    moredelim=[s][\color{red}\bfseries]{user@host}{\$}
+  morekeywords={set, cmake_minimum_required, project, add_executable, target_include_directories, include, target_link_libraries, file, add_library, set_target_properties},
+  morecomment=[l]{\#},
+  morestring=[b]"
+}
+
+\lstset{
+    language=cmake,
+    columns=flexible,
+    keepspaces=true,
+    showstringspaces=false,
+    basicstyle=\tiny\ttfamily,
+    commentstyle=\color{gray},
+    keywordstyle=\color{purple},
+    stringstyle=\color{green}
+}
+
+\lstdefinelanguage{Cmd}
+{
+    moredelim=[s][\color{red}\bfseries]{user@host}{\$},
+    morekeywords={}
+}
+\lstset{
+    language=Cmd,
+    columns=flexible,
+    keepspaces=true,
+    showstringspaces=false,
+    basicstyle=\tiny\ttfamily,
+    commentstyle=\color{gray},
+    keywordstyle=\color{purple},
+    stringstyle=\color{green}
 }
 
 
