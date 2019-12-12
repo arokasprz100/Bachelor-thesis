@@ -17,12 +17,12 @@ Zmiany wprowadzane w~nowych standardach pozwalają na tworzenie czytelniejszego 
 
 \begin{lstlisting}[language=c++,caption={Przykład kodu w~języku C++ napisany z~wykorzystaniem standardu C++03},label={lst:cpp03}]
 // kontener zawierający 6 elementów typu int - inicjalizacja
-// za pomocą tymczasowej tablicy, możliwa w~standardzie C++03
+// za pomocą tymczasowej tablicy, możliwa w standardzie C++03
 // języka
 int tmp_arr[] = {1, 2, 3, 4, 5, 6};
-std::vector<int> a~(tmp_arr, tmp_arr + 6);
+std::vector<int> a (tmp_arr, tmp_arr + 6);
 
-// iteracja po zawartości kontenera w~standardzie C++03
+// iteracja po zawartości kontenera w standardzie C++03
 for (std::vector<int>::const_iterator it = a.begin(); it != a.end(); ++it) {
     std::cout << *it << " ";
 }
@@ -136,7 +136,7 @@ Rysunek \ref{fig:staticliblink} przedstawia schematycznie proces dołączania ut
 
 int main(void) {
 
-    complex_number a~= {2.5, 3.7};
+    complex_number a = {2.5, 3.7};
     complex_number b = {3.5, 0};
 
     complex_number c = add_complex_numbers(a, b);
@@ -366,8 +366,8 @@ Jedną z~największych zalet Pythona jest bardzo duża liczba bibliotek zewnętr
 Powłoka systemu jest programem, którego głównym zadaniem jest udostępnienie interfejsu umożliwiającego łatwy dostęp do funkcji systemu operacyjnego. Nazwę \textit{powłoka} zawdzięcza temu, że jest warstwą okalającą system operacyjny. Najczęściej spotykanym rodzajem powłoki są tzw. interfejsy z~wierszem poleceń (ang. command-line interface). Polecenia wprowadzane są do nich w~modzie interaktywnym, tj. wykonywane są one w~momencie wprowadzenia końca linii.
 
 \begin{lstlisting}[language=bash,language=Cmd,caption={Komenda wypisująca tekst na standardowe wyjście wykonana z~linii poleceń}]
-user@host:~$ echo "interfejs z~linią poleceń"
-interfejs z~linią poleceń
+user@host:~$ echo "interfejs z linią poleceń"
+interfejs z linią poleceń
 user@host:~$
 \end{lstlisting}
 
@@ -415,10 +415,8 @@ branches  config  description  HEAD  hooks  info  objects  refs
 
 Taka inicjalizacja nie spowoduje żadnego dodatkowego działania oprócz utworzenia repozytorium. Żadne pliki nie są jeszcze poddawane rewizji. W~celu rejestracji plików należy wykonać jeszcze kilka kroków. Pierwszym z~nich jest wykonanie komendy \textbf{git add}, która poprzedza nazwę plików lub folderów, które chcemy poddać wersjonowaniu. Elementy te zostają dodane do tzw. poczekalni, czyli są one kandydatami do utworzenia kolejnej rewizji. Przydatną komendą w~tym przypadku jest również \textbf{git status} pozwalająca na sprawdzenie obecnego stanu repozytorium. Wyświetla ono krótkie podsumowanie nt. nowych plików, usuniętych plików oraz plików zmodyfikowanych. Informuje nas również o~tym, które pliki są brane pod uwagę do utworzenia kolejnej rewizji.
 
-%% Jesli chcemy uzywac mojego stylu, musimy miec konsystentnie $ albo # na koncu command-prompt
 \begin{lstlisting}[language=Cmd,caption={Dodawanie elementów do poczekalni}]
-user@host:/ściezka/do/projektu$ git add plik1 folder1
-user@host:/ściezka/do/projektu$ git status
+user@host:/ściezka/do/projektu$ git add plik1 folder1 && git status
 On branch master
 
 No commits yet
@@ -456,6 +454,7 @@ Date:   Wed Dec 4 17:29:55 2019 +0100
 
 Przejścia między rewizjami nie powodują utraty danych, gdyż zachowywana jest informacja o~stanie plików dla każdej z~nich, co ukazuje Listing \ref{lis:drugaRewizja}. Tworzona jest nowa rewizja zawierająca dodatkowo \textbf{plik2}, natomiast po powrocie do poprzedniej wersji plik ten nie występuje. Gdy powrócimy do nowszej wersji ponownie pojawi się \textbf{plik2}.
 
+\newpage
 \begin{lstlisting}[language=Cmd,caption={Podsumowanie rewizji, powrót do starszej wersji},label={lis:drugaRewizja}]
 user@host:/sciezka/do/projektu$ git add plik2
 user@host:/sciezka/do/projektu$ git commit -m "Druga rewizja"

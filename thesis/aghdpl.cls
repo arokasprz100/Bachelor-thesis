@@ -58,7 +58,7 @@
 
 
 \def\thesisheaders{
-\fancyfoot[LE,RO]{\small \@shortauthor\quad\textit{\@shorttitlePL}}
+\fancyfoot[C]{\small\bfseries - \thepage\ -}
 }
 
 \def\thesistable{
@@ -159,10 +159,12 @@ Supervisor: & {\itshape \@supervisor}\\
 \renewcommand{\footrulewidth}{0.5pt}
 \fancyhf{}
 \fancyhead{}
-%\fancyhead[L]{\slshape{\small \rightmark}}
-\fancyhead[RE,LO]{\slshape{\small \rightmark}}
-%\fancyhead[R]{\bfseries \thepage}
-\fancyhead[RO,LE]{\bfseries \thepage}
+% %\fancyhead[L]{\slshape{\small \rightmark}}
+% \fancyhead[RE,LO]{\slshape{\small \rightmark}}
+% %\fancyhead[R]{\bfseries \thepage}
+% \fancyhead[RO,LE]{\bfseries \thepage}
+\fancyhead[RO]{\rightmark}
+\fancyhead[LE]{\leftmark}
 
 \thesisheaders
 

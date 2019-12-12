@@ -88,17 +88,6 @@
   morestring=[b]"
 }
 
-\lstset{
-    language=Dockerfile,
-    columns=flexible,
-    keepspaces=true,
-    showstringspaces=false,
-    basicstyle=\tiny\ttfamily,
-    commentstyle=\color{gray},
-    keywordstyle=\color{purple},
-    stringstyle=\color{green}
-}
-
 % Definicja listingu dla CMAKE
 \lstdefinelanguage{cmake}
 {
@@ -107,69 +96,22 @@
   morestring=[b]"
 }
 
-\lstset{
-    language=cmake,
-    columns=flexible,
-    keepspaces=true,
-    showstringspaces=false,
-    basicstyle=\tiny\ttfamily,
-    commentstyle=\color{gray},
-    keywordstyle=\color{purple},
-    stringstyle=\color{green}
-}
-
 \lstdefinelanguage{Cmd}
 {
     moredelim=[s][\color{red}\bfseries]{user@host}{\$},
     morekeywords={}
 }
-\lstset{
-    language=Cmd,
-    columns=flexible,
-    keepspaces=true,
-    showstringspaces=false,
-    basicstyle=\tiny\ttfamily,
-    commentstyle=\color{gray},
-    keywordstyle=\color{purple},
-    stringstyle=\color{green}
-}
-
 
 % Kolorowanie składni języka C++
 % TODO: Można usunąć jeśli się nie potrzebuje
 \definecolor{listinggray}{gray}{0.9}
 \definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
-\lstset{
-    language=C++,
-    basicstyle=\ttfamily,
-    breaklines=true,
-    breakatwhitespace=true, %%%
-    basicstyle=\footnotesize,
-    %upquote=true,
-    aboveskip={0.75\baselineskip},
-    columns=fixed,
-    showstringspaces=false,
-    %extendedchars=false,
-    breaklines=true,
-    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-    %frame=single,
-    showtabs=false,
-    showspaces=false,
-    showstringspaces=false,
-    %backgroundcolor=\color{lbcolor},
-    identifierstyle=\ttfamily,
-    keywordstyle=\color[rgb]{0,0,1},
-    commentstyle=\color[rgb]{0.4,0.4,0.4},
-    stringstyle=\color[rgb]{0.627,0.126,0.941},
-    numberstyle={\footnotesize\color[rgb]{0.205, 0.142, 0.73}}
-}
 
 % Kolorowanie składni języka bash
 % TODO: Można usunąć jeśli się nie potrzebuje
 \definecolor{listinggray}{gray}{0.9}
 \definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
 \lstset{
-    language=bash,
     basicstyle=\ttfamily,
     breaklines=true,
     breakatwhitespace=true, %%%
@@ -192,6 +134,11 @@
     stringstyle=\color[rgb]{0.627,0.126,0.941},
     numberstyle={\footnotesize\color[rgb]{0.205, 0.142, 0.73}}
 }
+
+% Padding w podpisach do listingow i obrazkow
+% ustawiony na 0
+\captionsetup[lstlisting]{ margin=0pt}
+\captionsetup[figure]{ margin=0pt}
 
 \usepackage[hidelinks]{hyperref}
 
