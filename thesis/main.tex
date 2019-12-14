@@ -488,9 +488,77 @@ build:
 \newpage
 \section{Budowanie i~dystrybucja sterownika oraz aplikacji testującej}
 
+Ważną częścią pracy wykonanej przez autorów były zmiany w systemie budowania i dystrybucji pakietu \textbf{RPM} zawierającego pliki modułu \textbf{ggss-driver}, czyli:
+\begin{itemize}
+\item \textbf{CAENUSBdrvB.ko} - sterownik do Analizatora Wielokanałowego w postaci modułu jądra systemu operacyjnego
+\item \textbf{10-CAEN-USB.rules} - zasady działania dla programu udev, ma na celu utworzenie dowiązania symbolicznego o odpowiednich prawach dostępu w momencie utworzenia urządzenia odpowiedzialnego za obsługę sterownika
+\item \textbf{99-GGSS.rules} - zasady działania dla programu udev, odpowiadają za utworzenie dowiązań symbolicznych w momencie podłączenia urządzeń USB o zadanych atrybutach.
+\item \textbf{CAEN-USB.modules} - plik odpowiedzialny za konfigurację aplikacji \textbf{modules} w taki sposób, aby sterownik był ładowany automatycznie w trakcie uruchamiania systemu operacyjnego
+\item \textbf{ggss\_conf.py} - skrypt napisany w języku \textbf{Python 2} pozwalający na uproszczone generowanie pliku 99-GGSS.rules dla programu udev
+\item \textbf{ggss\_usb.conf} - aktualnie używana konfiguracja dla skryptu \textbf{ggss\_conf.py}
+\end{itemize}
+
+Pierwszym krokiem wykonanym w ramach modułu \textbf{ggss-driver} była zmiana logiki budowania w celu zapewnienia usuwania plików pomocniczych tworzonych podczas procesu budowania, aby zapewnić uporządkowane środowisko deweloperskie. Zostało to osiągnięte za pomocą dodania odpowiedniej właściwości folderowi, który zawierał niepotrzebne dłużej zasoby, w ramach pliku \textbf{CMakeLists.txt}. \par
+Kolejną ważną kwestią było uporządkowanie i poprawienie niedociągnięć znajdujących się w pierwotnej wersji pliku \textbf{CMakeLists.txt}. W ramach poprawionej logiki została dodana informacja o wersji jądra systemu operacyjnego użytego w celu kompilacji sterownika. Informację tą można wyświetlić za pomocą komendy \textbf{rpm} po zainstalowaniu pakietu w celu sprawdzenia, czy wersja jądra systemu, za pomocą której został utworzony sterownik, jest zgodna z wersją jądra na systemie docelowym. Jest to bardzo ważna funkcjonalność ze względu na to, że różnice nawet w wersji \textbf{minor} potrafią powodować błędy w działaniu lub kompletnie uniemożliwiać działanie sterownika.
+
+Kolejną poprawką wprowadzoną do pliku \textbf{CMakeLists.txt} było generowanie skryptów obsługujących pakiet \textbf{RPM} bezpośrednio do pakietu, a nie jak to miało miejsce wcześniej, czyli zapisywane do pliku na dysku twardym, a dopiero następnie wprowadzane do pakietu. Dodatkowo logika samych skryptów uległa poprawie, pozbyto się nadmiarowego usuwania plików, które było wykonywane automatycznie przez menadżera pakietów. W ramach pakietu dodano również bibliotekę \textbf{libCAENN957}, która jest dostarczana przez firmę \textbf{CAEN} i ma na celu udostępnienie \textbf{API} do obsługi Analizatora Wielokanałowego. Została ona dodana jako wymagany komponent całego pakietu, w przypadku braku odnalezienia biblioteki proces budowania nie powiedzie się. Repozytorium ją zawierające zostało dodane jako \textbf{submoduł} repozytorium \textbf{ggss-driver}. W celu zapewnienia odpowiedniej obsługi biblioteki w systemie docelowym generowany jest plik konfiguracyjny programu \textbf{ld} zawierający ścieżkę instalacyjną biblioteki. W ramach logiki instalacyjnej program \textbf{ld} jest odświeżany, tak, aby ścieżka z pliku została zarejestrowana. W celu poprawnego linkowania biblioteki tworzone jest dowiązanie symboliczne, które nie zawiera numeru wersji w nazwie (libCAENN957.so -> libCAENN957.so.1.6).
+
+Bardzo ważnym aspektem było wprowadzenie obsługi systemu aktualizacja pakietów. W celu zaktualizowania obecnie zainstalowanego pakietu do nowszej wersji wykonywana jest logika instalacyjna nowego pakietu oraz logika dezinstalacyjna starego pakietu w następującej kolejności:
+\begin{itemize}
+\item Wykonaj skrypt pre-instalacyjny nowego pakietu
+\item Zainstaluj pliki dostarczane przez nowy pakiet
+\item Uruchom sekcję post-instalacyjną nowego pakietu
+\item Uruchom sekcje pre-dezinstalacyjną starego pakietu
+\item Usuń pliki dostarczane przez stary pakiet, ale tylko te, które nie zostały nadpisane przez nowy pakiet.
+\item Uruchom sekcje post-dezinstalacyjną starego pakietu.
+\end{itemize}
+TUTAJREF
+
+Ze względu na to, że w ramach logiki instalacyjnej ładowany jest moduł jądra systemu operacyjnego, a w ramach logiki dezinstalacyjnej jest on usuwany wymagane było przeniesienie logiki dezinstalacyjnej starego pakietu przed logikę instalacyjną nowego pakietu, tak, aby po procesie aktualizacji moduł był nadal załadowany. Niestety ww. przebieg procesu aktualizacji uniemożliwiał wykonanie tego w prosty sposób, ze względu na to, że żadna część logiki nowego pakietu nie jest wykonywana na koniec, dzięki czemu moglibyśmy załadować moduł jądra. W celu rozwiązania tego problemu, została wykorzystana właściwość parametru textbf{\$1} w ramach logiki pakietów \textbf{RPM}, czyli:
+\begin{itemize}
+\item W przypadku procesu instalacyjnego, gdy argument \textbf{\$1} przyjmuje wartość \textit{1} oznacza to, że przeprowadzana jest czysta instalacja, natomiast, gdy argument przyjmuje wartość \textit{2} przeprowadzana jest aktualizacja
+\item W przypadku procesu dezinstalacyjnego, gdy argument \textbf{\$1} przyjmuje wartość \textit{0} oznacza to, że przeprowadza jest dezinstalacja, natomiast, gdy argument przyjmuje wartość \textit{1} przeprowadzana jest aktualizacja
+\end{itemize}
+
+Wykorzystując ww. właściwości logikę dezinstalacyjna starego pakietu, w przypadku wykonywania aktualizacji, została przeniesiona do skryptu odpowiedzialnego za instalację nowego pakietu, przed wykonaniem jakichkolwiek czynności jego dotyczących, co ukazane jest na Listingu \ref{lst:rpmUpgrade}, natomiast skrypt dezinstalacyjny służy jedynie wyświetlaniu informacji o braku podejmowanych kroków w jego części procesu (Listing \ref{lst:rpmUpgradePt2}).
+
+\begin{lstlisting}[language=bash, caption={Przykład wykorzystania właściwości argumentów dla skryptu \textit{post-install}}, label={lst:rpmUpgrade}]
+#!/bin/sh
+# [ $1 = 2 ] - upgrade
+# [ $1 = 1 ] - install
+if [ $1 = 2 ]; then
+    # Dokonaj czyszczenia starego pakietu
+fi
+# Dokonaj instalacji nowego pakietu
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, caption={Przykład wykorzystania właściwości argumentów dla skryptu \textit{pre-uninstall}}, label={lst:rpmUpgradePt2}]
+#!/bin/sh
+# [ $1 = 1 ] - upgrade
+# [ $1 = 0 ] - uninstall
+if [ $1 = 0 ]; then
+    # Dokonaj dezinstalacji starego pakietu
+elif [ $1 = 1 ]; then
+    # Wyswietl komunikat o braku podejmowanych akcji, ze względu na dezinstalację wykonaną przez skrypt post-install
+fi
+
+\end{lstlisting}
+
+W ramach zmian w module \textbf{ggss-driver} zostały również poprawione prawa dostępu do plików instalowanych przez pakiet, tak, aby w systemie docelowym osoby korzystające miały do nich dostęp. 
+Ze względu na to, że miejscem docelowym plików, instalowanych przez pakiet, są foldery, których ścieżki znajdują się w strukturze folderów systemowych wymagane było wyłączenie części z nich z tworzenia w procesie instalacyjnym pakietu. Są to następujące katalogi: \textit{/opt}, \textit{/usr/lib/modules}, \textit{/etc/ld.so.conf.d}, \textit{/etc/modules-load.d}, \textit{/etc/udev}, \textit{/etc/udev/rules.d}.
+
+Każda zmiana w pakiecie \textbf{RPM} projektu \textbf{ggss-driver} jest odpowiednio wersjonowana, dla każdej z nich jest budowany nowy pakiet w ramach funkcjonalności GitLab CI/CD, który jest udostępniany jako artefakt do pobrania.
+
+W ramach projektu \textbf{ggss} dystrybuowana jest również aplikacja \textbf{mcaN957} służąca do testowania poprawności działania Analizatora Wielokanałowego. Dostarczana jest ona w postaci pakietu RPM, do instalacji którego wymagana jest wcześniejsza instalacja pakietu \textbf{ggss-driver}.
+
+Utworzony został również pakiet zawierający aplikację \textbf{CAEN-N957-DEMO}, która również służy do testowania poprawności działania ww. urządzenia, natomiast jest ona tworzona przez firmę \textbf{CAEN}. Również ten pakiet wymaga ówczesnej instalacji pakietu \textbf{ggss-driver}.
+
+
 \newpage
 \section{Maszyna wirtualna oraz konteneryzacja - Docker}
 \label{sec:wirtDocker}
+
+
 
 \newpage
 \section{Pomniejsze prace}
