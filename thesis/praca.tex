@@ -91,7 +91,7 @@
 % Definicja listingu dla CMAKE
 \lstdefinelanguage{cmake}
 {
-  morekeywords={set, cmake_minimum_required, project, add_executable, target_include_directories, include, target_link_libraries, file, add_library, set_target_properties},
+  morekeywords={set, cmake_minimum_required, project, add_executable, target_include_directories, include, target_link_libraries, file, add_library, set_target_properties, if, endif, list, foreach, endforeach, add_subdirectory, get_directory_property, get_filename_component, function, endfunction, execute_process, ExternalProject_Add},
   morecomment=[l]{\#},
   morestring=[b]"
 }
@@ -343,6 +343,9 @@ Jednocześnie Uczelnia informuje, że zgodnie z art. 15a ww. ustawy o prawie aut
 %\titlepages
 
 
+\renewcommand{\listtablename}{\LARGE Spis tabel}
+\renewcommand{\lstlistlistingname}{\LARGE Spis listingów}
+
 % Ponowne zdefiniowanie stylu `plain`, aby usunąć numer strony z pierwszej strony spisu treści i poszczególnych rozdziałów.
 \fancypagestyle{plain}
 {
@@ -363,6 +366,9 @@ Jednocześnie Uczelnia informuje, że zgodnie z art. 15a ww. ustawy o prawie aut
 \include{tests}
 \include{summary}
 
+%\listoffigures
+%\lstlistoflistings
+%\listoftables
 \printbibliography
 
 \end{document}
