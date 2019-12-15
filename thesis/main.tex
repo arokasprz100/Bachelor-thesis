@@ -555,9 +555,24 @@ Utworzony został również pakiet zawierający aplikację \textbf{CAEN-N957-DEM
 
 
 \newpage
-\section{Maszyna wirtualna oraz konteneryzacja - Docker}
+\section{Maszyna wirtualna oraz konteneryzacja}
 \label{sec:wirtDocker}
 
+Ze względu na to, że maszyny dostarczone przed administratorów systemu nie zapewniały odpowiedniej zgodności z maszyną docelową autorzy musieli zapewnić odpowiednie środowisko produkcyjne w inny sposób. Pierwszym wykrozystanym pomysłem było użycie ogólnodostępnych \textbf{GitLab CI/CD runner}'ów udostępnianych w ramach portalu \textbf{GitLab CERN}. Są to współdzielone maszyny wirtualne, w ramach których uruchamiany jest kontener \textbf{Docker}, na którym wykonywane są polecanie zawarte w ramach zadań (\textit{.gitlab-ci.yml}) \textbf {GitLab CI/CD}. Niestety rozwiązanie to nie dawało gwarancji zachowania zgodności jąder systemów operacyjnych. Ze względu na wykorzystanie przez \textbf{Docker'a} jądra systemu operacyjnego gospodarza nie można z poziomu \textbf{kontenera} wykonać zamiany jądra na inną wersję. Biorąc to pod uwagę, jak i brak możliwości administracyjnych na ww. zasobach autorzy nie mogli w pełni wykorzystać tego podejścia do otrzymania odpowiedniego środowiska deweloperskiego.
+
+W celu rozwiązania problemu różnych wersji jądra systemu operacyjnego postanowiono utworzyć maszyny wirtualne w ramach usługi \textbf{Cern Openstack Service} mającej na celu udostępnianie zasobów w chmurze. Użytkownicy tego rozwiązania posiadają prawa administracyjne na utworzonych instancjach. Dzięki temu mogą one zostać przystosowane w taki sposób, aby zgadzała się z konfiguracją środowiskową maszyny docelowej, a w szczególności wersji jądra. Aby zwiększyć stabilność oraz powtarzalność środowiska deweloperskiego wykorzystana została technologia \textbf{Docker}, dzięki czemu każde zadanie w ramach \textbf{GitLab CI/CD} miało zapewnione takie same warunki. Dzięki wykorzystaniu konteneryzacji żadne efekty uboczne zadania nie są w stanie wpłynąć na inne zadanie. Znacząco zwiększa to niezawodność środowiska deweloperskiego.
+
+Ze względu na ograniczone zasoby dostępne w ramach usługi \textbf{Cern Openstack Service} są one wykorzystywane jedynie w przypadku repozytorium \textbf{ggss-driver}, ze względu na mocne ograniczenie w postaci zgodności wersji jądra operacyjnego. Pozostałe repozytoria wykonują swoje zadania w ramach zasobów współdzielonych na portalu \textbf{GitLab CERN}. Rysunek \ref{fig:buildComp} przedstawia architekturę od strony maszyn wirtualnych oraz kontenerów zastosowaną w projekcie.
+
+
+\begin{figure}
+\centering
+\caption{Porównanie architektury dla \textbf{ggss-driver} oraz pozostałych repozytoriów}
+\label{fig:buildComp}
+\includegraphics[width=0.6\textwidth]{res/buildComp}
+\end{figure}
+
+W ramach konteneryzacji został przygotowany obraz \textbf{Docker} (atlas-trt-dcs-ggss/ggss-misc/centos7), który umieszczono w rejestrze obrazów \textbf{gitlab-registry.cern.ch}. Obraz ten zbudowano na podstawie \textbf{Dockerfile} w ramach które zostały zawarte wszystkie zależności potrzebne do zbudowania projektu \textbf{ggss}, czyli m.in.: MAKE, CMAKE, kompilator C++ oraz C, Python, biblioteki Pythonowe etc.
 
 
 \newpage
