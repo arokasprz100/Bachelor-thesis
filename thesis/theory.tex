@@ -222,7 +222,7 @@ user@host:~/complex$ objdump -p libcoml.so.1.0.0 | grep SONAME
 
 \item utworzenie odpowiednich dowiązań symbolicznych. Istnieje kilka sposobów na linkowanie bibliotek współdzielonych. W~zależności od zastosowanego sposobu potrzebne mogą okazać się inne dowiązania. W~tym przypadku autorzy posłużyli się narzędziem \textbf{ldconfig} z~flagą \textit{-n} do wygenerowania dowiązania odpowiadającego nazwie \textit{soname} biblioteki (listing \ref{lst:ldconfig}).
 
-\begin{lstlisting}[language=bash, language=Cmd, caption={Utworzenie dowiązania symbolicznego wskazującego na bibliotekę za pomocą programu \textit{ldcongfig}}, label={lst:ldconfig}]
+\begin{lstlisting}[language=bash, language=Cmd, caption={Utworzenie za pomocą programu \textit{ldcongfig} dowiązania symbolicznego wskazującego na bibliotekę}, label={lst:ldconfig}]
 user@host:~/complex$ ldconfig -n .
 user@host:~/complex$ ls
 complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.so.1  libcoml.so.1.0.0
@@ -256,7 +256,7 @@ app  app.c  app.o
 
 \end{itemize}
 
-Istnieje możliwość wyświetlenia, od jakich bibliotek współdzielonych jest zależny dany plik wykonywalny. Można to osiągnąć za pomocą narzędzie \textbf{ldd} \cite{shared2}, co zostało ukazane na listingu \ref{lst:sharedFailed}. Aktualnie stworzona przez autorów biblioteka jest oznaczona jako nie znaleziona (\textit{not found}). Z~tego też powodu próba uruchomienia programu zakończy się porażką. 
+Istnieje możliwość wyświetlenia, od jakich bibliotek współdzielonych jest zależny dany plik wykonywalny. Można to osiągnąć za pomocą narzędzie \textbf{ldd} \cite{shared2}, co zostało ukazane na listingu \ref{lst:sharedFailed}. Aktualnie stworzona przez autorów biblioteka jest oznaczona jako nie znaleziona (\textit{not found}). Z~tego też powodu próba uruchomienia programu zakończy się niepowodzeniem. 
 
 \newpage
 

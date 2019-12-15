@@ -291,18 +291,330 @@ Rysunek \ref{fig:mergeRequestPanel} przedstawia panel tworzenia nowego \textbf{m
 \newpage
 
 \section{Zmiana sposobu budowania aplikacji}
+Zmiany wprowadzone w systemie budowania projektu GGSS stanowią dużą cześć wykonanych przez autorów prac. Dotyczą one zarówno przystosowania projektu do nowej architektury, jak i wprowadzenia mechanizmów ułatwiających przeprowadzenie procesu budowania (np. automatyczne pobieranie zależności zewnętrznych). Niniejsza część pracy podzielona została tematycznie na kilka segmentów dotyczących: koncepcji działania nowego systemu, jego wysokopoziomowej implementacji za pomocą narzędzia CMake, rozwiązywania zależności zewnętrznych oraz implementacji systemu na poziomie pojedynczych komponentów. Nie został tutaj opisany sposób budowania modułu \textit{ggss-driver} - informacje na jego temat znaleźć można w sekcji \ref{section:driver}.
 
-\subsection{Zarys rozwiązania} % out-of-source, budowanie pojedynczych projektow, struktura wynikowych katalogow, driver opisany w~osobnym rozdziale
+\subsection{Zarys rozwiązania} 
+Wykonane przez autorów rozwiązanie oparte jest, podobnie jak oryginalny system budowania, na narzędziu \textbf{CMake} w wersji \textbf{2.8}. Główne założenie wprowadzonych zmian to umożliwienie łatwego zbudowania zarówno każdego z dostępnych komponentów z osobna, jak i projektu jako całość. Każdy moduł projektu posiada więc niezależny od modułów poziomu wyższego plik \textit{CMakeLists.txt} pozwalający na zbudowanie go bez konieczności kompilacji całego systemu. Przygotowany system pozwala na łatwe dodawanie nowych modułów do projektu. Aby to umożliwić przygotowane zostały specjalne szablony (pliki \textit{.cmake}), odpowiedzialne m.in. za tworzenie bibliotek statycznych czy znajdowanie zewnętrznych zależności. Projekt wspiera tzw. \textbf{budowanie out-of-source} - czyli poza katalogiem zawierającym kod źródłowy projektu. Umożliwia to utrzymanie porządku w strukturze repozytoriów (proces budowania nie generuje w nich żadnych nowych, potencjalnie niepożądanych plików). Dodatkowo jeśli w projekcie dana zależność pojawia się wielokrotnie, przygotowany system zbuduje ją tylko raz, co skraca znacznie czas kompilacji oraz sprawia, że wynikowa struktura katalogów jest czytelna i łatwo się po niej poruszać (przedstawia ją listing \ref{lst:cmakeoutput}). 
+
+\begin{lstlisting}[language=Cmd, caption={Fragment struktury katalogów wygenerowanej przez nowy system budujący projekt (użycie dla repozytorium \textit{ggss-runner}). Dla uproszczenia pominięta została zawartość katalogów \textit{build}. Przykład ilustruje płaską strukturę wynikową ułatwiającą szybkie znalezienie odpowiedniej biblioteki lub pliku wykonywalnego (tutaj \textit{ggss-runner})}, label={lst:cmakeoutput}]
+.
+|-- caenhv-lib
+|   |-- build
+|   `-- lib
+|       `-- libcaenhv.a
+|-- caenn1470-lib
+|   |-- build
+|   `-- lib
+|       `-- libcaenn1470.a
+|-- daemon-lib
+|   |-- build
+|   `-- lib
+|       `-- libdaemon.a
+|-- fifo-lib
+|   |-- build
+|   `-- lib
+|       `-- libfifo.a
+|-- fit-lib
+|   |-- build
+|   `-- lib
+|       `-- libfit.a
+|-- ggss-lib
+|   |-- build
+|   `-- lib
+|       `-- libggss.a
+|-- ggss-runner
+ 
+ ... Dalsza część struktury
+\end{lstlisting}
+
 
 \subsection{Szablony CMake}
+W ramach prac nad projektem napisanych zostało kilka plików \textit{.cmake}, stanowiących szablony ułatwiające dodawanie nowych komponentów do aplikacji. Zostały one umieszczone w repozytorium \textit{ggss-misc}. Lista przygotowanych plików wraz z ich zastosowaniem:
+\begin{itemize}
+\item \textbf{FindLibraryGSL.cmake} - plik ułatwiający dołączanie biblioteki \textit{GSL} do projektu.
+\item \textbf{FindLibraryCaen.cmake} - plik ułatwiający dołączanie biblioteki \textit{CAENN957} do projektu.
+\item \textbf{FindLibraryBoost.cmake} -  plik ułatwiający dołączanie biblioteki \textit{Boost} do projektu. Pozwala on użytkownikowi na dostosowanie sposobu wykonania tej operacji za pomocą flag. Możliwy jest więc wybór między linkowaniem statycznym i dynamicznym oraz wybór lokalizacji, w której biblioteka powinna zostać znaleziona (umożliwia to zastosowanie wersji biblioteki innej niż domyślnie zainstalowana). 
+\item \textbf{CheckPlatform.cmake} - wykonanie sprawdzenia platformy, na której budowany jest projekt.
+\item \textbf{BuildLibrary.cmake} - budowanie biblioteki statycznej będącej częścią projektu (listing \ref{lst:buildlibrarycmake}).
+\item \textbf{BuildDependencies.cmake} - obsługa zależności aktualnie budowanej aplikacji lub biblioteki (listing \ref{lst:builddependenciescmake}). 
+\end{itemize}
 
-\subsection{Zewnętrzne zależności}
+Omówione zostaną dwa ostatnie z wymienionych powyżej szablonów. Korzystanie z nich polega na dołączeniu ich do pliku \textit{CMakelists.txt} za pomocą polecenia \textit{include}, po wcześniejszym zdefiniowaniu wymaganych przez nie zmiennych (np. \textit{target\_name}). Instrukcja użycia tych plików zawarta została w pliku \textit{README.md} w repozytorium \textit{ggss-misc}.
+
+Plik \textbf{BuildLibrary.cmake} wykorzystywany jest w projekcie GGSS do budowania bibliotek statycznych (pliki z rozszerzeniem \textit{.a}). Listing \ref{lst:buildlibrarycmake} przedstawia zawartość tego pliku. W pierwszej jego części definiowana jest lokalizacja, w której przeprowadzony zostanie proces budowania (zmienna \textit{BUILD\_OUTPUT\_DIRECTORY}). To właśnie ten fragment umożliwia budowanie \textit{out-of-source}. Następnie określany jest katalog w którym umieszczona zostanie zbudowana biblioteka (\textit{CMAKE\_ARCHIVE\_OUTPUT\_DIRECTORY}). Komenda \textit{file} odpowiada za wyszukanie wszystkich plików źródłowych i nagłówkowych będących częścią biblioteki. Samo archiwum zostaje dodane do projektu za pomocą polecenia \textit{add\_library}. Ostatnia linia pliku odpowiada za dodanie stworzonej biblioteki do listy zależności aktualnie tworzonego projektu - dzięki temu biblioteka ta zostanie poprawnie dołączona do potencjalnego projektu nadrzędnego (np. aplikacji).
+
+
+\begin{lstlisting}[language=cmake, caption={Plik \textit{BuildLibrary.cmake} będący częścią systemu budującego projekt GGSS. Poszczególne linie odpowiadają m.in. za dodanie nowego projektu, określenie katalogu, w którym odbędzie się budowanie i katalogu docelowego, zebranie plików biblioteki oraz dodanie jej do projektu. }, label={lst:buildlibrarycmake}]
+project(${target_name})
+
+if(NOT DEFINED BUILD_OUTPUT_DIRECTORY)
+    set(BUILD_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+endif()
+
+set(DIR_NAME "${target_name}-lib")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${BUILD_OUTPUT_DIRECTORY}/${DIR_NAME}/lib") 
+
+file(GLOB SOURCE_FILES  "${CMAKE_CURRENT_SOURCE_DIR}/../${DIR_NAME}/src/*.cpp"
+                        "${CMAKE_CURRENT_SOURCE_DIR}/../${DIR_NAME}/src/*.cxx"
+                        "${CMAKE_CURRENT_SOURCE_DIR}/../${DIR_NAME}/src/*.c")
+
+if(UNIX)
+    set (CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wno-reorder")
+endif()
+
+add_library(${target_name} STATIC ${SOURCE_FILES})
+set_target_properties(${target_name} PROPERTIES LINKER_LANGUAGE CXX)
+target_include_directories(${target_name} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+list(APPEND dependency_list ${target_name})
+\end{lstlisting}
+
+
+Plik \textbf{BuildDependencies.cmake} (listing \ref{lst:builddependenciescmake}) odpowiada za przeprowadzenie procesu budowania komponentów, od których jest zależny aktualnie przetwarzany projekt. Jego działanie opiera się na komendzie \textit{add\_subdirectory}, która pozwala na przetworzenie pliku \textit{CMakeLists.txt} budującego daną zależność. Działanie to ilustruje rysunek \ref{fig:cmakeorder}. Dzięki takiemu podejściu budowanie projektu przypomina proces przetwarzania drzewa - moduł nadrzędny dołącza do procesu budowania pliki \textit{CMakeLists.txt} swoich zależności, które następnie wykonują są samą czynność dla swoich zależności itd. Lista modułów podrzędnych względem aktualnie budowanego przechowywana jest w zmiennej \textit{dependencies}, po której iteruje pętla \textit{foreach}.
+
+
+\begin{figure}
+\centering
+\caption{Działanie przygotowanego systemu budującego (przykład dla biblioteki \textit{caenhv}). Przetwarzanie zależności w projekcie przypomina przetwarzanie struktury drzewa. Dany moduł dołącza do procesu budowania swoje pod-moduły, które następnie powtarzają tą czynność itd. Widoczna numeracja obrazuje przykładową kolejność przetwarzania zależności przez narzędzie CMake (nie należy jej mylić z kolejnością budowania). Widoczny jest również fakt nieprzetwarzania ponownie raz dołączonych do projektu modułów.}
+\label{fig:cmakeorder}
+\includegraphics[width=\textwidth]{res/CMakeOrder.pdf}
+\end{figure}
+
+
+\begin{lstlisting}[language=cmake, caption={Plik \textit{BuildDependencies.cmake} będący częścią systemu budującego projekt GGSS. Zawiera pętlę iterującą po zależnościach aktualnie budowanego modułu. Zależności te dodawane są do systemu budującego za pomocą polecenia \textit{add\_subdirectory}. Dołączone do listingu komentarze stanowią wytłumaczenie działania poszczególnych elementów pliku.}, label={lst:builddependenciescmake}]
+foreach(dependency ${dependencies})
+    
+    # pobranie nazwy zależności bez poprzedzającej ją ścieżki
+    get_filename_component(dependency_name_without_path ${dependency} NAME)
+
+    # sprawdzenie, czy zależność nie została dodana do projektu już wcześniej - 
+    # zapobiega wielokrotnemu budowaniu tych samych bibliotek
+    if (NOT TARGET ${dependency_name_without_path})
+
+        # powoduje dodanie pliku CMake modułu do systemu budującego
+        add_subdirectory("${dependency_prefix}/${dependency}-lib" "${BUILD_OUTPUT_DIRECTORY}/${dependency_name_without_path}-lib/build")
+
+        # pozyskanie zależności modułu podrzędnego 
+        get_directory_property(child_dependencies 
+            DIRECTORY "${dependency_prefix}/${dependency}-lib" 
+            DEFINITION dependency_list
+        )
+
+        # dodanie zależności do listy 
+        foreach(child_dependency ${child_dependencies})
+            list(FIND dependency_list ${child_dependency} dependency_index)
+            if(NOT ${dependency_index} GREATER -1)
+                list(APPEND dependency_list ${child_dependency})
+            endif()
+        endforeach(child_dependency)
+        
+    endif()
+
+    # linkowanie zależności do modułu nadrzędnego
+    target_link_libraries(${target_name} ${dependency_name_without_path})
+
+endforeach(dependency ${dependencies})
+\end{lstlisting}
+
 
 \subsection{Budowanie poszczególnych bibliotek}
+Budowanie bibliotek w projekcie GGSS odbywa się za pomocą omówionego wcześniej szablonu \textit{BuildLibrary.cmake}. Na przykładzie jednej z bibliotek wchodzących w skład projektu GGSS ilustruje to listing \ref{lst:caenhvcmake}. W tym przykładzie zaobserwować można m.in. użycie zmiennej \textit{dependencies} definiującej zależności biblioteki. Zmienna ta jest wykorzystywana przez szablon \textit{BuildDependencies.cmake}. Przykład ilustruje również użycie innych szablonów, takich jak \textit{FindLibraryBoost}. W podobny sposób skonstruowane są wszystkie pliki \textit{CMakeLists.txt} konfigurujące proces budowania bibliotek statycznych będących częścią projektu. Bardzo podobnie wyglądają również pliku budujące aplikacje (np. \textit{ggss-runner}). Z uwagi na to podobieństwo autorzy zdecydowali się nie prezentować ich w niniejszej pracy. 
+
+\begin{lstlisting}[language=cmake, caption={Plik \textit{CMakeLists.txt} służący do budowania biblioteki \textit{caenhv}. Widoczne zastosowanie m.in. plików \textit{BuildLibrary.cmake} oraz \textit{BuildDependencies.cmake}.},label={lst:caenhvcmake}]
+cmake_minimum_required(VERSION 2.8)
+
+set(target_name "caenhv")
+
+if(NOT TARGET ${target_name})
+   
+    set(ggss_misc_path "${CMAKE_CURRENT_SOURCE_DIR}/../ggss-util-libs/ggss-misc")
+    set(CMAKE_MODULE_PATH "${ggss_misc_path}/cmake_templates")
+
+    include(BuildLibrary)
+    include(FindLibraryBoost)
+
+    target_include_directories(${target_name} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/CaenHVLib")
+    target_include_directories(${target_name} PUBLIC "${ggss_misc_path}/include")
+    target_include_directories(${target_name} PUBLIC "${ggss_misc_path}")
+
+    set(dependency_prefix "${CMAKE_CURRENT_SOURCE_DIR}/..")
+    set(dependencies "caenn1470" "ggss-util-libs/utils" "ggss-util-libs/thread")
+    include(BuildDependencies)
+    include(CheckPlatform)
+
+endif()
+\end{lstlisting}
+
+
 
 \subsection{Budowanie aplikacji i~całego projektu} 
+W celu usprawnienia procesu budowania całego projektu, w repozytorium \textit{ggss-all} umieszczony został specjalny plik \textit{CMakeLists.txt} odpowiedzialny za przeprowadzenie budowania w ściśle określonej przez użytkownika konfiguracji. Użytkownik może zmieniać m.in. sposób dołączania do projektu biblioteki Boost (statycznie lub dynamicznie) i wersję budowanego produktu (deweloperska lub produkcyjna). 
+
+Narzędzie \textit{CMake} definiuje kilka możliwych wersji produktu. Z perspektywy projektu GGSS najważniejsze z nich to wyżej wspomniana wersja deweloperska (\textit{debug}) oraz produkcyjna (\textit{release}). Tabela \ref{tab:cmaketypes} przedstawia listę flag kompilacji, jaką narzędzie aplikuje w procesie budowania danej wersji. Konfiguracja \textit{release} została jednak przez autorów zmodyfikowana - flaga \textit{-O3} odpowiada za przeprowadzenie bardzo agresywnej optymalizacji, która sprawia ze produkt przestaje zachowywać się stabilnie. Została więc zastąpiona flagą \textit{-O2} stanowiącą bezpieczniejszą alternatywę. 
+
+\begin{table}[]
+\centering
+\caption{Flagi użyte podczas procesu budowania za pomocą narzędzia CMake w zależności od wybranej konfiguracji. Tabela omawia tylko konfiguracje stosowane w projekcie (poza nimi dostępne są jeszcze trzy inne). \cite{CMakeOptions}}
+\begin{tabular}{|c|c|}
+\hline
+\rowcolor[HTML]{ECF4FF} 
+\textbf{\begin{tabular}[c]{@{}c@{}}Konfiguracja \\ (debug/release)\end{tabular}} & \textbf{Flagi (gcc)} \\ \hline
+Debug                                                                            & -g                   \\ \hline
+Release                                                                          & -O3 -DNDEBUG         \\ \hline
+\end{tabular}
+\label{tab:cmaketypes}
+\end{table}
+
+W celu uproszczenia (z punktu widzenia użytkownika) procesu budowania produktu w wybranej konfiguracji przygotowany został skrypt \textit{build.py} (fragment widoczny na listingu \ref{lst:buildpy1}) pozwalający na jej łatwe określenie. Skrypt napisany został w języku Python 3 i jego działanie opiera się na module \textit{argparse} służącym do przetwarzania argumentów linii poleceń. Po przetworzeniu podanych przez użytkownika informacji skrypt uruchamia proces przetwarzający wspomniany wyżej plik \textit{CMakeLists.txt} w sposób zgodny z konfiguracją wybraną przez użytkownika.
+
+\begin{lstlisting}[language=python, caption={Fragment pliku \textit{build.py} stanowiącego interfejs pozwalający na łatwe budowanie projektu GGSS w różnych konfiguracjach.}, label={lst:buildpy1}]
+# Definicje funkcji ... 
+
+if __name__== "__main__":
+    arguments = parse_command_line_arguments()
+    cmake_command_line_options = prepare_cmake_options(arguments)
+    virtualenv_enabled = check_if_venv_should_be_used(arguments)
+    build_project_with_options(cmake_command_line_options, virtualenv_enabled)
+
+\end{lstlisting}
+
+Udostępnione narzędzia pozwalają użytkownikowi wybrać, która z dostępnych w projekcie GGSS aplikacji powinna zostać zbudowana. Aktualnie wspierane są: \textit{ggssrunner}, \textit{ggss-dim-cs} oraz \textit{mca-n957}. Wybór odbywa się za pomocą argumentów przekazanych do skryptu \textit{build.py} i działa na zasadzie wykluczania - użytkownik specyfikuje, które z tych trzech aplikacji mają zostać pominięte w procesie budowania. Listing \ref{lst:buildpy2} przedstawia wywołanie skryptu z opcją \textbf{-h} powodującą wyświetlenie możliwych do użycia w skrypcie flag. 
+
+\begin{lstlisting}[language=Cmd, caption={Użycie skryptu \textit{build.py} z opcją \textit{-h} powodujące wyświetlenie możliwych do wykorzystania parametrów. Widoczne m.in. parametry \textit{nomcan957}, \textit{nodimcs} oraz \textit{norunner} pozwalające użytkownikowi na wykluczenie niektórych aplikacji wchodzących w skład projektu GGSS z procesu budowania.}, label={lst:buildpy2}]
+user@host:~/ggss-all$ python3 build.py -h
+usage: build.py [-h] [-d] [-s] [-v] [--debug | --release]
+                [--boostvar | --boostdef] [--norunner] [--nodimcs]
+                [--nomcan957]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  -d, --dimonline    build project using lates DIM version downloaded from
+                     website. Disabled by default.
+  -s, --staticboost  force Boost the use the static libraries. Disabled by
+                     default.
+  -v, --venv         build project using virtualenv. All required dependencies
+                     will be installed. Disabled by default.
+  --debug            enable debug mode
+  --release          enable release mode
+  --boostvar         use Boost that can be accessed using BOOST environment
+                     variable. Enabled by default.
+  --boostdef         use default Boost version from /usr/local.
+  --norunner         exclude ggss-runner from build. Disabled by default.
+  --nodimcs          exclude dim-cs from build. Disabled by default.
+  --nomcan957        exclude mca-n957 from build. Disabled by default.
+
+\end{lstlisting}
+
 
 \subsection{Budowanie biblioteki DIM}
+Projekt GGSS korzysta z pakietu \textbf{DIM (Distributed Information Management System)} implementującego komunikację klient-serwer \cite{DIMwebsite}. Ponieważ jest to zależność zewnętrzna i jej rozwój nie jest kontrolowany przez osoby pracujące nad systemem GGSS, jej system budowania działa w odmienny od pozostałej części projektu sposób. Pozwala on na zautomatyzowane pobieranie najnowszej wersji biblioteki.
+
+Repozytorium \textit{external-dim-lib} przechowuje wszystkie pliki konieczne do zbudowania biblioteki DIM. Znajduje się tam również archiwum z samą biblioteką. Poszczególne elementy tego repozytorium to:
+\begin{itemize}
+\item katalog \textbf{dim\_offline} - zawiera archiwum \textit{.zip} z biblioteką DIM w wersji 20.26.
+\item plik \textbf{CMakeLists.txt} - plik odpowiedzialny za budowanie biblioteki (zarówno w wersji statycznej jak i współdzielonej). Za pomocą tego pliku możliwe jest zbudowanie DIM'a bez konieczności dodawania go jako submoduł do innego projektu.
+\item plik \textbf{dim\_build.cmake} - plik, który należy dołączyć do projektu CMake (za pomocą komendy \textit{include}) zależnego od biblioteki DIM. Plik ten odpowiedzialny jest za zbudowanie oraz dodanie jej do zależności projektu nadrzędnego.
+\item plik \textbf{dim\_download.py} - skrypt napisany w języku Python 3 odpowiedzialny za pobieranie najnowszej wersji biblioteki DIM z jej strony internetowej.
+\item plik \textbf{test\_dim\_download.py} - testy jednostkowe do skryptu \textit{dim\_download.py}.
+\item pliki \textbf{requirements.txt} oraz \textbf{venvsetup.sh} - zarządzanie zależnościami wymaganymi przez skrypt pobierający DIM'a.
+\end{itemize}
+
+Proces budowania biblioteki DIM jako części nadrzędnego projektu (czyli za pomocą szablonu \textit{dim\_build.cmake}) może przebiegać na jeden z dwóch sposobów: wykorzystana może zostać jej wersja znajdująca się w katalogu \textit{dim\_offline} w repozytorium, lub może zostać podjęta próba pobrania ze strony internetowej i zbudowania jej nowszego wydania. Rys. \ref{fig:dimalgo} przedstawia dokładniej sposób działania algorytmu. Wybór sposobu budowania podjęty zostaje na podstawie przekazanej do szablonu flagi \textbf{ONLINE\_DIM}. Jeśli próba użycia nowszej wersji zakończy się niepowodzeniem, zbudowana zostanie ta znajdująca się w repozytorium.
+
+\begin{figure}
+\centering
+\caption{Algorytm budowania biblioteki DIM jako części nadrzędnego projektu}
+\label{fig:dimalgo}
+\includegraphics[height=0.9\textheight]{res/DIMAlgo.pdf}
+\end{figure}
+
+
+Listing \ref{lst:dimonlinebuild} przedstawia fragment pliku \textit{dim\_build.cmake} odpowiedzialny za podjęcie próby pobrania i zbudowania nowej wersji biblioteki DIM. Poszczególne kroki tego procesu zaimplementowane zostały jako funkcje (listing \ref{lst:dimdown} - narzędzie CMake pozwala na definicję funkcji posiadających własny zakres zmiennych). Zaprezentowany fragment wykorzystuje komendy \textbf{execute\_process}, które pozwalają na stworzenie nowego procesu za pomocą interfejsu programistycznego systemu operacyjnego. Za pomocą tych komend tworzony jest katalog w którym przeprowadzony zostanie proces budowania, wykonywany jest skrypt \textit{dim\_download.py} pobierający wymaganą bibliotekę, a następnie przeprowadzany jest proces jej budowania (za pomocą pliku \textit{CMakeLists.txt} będącego częścią repozytorium \textit{external-dim-lib} oraz wygenerowanego pliku \textit{Makefile}). Niepowodzenie wykonania dowolnego z etapów powoduje przerwanie procesu i przejście do budowania za pomocą wersji biblioteki dostępnej lokalnie.
+
+
+\begin{lstlisting}[language=cmake, caption={Fragment pliku \textit{dim\_build.cmake} przedstawiający proces budowania nowej, pobranej ze strony internetowej wersji biblioteki DIM. Widoczne wywołania zdefiniowanych przez autorów funkcji. }, label={lst:dimonlinebuild}]
+if(USE_ONLINE_DIM)
+
+    message(STATUS "Downloading and building online DIM version")
+
+    ## First, try to download DIM from website
+    DOWNLOAD_DIM_FROM_WEBSITE()
+
+    if(NOT result) # if there was no error
+        USE_DIM_CMAKE(true)
+    endif()
+
+    if(NOT result)
+        message(STATUS "DIM download and build successful.")
+    else()
+        message(STATUS "DIM online build problem. Using offline DIM version.")
+    endif()
+
+endif()
+\end{lstlisting}
+
+\begin{lstlisting}[language=cmake, caption={Przykład funkcji zdefiniowanej w skrypcie CMake. Funkcja wykorzystuje komendę \textit{execute\_process} do wykonania skryptu pobierającego bibliotekę DIM z jej strony internetowej.}, label={lst:dimdown}]
+function(DOWNLOAD_DIM_FROM_WEBSITE)
+
+    execute_process(
+        COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/external-dim-lib/dim_download.py
+        RESULT_VARIABLE result
+        ERROR_VARIABLE error
+    )
+
+    set(result ${result} PARENT_SCOPE)
+    set(error ${error} PARENT_SCOPE)
+
+endfunction()
+\end{lstlisting}
+
+Do archiwum zawierającego bibliotekę DIM dołączony jest plik \textit{Makefile} pozwalający na jej zbudowanie. Autorzy zdecydowali się wykorzystać go w przygotowanym przez siebie pliku \textit{CMakeLists.txt}. Rozwiązanie to zapewnia pewien poziom odporności przygotowanej infrastruktury na potencjalne zmiany w sposobie budowania biblioteki. Listing \ref{lst:dimexternal} przedstawia fragment przygotowanego przez autorów pliku. Wykorzystuje on funkcjonalność \textbf{ExternalProject} do budowania biblioteki. Funkcjonalność ta pozwala programiście na zdefiniowane szeregu kroków koniecznych do otrzymania działającego projektu zewnętrznego. Metoda ta została wybrana przez autorów z uwagi na duże możliwości konfiguracji, jakie ona zapewnia. Standardowo proces budowania zewnętrznych zależności za pomocą funkcjonalności \textit{ExternalProject} składa się z kroków takich, jak: pobieranie zależności, budowanie, instalacja czy testowanie \cite{CMakeExternalProject}. Na potrzeby zastosowania w projekcie GGSS niektóry z tych etapów zostały pominięte. 
+
+
+\begin{lstlisting}[language=cmake, caption={Fragment pliku \textit{CMakeLists.txt} przeznaczonego do konfiguracji procesu budowania biblioteki DIM. Widoczne zastosowanie funkcjonalności \textit{ExternalProject} pozwalającej na wykorzystanie plików \textit{Makefile} (makefile\_dim) dostarczonych przez autorów biblioteki.}, label={lst:dimexternal}]
+ExternalProject_Add(dim_library
+    DOWNLOAD_COMMAND 
+        COMMAND cmake -E echo Extracting dim from archive
+        COMMAND unzip -aq ${DIM_ARCHIVE_DIR}/${DIM_ARCHIVE_NAME} -d ${CMAKE_CURRENT_SOURCE_DIR}
+        COMMAND cmake -E rename ${CMAKE_CURRENT_SOURCE_DIR}/${DIM_UNZIP_OUTPUT_DIRECTORY} ${CMAKE_CURRENT_SOURCE_DIR}/dim-org
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND 
+        COMMAND cmake -E echo Setting environment variables and building
+        COMMAND 
+            export OS=${OS} && 
+            export DIMDIR=${DIMDIR} && 
+            export ODIR=${ODIR} && 
+            echo ${CMAKE_CURRENT_SOURCE_DIR} && 
+            bash -c "source ${CMAKE_CURRENT_SOURCE_DIR}/dim-org/setup.sh" && 
+            cd ${CMAKE_CURRENT_SOURCE_DIR}/dim-org && 
+            make -f ${CMAKE_CURRENT_SOURCE_DIR}/dim-org/makefile_dim
+    UPDATE_COMMAND ""
+    INSTALL_COMMAND 
+        COMMAND cmake -E echo Moving dim to given directory
+        COMMAND cmake -E copy ${ODIR}/libdim.a ${LIB_ODIR}/libdim.a
+        COMMAND cmake -E copy ${ODIR}/libdim.so ${LIB_ODIR}/libdim.so
+        COMMAND cmake -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/dim-org/dim ${INCLUDE_ODIR}/dim
+        COMMAND cmake -E echo Cleaning temporary files
+        COMMAND cmake -E remove_directory ${CMAKE_CURRENT_SOURCE_DIR}/dim-org
+)
+\end{lstlisting}
+
+Proces pobierania nowej wersji biblioteki DIM przeprowadzany jest za pomocą skryptu \textit{dim\_download.py}. Wykorzystuje on m.in. moduł \textbf{BeautifulSoup4} do przetwarzania kodu HTML oraz \textbf{requests} do pobierania tegoż kodu ze strony internetowej biblioteki. Algorytm działania skryptu jest następujący:
+\begin{enumerate}
+\item Pobranie kodu HTML ze strony biblioteki DIM za pomocą modułu \textit{requests}.
+\item Przetworzenie kodu HTML za pomocą modułu \textit{BeautufilSoup4} (listing \ref{lst:bs4}). Operacja ta ma na celu uzyskanie adresu URL pliku z biblioteką. Nie jest możliwe podanie tego adresu bezpośrednio w kodzie skryptu, gdyż zawiera on wersję biblioteki. 
+\item Utworzenie katalogu w którym znajdzie się pobrana biblioteka.
+\item Pobranie biblioteki za pomocą modułu \textit{urllib}.
+\end{enumerate}
+
+\begin{lstlisting}[language=python, caption={Fragment skryptu \textit{dim\_download.py} odpowiedzialny za przetworzenie dokumentu HTML. Widoczne użycie elementów modułu \textit{BeautifulSoup4}.}, label={lst:bs4}]
+def get_dim_archive_url_from_html(dim_website_html):
+    dim_website_soup = bs4.BeautifulSoup(dim_website_html, 'html.parser')
+    links = dim_website_soup.find_all('a')
+    return  list(filter(
+        lambda link: (any(".zip" in attr for attr in link) and link.getText().strip() == "dim.zip"), 
+        links))[0].attrs['href']
+\end{lstlisting}
 
 \newpage
 
@@ -487,6 +799,7 @@ build:
 
 \newpage
 \section{Budowanie i~dystrybucja sterownika oraz aplikacji testującej}
+\label{section:driver}
 
 Ważną częścią pracy wykonanej przez autorów były zmiany w systemie budowania i dystrybucji pakietu \textbf{RPM} zawierającego pliki modułu \textbf{ggss-driver}, czyli:
 \begin{itemize}
@@ -577,7 +890,11 @@ W ramach konteneryzacji został przygotowany obraz \textbf{Docker} (atlas-trt-dc
 
 \newpage
 \section{Pomniejsze prace}
+Niniejsza część pracy zawiera opis dwóch problemów niezwiązanych bezpośrednio z omówionymi dotychczas. W obu przypadkach ich cechą charakterystyczną było krótkie, jeśli chodzi o ilość kodu, rozwiązanie, które wymagało jednak od autorów poświęcenia znacznej ilości czasu (kilkanaście godzin) na zdobycie odpowiedniej wiedzy lub znalezienie źródła powstałego utrudnienia. Ze względu na fakt, iż rozwiązanie tych problemów było niezbędne, by projekt mógł działać poprawnie, autorzy zdecydowali się poświęcić im kilka stron niniejszego manuskryptu.
+
 \subsection{Integracja bibliotek napisanych w~języku C z~aplikacją w~C++}
+
+
 \subsection{Integracja zewnętrznej biblioteki dynamicznej z~użyciem narzędzia CMake}
 
 \newpage
@@ -626,4 +943,4 @@ Rys. \ref{fig:markdownHardware} przedstawia fragment zawartości wygenerowanej z
 \end{figure}
 
 Oprócz plików \textit{.md} przygotowane zostały również dwa dokumenty opisujące ważne, zdaniem autorów, aspekty utrzymania i~rozwoju projektu GGSS. Dokumenty te zostały dołączone do niniejszej pracy w~formie dodatków (\ref{appendix:A2} oraz \ref{appendix:A3}). Dotyczą one rozszerzania projektu o~nowe moduły (dodatek \ref{appendix:A2} - \textit{Adding new modules to the project using existing CMake
-templates}) oraz przygotowywania maszyny wirtualnej do pracy jako \textit{runner} w~procesie CI/CD (dodatek \ref{appendix:A3} - \textit{Preparing virtual machine to work as a~runner}). 
+templates}) oraz przygotowywania maszyny wirtualnej do pracy jako \textit{runner} w~procesie CI/CD (dodatek \ref{appendix:A3} - \textit{Preparing the virtual machine to work as a~runner}). 

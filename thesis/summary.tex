@@ -1,9 +1,22 @@
 \chapter{Dalsza ścieżka rozwoju projektu}
 \label{cha:dalsze}
+Niniejszy rozdział opisuje sugestie autorów oraz już zaplanowane działania dotyczące dalszego rozwoju projektu GGSS, takie jak migracja do nowych standardów języka, zwiększenie jakości kodu czy rozszerzenie projektu o nowe interfejsy graficzne.
 
 \section{Wprowadzenie zautomatyzowanego systemu testowania projektu}
-\section{Migracja do nowego standardu języka C++}
+Przygotowana przez autorów infrastruktura CI/CD pozwala na łatwe wprowadzenie do projektu dużej liczby zautomatyzowanych testów. Testy te powinny dotyczyć zarówno potencjalnych nowych komponentów projektu, jak i już istniejących, które podlegać będą modyfikacji. Takie działanie pozwala zwiększyć niezawodność tworzonego oprogramowania. Autorzy planują prowadzić dalsze prace z wykorzystaniem praktyki \textbf{Test Driven Development (TDD)} zakładającej tworzenie testów równolegle z oprogramowaniem. Stosujący podejście TDD programista najpierw przygotowuje odpowiedni test, a następnie implementuje funkcjonalność, którą ten test sprawdza. Po wykonaniu tej czynności przechodzi do poprawy jakości już istniejącego kodu, a następnie powtarza cały cykl. Prawdopodobnie do projektu wprowadzone zostanie również narzędzie \textbf{Coverity} pozwalające na przeprowadzenie statycznej analizy kodu.
+
+\section{Poprawa jakości kodu napisanego w języku C++}
+W swojej obecnej postaci projekt napisany jest w języku C++ z elementami standardu C++11. Planowana jest pełna migracja kodu do standardu C++11 lub, jeśli będzie to możliwe (rozwiązany zostanie problem ograniczeń związanych z infrastrukturą projektu), do standardu C++14 lub C++17. Migracja do nowego standardu oznaczała będzie również wyeliminowanie pewnych zewnętrznych zależności, które dostarczają funkcjonalności będących częścią nowych standardów języka. Dotyczy to przede wszystkim niektórych komponentów biblioteki Boost. Poza zmianami pozwalającymi na modernizację kodu planowane jest również ujednolicenie jego struktury oraz wprowadzenie konwencji dotyczących m.in. nazewnictwa zmiennych czy funkcji. Do tej pory autorom udało się wprowadzić tego typu zmiany w systemie budowania projektu. 
+
 \section{Automatyzacja procesu publikowania produktu}
+Planowany jest dalszy rozwój przygotowanej przez autorów infrastruktury CI/CD. Poza wspomnianymi już wcześniej zautomatyzowanymi testami oprogramowania, wprowadzone może również zostać automatyczne wersjonowanie wydań projektu. Przydatne może się również okazać przygotowanie skryptu aktualizującego zdalne repozytoria projektu po wprowadzeniu zmian w kilku submodułach. Wymaga to wykonywania operacji \textit{git add}, \textit{git commit} oraz \textit{git push} dla każdego komponentu zależnego od zmodyfikowanych submodułów i tak dalej aż do komponentu stanowiącego korzeń projektu. Wykonywanie tej czynności manualnie jest niewydajne, stąd też potrzeba przygotowania skryptu automatyzującego tą czynność.
+
+
+\section{Migracja do języka Python 3}
+Znaczna część skryptów w projekcie GGSS napisana została kilka lat temu w języku Python 2. Z uwagi na zapowiedziane zakończenie oficjalnego wsparcia dla tej wersji języka sugerowane jest przepisanie skryptów z użyciem Pythona 3. Migracja dotyczyć może również niektórych skryptów napisanych w języku Bash. 
+
+\section{Przygotowanie dodatkowych interfejsów graficznych}
+Od początku pracy autorów nad projektem GGSS planowane było rozszerzenie jego funkcjonalności o nowe interfejsy graficzne pozwalające na wygodne przeglądanie gromadzonych danych. Istnieje wiele możliwych sposobów implementacji takich interfejsów. Jednym z nich jest zastosowanie popularnego \textbf{framework'u Qt}, przeznaczonego do pracy z językiem C++. 
 
 
 \chapter{Podsumowanie oraz wnioski}
@@ -15,15 +28,190 @@
 \appendix
 \chapter{Dodatki/Appendixes}
 \label{cha:app}
+Niniejsza część pracy zawiera trzy dodatki dotyczące procesu przygotowywania maszyny wirtualnej do pracy jako tzw. \textit{runner} z narzędziem \textit{GitLab CI/CD}, procesu dodawania nowych modułów do projektu GGSS oraz struktury projektu przed i po wprowadzeniu przez autorów zmian. Dwa z dodatków przygotowane zostały w języku angielskim - powodem tego jest międzynarodowy charakter zespołu pracującego nad detektorem TRT oraz fakt, że dodatki te stanowią część dokumentacji znajdującej się w repozytoriach projektu.
+
+This part of the dissertation contains three appendixes that cover following topics: preparing the virtual machine to work as a GitLab CI/CD runner, adding new modules to the GGSS project using templates created by authors and comparing the project structure before and after changes. Two of the appendixes were written in English - that's due to the international nature of the TRT community as well as the fact that those appendixes are a part of documentation that can be found in project's repositories. 
 
 \section{Porównanie początkowej i obecnej struktury projektu oraz kodu źródłowego}
+
+\newpage
+
+\twocolumn
+
+\definecolor{plum(traditional)}{rgb}{0.56, 0.27, 0.52}
+\definecolor{amber(sae/ece)}{rgb}{1.0, 0.49, 0.0}
+\definecolor{cadmiumgreen}{rgb}{0.0, 0.42, 0.24}
+\definecolor{capri}{rgb}{0.0, 0.75, 1.0}
+\definecolor{magenta}{rgb}{1.0, 0.0, 1.0}
+\definecolor{sinopia}{rgb}{0.8, 0.25, 0.04}
+
+\def\redcolor{\color{red}}
+\def\blackcolor{\color{black}}
+\def\greencolor{\color{green}}
+\def\purplecolor{\color{plum(traditional)}}
+\def\bluecolor{\color{blue}}
+\def\ambercolor{\color{amber(sae/ece)}}
+\def\darkgreencolor{\color{cadmiumgreen}}
+\def\capricolor{\color{capri}}
+\def\magentacolor{\color{magenta}}
+\def\sinopiacolor{\color{sinopia}}
+
+\begin{lstlisting}[language=Cmd, caption={Aktualna struktura katalogów}, label={lst:newStructure}, escapechar=@]
+.
+|-- @\aftergroup\redcolor@ggss-dim-cs@\aftergroup\blackcolor@
+|   |-- @\aftergroup\greencolor@external-dim-lib@\aftergroup\blackcolor@
+|   `-- @\aftergroup\greencolor@ggss-misc@\aftergroup\blackcolor@
+|-- @\aftergroup\purplecolor@ggss-driver@\aftergroup\blackcolor@
+|   |-- @\aftergroup\greencolor@external-n957-lib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\greencolor@ggss-misc@\aftergroup\blackcolor@
+|   `-- @\aftergroup\purplecolor@n957@\aftergroup\blackcolor@
+|-- ggss-oper
+|   |-- localdisk-scripts
+|   `-- opt-scripts
+|-- @\aftergroup\magentacolor@ggss-runner@\aftergroup\blackcolor@
+|   `-- @\aftergroup\capricolor@ggss-lib@\aftergroup\blackcolor@
+|       |-- @\aftergroup\greencolor@external-dim-lib@\aftergroup\blackcolor@
+|       |-- @\aftergroup\ambercolor@ggss-hardware-libs@\aftergroup\blackcolor@
+|       |   |-- @\aftergroup\ambercolor@caenhv-lib@\aftergroup\blackcolor@
+|       |   |-- @\aftergroup\ambercolor@caenn1470-lib@\aftergroup\blackcolor@
+|       |   |-- @\aftergroup\greencolor@external-n957-lib@\aftergroup\blackcolor@
+|       |   |-- @\aftergroup\bluecolor@ggss-util-libs@\aftergroup\blackcolor@
+|       |   |   |-- @\aftergroup\greencolor@ggss-misc@\aftergroup\blackcolor@
+|       |   |   |-- @\aftergroup\bluecolor@handle-lib@\aftergroup\blackcolor@
+|       |   |   |-- @\aftergroup\bluecolor@log-lib@\aftergroup\blackcolor@
+|       |   |   |-- @\aftergroup\bluecolor@thread-lib@\aftergroup\blackcolor@
+|       |   |   `-- @\aftergroup\bluecolor@utils-lib@\aftergroup\blackcolor@
+|       |   |-- @\aftergroup\ambercolor@mca-lib@\aftergroup\blackcolor@
+|       |   |-- @\aftergroup\ambercolor@ortecmcb-lib@\aftergroup\blackcolor@
+|       |   `-- @\aftergroup\ambercolor@usbrm-lib@\aftergroup\blackcolor@
+|       `-- @\aftergroup\darkgreencolor@ggss-software-libs@\aftergroup\blackcolor@
+|           |-- @\aftergroup\darkgreencolor@daemon-lib@\aftergroup\blackcolor@
+|           |-- @\aftergroup\darkgreencolor@fifo-lib@\aftergroup\blackcolor@
+|           |-- @\aftergroup\darkgreencolor@fit-lib@\aftergroup\blackcolor@
+|           |-- @\aftergroup\bluecolor@ggss-util-libs@\aftergroup\blackcolor@
+|           `-- @\aftergroup\darkgreencolor@xml-lib@\aftergroup\blackcolor@
+|-- @\aftergroup\sinopiacolor@ggss-spector@\aftergroup\blackcolor@
+`-- mca-n957
+    `-- @\aftergroup\ambercolor@ggss-hardware-libs@\aftergroup\blackcolor@
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[language=Cmd, caption={Pierwotna struktura katalogów}, escapechar=@]
+.
+|-- caen_n957
+|   |-- _mca
+|   |-- @\aftergroup\ambercolor@mcaLib@\aftergroup\blackcolor@
+|   `-- @\aftergroup\ambercolor@OrtecMcbLib@\aftergroup\blackcolor@
+|-- ggss-bin
+|   |-- @\aftergroup\ambercolor@CaenHVLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\ambercolor@CaenN1470Lib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\darkgreencolor@daemonLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\redcolor@_dimCS@\aftergroup\blackcolor@
+|   |-- @\aftergroup\darkgreencolor@fifoLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\darkgreencolor@FitLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\magentacolor@_ggss@\aftergroup\blackcolor@
+|   |-- @\aftergroup\capricolor@ggssLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\sinopiacolor@_ggsspector@\aftergroup\blackcolor@
+|   |-- @\aftergroup\bluecolor@handleLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\greencolor@include@\aftergroup\blackcolor@
+|   |-- @\aftergroup\greencolor@lib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\bluecolor@logLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\ambercolor@mcaLib@\aftergroup\blackcolor@
+|   |-- misc
+|   |   |-- config
+|   |   |-- n957_old
+|   |   `-- python
+|   |-- @\aftergroup\ambercolor@OrtecMcbLib@\aftergroup\blackcolor@
+|   |-- scripts
+|   |-- @\aftergroup\bluecolor@ThreadLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\ambercolor@usbrmLib@\aftergroup\blackcolor@
+|   |-- @\aftergroup\bluecolor@utilsLib@\aftergroup\blackcolor@
+|   `-- @\aftergroup\darkgreencolor@xmlLib@\aftergroup\blackcolor@
+`-- @\aftergroup\purplecolor@ggss-driver@\aftergroup\blackcolor@
+    `-- @\aftergroup\purplecolor@n957@\aftergroup\blackcolor@
+\end{lstlisting}
+
+
+\onecolumn
+
+\newpage
+
+\twocolumn
+
+\begin{lstlisting}
+.
+|-- ggss-software-libs
+|-- ggss-hardware-libs
+|-- external-dim-lib
+|-- CMakeLists.txt
+|-- include
+|   `-- ggssLib
+|       |-- ChannelDataForDim.h
+|       |-- ChannelData.h
+|       |-- Channel.h
+|       |-- ChannelParamsForDim.h
+|       |-- DimGgssEventListener.h
+|       |-- GgssDataForDim.h
+|       |-- GgssEventListener.h
+|       |-- GgssEventLoopRunner.h
+|       |-- ggssExceptions.h
+|       |-- ggss.h
+|       |-- GgssParamsForDim.h
+|       `-- ggssParams.h
+|-- README.md
+`-- src
+    |-- Channel.cpp
+    |-- ChannelData.cpp
+    |-- ChannelDataForDim.cpp
+    |-- ChannelParamsForDim.cpp
+    |-- DimGgssEventListener.cpp
+    |-- ggss.cpp
+    |-- GgssDataForDim.cpp
+    |-- GgssEventLoopRunner.cpp
+    |-- ggssParams.cpp
+    `-- GgssParamsForDim.cpp
+
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}
+ggssLib/
+|-- Channel.cpp
+|-- ChannelData.cpp
+|-- ChannelDataForDim.cpp
+|-- ChannelDataForDim.h
+|-- ChannelData.h
+|-- Channel.h
+|-- ChannelParamsForDim.cpp
+|-- ChannelParamsForDim.h
+|-- CMakeLists.txt
+|-- DimGgssEventListener.cpp
+|-- DimGgssEventListener.h
+|-- ggss.cpp
+|-- GgssDataForDim.cpp
+|-- GgssDataForDim.h
+|-- GgssEventListener.h
+|-- GgssEventLoopRunner.cpp
+|-- GgssEventLoopRunner.h
+|-- ggssExceptions.h
+|-- ggss.h
+|-- ggssParams.cpp
+|-- GgssParamsForDim.cpp
+|-- GgssParamsForDim.h
+`-- ggssParams.h
+\end{lstlisting}
+
+\onecolumn
+
 \section{Adding new modules to the project using existing CMake templates}
 \label{appendix:A2}
 
 \newpage
 
 \includepdfset{pages=-,pagecommand=\thispagestyle{fancy}}
-\includepdf[pages=1, scale=0.85,offset= 0.65cm -1cm, pagecommand={\section{Preparing virtual machine to work as a runner\label{appendix:A3}}}]{res/howToRunner.pdf}
+\includepdf[pages=1, scale=0.85,offset= 0.65cm -1cm, pagecommand={\section{Preparing the virtual machine to work as a runner\label{appendix:A3}}}]{res/howToRunner.pdf}
 \includepdf[pages=2,scale=0.85,offset= 0.65cm 0]{res/howToRunner.pdf}
 \includepdf[pages=3,scale=0.85,offset= 0.65cm 0]{res/howToRunner.pdf}
 
