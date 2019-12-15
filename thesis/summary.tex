@@ -1,37 +1,37 @@
 \chapter{Dalsza ścieżka rozwoju projektu}
 \label{cha:dalsze}
-Niniejszy rozdział opisuje sugestie autorów oraz już zaplanowane działania dotyczące dalszego rozwoju projektu GGSS, takie jak migracja do nowych standardów języka, zwiększenie jakości kodu czy rozszerzenie projektu o nowe interfejsy graficzne.
+Niniejszy rozdział opisuje sugestie autorów oraz już zaplanowane działania dotyczące dalszego rozwoju projektu GGSS, takie jak migracja do nowych standardów języka, zwiększenie jakości kodu czy rozszerzenie projektu o~nowe interfejsy graficzne.
 
 \section{Wprowadzenie zautomatyzowanego systemu testowania projektu}
-Przygotowana przez autorów infrastruktura CI/CD pozwala na łatwe wprowadzenie do projektu dużej liczby zautomatyzowanych testów. Testy te powinny dotyczyć zarówno potencjalnych nowych komponentów projektu, jak i już istniejących, które podlegać będą modyfikacji. Takie działanie pozwala zwiększyć niezawodność tworzonego oprogramowania. Autorzy planują prowadzić dalsze prace z wykorzystaniem praktyki \textbf{Test Driven Development (TDD)} zakładającej tworzenie testów równolegle z oprogramowaniem. Stosujący podejście TDD programista najpierw przygotowuje odpowiedni test, a następnie implementuje funkcjonalność, którą ten test sprawdza. Po wykonaniu tej czynności przechodzi do poprawy jakości już istniejącego kodu, a następnie powtarza cały cykl. Prawdopodobnie do projektu wprowadzone zostanie również narzędzie \textbf{Coverity} pozwalające na przeprowadzenie statycznej analizy kodu.
+Przygotowana przez autorów infrastruktura CI/CD pozwala na łatwe wprowadzenie do projektu dużej liczby zautomatyzowanych testów. Testy te powinny dotyczyć zarówno potencjalnych nowych komponentów projektu, jak i~już istniejących, które podlegać będą modyfikacji. Takie działanie pozwala zwiększyć niezawodność tworzonego oprogramowania. Autorzy planują prowadzić dalsze prace z~wykorzystaniem praktyki \textbf{Test Driven Development (TDD)} zakładającej tworzenie testów równolegle z~oprogramowaniem. Stosujący podejście TDD programista najpierw przygotowuje odpowiedni test, a~następnie implementuje funkcjonalność, którą ten test sprawdza. Po wykonaniu tej czynności przechodzi do poprawy jakości już istniejącego kodu, a~następnie powtarza cały cykl. Prawdopodobnie do projektu wprowadzone zostanie również narzędzie \textbf{Coverity} pozwalające na przeprowadzenie statycznej analizy kodu.
 
-\section{Poprawa jakości kodu napisanego w języku C++}
-W swojej obecnej postaci projekt napisany jest w języku C++ z elementami standardu C++11. Planowana jest pełna migracja kodu do standardu C++11 lub, jeśli będzie to możliwe (rozwiązany zostanie problem ograniczeń związanych z infrastrukturą projektu), do standardu C++14 lub C++17. Migracja do nowego standardu oznaczała będzie również wyeliminowanie pewnych zewnętrznych zależności, które dostarczają funkcjonalności będących częścią nowych standardów języka. Dotyczy to przede wszystkim niektórych komponentów biblioteki Boost. Poza zmianami pozwalającymi na modernizację kodu planowane jest również ujednolicenie jego struktury oraz wprowadzenie konwencji dotyczących m.in. nazewnictwa zmiennych czy funkcji. Do tej pory autorom udało się wprowadzić tego typu zmiany w systemie budowania projektu. 
+\section{Poprawa jakości kodu napisanego w~języku C++}
+W swojej obecnej postaci projekt napisany jest w~języku C++ z~elementami standardu C++11. Planowana jest pełna migracja kodu do standardu C++11 lub, jeśli będzie to możliwe (rozwiązany zostanie problem ograniczeń związanych z~infrastrukturą projektu), do standardu C++14 lub C++17. Migracja do nowego standardu oznaczała będzie również wyeliminowanie pewnych zewnętrznych zależności, które dostarczają funkcjonalności będących częścią nowych standardów języka. Dotyczy to przede wszystkim niektórych komponentów biblioteki Boost. Poza zmianami pozwalającymi na modernizację kodu planowane jest również ujednolicenie jego struktury oraz wprowadzenie konwencji dotyczących m.in. nazewnictwa zmiennych czy funkcji. Do tej pory autorom udało się wprowadzić tego typu zmiany w~systemie budowania projektu. 
 
 \section{Automatyzacja procesu publikowania produktu}
-Planowany jest dalszy rozwój przygotowanej przez autorów infrastruktury CI/CD. Poza wspomnianymi już wcześniej zautomatyzowanymi testami oprogramowania, wprowadzone może również zostać automatyczne wersjonowanie wydań projektu. Przydatne może się również okazać przygotowanie skryptu aktualizującego zdalne repozytoria projektu po wprowadzeniu zmian w kilku submodułach. Wymaga to wykonywania operacji \textit{git add}, \textit{git commit} oraz \textit{git push} dla każdego komponentu zależnego od zmodyfikowanych submodułów i tak dalej aż do komponentu stanowiącego korzeń projektu. Wykonywanie tej czynności manualnie jest niewydajne, stąd też potrzeba przygotowania skryptu automatyzującego tą czynność.
+Planowany jest dalszy rozwój przygotowanej przez autorów infrastruktury CI/CD. Poza wspomnianymi już wcześniej zautomatyzowanymi testami oprogramowania, wprowadzone może również zostać automatyczne wersjonowanie wydań projektu. Przydatne może się również okazać przygotowanie skryptu aktualizującego zdalne repozytoria projektu po wprowadzeniu zmian w~kilku submodułach. Wymaga to wykonywania operacji \textit{git add}, \textit{git commit} oraz \textit{git push} dla każdego komponentu zależnego od zmodyfikowanych submodułów i~tak dalej aż do komponentu stanowiącego korzeń projektu. Wykonywanie tej czynności manualnie jest niewydajne, stąd też potrzeba przygotowania skryptu automatyzującego tą czynność.
 
 
 \section{Migracja do języka Python 3}
-Znaczna część skryptów w projekcie GGSS napisana została kilka lat temu w języku Python 2. Z uwagi na zapowiedziane zakończenie oficjalnego wsparcia dla tej wersji języka sugerowane jest przepisanie skryptów z użyciem Pythona 3. Migracja dotyczyć może również niektórych skryptów napisanych w języku Bash. 
+Znaczna część skryptów w~projekcie GGSS napisana została kilka lat temu w~języku Python 2. Z~uwagi na zapowiedziane zakończenie oficjalnego wsparcia dla tej wersji języka sugerowane jest przepisanie skryptów z~użyciem Pythona 3. Migracja dotyczyć może również niektórych skryptów napisanych w~języku Bash. 
 
 \section{Przygotowanie dodatkowych interfejsów graficznych}
-Od początku pracy autorów nad projektem GGSS planowane było rozszerzenie jego funkcjonalności o nowe interfejsy graficzne pozwalające na wygodne przeglądanie gromadzonych danych. Istnieje wiele możliwych sposobów implementacji takich interfejsów. Jednym z nich jest zastosowanie popularnego \textbf{framework'u Qt}, przeznaczonego do pracy z językiem C++. 
+Od początku pracy autorów nad projektem GGSS planowane było rozszerzenie jego funkcjonalności o~nowe interfejsy graficzne pozwalające na wygodne przeglądanie gromadzonych danych. Istnieje wiele możliwych sposobów implementacji takich interfejsów. Jednym z~nich jest zastosowanie popularnego \textbf{framework'u Qt}, przeznaczonego do pracy z~językiem C++. 
 
 
 \chapter{Podsumowanie oraz wnioski}
 \label{cha:summary}
-Niniejszy rozdział stanowi podsumowanie prac przeprowadzonych przez autorów nad projektem GGSS. Zaprezentowane zostaną statystyki związane z projektem oraz wkładem autorów w jego rozwój, jak również zbiór wniosków, wyciągniętych przez autorów podczas prac nad systemem. 
+Niniejszy rozdział stanowi podsumowanie prac przeprowadzonych przez autorów nad projektem GGSS. Zaprezentowane zostaną statystyki związane z~projektem oraz wkładem autorów w~jego rozwój, jak również zbiór wniosków, wyciągniętych przez autorów podczas prac nad systemem. 
 
-Zadaniem autorów było przeprowadzenie rozbudowy i aktualizacji oprogramowania Systemu Stabilizacji Wzmocnienia Gazowego detektora ATLAS TRT. Przeprowadzona została zmiana architektury projektu oraz systemu budującego, wprowadzone zostały nowe rozwiązania, takie jak infrastruktura CI/CD oraz system kontroli wersji GIT. Pojawiło się wiele udoskonaleń względem poprzedniego rozwiązania, m.in. w logice działania pakietu RPM.
-Zadaniem autorów przyjęta podczas prac nad projektem strategia polegająca na dogłębnym analizowaniu postawionych przed nimi zadań była opłacalna. Poświęcenie czasu na dokładne przemyślenie rozwiązania pozwoliło autorom na znaczne przyspieszenie prac w fazie realizacji. Pozytywnym aspektem przeprowadzonych prac był również ich zespołowy charakter - pozwoliło to autorom na szybszą eliminację napotkanych problemów oraz dawało możliwość dzielenia się swoją wiedzą. Wkład obu autorów w projekt jest porównywalny, co obrazuje tabela \ref{table:stats2}. Wskazuje to na dobry przebieg współpracy między autorami. Praca nad systemem będącym częścią międzynarodowego projektu pozwoliła autorom również na zdobycie cennego, unikalnego doświadczenia.
-Zdaniem autorów wszystkie postawione przed nimi zadania zostały realizowane. Prace nad projektem będą kontynuowane w dalszym toku studiów podejmowanych przed autorów.
+Zadaniem autorów było przeprowadzenie rozbudowy i~aktualizacji oprogramowania Systemu Stabilizacji Wzmocnienia Gazowego detektora ATLAS TRT. Przeprowadzona została zmiana architektury projektu oraz systemu budującego, wprowadzone zostały nowe rozwiązania, takie jak infrastruktura CI/CD oraz system kontroli wersji \textbf{Git}. Pojawiło się wiele udoskonaleń względem poprzedniego rozwiązania, m.in. w~logice działania pakietu RPM.
+Zadaniem autorów przyjęta podczas prac nad projektem strategia polegająca na dogłębnym analizowaniu postawionych przed nimi zadań była opłacalna. Poświęcenie czasu na dokładne przemyślenie rozwiązania pozwoliło autorom na znaczne przyspieszenie prac w~fazie realizacji. Pozytywnym aspektem przeprowadzonych prac był również ich zespołowy charakter - pozwoliło to autorom na szybszą eliminację napotkanych problemów oraz dawało możliwość dzielenia się swoją wiedzą. Wkład obu autorów w~projekt jest porównywalny, co obrazuje tabela \ref{table:stats2}. Wskazuje to na dobry przebieg współpracy między autorami. Praca nad systemem będącym częścią międzynarodowego projektu pozwoliła autorom również na zdobycie cennego, unikalnego doświadczenia.
+Zdaniem autorów wszystkie postawione przed nimi zadania zostały realizowane. Prace nad projektem będą kontynuowane w~dalszym toku studiów podejmowanych przed autorów.
 
 
 
 \begin{table}[]
 \centering
-\caption{Ilość linii w plikach projektu}
+\caption{Ilość linii w~plikach projektu}
 \label{table:stats1}
 \begin{tabular}{|
 >{\columncolor[HTML]{ECF4FF}}c |
@@ -39,7 +39,7 @@ Zdaniem autorów wszystkie postawione przed nimi zadania zostały realizowane. P
 \hline
 \textbf{Typ plików} & \textbf{Ilość linii zawarta we wszystkich plikach danego typu} \\ \hline
 C/C++               & 18 011                                                         \\ \hline
-CMAKE               & 1 412                                                          \\ \hline
+CMake               & 1 412                                                          \\ \hline
 Python              & 602                                                            \\ \hline
 Markdown            & 557                                                            \\ \hline
 .gitlab-ci.yml      & 430                                                            \\ \hline
@@ -52,7 +52,7 @@ Dockerfile          & 56                                                        
 
 \begin{table}[]
 \centering
-\caption{Statystki wkładu autorów w projekt uzyskane za pomocą portalu GitLab}
+\caption{Statystki wkładu autorów w~projekt uzyskane za pomocą portalu GitLab}
 \label{table:stats2}
 \begin{tabular}{
 >{\columncolor[HTML]{ECF4FF}}c |
@@ -70,17 +70,17 @@ Dockerfile          & 56                                                        
 \appendix
 \chapter{Dodatki/Appendixes}
 \label{cha:app}
-Niniejsza część pracy zawiera trzy dodatki dotyczące procesu przygotowywania maszyny wirtualnej do pracy jako tzw. \textit{runner} z narzędziem \textit{GitLab CI/CD}, procesu dodawania nowych modułów do projektu GGSS oraz struktury projektu przed i po wprowadzeniu przez autorów zmian. Dwa z dodatków przygotowane zostały w języku angielskim - powodem tego jest międzynarodowy charakter zespołu pracującego nad detektorem TRT oraz fakt, że dodatki te stanowią część dokumentacji znajdującej się w repozytoriach projektu.
+Niniejsza część pracy zawiera trzy dodatki dotyczące procesu przygotowywania maszyny wirtualnej do pracy jako tzw. \textit{runner} z~narzędziem \textit{GitLab CI/CD}, procesu dodawania nowych modułów do projektu GGSS oraz struktury projektu przed i~po wprowadzeniu przez autorów zmian. Dwa z~dodatków przygotowane zostały w~języku angielskim - powodem tego jest międzynarodowy charakter zespołu pracującego nad detektorem TRT oraz fakt, że dodatki te stanowią część dokumentacji znajdującej się w~repozytoriach projektu.
 
-This part of the dissertation contains three appendixes that cover following topics: preparing the virtual machine to work as a GitLab CI/CD runner, adding new modules to the GGSS project using templates created by authors and comparing the project structure before and after changes. Two of the appendixes were written in English - that's due to the international nature of the TRT community as well as the fact that those appendixes are a part of documentation that can be found in project's repositories. 
+This part of the dissertation contains three appendixes that cover following topics: preparing the virtual machine to work as a~GitLab CI/CD runner, adding new modules to the GGSS project using templates created by authors and comparing the project structure before and after changes. Two of the appendixes were written in English - that's due to the international nature of the TRT community as well as the fact that those appendixes are a~part of documentation that can be found in project's repositories. 
 
-\section{Porównanie początkowej i obecnej struktury projektu oraz kodu źródłowego}
+\section{Porównanie początkowej i~obecnej struktury projektu oraz kodu źródłowego}
 
-Niniejszy dodatek przedstawia porównanie początkowej oraz końcowej struktury projektu \textbf{ggss}. Listingi \ref{lst:newStructure} oraz \ref{lst:oldStructure} przedstawiają porównanie katalogów na poziomie całego projektu, gdzie tymi samymi kolorami oznaczone zostały odpowiadające sobie komponenty. Kolorem czarnym oznaczone zostały katalogi nieposiadające odpowiedników.
+Niniejszy dodatek przedstawia porównanie początkowej oraz końcowej struktury projektu \textbf{GGSS}. Listingi \ref{lst:newStructure} oraz \ref{lst:oldStructure} przedstawiają porównanie katalogów na poziomie całego projektu, gdzie tymi samymi kolorami oznaczone zostały odpowiadające sobie komponenty. Kolorem czarnym oznaczone zostały katalogi nieposiadające odpowiedników.
 
-Listing \ref{lst:newLibStructure} przedstawia strukturę biblioteki \textbf{ggss-lib} po wprowadzonych zmianach. Na listingu \ref{lst:oldLibStructure} przedstawiona została poprzednia struktura tejże biblioteki w celu ukazania różnic. Takie zmiany zostały wprowadzone w każdej z bibliotek wchodzących w skład projektu \textbf{ggss}.
+Listing \ref{lst:newLibStructure} przedstawia strukturę biblioteki \textbf{ggss-lib} po wprowadzonych zmianach. Na listingu \ref{lst:oldLibStructure} przedstawiona została poprzednia struktura tejże biblioteki w~celu ukazania różnic. Takie zmiany zostały wprowadzone w~każdej z~bibliotek wchodzących w~skład projektu \textbf{GGSS}.
 
-Rysunki \ref{fig:addExternC} i \ref{fig:removeExternC} przedstawiają jedyne zmiany wprowadzone bezpośrednio w kodzie źródłowym aplikacji.
+Rysunki \ref{fig:addExternC} i~\ref{fig:removeExternC} przedstawiają jedyne zmiany wprowadzone bezpośrednio w~kodzie źródłowym aplikacji.
 
 \newpage
 
@@ -257,13 +257,13 @@ ggssLib/
 \newpage
 
 \begin{figure}
-\caption{Dodanie konstrukcji \textit{extern "{}C"} w ramach biblioteki \textbf{mca-lib}}
+\caption{Dodanie konstrukcji \textit{extern "{}C"} w~ramach biblioteki \textbf{mca-lib}}
 \label{fig:addExternC}
 \includegraphics[width=\textwidth]{res/png/addExternC}
 \end{figure}
 
 \begin{figure}
-\caption{Usunięcie konstrukcji \textit{extern "{}C"} w ramach zewnętrznej biblioteki \textbf{CAENN957}}
+\caption{Usunięcie konstrukcji \textit{extern "{}C"} w~ramach zewnętrznej biblioteki \textbf{CAENN957}}
 \label{fig:removeExternC}
 \includegraphics[width=\textwidth]{res/png/removeExternC}
 \end{figure}
@@ -277,14 +277,14 @@ ggssLib/
 \newpage
 
 \includepdfset{pages=-,pagecommand=\thispagestyle{fancy}}
-\includepdf[pages=1, scale=0.85,offset= 0.65cm -1cm, pagecommand={\section{Preparing the virtual machine to work as a runner\label{appendix:A3}}}]{res/howToRunner.pdf}
+\includepdf[pages=1, scale=0.85,offset= 0.65cm -1cm, pagecommand={\section{Preparing the virtual machine to work as a~runner\label{appendix:A3}}}]{res/howToRunner.pdf}
 \includepdf[pages=2,scale=0.85,offset= 0.65cm 0]{res/howToRunner.pdf}
 \includepdf[pages=3,scale=0.85,offset= 0.65cm 0]{res/howToRunner.pdf}
 
-Dodatek \ref{appendix:A3} opisuje procedurę dodawania nowej maszyny jako \textbf{GitLab CI/CD Runner}, czyli jednostka odpowiedzialna za wykonywanie zadań w ramach funkcjonalności \textbf{GitLab CI/CD}. Instrukcja zakłada, że maszyna posiada zainstalowany system operacyjny \textbf{Linux} w dystrybucji \textbf{Centos7}. Wynikem wykonanie wszystkich czynności powinno być dodanie maszyny do panelu \textbf{CI/CD>Runners} dla wybranej grupy, co ukazuje Rysunek \ref{fig:runner}. Instrukcja została napisana w oparciu o dokumentację \textbf{Docker}TUTAJREF oraz dokumentację \textbf{GitLab}TUTAJREF.
+Dodatek \ref{appendix:A3} opisuje procedurę dodawania nowej maszyny jako \textbf{GitLab CI/CD Runner}, czyli jednostka odpowiedzialna za wykonywanie zadań w~ramach funkcjonalności \textbf{GitLab CI/CD}. Instrukcja zakłada, że maszyna posiada zainstalowany system operacyjny \textbf{Linux} w~dystrybucji \textbf{Centos7}. Wynikem wykonanie wszystkich czynności powinno być dodanie maszyny do panelu \textbf{CI/CD>Runners} dla wybranej grupy, co ukazuje Rysunek \ref{fig:runner}. Instrukcja została napisana w~oparciu o~dokumentację \textbf{Docker}\cite{DockerInstall} oraz dokumentację \textbf{GitLab}\cite{RunnerRegister}.
 
 \begin{figure}
-\caption{Panel przedstawiający dodane \textbf{GitLab CI/CD Runner} w ramach projektu.}
+\caption{Panel przedstawiający dodane \textbf{GitLab CI/CD Runner} w~ramach projektu.}
 \label{fig:runner}
 \includegraphics[width=\textwidth]{res/png/runnerAdded}
 \end{figure}

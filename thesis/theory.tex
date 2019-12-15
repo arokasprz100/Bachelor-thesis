@@ -31,9 +31,9 @@ for (std::vector<int>::const_iterator it = a.begin(); it != a.end(); ++it) {
 \begin{lstlisting}[language=c++,caption={Przykład kodu w~języku C++ napisany z~wykorzystaniem funkcjonalności ze standardu C++11 (zakresowa pętla for)},label={lst:cpp11}]
 // kontener zawierający 6 elementów typu int - nowy
 // sposób inicjalizacji
-std::vector<int> a{1, 2, 3, 4, 5, 6};
+std::vector<int> a {1, 2, 3, 4, 5, 6};
 
-// iteracja po zawartości kontenera w~standardzie C++11 - 
+// iteracja po zawartości kontenera w standardzie C++11 - 
 // przykład zastosowania zakresowej pętli for
 for (const auto& elem: a) {
 	std::cout << elem << " ";
@@ -330,29 +330,19 @@ Listing \ref{lst:pyexample} przedstawia prosty przykład skryptu napisanego w~j�
 \begin{lstlisting}[language=python,caption={Przykład prostego skryptu napisanego w~języku Python 3 - przetwarzanie argumentów podanych przez użytkownika do skryptu}, label={lst:pyexample}]
 import argparse
 
-## Prosty skrypt przetwarzający argumenty podane 
-## przy jego uruchomieniu przez użytkownika
-
-## Definicja funkcji w~języku Python
+## Definicja funkcji w języku Python
 def parse_command_line_arguments():
-
-    ## Obiekt przetwarzający argumenty (parser)
     parser = argparse.ArgumentParser()
-
-    ## Argumenty wzajemnie się wykluczające
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-s", "--staticboost", 
         help="Use static Boost linking.", action="store_true")
     group.add_argument("-d", "--dynamicboost",
         help="Use dynamic Boost linking.", action="store_true")
-
     return parser.parse_args()
 
 if __name__=="__main__":
-    ## Wywołanie funkcji
     arguments = parse_command_line_arguments()
     print(arguments)
-
 
 \end{lstlisting}
 
@@ -391,7 +381,9 @@ Argument 0.: /home/user/prostySkrypt.sh
 Argument 1.: argumenty
 \end{lstlisting}
 
-Bash posiada wiele poleceń, które pozwalają na wykonywanie zarówno podstawowych, jak i~bardziej zaawansowanych czynności, np.: obsługa plików, obsługa systemu katalogów, zarządzanie kontami, uprawnieniami, itd.\par
+Bash posiada wiele poleceń, które pozwalają na wykonywanie zarówno podstawowych, jak i~bardziej zaawansowanych czynności, np.: obsługa plików, obsługa systemu katalogów, zarządzanie kontami, uprawnieniami, itd.
+
+
 Bash posiada również wiele zaawansowanych funkcjonalności, które pozwalają na kontrolowanie przepływu informacji w~trakcie wykonywania poleceń. Przykładem jest wpisywanie tekstu do pliku ukazane na Listingu \ref{lis:zapisDoPliku}.
 
 \begin{lstlisting}[label={lis:zapisDoPliku},language=Cmd,caption={Przykład zapisu tekstu do pliku}]
@@ -416,7 +408,7 @@ branches  config  description  HEAD  hooks  info  objects  refs
 
 Taka inicjalizacja nie spowoduje żadnego dodatkowego działania oprócz utworzenia repozytorium. Żadne pliki nie są jeszcze poddawane rewizji. W~celu rejestracji plików należy wykonać jeszcze kilka kroków. Pierwszym z~nich jest wykonanie komendy \textbf{git add}, która poprzedza nazwę plików lub folderów, które chcemy poddać wersjonowaniu. Elementy te zostają dodane do tzw. poczekalni, czyli są one kandydatami do utworzenia kolejnej rewizji. Przydatną komendą w~tym przypadku jest również \textbf{git status} pozwalająca na sprawdzenie obecnego stanu repozytorium. Wyświetla ono krótkie podsumowanie nt. nowych plików, usuniętych plików oraz plików zmodyfikowanych. Informuje nas również o~tym, które pliki są brane pod uwagę do utworzenia kolejnej rewizji.
 
-\begin{lstlisting}[language=Cmd,caption={Dodawanie elementów do poczekalni}]
+\begin{lstlisting}[language=Cmd,caption={Dodawanie elementów do poczekalni}, frame=none]
 user@host:/ściezka/do/projektu$ git add plik1 folder1 && git status
 On branch master
 
@@ -424,14 +416,12 @@ No commits yet
 
 Changes to be committed:
   (use "git rm --cached <file>..." to unstage)
-
         new file:   folder1/plik3
         new file:   folder1/plik4
         new file:   plik1
 
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
-
         plik2
 \end{lstlisting}
 
@@ -482,7 +472,7 @@ user@host:/sciezka/do/projektu$ ls
 folder1  plik1  plik2
 \end{lstlisting}
 
-Głównym celem portalu \textbf{GitLab} jest udostępnienie środowiska do przechowywania repozytoriów Gitowych na zdalnych serwerach. Pozwala to na uniezależnienie się od maszyny na której pracujemy, zwiększa bezpieczeństwo plików źródłowych poprzez umieszczenie kopii na zdalnym serwerze oraz wspiera zespołową pracę nad kodem.\par
+Głównym celem portalu \textbf{GitLab} jest udostępnienie środowiska do przechowywania repozytoriów Git'owych na zdalnych serwerach. Pozwala to na uniezależnienie się od maszyny na której pracujemy, zwiększa bezpieczeństwo plików źródłowych poprzez umieszczenie kopii na zdalnym serwerze oraz wspiera zespołową pracę nad kodem.\par
 
 Ze względu na to, że portale typu \textbf{GitLab} są traktowane jako podstawowe narzędzie do wspólnej pracy nad kodem, to rozwinęły one wiele narzędzi wspomagających organizację oraz śledzenie pracy. Oprócz ww. funkcji \textbf{Gitlab} dostarcza wiele narzędzi do wspomagania procesu zapewniania jakości, jak i~automatyzacji dostarczania kodu.\par
 
@@ -493,7 +483,7 @@ Ze względu na to, że portale typu \textbf{GitLab} są traktowane jako podstawo
 \item oraz komenda \textbf{git push} aktualizująca zdalne repozytorium do najnowszej lokalnej wersji
 \end{itemize}
 
-Bardzo ważnym aspektem technologii \textbf{GIT} jest mechanizm gałęzi (ang. \textit{branch}). Pozwala on na równoległą pracę nad jedną częścią kodu. Polega to na tym, że w~momencie utworzenia nowej gałęzi tworzymy tak na prawdę osobny łańcuch rewizji, których jedyną wspólną częścią jest rewizja wzorcowa, czyli wersja na podstawie której została utworzona gałąź, co przedstawia Rysunek \ref{fig:branch}. W~celu utworzenia nowej gałęzi należy wykorzystać komendę \textbf{git branch <nazwa-gałęzi>}, a~w celu zmiany aktualnie używanej gałęzi \textbf{git checkout <nazwa-gałęzi>}. Główna gałąź projektu nazywa się \textbf{master}. Zmiany na jednej gałęzi nie wpływają w~żaden sposób na inną gałąź do momentu tzw. \textbf{merge}, czyli złączenia dwóch gałęz, co ukazuje rysunek \ref{fig:branch2}. Ważnym aspektem łączenia gałęzi jest rozwiązywanie konfliktów, które pojawiają się w~momencie, gdy łączone gałęzie wprowadzały zmiany do tego samego pliku, a~system rozwiązujący konflikty nie był w~stanie wykonać swojego zadania automatyczne. W~takim przypadku wymagana jest akcja programisty, aby w~gałęzi wynikowej zachować odpowiedni kod.
+Bardzo ważnym aspektem technologii \textbf{Git} jest mechanizm gałęzi (ang. \textit{branch}). Pozwala on na równoległą pracę nad jedną częścią kodu. Polega to na tym, że w~momencie utworzenia nowej gałęzi tworzymy tak na prawdę osobny łańcuch rewizji, których jedyną wspólną częścią jest rewizja wzorcowa, czyli wersja na podstawie której została utworzona gałąź, co przedstawia Rysunek \ref{fig:branch}. W~celu utworzenia nowej gałęzi należy wykorzystać komendę \textbf{git branch <nazwa-gałęzi>}, a~w celu zmiany aktualnie używanej gałęzi \textbf{git checkout <nazwa-gałęzi>}. Główna gałąź projektu nazywa się \textbf{master}. Zmiany na jednej gałęzi nie wpływają w~żaden sposób na inną gałąź do momentu tzw. \textbf{merge}, czyli złączenia dwóch gałęzi, co ukazuje rysunek \ref{fig:branch2}. Ważnym aspektem łączenia gałęzi jest rozwiązywanie konfliktów, które pojawiają się w~momencie, gdy łączone gałęzie wprowadzały zmiany do tego samego pliku, a~system rozwiązujący konflikty nie był w~stanie wykonać swojego zadania automatyczne. W~takim przypadku wymagana jest akcja programisty, aby w~gałęzi wynikowej zachować odpowiedni kod.
 
 \begin{figure} [H]
 \centering
