@@ -21,9 +21,51 @@ Od początku pracy autorów nad projektem GGSS planowane było rozszerzenie jego
 
 \chapter{Podsumowanie oraz wnioski}
 \label{cha:summary}
+Niniejszy rozdział stanowi podsumowanie prac przeprowadzonych przez autorów nad projektem GGSS. Zaprezentowane zostaną statystyki związane z projektem oraz wkładem autorów w jego rozwój, jak również zbiór wniosków, wyciągniętych przez autorów podczas prac nad systemem. 
 
-\section{Statystyki projektu}
-\label{sec:stat}
+Zadaniem autorów było przeprowadzenie rozbudowy i aktualizacji oprogramowania Systemu Stabilizacji Wzmocnienia Gazowego detektora ATLAS TRT. Przeprowadzona została zmiana architektury projektu oraz systemu budującego, wprowadzone zostały nowe rozwiązania, takie jak infrastruktura CI/CD oraz system kontroli wersji GIT. Pojawiło się wiele udoskonaleń względem poprzedniego rozwiązania, m.in. w logice działania pakietu RPM.
+Zadaniem autorów przyjęta podczas prac nad projektem strategia polegająca na dogłębnym analizowaniu postawionych przed nimi zadań była opłacalna. Poświęcenie czasu na dokładne przemyślenie rozwiązania pozwoliło autorom na znaczne przyspieszenie prac w fazie realizacji. Pozytywnym aspektem przeprowadzonych prac był również ich zespołowy charakter - pozwoliło to autorom na szybszą eliminację napotkanych problemów oraz dawało możliwość dzielenia się swoją wiedzą. Wkład obu autorów w projekt jest porównywalny, co obrazuje tabela \ref{table:stats2}. Wskazuje to na dobry przebieg współpracy między autorami. Praca nad systemem będącym częścią międzynarodowego projektu pozwoliła autorom również na zdobycie cennego, unikalnego doświadczenia.
+Zdaniem autorów wszystkie postawione przed nimi zadania zostały realizowane. Prace nad projektem będą kontynuowane w dalszym toku studiów podejmowanych przed autorów.
+
+
+
+\begin{table}[]
+\centering
+\caption{Ilość linii w plikach projektu}
+\label{table:stats1}
+\begin{tabular}{|
+>{\columncolor[HTML]{ECF4FF}}c |
+>{\columncolor[HTML]{ECF4FF}}c |}
+\hline
+\textbf{Typ plików} & \textbf{Ilość linii zawarta we wszystkich plikach danego typu} \\ \hline
+C/C++               & 18 011                                                         \\ \hline
+CMAKE               & 1 412                                                          \\ \hline
+Python              & 602                                                            \\ \hline
+Markdown            & 557                                                            \\ \hline
+.gitlab-ci.yml      & 430                                                            \\ \hline
+Shell/Bash          & 336                                                            \\ \hline
+Dockerfile          & 56                                                             \\ \hline
+\textbf{RAZEM}      & 21 404                                                         \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[]
+\centering
+\caption{Statystki wkładu autorów w projekt uzyskane za pomocą portalu GitLab}
+\label{table:stats2}
+\begin{tabular}{
+>{\columncolor[HTML]{ECF4FF}}c |
+>{\columncolor[HTML]{ECF4FF}}c |
+>{\columncolor[HTML]{ECF4FF}}c |
+>{\columncolor[HTML]{ECF4FF}}c |}
+\cline{2-4}
+\cellcolor[HTML]{FFFFFF}                                                  & \textbf{Ilość commit'ów} & \textbf{\begin{tabular}[c]{@{}c@{}}Ilość wykonanych \\ merge request'ów\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Ilość zamkniętych \\ issue\end{tabular}} \\ \hline
+\multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}\textbf{Jarosław Cierpich}}  & 150                      & 11                                                                                    & 14                                                                          \\ \hline
+\multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}\textbf{Arkadiusz Kasprzak}} & 212                      & 6                                                                                     & 12                                                                          \\ \hline
+\end{tabular}
+\end{table}
+
 
 \appendix
 \chapter{Dodatki/Appendixes}
