@@ -1004,15 +1004,6 @@ RUN pip install -r requirements.txt
 \end{lstlisting}
 
 \newpage
-\section{Pomniejsze prace}
-Niniejsza część pracy zawiera opis dwóch problemów niezwiązanych bezpośrednio z omówionymi dotychczas. W obu przypadkach ich cechą charakterystyczną było krótkie, jeśli chodzi o ilość kodu, rozwiązanie, które wymagało jednak od autorów poświęcenia znacznej ilości czasu (kilkanaście godzin) na zdobycie odpowiedniej wiedzy lub znalezienie źródła powstałego utrudnienia. Ze względu na fakt, iż rozwiązanie tych problemów było niezbędne, by projekt mógł działać poprawnie, autorzy zdecydowali się poświęcić im kilka stron niniejszego manuskryptu.
-
-\subsection{Integracja bibliotek napisanych w~języku C z~aplikacją w~C++}
-
-
-\subsection{Integracja zewnętrznej biblioteki dynamicznej z~użyciem narzędzia CMake}
-
-\newpage
 \section{Dokumentacja projektu}
 Jednym z~wymagań postawionych przed autorami niniejszej pracy było przygotowanie podstawowej dokumentacji opisującej poszczególne komponenty projektu GGSS. Dokumentacja ta miała zostać sporządzona w~języku angielskim, co wynika z~międzynarodowego charakteru zespołu pracującego nad detektorem ATLAS. Przygotowana dokumentacja powinna oferować możliwie niski próg wejścia - powinna ona umożliwić osobie niezaznajomionej z~całym systemem GGSS zbudowanie oraz użycie poszczególnych jego komponentów, jak i~całego projektu. Autorzy zrealizowali to zadanie za pomocą plików \textbf{README.md} umieszczonych w~każdym repozytorium projektu oraz dokumentów opisujących sposób wykonania niektórych czynności związanych z~utrzymaniem projektu.
 
@@ -1059,3 +1050,31 @@ Rys. \ref{fig:markdownHardware} przedstawia fragment zawartości wygenerowanej z
 
 Oprócz plików \textit{.md} przygotowane zostały również dwa dokumenty opisujące ważne, zdaniem autorów, aspekty utrzymania i~rozwoju projektu GGSS. Dokumenty te zostały dołączone do niniejszej pracy w~formie dodatków (\ref{appendix:A2} oraz \ref{appendix:A3}). Dotyczą one rozszerzania projektu o~nowe moduły (dodatek \ref{appendix:A2} - \textit{Adding modules to the project using existing CMake
 templates}) oraz przygotowywania maszyny wirtualnej do pracy jako \textit{runner} w~procesie CI/CD (dodatek \ref{appendix:A3} - \textit{Preparing the virtual machine to work as a~runner}). 
+
+\newpage
+\section{Pomniejsze prace}
+Niniejsza część pracy zawiera opis dwóch problemów niezwiązanych bezpośrednio z omówionymi dotychczas pracami. W obu przypadkach ich cechą charakterystyczną było krótkie, jeśli chodzi o ilość kodu, rozwiązanie, które wymagało jednak od autorów poświęcenia znacznej ilości czasu na zdobycie odpowiedniej wiedzy lub znalezienie źródła powstałego utrudnienia. Ze względu na fakt, iż rozwiązanie tych problemów było niezbędne, by projekt mógł działać poprawnie, autorzy zdecydowali się poświęcić im osobną sekcję niniejszego manuskryptu.
+
+\subsection{Integracja bibliotek napisanych w~języku C z~aplikacją w~C++}
+Biblioteka zawarta w ramach repozytorium \textbf{external-n957-lib} napisana została w języku C, co utrudnia poprawne wykorzystanie jej w projekcie opartym na języku C++. Wynika to ze sposobu działania symboli w języku C++. Ze względu na istniejące w nim mechanizmy takie jak: przeładowanie funkcji oraz szablony, są one dekorowane w celu przechowywania dodatkowych, koniecznych informacji. Zachowanie to jest niezgodne z zachowaniem w języku C, gdzie taki mechanizm nie występuje. Powoduje to konieczność specjalnego oznaczenia kodu napisanego w języku C, a wykorzystywanego w języku C++ konstrukcją \textit{extern "{}C"}. W przeciwnym wypadku, podczas linkowania programu, pojawi się błąd dotyczący niezdefiniowanych referencji do symboli.
+
+W początkowej wersji projektu problem ten został rozwiązany poprzez dodanie wyżej wymienionej konstrukcji w plikach nagłówkowych zewnętrznej biblioteki, co po jej aktualizacji spowodowało zaprzestanie poprawnego budowania się projektu \textbf{ggss}. Poprawa tego błędu polegała na wykorzystaniu \textit{extern "{}C"} w miejscu występowania dyrektywy \textit{include} dołączającej wyżej wspomniane pliki nagłówkowe biblioteki, co ilustruje listing \ref{lst:externCC}.
+
+\begin{lstlisting}[language=c++, caption={Wykorzystanie konstrukcji \textit{extern "{}C"} w celu integracji biblioteki napisanej w języku C z komponentem \textbf{mca-lib}}, label={lst:externCC}]
+extern "C"{ 
+    #include <mca/N957Lib.h>
+}
+\end{lstlisting}
+
+\newpage
+
+\subsection{Integracja zewnętrznej biblioteki dynamicznej z~użyciem narzędzia CMake}
+Narzędzie CMAKE dostarcza gotowe API pozwalające dodawać do projektu zewnętrzne biblioteki w prosty sposób, co przedstawia listing \ref{lst:cmakeExLib}. Przedstawiona konfiguracja uwzględnia fakt, iż biblioteka nie posiada zdefiniowanego pola \textit{SONAME}, co utrudnia poprawne dodanie jej do projektu. Utrudnienie polega na tym, że dodając bibliotekę w sposób standardowy w miejsce \textit{SONAME} pojawiała się pełna ścieżka do pliku, co po przeniesieniu aplikacji na maszynę docelową powodowało błędy. Do pełnego rozwiązania problemu konieczne było również utworzenie dowiązania symbolicznego w miejscu, z którego była importowana biblioteka zgodnie ze standardem opisanym w rozdziale \ref{section:libs}.
+
+\begin{lstlisting}[language=cmake, caption={Dodanie zewnętrznej biblioteki do projektu za pomocą narzędzia \textbf{CMAKE}}, label={lst:cmakeExLib}]
+add_library(CAENN957 SHARED IMPORTED GLOBAL)
+set_target_properties(CAENN957 PROPERTIES
+        IMPORTED_NO_SONAME TRUE
+        IMPORTED_LOCATION ${CAENLibPath}
+)
+\end{lstlisting}
