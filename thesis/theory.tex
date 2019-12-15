@@ -492,7 +492,7 @@ Ze względu na to, że portale typu \textbf{GitLab} są traktowane jako podstawo
 \item oraz komenda \textbf{git push} aktualizująca zdalne repozytorium do najnowszej lokalnej wersji
 \end{itemize}
 
-Bardzo ważnym aspektem technologii \textbf{GIT} jest mechanizm gałęzi (ang. \textit{branch}). Pozwala on na równoległą pracę nad jedną częścią kodu. Polega to na tym, że w~momencie utworzenia nowej gałęzi tworzymy tak na prawdę osobny łańcuch rewizji, których jedyną wspólną częścią jest rewizja wzorcowa, czyli wersja na podstawie której została utworzona gałąź, co przedstawia Rysunek \ref{fig:branch}. W~celu utworzenia nowej gałęzi należy wykorzystać komendę \textbf{git branch <nazwa-gałęzi>}, a~w celu zmiany aktualnie używanej gałęzi \textbf{git checkout <nazwa-gałęzi>}. Główna gałąź projektu nazywa się \textbf{master}. Zmiany na jednej gałęzi nie wpływają w~żaden sposób na inną gałąź do momentu tzw. \textbf{merge}, czyli złączenia dwóch gałęzi. Ważnym aspektem łączenia gałęzi jest rozwiązywanie konfliktów, które pojawiają się w~momencie, gdy łączone gałęzie wprowadzały zmiany do tego samego pliku, a~system rozwiązujący konflikty nie był w~stanie wykonać swojego zadania automatyczne. W~takim przypadku wymagana jest akcja programisty, aby w~gałęzi wynikowej zachować odpowiedni kod.
+Bardzo ważnym aspektem technologii \textbf{GIT} jest mechanizm gałęzi (ang. \textit{branch}). Pozwala on na równoległą pracę nad jedną częścią kodu. Polega to na tym, że w~momencie utworzenia nowej gałęzi tworzymy tak na prawdę osobny łańcuch rewizji, których jedyną wspólną częścią jest rewizja wzorcowa, czyli wersja na podstawie której została utworzona gałąź, co przedstawia Rysunek \ref{fig:branch}. W~celu utworzenia nowej gałęzi należy wykorzystać komendę \textbf{git branch <nazwa-gałęzi>}, a~w celu zmiany aktualnie używanej gałęzi \textbf{git checkout <nazwa-gałęzi>}. Główna gałąź projektu nazywa się \textbf{master}. Zmiany na jednej gałęzi nie wpływają w~żaden sposób na inną gałąź do momentu tzw. \textbf{merge}, czyli złączenia dwóch gałęz, co ukazuje rysunek \ref{fig:branch2}. Ważnym aspektem łączenia gałęzi jest rozwiązywanie konfliktów, które pojawiają się w~momencie, gdy łączone gałęzie wprowadzały zmiany do tego samego pliku, a~system rozwiązujący konflikty nie był w~stanie wykonać swojego zadania automatyczne. W~takim przypadku wymagana jest akcja programisty, aby w~gałęzi wynikowej zachować odpowiedni kod.
 
 \begin{figure} [H]
 \centering
@@ -505,7 +505,7 @@ Bardzo ważnym aspektem technologii \textbf{GIT} jest mechanizm gałęzi (ang. \
 \centering
 \caption{Schemat złączania gałęzi w~ramach polecenie \textbf{git merge}}
 \includegraphics[width=\textwidth]{res/branchMerge}
-\label{fig:branch}
+\label{fig:branch2}
 \end{figure}
 
 Jest to tylko podstawowy opis technologii jaką jest \textbf{Git}, przykłady bardziej zaawansowanych zastosowań pojawią się w~części manuskryptu przeznaczonej na prezentację wykonanych prac w~ramach projektu.
