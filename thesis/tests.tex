@@ -1,6 +1,6 @@
 \chapter{Testy nowej wersji oprogramowania}
 \label{cha:test}
-Niniejszy rozdział zawiera opis testów systemu GGSS przeprowadzonych na koniec trwania prac związanych z~jego oprogramowaniem. Celem testów była weryfikacja poprawności działania czterech konfiguracji programu \textit{ggssrunner}: wersja deweloperska (\textit{debug}) ze statycznie linkowaną biblioteką \textit{Boost}, wersja deweloperska z~dynamicznie linkowaną biblioteką \textit{Boost} oraz analogiczne wersje produkcyjne (\textit{release}). Z~uwagi na powtarzalny charakter procesu testowania zaprezentowany zostanie jedynie przebieg testów dla wersji \textbf{deweloperskiej ze statycznie linkowaną biblioteką Boost}. 
+Niniejszy rozdział zawiera opis testów systemu \gls*{ggss} przeprowadzonych na koniec trwania prac związanych z~jego oprogramowaniem. Celem testów była weryfikacja poprawności działania czterech konfiguracji programu \textit{ggssrunner}: wersja deweloperska (\textit{debug}) ze statycznie linkowaną biblioteką \textit{Boost}, wersja deweloperska z~dynamicznie linkowaną biblioteką \textit{Boost} oraz analogiczne wersje produkcyjne (\textit{release}). Z~uwagi na powtarzalny charakter procesu testowania zaprezentowany zostanie jedynie przebieg testów dla wersji \textbf{deweloperskiej ze statycznie linkowaną biblioteką Boost}. 
 
 \section{Przebieg testu}
 Ze względu na fakt, że środowisko w~którym osadzony jest program \textit{ggssrunner} jest ciągle monitorowane, pierwszym krokiem było umieszczenie informacji o~przeprowadzaniu testów w~dedykowanym do tego celu systemie \textbf{ELisA (Electronic Logbook for Information Storage for Atlas)}.
@@ -12,21 +12,21 @@ Ze względu na fakt, że środowisko w~którym osadzony jest program \textit{ggs
 \includegraphics[width=\textwidth]{res/png/elisa}
 \end{figure}
 
-Pliki wykonywalne aplikacji \textit{ggssrunner} wygenerowane zostały za pomocą przygotowanego przez autorów środowiska CI/CD. Zostały one umieszczone na komputerze produkcyjnym. Kolejnym krokiem było zalogowanie się do panelu \textit{WinCC OA} służącego do monitorowania działania detektora ATLAS oraz wybranie panelu odpowiedzialnego za dostarczanie informacji o~systemie GGSS. 
+Pliki wykonywalne aplikacji \textit{ggssrunner} wygenerowane zostały za pomocą przygotowanego przez autorów środowiska CI/CD. Zostały one umieszczone na komputerze produkcyjnym. Kolejnym krokiem było zalogowanie się do panelu \textit{WinCC OA} służącego do monitorowania działania detektora ATLAS oraz wybranie panelu odpowiedzialnego za dostarczanie informacji o~systemie \gls*{ggss}. 
 
 \begin{figure}[H]
 \centering
-\caption{Panel WinCC OA monitorujący działanie systemu GGSS}
+\caption{Panel WinCC OA monitorujący działanie systemu \gls*{ggss}}
 \label{fig:ggss}
 \includegraphics[width=\textwidth]{res/png/ggssStraw}
 \end{figure}
 
 \newpage
-Następnym etapem było przeprowadzenie procesu wyłączania systemu GGSS za pomocą przycisku \textit{Stop} znajdującego się na dedykowanym panelu konfiguracyjnym ukazanym na Rys. \ref{fig:ggsspanel}. 
+Następnym etapem było przeprowadzenie procesu wyłączania systemu \gls*{ggss} za pomocą przycisku \textit{Stop} znajdującego się na dedykowanym panelu konfiguracyjnym ukazanym na Rys. \ref{fig:ggsspanel}. 
 
 \begin{figure}[H]
 \centering
-\caption{Panel konfiguracyjny systemu GGSS podczas działania systemu}
+\caption{Panel konfiguracyjny systemu \gls*{ggss} podczas działania systemu}
 \label{fig:ggsspanel}
 \includegraphics[width=\textwidth]{res/png/ggssConfig}
 \end{figure}
@@ -50,7 +50,7 @@ ggssrunner is NOT running. /localdisk/ggss/bin/autostartggss.lock exists. Remove
 
 
 
-Po wykonaniu wyżej wymienionych czynności podmieniony został plik wykonywalny aplikacji \textit{ggssrunner} na przygotowany przez autorów. Zmiana została wykonana poprzez modyfikacje \textbf{dowiązania symbolicznego}. Następnie aplikacja uruchomiona została ponownie za pomocą skryptu \textit{ggss\_monitor.sh} (listing \ref{lst:ggssstart}) oraz z~poziomu panelu \textit{WinCC OA}. Stan panelu monitorującego system GGSS jest widoczny na Rys. \ref{fig:ggssafterstart}.
+Po wykonaniu wyżej wymienionych czynności podmieniony został plik wykonywalny aplikacji \textit{ggssrunner} na przygotowany przez autorów. Zmiana została wykonana poprzez modyfikacje \textbf{dowiązania symbolicznego}. Następnie aplikacja uruchomiona została ponownie za pomocą skryptu \textit{ggss\_monitor.sh} (listing \ref{lst:ggssstart}) oraz z~poziomu panelu \textit{WinCC OA}. Stan panelu monitorującego system \gls*{ggss} jest widoczny na Rys. \ref{fig:ggssafterstart}.
 
 \begin{lstlisting}[language=Cmd, caption={Ponowne uruchomienie aplikacji \textit{ggssrunner}}, label={lst:ggssstart}]
 user@host:~$ ./ggss_monitor.sh remove_lock
@@ -64,7 +64,7 @@ user@host:~$ ./ggss_monitor.sh check_start
 
 \begin{figure}
 \centering
-\caption{Panel WinCC OA monitorujący działanie systemu GGSS po ponownym uruchomieniu systemu (widoczny w~lewym górnym rogu stan \textit{STARTING})}
+\caption{Panel WinCC OA monitorujący działanie systemu \gls*{ggss} po ponownym uruchomieniu systemu (widoczny w~lewym górnym rogu stan \textit{STARTING})}
 \label{fig:ggssafterstart}
 \includegraphics[width=\textwidth]{res/png/ggssPoStarcie}
 \end{figure}
@@ -110,11 +110,11 @@ release (-O2)                                                                   
 debug                                                                            & dynamiczne                                                                             & brak                                                                                     & stała                                                                  \\ \hline
 release (-O3)                                                                    & dynamiczne                                                                             & \begin{tabular}[c]{@{}c@{}}błąd zarejestrowany\\ dla konkretnej\\ słomki\end{tabular}    & stała                                                                  \\ \hline
 \end{tabular}
-\caption{Wyniki testów systemu GGSS po wprowadzonych zmianach}
+\caption{Wyniki testów systemu \gls*{ggss} po wprowadzonych zmianach}
 \label{tab:wyniki}
 \end{table}
 
-Podczas przeprowadzania testów wersji produkcyjnej zostały wykryte błędy w~działaniu, co zostało zakomunikowane na panelu WinCC OA. Błędy te pojawiły się zarówno na poziomie całego systemu (Rys. \ref{fig:ggssErrorScada}) , jak i~pojedynczej słomki (Rys. \ref{fig:ggssErrorStrawScada}). Pojawienie się błędów było skutkiem zastosowania w~czasie kompilacji flagi optymalizacji \textit{-O3}. Jest to domyślna flaga stosowana przez narzędzie \textit{CMake} dla wersji produkcyjnej. Podczas kompilacji aplikacji \textit{ggssrunner} w~takiej konfiguracji widoczne były dwa ostrzeżenia, zatem błędy nie były dla autorów zaskoczeniem. Flaga \textit{-O3} oznacza agresywną politykę optymalizacji, co często prowadzi do zmiany zachowania aplikacji. Została więc wprowadzona zmiana w~sposobie kompilacji aplikacji w~wersji produkcyjnej - flaga ta została zastąpiona przez jej łagodniejszy i~stabilniejszy odpowiednik \textit{-O2}, powszechnie wykorzystywany do tworzenia wersji produkcyjnych oprogramowania. Testy wykonane z~użyciem tej flagi nie wyprodukowały żadnych błędów. 
+Podczas przeprowadzania testów wersji produkcyjnej zostały wykryte błędy w~działaniu, co zostało zakomunikowane na panelu WinCC OA. Błędy te pojawiły się zarówno na poziomie całego systemu (Rys. \ref{fig:ggssErrorScada}) , jak i~pojedynczej słomki (Rys. \ref{fig:ggssErrorStrawScada}). Pojawienie się błędów było skutkiem zastosowania w~czasie kompilacji flagi optymalizacji \textit{-O3}. Jest to domyślna flaga stosowana przez narzędzie \gls*{cmake} dla wersji produkcyjnej. Podczas kompilacji aplikacji \textit{ggssrunner} w~takiej konfiguracji widoczne były dwa ostrzeżenia, zatem błędy nie były dla autorów zaskoczeniem. Flaga \textit{-O3} oznacza agresywną politykę optymalizacji, co często prowadzi do zmiany zachowania aplikacji. Została więc wprowadzona zmiana w~sposobie kompilacji aplikacji w~wersji produkcyjnej - flaga ta została zastąpiona przez jej łagodniejszy i~stabilniejszy odpowiednik \textit{-O2}, powszechnie wykorzystywany do tworzenia wersji produkcyjnych oprogramowania. Testy wykonane z~użyciem tej flagi nie wyprodukowały żadnych błędów. 
 
 Testy wersji deweloperskiej (w obu konfiguracjach) odbyły się bez problemów - nie zostały wygenerowane żadne błędy ani ostrzeżenia. 
 
@@ -124,7 +124,7 @@ Wyniki przeprowadzonych testów stanowią potwierdzenie poprawności wprowadzony
 
 \begin{figure}
 \centering
-\caption{Błąd w~działaniu aplikacji \textit{ggssrunner} na poziomie całego systemu widoczny w~panelu WinCC OA (czerwone koło w~prawym górnym rogu panelu GGSS)}
+\caption{Błąd w~działaniu aplikacji \textit{ggssrunner} na poziomie całego systemu widoczny w~panelu WinCC OA (czerwone koło w~prawym górnym rogu panelu \gls*{ggss})}
 \label{fig:ggssErrorScada}
 \includegraphics[width=\textwidth]{res/png/ggssError}
 \end{figure}

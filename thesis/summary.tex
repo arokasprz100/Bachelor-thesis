@@ -1,6 +1,6 @@
 \chapter{Dalsza ścieżka rozwoju projektu}
 \label{cha:dalsze}
-Niniejszy rozdział opisuje sugestie autorów oraz już zaplanowane działania dotyczące dalszego rozwoju projektu GGSS, takie jak migracja do nowych standardów języka, zwiększenie jakości kodu czy rozszerzenie projektu o~nowe interfejsy graficzne.
+Niniejszy rozdział opisuje sugestie autorów oraz już zaplanowane działania dotyczące dalszego rozwoju projektu \gls*{ggss}, takie jak migracja do nowych standardów języka, zwiększenie jakości kodu czy rozszerzenie projektu o~nowe interfejsy graficzne.
 
 \section{Wprowadzenie zautomatyzowanego systemu testowania projektu}
 Przygotowana przez autorów infrastruktura CI/CD pozwala na łatwe wprowadzenie do projektu dużej liczby zautomatyzowanych testów. Testy te powinny dotyczyć zarówno potencjalnych nowych komponentów projektu, jak i~już istniejących, które podlegać będą modyfikacji. Takie działanie pozwala zwiększyć niezawodność tworzonego oprogramowania. Autorzy planują prowadzić dalsze prace z~wykorzystaniem praktyki \textbf{Test Driven Development (TDD)} zakładającej tworzenie testów równolegle z~oprogramowaniem. Stosujący podejście TDD programista najpierw przygotowuje odpowiedni test, a~następnie implementuje funkcjonalność, którą ten test sprawdza. Po wykonaniu tej czynności przechodzi do poprawy jakości już istniejącego kodu, a~następnie powtarza cały cykl. Prawdopodobnie do projektu wprowadzone zostanie również narzędzie \textbf{Coverity} pozwalające na przeprowadzenie statycznej analizy kodu.
@@ -13,17 +13,17 @@ Planowany jest dalszy rozwój przygotowanej przez autorów infrastruktury CI/CD.
 
 
 \section{Migracja do języka Python 3}
-Znaczna część skryptów w~projekcie GGSS napisana została kilka lat temu w~języku Python 2. Z~uwagi na zapowiedziane zakończenie oficjalnego wsparcia dla tej wersji języka sugerowane jest przepisanie skryptów z~użyciem Pythona 3. Migracja dotyczyć może również niektórych skryptów napisanych w~języku Bash. 
+Znaczna część skryptów w~projekcie \gls*{ggss} napisana została kilka lat temu w~języku Python 2. Z~uwagi na zapowiedziane zakończenie oficjalnego wsparcia dla tej wersji języka sugerowane jest przepisanie skryptów z~użyciem Pythona 3. Migracja dotyczyć może również niektórych skryptów napisanych w~języku \gls*{bash}. 
 
 \section{Przygotowanie dodatkowych interfejsów graficznych}
-Od początku pracy autorów nad projektem GGSS planowane było rozszerzenie jego funkcjonalności o~nowe interfejsy graficzne pozwalające na wygodne przeglądanie gromadzonych danych. Istnieje wiele możliwych sposobów implementacji takich interfejsów. Jednym z~nich jest zastosowanie popularnego \textbf{framework'u Qt}, przeznaczonego do pracy z~językiem C++. 
+Od początku pracy autorów nad projektem \gls*{ggss} planowane było rozszerzenie jego funkcjonalności o~nowe interfejsy graficzne pozwalające na wygodne przeglądanie gromadzonych danych. Istnieje wiele możliwych sposobów implementacji takich interfejsów. Jednym z~nich jest zastosowanie popularnego \textbf{framework'u Qt}, przeznaczonego do pracy z~językiem C++. 
 
 
 \chapter{Podsumowanie oraz wnioski}
 \label{cha:summary}
-Niniejszy rozdział stanowi podsumowanie prac przeprowadzonych przez autorów nad projektem GGSS. Zaprezentowane zostaną statystyki związane z~projektem oraz wkładem autorów w~jego rozwój, jak również zbiór wniosków, wyciągniętych przez autorów podczas prac nad systemem. 
+Niniejszy rozdział stanowi podsumowanie prac przeprowadzonych przez autorów nad projektem \gls*{ggss}. Zaprezentowane zostaną statystyki związane z~projektem oraz wkładem autorów w~jego rozwój, jak również zbiór wniosków, wyciągniętych przez autorów podczas prac nad systemem. 
 
-Zadaniem autorów było przeprowadzenie rozbudowy i~aktualizacji oprogramowania Systemu Stabilizacji Wzmocnienia Gazowego detektora ATLAS TRT. Przeprowadzona została zmiana architektury projektu oraz systemu budującego, wprowadzone zostały nowe rozwiązania, takie jak infrastruktura CI/CD oraz system kontroli wersji \textbf{Git}. Pojawiło się wiele udoskonaleń względem poprzedniego rozwiązania, m.in. w~logice działania pakietu RPM.
+Zadaniem autorów było przeprowadzenie rozbudowy i~aktualizacji oprogramowania Systemu Stabilizacji Wzmocnienia Gazowego detektora ATLAS \gls*{trt}. Przeprowadzona została zmiana architektury projektu oraz systemu budującego, wprowadzone zostały nowe rozwiązania, takie jak infrastruktura CI/CD oraz system kontroli wersji \gls*{git}. Pojawiło się wiele udoskonaleń względem poprzedniego rozwiązania, m.in. w~logice działania pakietu \gls*{rpm}.
 Zadaniem autorów przyjęta podczas prac nad projektem strategia polegająca na dogłębnym analizowaniu postawionych przed nimi zadań była opłacalna. Poświęcenie czasu na dokładne przemyślenie rozwiązania pozwoliło autorom na znaczne przyspieszenie prac w~fazie realizacji. Pozytywnym aspektem przeprowadzonych prac był również ich zespołowy charakter - pozwoliło to autorom na szybszą eliminację napotkanych problemów oraz dawało możliwość dzielenia się swoją wiedzą. Wkład obu autorów w~projekt jest porównywalny, co obrazuje tabela \ref{table:stats2}. Wskazuje to na dobry przebieg współpracy między autorami. Praca nad systemem będącym częścią międzynarodowego projektu pozwoliła autorom również na zdobycie cennego, unikalnego doświadczenia.
 Zdaniem autorów wszystkie postawione przed nimi zadania zostały realizowane. Prace nad projektem będą kontynuowane w~dalszym toku studiów podejmowanych przed autorów.
 
@@ -70,9 +70,9 @@ Dockerfile          & 56                                                        
 \appendix
 \chapter{Dodatki/Appendixes}
 \label{cha:app}
-Niniejsza część pracy zawiera trzy dodatki dotyczące procesu przygotowywania maszyny wirtualnej do pracy jako tzw. \textit{runner} z~narzędziem \textit{GitLab CI/CD}, procesu dodawania nowych modułów do projektu GGSS oraz struktury projektu przed i~po wprowadzeniu przez autorów zmian. Dwa z~dodatków przygotowane zostały w~języku angielskim - powodem tego jest międzynarodowy charakter zespołu pracującego nad detektorem TRT oraz fakt, że dodatki te stanowią część dokumentacji znajdującej się w~repozytoriach projektu.
+Niniejsza część pracy zawiera trzy dodatki dotyczące procesu przygotowywania maszyny wirtualnej do pracy jako tzw. \textit{runner} z~narzędziem \textit{GitLab CI/CD}, procesu dodawania nowych modułów do projektu \gls*{ggss} oraz struktury projektu przed i~po wprowadzeniu przez autorów zmian. Dwa z~dodatków przygotowane zostały w~języku angielskim - powodem tego jest międzynarodowy charakter zespołu pracującego nad detektorem \gls*{trt} oraz fakt, że dodatki te stanowią część dokumentacji znajdującej się w~repozytoriach projektu.
 
-This part of the dissertation contains three appendixes that cover following topics: preparing the virtual machine to work as a~GitLab CI/CD runner, adding new modules to the GGSS project using templates created by authors and comparing the project structure before and after changes. Two of the appendixes were written in English - that's due to the international nature of the TRT community as well as the fact that those appendixes are a~part of documentation that can be found in project's repositories. 
+This part of the dissertation contains three appendixes that cover following topics: preparing the virtual machine to work as a~GitLab CI/CD runner, adding new modules to the \gls*{ggss} project using templates created by authors and comparing the project structure before and after changes. Two of the appendixes were written in English - that's due to the international nature of the \gls*{trt} community as well as the fact that those appendixes are a~part of documentation that can be found in project's repositories. 
 
 \section{Porównanie początkowej i~obecnej struktury projektu oraz kodu źródłowego}
 

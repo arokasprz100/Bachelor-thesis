@@ -1,6 +1,6 @@
 \chapter{Zastosowane technologie}
 \label{cha:teoria}
-Niniejszy rozdział zawiera krótki opis najważniejszych technologii i~narzędzi używanych przez autorów podczas pracy z~oprogramowaniem systemu GGSS. Przedstawione tu opisy zawierają podstawową wiedzę o~sposobie działania i~użytkowania tych technologii - szczegółowe przykłady przedstawione zostały w~dalszej części pracy, w~kontekście konkretnych rozwiązań zrealizowanych przez autorów w~projekcie.
+Niniejszy rozdział zawiera krótki opis najważniejszych technologii i~narzędzi używanych przez autorów podczas pracy z~oprogramowaniem systemu \gls*{ggss}. Przedstawione tu opisy zawierają podstawową wiedzę o~sposobie działania i~użytkowania tych technologii - szczegółowe przykłady przedstawione zostały w~dalszej części pracy, w~kontekście konkretnych rozwiązań zrealizowanych przez autorów w~projekcie.
 
 
 \section{Język C++}
@@ -46,10 +46,10 @@ for (const auto& elem: a) {
 
 \section{Biblioteki}
 \label{section:libs}
-Biblioteki są jednym z~podstawowych narzędzi wprowadzających podział programu na niezależne komponenty oraz dających możliwość wielokrotnego użycia tego samego kodu. Stanowią więc zbiór funkcji, struktur itp. udostępnionych do użycia przez inne programy. Niniejsza część pracy skupia się na bibliotekach opisywanych z~perspektywy języków C oraz C++. Opis dotyczył będzie rozwiązań związanych z~systemami typu UNIX (nie zostanie poruszony sposób działania bibliotek na systemach Windows). Autorzy zdecydowali się opisać to zagadnienie szczegółowo z~uwagi na fakt, iż architektura projektu GGSS w~dużej mierze opiera się o~mechanizm bibliotek. Rozważania teoretyczne wzbogacone zostaną więc prostym przykładem.
+Biblioteki są jednym z~podstawowych narzędzi wprowadzających podział programu na niezależne komponenty oraz dających możliwość wielokrotnego użycia tego samego kodu. Stanowią więc zbiór funkcji, struktur itp. udostępnionych do użycia przez inne programy. Niniejsza część pracy skupia się na bibliotekach opisywanych z~perspektywy języków C oraz C++. Opis dotyczył będzie rozwiązań związanych z~systemami typu UNIX (nie zostanie poruszony sposób działania bibliotek na systemach Windows). Autorzy zdecydowali się opisać to zagadnienie szczegółowo z~uwagi na fakt, iż architektura projektu \gls*{ggss} w~dużej mierze opiera się o~mechanizm bibliotek. Rozważania teoretyczne wzbogacone zostaną więc prostym przykładem.
 
 \subsubsection*{Opis przykładu}
-Przykład prezentujący działanie bibliotek został napisany w~języku C i~składa się z~dwóch katalogów: \textit{app}, zawierającego kod źródłowy programu, oraz \textit{complex}, zawierającego kod źródłowy, który zostanie wykorzystany do stworzenia prostej biblioteki pozwalającej na wykonywanie podstawowych operacji na liczbach zespolonych. Listing \ref{lst:libexample} zawiera wynik polecenia \textit{tree}, które wypisuje na standardowe wyjście strukturę katalogu z~projektem. Autorzy zdecydowali się pokazać proces budowania bibliotek bez wykorzystania narzędzi automatyzujących ten proces (takich jak \textit{CMake}), gdyż znajomość zasad działania tego mechanizmu okazała się dla nich bardzo pomocna podczas rozwiązywania problemów związanych z~wykorzystaniem bibliotek w~systemie GGSS, gdzie wspomniane narzędzia były już używane.
+Przykład prezentujący działanie bibliotek został napisany w~języku C i~składa się z~dwóch katalogów: \textit{app}, zawierającego kod źródłowy programu, oraz \textit{complex}, zawierającego kod źródłowy, który zostanie wykorzystany do stworzenia prostej biblioteki pozwalającej na wykonywanie podstawowych operacji na liczbach zespolonych. Listing \ref{lst:libexample} zawiera wynik polecenia \textit{tree}, które wypisuje na standardowe wyjście strukturę katalogu z~projektem. Autorzy zdecydowali się pokazać proces budowania bibliotek bez wykorzystania narzędzi automatyzujących ten proces (takich jak \gls*{cmake}), gdyż znajomość zasad działania tego mechanizmu okazała się dla nich bardzo pomocna podczas rozwiązywania problemów związanych z~wykorzystaniem bibliotek w~systemie \gls*{ggss}, gdzie wspomniane narzędzia były już używane.
 
 \begin{lstlisting}[language=Cmd, caption={Struktura katalogów projektu stanowiącego bazę przykładu dotyczącego bibliotek.},label={lst:libexample}]
 user@host:~$ tree --charset=ascii
@@ -176,7 +176,7 @@ user@host:~/app$ ./app
 %%%%%%%% BIBLIOTEKI DYNAMICZNE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Biblioteki współdzielone}
-Działanie bibliotek współdzielonych jest bardziej skomplikowane. Z~uwagi na fakt, iż w~projekcie GGSS biblioteki współdzielone są używane jedynie w~postaci zewnętrznych zależności, przedstawiony opis dotyczył będzie jedynie podstaw tworzenia i~działania tych bibliotek. Główna różnica w~stosunku do bibliotek statycznych polega na zmianie czasu, w~którym biblioteka jest dołączana do programu. W~przypadku bibliotek współdzielonych dzieje się to w~trakcie ładowania programu do pamięci. Oznacza to, że biblioteki te nie są częścią pliku wykonywalnego programu, dzięki czemu programy te mają mniejszy rozmiar i~nie ma konieczności ich ponownej kompilacji w~wypadku wprowadzenia zmian w~bibliotece. Ponadto kod bibliotek tego typu jest ładowany do pamięci tylko raz - przy pierwszym użyciu biblioteki, i~może być współdzielony. Podobnie jak wcześniej do tego typu bibliotek dołączone muszą być pliki nagłówkowe zawierające m.in. deklaracje funkcji stanowiących interfejs programistyczny pomiędzy biblioteką, a~używającym ją programem.
+Działanie bibliotek współdzielonych jest bardziej skomplikowane. Z~uwagi na fakt, iż w~projekcie \gls*{ggss} biblioteki współdzielone są używane jedynie w~postaci zewnętrznych zależności, przedstawiony opis dotyczył będzie jedynie podstaw tworzenia i~działania tych bibliotek. Główna różnica w~stosunku do bibliotek statycznych polega na zmianie czasu, w~którym biblioteka jest dołączana do programu. W~przypadku bibliotek współdzielonych dzieje się to w~trakcie ładowania programu do pamięci. Oznacza to, że biblioteki te nie są częścią pliku wykonywalnego programu, dzięki czemu programy te mają mniejszy rozmiar i~nie ma konieczności ich ponownej kompilacji w~wypadku wprowadzenia zmian w~bibliotece. Ponadto kod bibliotek tego typu jest ładowany do pamięci tylko raz - przy pierwszym użyciu biblioteki, i~może być współdzielony. Podobnie jak wcześniej do tego typu bibliotek dołączone muszą być pliki nagłówkowe zawierające m.in. deklaracje funkcji stanowiących interfejs programistyczny pomiędzy biblioteką, a~używającym ją programem.
 
 \newpage
 
@@ -286,13 +286,13 @@ user@host:~/app$ ./app
 
 \section{Narzędzie CMake}
 
-\textit{CMake (Cross-platform Make)} to narzędzie pozwalające na konfigurację procesu budowania oprogramowania (aplikacji oraz bibliotek) w~sposób niezależny od platformy. Jego działanie opiera się na generowaniu pliku budującego natywnego dla określonej platformy \cite{CMakeIntro} (dla systemów z~rodziny UNIX jest nim \textit{Makefile}) na podstawie przygotowanego przez użytkownika pliku \textit{CMakeLists.txt}. Takie podejście w~znacznym stopniu ułatwia tworzenie aplikacji multiplatformowych oraz pozwala na intuicyjne zarządzanie zależnościami w~projekcie. Domyślnie CMake pracuje z~językami C i~C++, natomiast nowe wersje narzędzia wpierają ponadto m.in. język C\# czy technologię CUDA \cite{CMakeSupport}. Narzędzie to jest rozwijane i~wspierane przez firmę \textit{Kitware}.\par
+\gls*{cmake} to narzędzie pozwalające na konfigurację procesu budowania oprogramowania (aplikacji oraz bibliotek) w~sposób niezależny od platformy. Jego działanie opiera się na generowaniu pliku budującego natywnego dla określonej platformy \cite{CMakeIntro} (dla systemów z~rodziny UNIX jest nim \textit{Makefile}) na podstawie przygotowanego przez użytkownika pliku \textit{CMakeLists.txt}. Takie podejście w~znacznym stopniu ułatwia tworzenie aplikacji multiplatformowych oraz pozwala na intuicyjne zarządzanie zależnościami w~projekcie. Domyślnie \gls*{cmake} pracuje z~językami C i~C++, natomiast nowe wersje narzędzia wpierają ponadto m.in. język C\# czy technologię CUDA \cite{CMakeSupport}. Narzędzie to jest rozwijane i~wspierane przez firmę \textit{Kitware}.\par
 
 \subsubsection*{Plik CMakeLists.txt}
-Jak wspomniano wyżej działanie narzędzia CMake opiera się na przygotowanym przez użytkownika pliku (lub zestawie plików rozmieszczonych w~strukturze katalogów projektu) \textit{CMakeLists.txt}. Plik ten zawiera polecenia napisane w~specjalnie do tego celu przygotowanym języku skryptowym. Użytkownik może za jego pomocą  m.in. określać jakie pliki wykonywalne mają zostać wygenerowane podczas procesu budowania, wskazać lokalizację plików źródłowych czy określić zależności między komponentami projektu oraz bibliotekami zewnętrznymi. \par
+Jak wspomniano wyżej działanie narzędzia \gls*{cmake} opiera się na przygotowanym przez użytkownika pliku (lub zestawie plików rozmieszczonych w~strukturze katalogów projektu) \textit{CMakeLists.txt}. Plik ten zawiera polecenia napisane w~specjalnie do tego celu przygotowanym języku skryptowym. Użytkownik może za jego pomocą  m.in. określać jakie pliki wykonywalne mają zostać wygenerowane podczas procesu budowania, wskazać lokalizację plików źródłowych czy określić zależności między komponentami projektu oraz bibliotekami zewnętrznymi. \par
 
 \subsubsection*{Prosty przykład}
-Listing \ref{lst:hello} zawiera przykład prostego pliku \textit{CMakeLists.txt}, pozwalającego na zbudowanie napisanej w~języku C++ obiektowej wersji klasycznego programu \textit{Hello world}. Przykład ilustruje zastosowanie podstawowych poleceń CMake do określenia minimalnej wersji narzędzia, standardu języka C++, wynikowego pliku wykonywalnego oraz potrzebnych plików nagłówkowych. \par
+Listing \ref{lst:hello} zawiera przykład prostego pliku \textit{CMakeLists.txt}, pozwalającego na zbudowanie napisanej w~języku C++ obiektowej wersji klasycznego programu \textit{Hello world}. Przykład ilustruje zastosowanie podstawowych poleceń \gls*{cmake} do określenia minimalnej wersji narzędzia, standardu języka C++, wynikowego pliku wykonywalnego oraz potrzebnych plików nagłówkowych. \par
 
 \begin{lstlisting}[language=cmake,caption={Przykład prostego pliku CMakeLists.txt przeznaczonego do budowania programu napisanego w~C++}, label={lst:hello}]
 # Określenie minimalnej wersji CMake
@@ -315,14 +315,14 @@ target_include_directories(Hello PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 \end{lstlisting}
 
 \subsubsection*{Wersje CMake}
-CMake jest narzędziem, który w~ciągu ostatnich kilku lat przechodzi gruntowne zmiany. Starsze wersje (np. 2.8) oparte są o~prosty system zmiennych \cite{CMakeRight}, co wprowadza szereg trudności w~zarządzaniu dużymi projektami z~wielopoziomowymi drzewami zależności. Dodatkowym problemem tych wersji jest również brak dobrze zdefiniowanych tzw. \textit{dobrych praktyk} oraz nieprzystępna dla początkujących dokumentacja. Współczesne wersje narzędzie CMake (zwykle za takie uznaje się nowsze od wersji 3.0) opierają się na innym  podejściu, opartym na strukturze projektu \cite{CMakeRight}, co było przyczyną pojawienia się dla nich wyżej wspomnianych \textit{dobrych praktyk}. Zalecane jest więc, by nowe projekty prowadzone były właśnie z~użyciem nowszych wersji narzędzia.
+\gls*{cmake} jest narzędziem, który w~ciągu ostatnich kilku lat przechodzi gruntowne zmiany. Starsze wersje (np. 2.8) oparte są o~prosty system zmiennych \cite{CMakeRight}, co wprowadza szereg trudności w~zarządzaniu dużymi projektami z~wielopoziomowymi drzewami zależności. Dodatkowym problemem tych wersji jest również brak dobrze zdefiniowanych tzw. \textit{dobrych praktyk} oraz nieprzystępna dla początkujących dokumentacja. Współczesne wersje narzędzie \gls*{cmake} (zwykle za takie uznaje się nowsze od wersji 3.0) opierają się na innym  podejściu, opartym na strukturze projektu \cite{CMakeRight}, co było przyczyną pojawienia się dla nich wyżej wspomnianych \textit{dobrych praktyk}. Zalecane jest więc, by nowe projekty prowadzone były właśnie z~użyciem nowszych wersji narzędzia.
 
 \subsubsection*{Narzędzia CTest i~CPack}
-CMake oferuje również możliwość konfiguracji sposobu testowania projektu. Służy do tego narzędzie \textit{CTest}, dystrybuowane razem z~podstawowym narzędziem CMake. Innym przydatnym modułem jest \textit{CPack} - narzędzie to służy przygotowywaniu pakietów instalacyjnych z~oprogramowaniem. Użycie obu wymienionych narzędzi polega na umieszczeniu w~pliku \textit{CMakeLists.txt} kilku przeznaczonych do tego komend. \par 
+\gls*{cmake} oferuje również możliwość konfiguracji sposobu testowania projektu. Służy do tego narzędzie \textit{CTest}, dystrybuowane razem z~podstawowym narzędziem \gls*{cmake}. Innym przydatnym modułem jest \textit{CPack} - narzędzie to służy przygotowywaniu pakietów instalacyjnych z~oprogramowaniem. Użycie obu wymienionych narzędzi polega na umieszczeniu w~pliku \textit{CMakeLists.txt} kilku przeznaczonych do tego komend. \par 
 
 
 \section{Język Python}
-\textit{Python} jest nowoczesnym, wysokopoziomowym językiem programowania, wspierającym takie paradygmaty jak programowanie obiektowe czy imperatywne. Działanie Pythona opiera się na dynamicznym systemie typów. Z~założenia Python jest językiem przyjemnym w~użytkowaniu, co przyczyniło się do jego dużej popularności \cite{Lutz}. Python jest szeroko stosowany jako język skryptowy - takie też zastosowanie znalazł w~projekcie GGSS.
+\textit{Python} jest nowoczesnym, wysokopoziomowym językiem programowania, wspierającym takie paradygmaty jak programowanie obiektowe czy imperatywne. Działanie Pythona opiera się na dynamicznym systemie typów. Z~założenia Python jest językiem przyjemnym w~użytkowaniu, co przyczyniło się do jego dużej popularności \cite{Lutz}. Python jest szeroko stosowany jako język skryptowy - takie też zastosowanie znalazł w~projekcie \gls*{ggss}.
 
 \subsubsection*{Prosty przykład}
 Listing \ref{lst:pyexample} przedstawia prosty przykład skryptu napisanego w~języku Python w~wersji 3. Kod ten stanowi uproszczoną wersję skryptu zaprezentowanego w~dalszej części pracy, którego zadaniem jest zbudowanie aplikacji w~zależności od przekazanych przez użytkownika argumentów. Przykład prezentuje prosty skrypt przyjmujący jeden z~dwóch możliwych argumentów i~wypisujący informację na temat otrzymanego argumentu na standardowe wyjście.
@@ -362,8 +362,8 @@ interfejs z linią poleceń
 user@host:~$
 \end{lstlisting}
 
-Bash, czyli \textbf{Bourne Again Shell} jest powłoką systemu początkowo napisaną dla systemu operacyjnego GNU. Obecnie Bash jest kompatybilny z~większością systemów Unixowych, gdzie zwykle jest powłoką domyślną oraz posiada kilka portów na inne platformy, tj.: MS-DOS, OS/2, Windows \cite{BashMan}. Oprócz pełnienia wyżej wymienionej funkcji, Bash jest również językiem programowania pozwalającym na tworzenie skryptów, które są kolejną metodą wprowadzania poleceń do powłoki systemu.\par
-Korzystając z~języka skryptowego powłoki Bash jesteśmy w~stanie zawrzeć dodatkową logikę podczas wykonywania komend. Wspiera on takie struktury jak: instrukcje warunkowe, pętle, operacje logiczne oraz arytmetyczne. Aby wykorzystać Bash w~skrypcie należy na początku pliku zamieścić zapis \textbf{\#!/bin/bash}, gdzie \textbf{/bin/bash} to ścieżka do pliku interpretera Bash. Zachowanie skryptu jesteśmy w~stanie uzależnić od argumentów wykonania. Ich obsługa odbywa się za pomocą zapisu \textbf{\$?}, gdzie \textbf{?} jest to numer porządkowy argumentu liczony od 0.
+\gls*{bash} jest powłoką systemu początkowo napisaną dla systemu operacyjnego GNU. Obecnie \gls*{bash} jest kompatybilny z~większością systemów Unixowych, gdzie zwykle jest powłoką domyślną oraz posiada kilka portów na inne platformy, tj.: MS-DOS, OS/2, Windows \cite{BashMan}. Oprócz pełnienia wyżej wymienionej funkcji, \gls*{bash} jest również językiem programowania pozwalającym na tworzenie skryptów, które są kolejną metodą wprowadzania poleceń do powłoki systemu.\par
+Korzystając z~języka skryptowego powłoki \gls*{bash} jesteśmy w~stanie zawrzeć dodatkową logikę podczas wykonywania komend. Wspiera on takie struktury jak: instrukcje warunkowe, pętle, operacje logiczne oraz arytmetyczne. Aby wykorzystać \gls*{bash} w~skrypcie należy na początku pliku zamieścić zapis \textbf{\#!/bin/bash}, gdzie \textbf{/bin/bash} to ścieżka do pliku interpretera \gls*{bash}. Zachowanie skryptu jesteśmy w~stanie uzależnić od argumentów wykonania. Ich obsługa odbywa się za pomocą zapisu \textbf{\$?}, gdzie \textbf{?} jest to numer porządkowy argumentu liczony od 0.
 
 \begin{lstlisting}[label={lst:prostySkrypt},language=bash,caption={Skrypt wykorzystujący argumenty wejściowe, instrukcję warunkową oraz polecenie echo}]
 #!/bin/bash
@@ -381,10 +381,10 @@ Argument 0.: /home/user/prostySkrypt.sh
 Argument 1.: argumenty
 \end{lstlisting}
 
-Bash posiada wiele poleceń, które pozwalają na wykonywanie zarówno podstawowych, jak i~bardziej zaawansowanych czynności, np.: obsługa plików, obsługa systemu katalogów, zarządzanie kontami, uprawnieniami, itd.
+\gls*{bash} posiada wiele poleceń, które pozwalają na wykonywanie zarówno podstawowych, jak i~bardziej zaawansowanych czynności, np.: obsługa plików, obsługa systemu katalogów, zarządzanie kontami, uprawnieniami, itd.
 
 
-Bash posiada również wiele zaawansowanych funkcjonalności, które pozwalają na kontrolowanie przepływu informacji w~trakcie wykonywania poleceń. Przykładem jest wpisywanie tekstu do pliku ukazane na Listingu \ref{lis:zapisDoPliku}.
+\gls*{bash} posiada również wiele zaawansowanych funkcjonalności, które pozwalają na kontrolowanie przepływu informacji w~trakcie wykonywania poleceń. Przykładem jest wpisywanie tekstu do pliku ukazane na Listingu \ref{lis:zapisDoPliku}.
 
 \begin{lstlisting}[label={lis:zapisDoPliku},language=Cmd,caption={Przykład zapisu tekstu do pliku}]
 user@host:~$ echo "Ten napis zostanie zapisany do pliku plik.txt" > plik.txt
@@ -392,14 +392,14 @@ user@host:~$ cat plik.txt
 Ten napis zostanie zapisany do pliku plik.txt
 \end{lstlisting}
 
-W celu zapisania tekstu do pliku należy na standardowe wyjście przekazać napis za pomocą komendy \textbf{echo}, a~następnie przekierować za pomocą zapisu \textbf{>}, który poprzedza nazwę pliku docelowego. W~wyniku działania zawartość pliku \textbf{plik.txt} zostanie nadpisana, a~w przypadku gdy takiego pliku nie ma, to zostanie on utworzony i~uzupełniony o~napis.\par
+W celu zapisania tekstu do pliku należy na standardowe wyjście przekazać napis za pomocą komendy \textbf{echo}, a~następnie przekierować za pomocą zapisu \textbf{>}, który poprzedza nazwę pliku docelowego. W~wyniku działania zawartość pliku \textit{plik.txt} zostanie nadpisana, a~w przypadku gdy takiego pliku nie ma, to zostanie on utworzony i~uzupełniony o~napis.\par
 
 
 \section{System kontroli wersji Git i~portal Gitlab}
-System kontroli wersji Git jest oprogramowaniem służącym do śledzenia i~zarządzania zmianami w~plikach projektowych. W~przypadku Git'a, aby zarejestrować pliki projektowe w~celu ich śledzenia należy wykonać kilka czynności. Po pierwsze wymagane jest utworzenie repozytorium. Sprowadza się ono do wykonania odpowiedniej komendy Git'a wewnątrz folderu projektu, tj. \textbf{git init}. Podczas działania komendy wewnątrz folderu, w~którym wywołaliśmy ww. polecenie, inicjowany jest ukryty folder \textbf{.git}
+System kontroli wersji \gls*{git} jest oprogramowaniem służącym do śledzenia i~zarządzania zmianami w~plikach projektowych. W~przypadku \gls*{git}, aby zarejestrować pliki projektowe w~celu ich śledzenia należy wykonać kilka czynności. Po pierwsze wymagane jest utworzenie repozytorium. Sprowadza się ono do wykonania odpowiedniej komendy technologii \gls*{git} wewnątrz folderu projektu, tj. \textbf{git init}. Podczas działania komendy wewnątrz folderu, w~którym wywołaliśmy ww. polecenie, inicjowany jest ukryty folder \textbf{.git}
 . Jest on odpowiedzialny za przechowywanie konfiguracji dla tego repozytorium oraz zapisywanie informacji o~wszystkich zmianach dokonanych w~projekcie.
 
-\begin{lstlisting}[language=bash,language=Cmd,caption={Inicjalizacja repozytorium git}]
+\begin{lstlisting}[language=bash,language=Cmd,caption={Inicjalizacja repozytorium \gls*{git}}]
 user@host:/ścieżka/do/projektu$ git init
 Initialized empty Git repository in /ściezka/do/projektu
 user@host:/ściezka/do/projektu$ ls .git
@@ -431,7 +431,7 @@ Untracked files:
 \caption{Możliwe stany pliku w~repozytorium \cite{GitChart}} 
 \end{figure}
 
-Tworzenie nowej wersji w~ramach repozytorium odbywa się za pomocą komendy \textbf{git commit}. Sprowadza się do 'zamrożenia' obecnych wersji plików zarejestrowanych do rewizji oraz przypisanie im wspólnego, unikalnego dla każdej z~nich, identyfikatora. Git udostępnia komendy pozwalające na przeglądanie oraz przywracanie plików do wcześniej utworzonych wersji. Listing \ref{lis:pierwszaRewizja} przedstawia utworzenie nowej wersji oraz wyświetlenie podsumowania o~utworzonych do tej pory rewizjach.
+Tworzenie nowej wersji w~ramach repozytorium odbywa się za pomocą komendy \textbf{git commit}. Sprowadza się do 'zamrożenia' obecnych wersji plików zarejestrowanych do rewizji oraz przypisanie im wspólnego, unikalnego dla każdej z~nich, identyfikatora. \gls*{git} udostępnia komendy pozwalające na przeglądanie oraz przywracanie plików do wcześniej utworzonych wersji. Listing \ref{lis:pierwszaRewizja} przedstawia utworzenie nowej wersji oraz wyświetlenie podsumowania o~utworzonych do tej pory rewizjach.
 
 \begin{lstlisting}[label={lis:pierwszaRewizja}, language=Cmd,caption={Utworzenie nowej rewizji}]
 user@host:/sciezka/do/projektu$ git commit -m "Pierwsza rewizja"
@@ -476,14 +476,14 @@ Głównym celem portalu \textbf{GitLab} jest udostępnienie środowiska do przec
 
 Ze względu na to, że portale typu \textbf{GitLab} są traktowane jako podstawowe narzędzie do wspólnej pracy nad kodem, to rozwinęły one wiele narzędzi wspomagających organizację oraz śledzenie pracy. Oprócz ww. funkcji \textbf{Gitlab} dostarcza wiele narzędzi do wspomagania procesu zapewniania jakości, jak i~automatyzacji dostarczania kodu.\par
 
-\textbf{Git} posiada specjalne komendy pozwalające na przekazywanie oraz pobieranie repozytoriów z~ww. portali, czyli:
+\gls*{git} posiada specjalne komendy pozwalające na przekazywanie oraz pobieranie repozytoriów z~ww. portali, czyli:
 \begin{itemize}
 \item \textbf{git clone}, która pozwala na pobranie repozytorium z~portalu oraz zainicjalizowanie go lokalnie
 \item \textbf{git pull} - za pomocą tej komendy możemy zaktualizować repozytorium lokalne do najnowszej rewizji, która znajduje się na portalu
 \item oraz komenda \textbf{git push} aktualizująca zdalne repozytorium do najnowszej lokalnej wersji
 \end{itemize}
 
-Bardzo ważnym aspektem technologii \textbf{Git} jest mechanizm gałęzi (ang. \textit{branch}). Pozwala on na równoległą pracę nad jedną częścią kodu. Polega to na tym, że w~momencie utworzenia nowej gałęzi tworzymy tak na prawdę osobny łańcuch rewizji, których jedyną wspólną częścią jest rewizja wzorcowa, czyli wersja na podstawie której została utworzona gałąź, co przedstawia Rysunek \ref{fig:branch}. W~celu utworzenia nowej gałęzi należy wykorzystać komendę \textbf{git branch <nazwa-gałęzi>}, a~w celu zmiany aktualnie używanej gałęzi \textbf{git checkout <nazwa-gałęzi>}. Główna gałąź projektu nazywa się \textbf{master}. Zmiany na jednej gałęzi nie wpływają w~żaden sposób na inną gałąź do momentu tzw. \textbf{merge}, czyli złączenia dwóch gałęzi, co ukazuje rysunek \ref{fig:branch2}. Ważnym aspektem łączenia gałęzi jest rozwiązywanie konfliktów, które pojawiają się w~momencie, gdy łączone gałęzie wprowadzały zmiany do tego samego pliku, a~system rozwiązujący konflikty nie był w~stanie wykonać swojego zadania automatyczne. W~takim przypadku wymagana jest akcja programisty, aby w~gałęzi wynikowej zachować odpowiedni kod.
+Bardzo ważnym aspektem technologii \gls*{git} jest mechanizm gałęzi (ang. \textit{branch}). Pozwala on na równoległą pracę nad jedną częścią kodu. Polega to na tym, że w~momencie utworzenia nowej gałęzi tworzymy tak na prawdę osobny łańcuch rewizji, których jedyną wspólną częścią jest rewizja wzorcowa, czyli wersja na podstawie której została utworzona gałąź, co przedstawia Rysunek \ref{fig:branch}. W~celu utworzenia nowej gałęzi należy wykorzystać komendę \textbf{git branch <nazwa-gałęzi>}, a~w celu zmiany aktualnie używanej gałęzi \textbf{git checkout <nazwa-gałęzi>}. Główna gałąź projektu nazywa się \textbf{master}. Zmiany na jednej gałęzi nie wpływają w~żaden sposób na inną gałąź do momentu tzw. \textbf{merge}, czyli złączenia dwóch gałęzi, co ukazuje rysunek \ref{fig:branch2}. Ważnym aspektem łączenia gałęzi jest rozwiązywanie konfliktów, które pojawiają się w~momencie, gdy łączone gałęzie wprowadzały zmiany do tego samego pliku, a~system rozwiązujący konflikty nie był w~stanie wykonać swojego zadania automatyczne. W~takim przypadku wymagana jest akcja programisty, aby w~gałęzi wynikowej zachować odpowiedni kod.
 
 \begin{figure} [H]
 \centering
@@ -499,7 +499,7 @@ Bardzo ważnym aspektem technologii \textbf{Git} jest mechanizm gałęzi (ang. \
 \label{fig:branch2}
 \end{figure}
 
-Jest to tylko podstawowy opis technologii jaką jest \textbf{Git}, przykłady bardziej zaawansowanych zastosowań pojawią się w~części manuskryptu przeznaczonej na prezentację wykonanych prac w~ramach projektu.
+Jest to tylko podstawowy opis technologii jaką jest \gls*{git}, przykłady bardziej zaawansowanych zastosowań pojawią się w~części manuskryptu przeznaczonej na prezentację wykonanych prac w~ramach projektu.
 
 
 \section{Menadżer pakietów RPM}
@@ -507,17 +507,17 @@ Menadżer pakietów jest zbiorem oprogramowania, które w~sposób automatyczny z
 
 Zastosowanie technologii zarządzania pakietami pozwala znacząco zmniejszyć próg wejścia wynikający z~użycia wcześniej niewykorzystywanego oprogramowania. Pozwala on odejść od żmudnego procesu ręcznej instalacji zależności oraz konfiguracji środowiska. Dzięki menadżerom wszystko jest wykonywane automatycznie. Jeżeli w~trakcie procedur nie wystąpi żaden problem, to pakiet, którego zleciliśmy instalacje, powinien być od razu gotowy do działania. Jeżeli domyślna konfiguracja, jaka zostanie nam zapewniona w~podczas działania menadżera pakietów, nie będzie dla nas odpowiednia możemy dokonać jej modyfikacji po procesie instalacji.
 
-RPM, czyli RedHat Package Manager jest darmowym, open-source'owym menadżerem pakietów dla systemów z~rodziny RedHat oraz SUSE, czyli m.in.:
+\gls*{rpm} jest darmowym, open-source'owym menadżerem pakietów dla systemów z~rodziny RedHat oraz SUSE, czyli m.in.:
 \begin{itemize}
 \item RedHat Linux
 \item CentOS
 \item Fedora
 \item openSUSE
 \end{itemize}\par
-RPM jest domyślnym menadżerem pakietów dla ww. dystrybucji. Obsługuje on pakiety w~ramach formatu \textbf{.rpm}. Pakiety \textbf{.rpm} zawierają w~sobie wiele ważnych elementów. Po pierwsze wewnątrz nich przechowywane są dane aplikacji, czyli: pliki wykonywalne, dokumentacja, testy, konfiguracja.\par 
-Kolejnym ważnym elementem są informacje o~zależnościach, czyli innych wymaganych pakietach, które pozwalają na automatyzację procesu instalacji. W~momencie, gdy któraś z~zależności jest niespełniona menadżer pakietów stara się odnaleźć, w~bazie danych pakietów, odpowiedni wpis, aby \textbf{pobrać} oraz \textbf{zainstalować} brakujące oprogramowanie. Trzecim ważnym elementem jest logika pakietu, która jest podstawą do realizacji akcji wykonywanych przez menadżer pakietów, dostarczona w~postaci skryptów powłoki, np. \textbf{bash}, zaszytych wewnątrz pliku *.rpm.
+\gls*{rpm} jest domyślnym menadżerem pakietów dla ww. dystrybucji. Obsługuje on pakiety w~ramach formatu \textbf{.rpm}. Pakiety \textbf{.rpm} zawierają w~sobie wiele ważnych elementów. Po pierwsze wewnątrz nich przechowywane są dane aplikacji, czyli: pliki wykonywalne, dokumentacja, testy, konfiguracja.\par 
+Kolejnym ważnym elementem są informacje o~zależnościach, czyli innych wymaganych pakietach, które pozwalają na automatyzację procesu instalacji. W~momencie, gdy któraś z~zależności jest niespełniona menadżer pakietów stara się odnaleźć, w~bazie danych pakietów, odpowiedni wpis, aby \textbf{pobrać} oraz \textbf{zainstalować} brakujące oprogramowanie. Trzecim ważnym elementem jest logika pakietu, która jest podstawą do realizacji akcji wykonywanych przez menadżer pakietów, dostarczona w~postaci skryptów powłoki, np. \gls*{bash}, zaszytych wewnątrz pliku *.rpm.
 
-Listing \ref{lst:zawRPM} pokazuje przykładową zawartość pakietu, czyli moduł kernela \textbf{modułAplikacji}, plik w~formacie \textbf{JSON} pozwalający na konfigurację aplikacji oraz plik wykonywalny \textbf{aplikacji}, natomiast  listing \ref{lst:skryptRPM} pokazuje przykładową logikę pakietu RPM w~postaci skryptów shell. Skrypty te nie zawierają ani kopiowania, ani usuwania plików zawartych pakiecie, proces ten odbywa się automatycznie na podstawie ścieżek ukazanych na Listingu \ref{lst:zawRPM} w~trakcie instalacji/dezinstalacji.
+Listing \ref{lst:zawRPM} pokazuje przykładową zawartość pakietu, czyli moduł kernela \textit{modułAplikacji}, plik w~formacie JSON pozwalający na konfigurację aplikacji oraz plik wykonywalny aplikacji, natomiast  listing \ref{lst:skryptRPM} pokazuje przykładową logikę pakietu \gls*{rpm} w~postaci skryptów shell. Skrypty te nie zawierają ani kopiowania, ani usuwania plików zawartych pakiecie, proces ten odbywa się automatycznie na podstawie ścieżek ukazanych na Listingu \ref{lst:zawRPM} w~trakcie instalacji/dezinstalacji.
 
 \begin{lstlisting}[language=Cmd,caption={Przykładowa zawartość pakietu RPM},label={lst:zawRPM}]
 user@host:~$ rpm -qpl pakiet.rpm
@@ -533,7 +533,7 @@ user@host:~$ rpm -qpl pakiet.rpm
 /usr/lib/modules/3.10.0-862/extra/modułAplikacji.ko
 \end{lstlisting}
 
-\begin{lstlisting}[label={lst:skryptRPM}, language=Cmd, caption={Skrypty pakietu RPM}]
+\begin{lstlisting}[label={lst:skryptRPM}, language=Cmd, caption={Skrypty pakietu \gls*{rpm}}]
 user@host:~$ rpm -qp --scripts pakiet.rpm
 preinstall program: /bin/sh
 postinstall scriptlet (using /bin/sh):
@@ -560,7 +560,7 @@ postuninstall program: /bin/sh
 
 Proces wirtualizacji odbywa się za pomocą oprogramowania, które nazywa się hipernadzorcą (ang. hipervisor). Odpowiada on za zapewnienie środowiska, które pozwoli na uruchomienie maszyny wirtualnej. Wyróżnianie są dwa rodzaje hipernadzorców. Pierwsze z~nich bazują na wspomaganiu procesu przez fizyczny sprzęt, co pozwala na częściowe ominięcie systemu operacyjnego gospodarza, dzięki czemu narzut na wydajność jest mniejszy, natomiast drugie bazują na rozwiązaniach aplikacyjnych, dzięki czemu można je uruchamiać bez wsparcia sprzętowego, natomiast są znacznie mniej wydajne.
 
-Konteneryzacja jest procesem utworzenia odseparowanego kontenera, czyli ustandaryzowanej jednostki, która zawiera w~sobie oprogramowanie oraz zależności wymagane do uruchomienia aplikacji, w~celu której została utworzone \cite{Kont}. Kontenery są tworzone na podstawie obrazu, czyli wzorcowego środowiska, które zostało zamrożone w~celu późniejszego odtworzenia. W~przypadku \textbf{Dockera} obrazy te są tworzone na podstawie tzw. \textbf{Dockerfile}. Wewnątrz takiego pliku zapisywane są informacje o~krokach podejmowanych w~celu utworzenia obrazu, np.:
+Konteneryzacja jest procesem utworzenia odseparowanego kontenera, czyli ustandaryzowanej jednostki, która zawiera w~sobie oprogramowanie oraz zależności wymagane do uruchomienia aplikacji, w~celu której została utworzone \cite{Kont}. Kontenery są tworzone na podstawie obrazu, czyli wzorcowego środowiska, które zostało zamrożone w~celu późniejszego odtworzenia. W~przypadku Docker obrazy te są tworzone na podstawie tzw. \textbf{Dockerfile}. Wewnątrz takiego pliku zapisywane są informacje o~krokach podejmowanych w~celu utworzenia obrazu, np.:
 \begin{itemize}
 \item informacje o~bazowym systemie operacyjnym
 \item informacje o~zmiennych środowiskowych
@@ -574,7 +574,7 @@ FROM cern/cc7-base:latest
 RUN yum -y install gcc-c++
 \end{lstlisting}
 
-Zasadniczą różnicą między konteneryzacją, a~wirtualizacją, jest używanie jądra systemu operacyjnego gospodarza w~celu zapewnienia wymaganych funkcjonalności. Pomimo tego, że wykorzystywane jest to samo jądro systemu, to kontenery są w~pełni odseparowane od siebie. W~przypadku Linuksa osiągane jest to za pomocą \textbf{cgroups}, które pozwalają na limitowanie zasobów przypadających na grupę, oraz \textbf{przestrzeni nazw}, które służą do separacji procesów. Procesy wykonywane w~ramach przestrzeni nazw "nie widzą" procesów z~poza tej przestrzeni. Ze względu na brak warstwy pośredniej, jaką w~przypadku wirtualizacji jest system operacyjny gościa oraz warstwa integracji tego systemu z~systemem gospodarze, kontenery są znacznie szybsze zarówno w~kwestii tworzenia, uruchamiania, jak i~działania. Minusem natomiast jest przywiązanie do jądra gospodarza, ze względu na to nie jesteśmy w~stanie podmienić wersji jądra w~obrazie, czy też nie jesteśmy w~stanie w~prosty sposób uruchomić systemu operacyjnego z~niezgodnym jądrem (np.: kontener Windows na systemie operacyjnym Linuks). W~przypadku niezgodności jąder wymagana jest dodatkowa warstwa w~postaci maszyny wirtualnej, która zapewni nam odpowiedni rodzaj jądra systemu operacyjnego. Obecnie takie rozwiązanie jest stosowane w~aplikacjach wykorzystujących technologię \textbf{Docker} na Windows, np.: \textit{Docker-for-Windows}. \cite{Kont2} \cite{Kont3}
+Zasadniczą różnicą między konteneryzacją, a~wirtualizacją, jest używanie jądra systemu operacyjnego gospodarza w~celu zapewnienia wymaganych funkcjonalności. Pomimo tego, że wykorzystywane jest to samo jądro systemu, to kontenery są w~pełni odseparowane od siebie. W~przypadku Linuksa osiągane jest to za pomocą \textbf{cgroups}, które pozwalają na limitowanie zasobów przypadających na grupę, oraz \textbf{przestrzeni nazw}, które służą do separacji procesów. Procesy wykonywane w~ramach przestrzeni nazw "nie widzą" procesów z~poza tej przestrzeni. Ze względu na brak warstwy pośredniej, jaką w~przypadku wirtualizacji jest system operacyjny gościa oraz warstwa integracji tego systemu z~systemem gospodarze, kontenery są znacznie szybsze zarówno w~kwestii tworzenia, uruchamiania, jak i~działania. Minusem natomiast jest przywiązanie do jądra gospodarza, ze względu na to nie jesteśmy w~stanie podmienić wersji jądra w~obrazie, czy też nie jesteśmy w~stanie w~prosty sposób uruchomić systemu operacyjnego z~niezgodnym jądrem (np.: kontener Windows na systemie operacyjnym Linuks). W~przypadku niezgodności jąder wymagana jest dodatkowa warstwa w~postaci maszyny wirtualnej, która zapewni nam odpowiedni rodzaj jądra systemu operacyjnego. Obecnie takie rozwiązanie jest stosowane w~aplikacjach wykorzystujących technologię Docker na Windows, np.: \textit{Docker-for-Windows}. \cite{Kont2} \cite{Kont3}
 
 \begin{figure} [H]
 \centering
