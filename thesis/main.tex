@@ -6,57 +6,61 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Stan początkowy projektu}
+\chapter{Analiza projektu oraz możliwości jego rozwoju}
+
+Rozdział ten opisuje stan początkowy projektu oraz dostępną infrastrukturę wraz z ich wpływem na ścieżkę rozwoju projektu. W ramach wykonanej analizy został zdefiniowany stan docelowy projektu.
+
+\section{Stan początkowy projektu}
 \label{cha:pocz}
 
-Niniejszy rozdział został przygotowany w~oparciu o~wiedzę przekazaną przez opiekuna pracy dra hab. inż. Bartosza Mindura, pracę magisterską Pana Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{PluteckiMgr} oraz pracę magisterską Pana Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{ZadrozniakMgr}.
+Niniejsza cześć pracy została przygotowana w~oparciu o~wiedzę przekazaną przez opiekuna pracy dra hab. inż. Bartosza Mindura \cite{Jinst}, pracę magisterską Pana Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{PluteckiMgr} oraz pracę magisterską Pana Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{ZadrozniakMgr}.
 
-\section{Architektura}
+\subsection{Architektura}
 
-Główna logika projektu została wykonana z~użyciem języka C++, dzięki czemu aplikacja jest szybka i~wydajna. Część kodu źródłowego została napisana z~użyciem standardu 11. Wykorzystano również zewnętrzne biblioteki takie jak biblioteka Boost, czy też GSL. Początkowa architektura projektu oparta była o~płaską strukturę folderów. Konwencja jaka została przyjęta, to \textbf{nazwaLib} dla folderów zawierających pliki bibliotek oraz \textbf{\_nazwa} dla folderów zawierających aplikacje użytkowe.\par
+Główna logika projektu została wykonana z~użyciem języka C++, dzięki czemu aplikacja jest szybka i~wydajna. Część kodu źródłowego została napisana z~użyciem standardu 11. Wykorzystano również zewnętrzne biblioteki takie jak biblioteka Boost, czy też GNU Scientific Library (GSL) \cite{GSLMain} . Początkowa architektura projektu oparta była o~płaską strukturę folderów. Konwencja jaka została przyjęta, to \textit{nazwaLib} dla folderów zawierających pliki bibliotek oraz \textit{\_nazwa} dla folderów zawierających aplikacje użytkowe.\par
 \bigskip
 Biblioteki, które były zawarte w~ramach projektu, to:
 \begin{itemize}
-\item ggssLib - biblioteka zawierająca logikę aplikacji \textbf{ggssrunner}, czyli głównego programu wykonywalnego projektu
-\item fifoLib - biblioteka implementująca kolejkę FIFO (first in first out)
-\item FitLib - biblioteka wspierająca obliczenia numeryczne z~wykorzystanie biblioteki zewnętrznej \textbf{GSL}
+\item ggssLib - biblioteka zawierająca logikę aplikacji ggssrunner, czyli głównego programu wykonywalnego projektu
+\item fifoLib - biblioteka implementująca kolejkę FIFO (\textit{first in first out})
+\item FitLib - biblioteka wspierająca obliczenia numeryczne z~wykorzystanie biblioteki zewnętrznej GSL
 \item utilsLib - biblioteka zawierająca pliki pomocnicze projektu
-\item xmlLib - biblioteka dokonywująca parsowanie pliku konfiguracyjnego aplikacji, który jest napisany w~formacie \textbf{xml}
+\item xmlLib - biblioteka dokonywująca parsowanie pliku konfiguracyjnego aplikacji, który jest napisany w~formacie \textit{XML}
 \item handleLib - biblioteka realizująca obsługę mechanizmu sygnałów i~slotów
 \item logLib - biblioteka odpowiedzialna za mechanizm logowania
 \item ThreadLib - biblioteka odpowiadająca za wykorzystanie wielowątkowości w~aplikacji
-\item CaenHVLib - biblioteka okalająca (ang. wrapper) bibliotekę \textbf{CaenN1470Lib}
-\item CaenN1470Lib - biblioteka implementująca komunikację z~urządzeniem sprzętowym \textbf{(CAEN N1470)}
-\item OrtecMcbLib - biblioteka okalająca (ang. wrapper) bibliotekę \textbf{mcaLib}
-\item mcaLib - biblioteka odpowiedzialna za komunikację z~urządzeniem sprzętowym \textbf{(CAEN N957)}
+\item CaenHVLib - biblioteka okalająca (ang. \textit{wrapper}) bibliotekę CaenN1470Lib
+\item CaenN1470Lib - biblioteka implementująca komunikację z~urządzeniem sprzętowym \textit{CAEN N1470}
+\item OrtecMcbLib - \textit{wrapper} na bibliotekę mcaLib
+\item mcaLib - biblioteka odpowiedzialna za komunikację z~urządzeniem sprzętowym \textit{CAEN N957}
 \item usbrmLib - biblioteka, której zadaniem jest komunikacja z~multiplekserami
-\item daemonLib - biblioteka umożliwiająca uruchamianie aplikacji \textbf{ggss-runner} w~postaci \textbf{daemon}, czyli ,,w tle'' 
+\item daemonLib - biblioteka umożliwiająca uruchamianie aplikacji ggssrunner w~postaci \textit{daemon}, czyli ,,w tle'' 
 \end{itemize}
 
 \par Aplikacje, które były zawarte w~ramach projektu, to:
 \begin{itemize}
 \item \_ggss - aplikacja ggssrunner, która odpowiada za człon projektu, jest to główny program wykonywalny
-\item \_dimCS - aplikacja odpowiedzialna za wysyłanie komend, za pomocą technologii \gls*{dim}
+\item \_dimCS - aplikacja odpowiedzialna za wysyłanie komend, za pomocą technologii \gls*{dim} \cite{DIMwebsite}
 \item \_ggssspector - aplikacja, której zadaniem zapisywanie parametrów pracy, np.: ustawione napięcie, odczytane napięcie, ciśnienie itp
 \item caen\_n957 - aplikacja odpowiadająca za testowanie poprawności działania analizatora wielokanałowego oraz jego sterowników
 \end{itemize}
 
 \par Oprócz opisanych wcześniej katalogów występowały również:
 \begin{itemize}
-\item zawierające pliki nagłówkowe wspólne dla wielu bibliotek (include)
-\item zawierające biblioteki zewnętrzne (lib)
-\item zawierające konfigurację aplikacji oraz skrypt pomocniczy w~języku Python dla biblioteki serial (misc)
-\item zawierające skrypty pomocnicze w~języku Python i~\gls*{bash} oraz skrypty watchdog (obserwatorzy)
+\item zawierające pliki nagłówkowe wspólne dla wielu bibliotek (\textit{include})
+\item zawierające biblioteki zewnętrzne (\textit{lib})
+\item zawierające konfigurację aplikacji oraz skrypt pomocniczy w~języku Python dla biblioteki serial (\textit{misc})
+\item zawierające skrypty pomocnicze w~języku Python i~\gls*{bash} oraz skrypty \textit{watchdog} (obserwatorzy)
 \end{itemize}
 
 \par Dodatkowo projekt wykorzystywał następujące biblioteki zewnętrzne:
 \begin{itemize}
 \item Boost - biblioteka C++ ogólnego przeznaczenia
-\item GSL (GNU Scientific Library) - biblioteka numeryczna dla języka C oraz C++
+\item GSL - biblioteka numeryczna dla języka C oraz C++
 \item DIM - biblioteka wspierająca komunikacja protokołem \textit{DIM}
-\item QT oraz QWT - biblioteki wykorzystywane w~ramach modułu \gls*{ggss} Spector
+\item QT oraz QWT - biblioteki wykorzystywane w~ramach modułu ggssspector
 \end{itemize}
-W ramach projektu został również przygotowany panel informacyjno-administracyjny w~technologii Scada (WinCC OA), który komunikuje się z~główną częścią aplikacji za pomocą protokołu \gls*{dim}. Rysunek \ref{fig:highLevelArch} przedstawia wysokopoziomową architekturę wraz z~przepływem informacji.
+W ramach projektu został również przygotowany panel informacyjno-administracyjny w~technologii Scada (WinCC OA), który komunikuje się z~główną częścią aplikacji za pomocą protokołu \textit{DIM}. Rysunek \ref{fig:highLevelArch} przedstawia wysokopoziomową architekturę wraz z~przepływem informacji.
 
 \begin{figure}[H]
 \centering
@@ -68,13 +72,13 @@ W ramach projektu został również przygotowany panel informacyjno-administracy
 W ramach architektury projektu utworzone zostały również pliki \gls*{cmake}, które służyły jako szablon akcji wykorzystywanych wielokrotnie w~pozostałych miejscach, np.: wyszukiwanie odpowiedniej biblioteki.\par 
 Architektura projektu charakteryzowała się całkowicie płaską strukturą, nie było żadnej gradacji bibliotek, z~której nie wynikały żadne zależności między modułami. Plusem takiego rozwiązania była łatwość w~budowie całego systemu (np. brak problemów ze skomplikowanymi ścieżkami), aczkolwiek nie wynikała z~niego żadna informacja nt. systemu ze względu na co próg wejścia, czy też utrzymanie projektu jest utrudnione. Widoczny był podział na moduły, lecz nie był on w~żaden sposób uporządkowany, np. ze względu na przeznaczenie bibliotek (programowe, sprzętowe). 
 
-\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu \gls*{ggss} (ggss-driver). Zawierał on archiwum z~sterownikiem dla urządzenia firmy Caen (CAEN N957) dostarczanym przez ww. firmę. W~ramach modułu został również zawarty plik \gls*{cmake}, którego zadaniem było przygotowanie pakietu \gls*{rpm} w~skład którego wchodził sterownik, biblioteki od firmy Caen (libCAENN957) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu. W~celu sprawdzenia poprawności działania pakietu odpowiedzialnego za instalacje sterownika został utworzony osobny moduł (mcaN957), którego zadaniem jest zebranie napięć rejestrowanych przez analizator wielokanałowy (MCA) oraz zapisanie ich w~pliku tekstowym w~postaci zgrupowanej zakresami. Aplikacja \textbf(mcaN957) przyjmuje dwa parametry wejściowe jakimi są czas działania oraz wartość progowa rejestrowania napięć.
+\par Projekt zawierał również moduł przeznaczony obsłudze sterownika projektu \gls*{ggss} (ggss-driver). Zawierał on archiwum z~sterownikiem dla urządzenia firmy Caen (\textit{CAEN N957}) dostarczanym przez ww. firmę. W~ramach modułu został również zawarty plik \gls*{cmake}, którego zadaniem było przygotowanie pakietu \gls*{rpm} w~skład którego wchodził sterownik, biblioteki od firmy Caen (\textit{libCAENN957}) oraz pre-generowane skrypty pozwalające na instalację oraz dezinstalację pakietu. W~celu sprawdzenia poprawności działania pakietu odpowiedzialnego za instalacje sterownika został utworzony osobny moduł (mcaN957), którego zadaniem jest zebranie napięć rejestrowanych przez analizator wielokanałowy oraz zapisanie ich w~pliku tekstowym w~postaci zgrupowanej zakresami. Aplikacja \textit{mcaN957} przyjmuje dwa parametry wejściowe jakimi są czas działania oraz wartość progowa rejestrowania napięć.
 
 
-\section{Budowanie} 
+\subsection{Budowanie} 
 Projekt w~swojej oryginalnej postaci budowany był za pomocą narzędzia \gls*{cmake} w~wersji \textbf{2.8}. Wyróżnić można było jeden nadrzędny plik \textit{CMakeLists.txt} znajdujący się w~katalogu głównym projektu oraz pomniejsze pliki dla każdego z~modułów.
 
-Nadrzędny plik \textit{CMakeLists.txt} pozwalał na budowanie aplikacji: \textit{ggssrunner}, \textit{dimCS} oraz opcjonalnie \textit{ggsspector}. Zawierał on zmienną \textit{PROJECTS} przechowującą listę zależności, czyli nazwy wszystkich stworzonych w~ramach projektu bibliotek (listing \ref{lst:orig}). Było to jedyne miejsce w~całym systemie budowania określające wewnętrzne zależności w~projekcie.
+Nadrzędny plik \textit{CMakeLists.txt} pozwalał na budowanie aplikacji: ggssrunner, dimCS oraz opcjonalnie ggssspector. Zawierał on zmienną \textit{PROJECTS} przechowującą listę zależności, czyli nazwy wszystkich stworzonych w~ramach projektu bibliotek (listing \ref{lst:orig}). Było to jedyne miejsce w~całym systemie budowania określające wewnętrzne zależności w~projekcie.
 
 \begin{lstlisting}[language=cmake, caption={Fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w~katalogu głównym pierwotnej wersji projektu przedstawiający zmienną \textit{PROJECTS} zawierającą listę bibliotek \cite{PluteckiMgr}}, label={lst:orig}]
 set(PROJECTS
@@ -109,18 +113,18 @@ add_library (${dir_name} STATIC ${subdirectory_files})
 set_target_properties (${dir_name} PROPERTIES LINKER_LANGUAGE CXX)
 \end{lstlisting}
 
-Projekt posiadał zatem tylko jeden, z~góry określony sposób budowania - budowanie \textbf{wszystkiego za pomocą głównego pliku CMakeLists.txt}. Pomimo podziału projektu na komponenty (biblioteki) na poziomie architektury nie było możliwości budowania ich osobno (za pomocą dostarczonego systemu). Zaletą takiego podejścia jest jego prostota - pliki \textit{CMakeLists.txt} są krótkie, odwołują się zwykle do jednego szablonu. Istnieje jednak szereg wad takiego rozwiązania. Jedną z~nich jest brak łatwej możliwości identyfikacji wewnętrznych zależności w~projekcie - niemożliwe jest np. wywnioskowanie zależności biblioteki \textbf{ThreadLib} od bibliotek \textbf{handleLib} i~\textbf{logLib}. Jedyną podpowiedzią na ten temat mogłaby być kolejność ich występowania w~zmiennej \textit{PROJECTS} w~głównym pliku \textit{CMakeLists.txt} - taka informacja nie jest jednak informacją pełną i~tego typu rozumowanie nie zawsze byłoby prawdziwe. Innym ograniczeniem tego rozwiązania był brak możliwości łatwego podziału projektu na niezależne repozytoria. Nie było również możliwość zbudowania aplikacji wchodzących w~skład projektu niezależnie od siebie - dedykowane im pliki \textit{CMakeLists.txt} korzystają z~elementów zdefiniowanych w~pliku głównym (np. ze wspomnianej już listy zależności czy ścieżek wskazujących lokalizację plików nagłówkowych). 
+Projekt posiadał zatem tylko jeden, z~góry określony sposób budowania - budowanie \textbf{wszystkiego za pomocą głównego pliku CMakeLists.txt}. Pomimo podziału projektu na komponenty (biblioteki) na poziomie architektury nie było możliwości budowania ich osobno (za pomocą dostarczonego systemu). Zaletą takiego podejścia jest jego prostota - pliki \textit{CMakeLists.txt} są krótkie, odwołują się zwykle do jednego szablonu. Istnieje jednak szereg wad takiego rozwiązania. Jedną z~nich jest brak łatwej możliwości identyfikacji wewnętrznych zależności w~projekcie - niemożliwe jest np. wywnioskowanie zależności biblioteki \textit{ThreadLib} od bibliotek \textit{handleLib} i~\textit{logLib}. Jedyną podpowiedzią na ten temat mogłaby być kolejność ich występowania w~zmiennej \textit{PROJECTS} w~głównym pliku \textit{CMakeLists.txt} - taka informacja nie jest jednak informacją pełną i~tego typu rozumowanie nie zawsze byłoby prawdziwe. Innym ograniczeniem tego rozwiązania był brak możliwości łatwego podziału projektu na niezależne repozytoria. Nie było również możliwość zbudowania aplikacji wchodzących w~skład projektu niezależnie od siebie - dedykowane im pliki \textit{CMakeLists.txt} korzystają z~elementów zdefiniowanych w~pliku głównym (np. ze wspomnianej już listy zależności czy ścieżek wskazujących lokalizację plików nagłówkowych). 
 
 Projekt zawierał kilka plików o~rozszerzeniu \textit{.cmake} definiujących szablony możliwe do wykorzystania w~wielu miejscach systemu budującego. Udostępniały one funkcjonalności takie jak: identyfikacja systemu operacyjnego, wyszukanie w~systemie potrzebnych bibliotek zewnętrznych czy przeprowadzenie podstawowych operacji koniecznych do stworzenia biblioteki statycznej. Zawartość jednego z~nich (\textit{LibraryTemplate.cmake}) widoczna jest na listingu \ref{lst:origComponent}.
 
 
-\section{Dostarczanie i~uruchamianie}
+\subsection{Dostarczanie i~uruchamianie}
 
 Projekt nie miał automatycznego systemu dostarczania gotowych do użycia plików binarnych, czy też pakietów \gls*{rpm}. Wszystkie akcje prowadzące do utworzenia odpowiednich plików trzeba było wykonywać ręcznie. Nie dostarczono również żadnego systemu regresji, który automatycznie testowałby wprowadzane zmiany. Uruchamianie projektu odbywało się poprzez ręczne umieszczenie plików w~środowisku docelowym, a~następnie uruchomienie aplikacji za pomocą skryptów pomocniczych. Aplikacja była również uruchamiana za pomocą zadania cyklicznego Linux (program crontab). Zadanie to sprawdzało, czy działał proces aplikacji ggssrunner, jeżeli takowy nie istniał oraz nie został utworzony plik .lock, to aplikacja była uruchamiana.
 
-\section{Kontrola wersji}
+\subsection{Kontrola wersji}
 
-Technologią kontroli wersji zastosowaną był do tej pory \gls*{svn}. Mgr. Plutecki w~swojej pracy wspomina o~wykorzystaniu technologii \gls*{git}, natomiast była ona prawdopodobnie używana jedynie w~trakcie prac. Wniosek taki został wysnuty z~powodu braku jakichkolwiek śladów wykorzystania tej technologii w~projekcie. Wykorzystane zostały jedynie podstawowe funkcjonalności kontroli wersji, brak jakiegokolwiek mechanizmu pozwalającego na automatyczne wersjonowanie, czy kontrolę tworzonych rewizji.
+Technologią kontroli wersji zastosowaną był do tej pory \gls*{svn} \cite{SVNMain}. Mgr. Plutecki w~swojej pracy wspomina o~wykorzystaniu technologii \gls*{git}, natomiast była ona prawdopodobnie używana jedynie w~trakcie prac. Wniosek taki został wysnuty z~powodu braku jakichkolwiek śladów wykorzystania tej technologii w~projekcie. Wykorzystane zostały jedynie podstawowe funkcjonalności kontroli wersji, brak jakiegokolwiek mechanizmu pozwalającego na automatyczne wersjonowanie, czy kontrolę tworzonych rewizji.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -131,14 +135,14 @@ Technologią kontroli wersji zastosowaną był do tej pory \gls*{svn}. Mgr. Plut
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Stan docelowy projektu}
+\section{Stan docelowy projektu}
 \label{cha:docel}
-Niniejszy rozdział zawiera opis docelowej wersji systemu \gls*{ggss}, jaka powinna zostać osiągnięta po zakończeniu przez autorów prac. Cele do zrealizowania podzielone zostały na dwie główne części, wynikające z~organizacji czasowej prac tzn. wkład autorów w~system nie zamyka się wraz z~zakończeniem prac nad niniejszym manuskryptem. Z~tego powodu niniejszy rozdział podzielony został na dwie części - pierwsza z~nich opisuje finalną wersję projektu, natomiast druga - wersję po zakończeniu prac w~ramach projektu inżynierskiego.
+Niniejsza część manuskryptu zawiera opis docelowej wersji systemu \gls*{ggss}, jaka powinna zostać osiągnięta po zakończeniu przez autorów prac. Cele do zrealizowania podzielone zostały na dwie główne części, wynikające z~organizacji czasowej prac tzn. wkład autorów w~system nie zamyka się wraz z~zakończeniem prac nad niniejszym manuskryptem. Z~tego powodu niniejszy rozdział podzielony został na dwie części - pierwsza z~nich opisuje finalną wersję projektu, natomiast druga - wersję po zakończeniu prac w~ramach projektu inżynierskiego.
 
-\section{Finalna wersja projektu}
+\subsection{Finalna wersja projektu}
 Projekt w~swojej wersji finalnej ma charakteryzować się modularną architekturą zarówno jeśli chodzi o~organizację kodu, jak i~sposób jego budowania. Pozwala to na proste i~efektywne testowanie każdego komponentu z~osobna. Ułatwia to również podmianę komponentów w~środowisku produkcyjnym. Większa modularyzacja pozwala skrócić czas poszukiwania źródła ewentualnych błędów w~działaniu systemu. Z~drugiej natomiast strony podział systemu na dużą liczbę komponentów utrudnia proces budowania, przez co wymagana jest jego znacząca automatyzacja. Konieczne jest przygotowanie więc prostej w~użytkowaniu infrastruktury wspomagającej proces produkcyjny. Powinna być ona dobrze udokumentowana, by próg wejścia do projektu był możliwie niski. Powinny więc zostać przygotowane instrukcje w~języku angielskim zawierające zestaw najczęściej używanych komend wraz z~wariantami ich użycia (np. flagi). Kluczowym celem jest również modernizacja kodu źródłowego - zarówno jeśli chodzi o~jego jakość, jak i~zastosowane technologie. Projekt charakteryzować się ma więc ustandaryzowanym, ogólnie przyjętym przez społeczność programistów jako tzw. \textit{dobre praktyki}, nazewnictwem, odpowiednim podziałem na poziomie kodu źródłowego (funkcje, klasy itp.). W~swojej ostatecznej wersji projekt powinien bazować na najnowszych, dostępnych w~ramach infrastruktury produkcyjnej CERN-u, technologiach, np. standard języka C++. Dzięki temu zależności zewnętrzne powinny zostać ograniczone do minimum, na rzecz standardowych rozwiązań (np. biblioteka standardowa), by zagwarantować możliwie duża przenośność. Zaplanowano również rozszerzenie projektu o~nowe komponenty ułatwiające korzystanie z~systemu (np. graficzny interfejs użytkownika).
 
-\section{Stan oczekiwany w~ramach projektu inżynierskiego}
+\subsection{Stan oczekiwany w~ramach projektu inżynierskiego}
 Z uwagi na brak możliwości realizowania wszystkich powyższych postulatów dotyczących celów pracy w~ramach projektu inżynierskiego (co wynika z~ograniczonego czasu), wybrany został następujący podzbiór wymagań:
 \begin{itemize}
 \item przygotowanie środowiska umożliwiającego zarządzanie prowadzonym projektem
@@ -159,27 +163,27 @@ Rezultatem zakończenia tej części prac powinien być w~pełni działający, u
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Ograniczenia dostępnej infrastruktury}
+\section{Ograniczenia dostępnej infrastruktury}
 \label{cha:ogra}
-Z uwagi na silny związek oprogramowania \gls*{ggss} z~infrastrukturą CERN oraz wymóg zapewnienia możliwości budowania projektu na należących do niej maszynach, przed autorami postawiony został szereg ograniczeń związanych z~możliwymi do użycia technologiami oraz sposobem wykonywania pewnych operacji. Niniejszy rozdział stanowi opis najważniejszych z~tych ograniczeń z~uwzględnieniem ich wpływu na obraną przez autorów pracy ścieżkę rozwoju projektu.
+Z uwagi na silny związek oprogramowania \gls*{ggss} z~infrastrukturą CERN oraz wymóg zapewnienia możliwości budowania projektu na należących do niej maszynach, przed autorami postawiony został szereg ograniczeń związanych z~możliwymi do użycia technologiami oraz sposobem wykonywania pewnych operacji. Niniejsza cześć pracy stanowi opis najważniejszych z~tych ograniczeń z~uwzględnieniem ich wpływu na obraną przez autorów pracy ścieżkę rozwoju projektu.
 
 
-\section{Ograniczone uprawnienia w~środowisku docelowym}
-Ze względu na ograniczone uprawnienia w~środowisku docelowym proces wprowadzania zmian w~systemie \gls*{ggss} wymagał komunikacji z~administratorami środowiska. Każdorazowa instalacja poprawek dla modułu sterownika \textbf{(ggss-driver)} wymagała autoryzacji oraz przeprowadzenie procesu instalacji przez osobę upoważnioną. Ze względu na to zostało przygotowane specjalne środowisko pozwalające na testowanie pakietów \gls*{rpm} przed ich instalacją w~środowisku docelowym. Dodatkowo uprawnienia autorów w~środowisku docelowym są ograniczone ze względu na możliwości instalacji dodatkowych pakietów, czy tez modułów. Nie jest możliwe również budowanie komponentów w~środowisku docelowym, restart maszyny produkcyjnej, czy też ładowanie/usuwanie modułów spoza listy określonej przed administratorów. Wszystkie te czynniki negatywnie wpłynęły na czas, który był wymagany w~celu wykonania testów w~środowisku produkcyjnym oraz wykonane zmiany w~projekcie.
+\subsection{Ograniczone uprawnienia w~środowisku docelowym}
+Ze względu na ograniczone uprawnienia w~środowisku docelowym proces wprowadzania zmian w~systemie \gls*{ggss} wymagał komunikacji z~administratorami środowiska. Każdorazowa instalacja poprawek dla modułu sterownika (\textit{ggss-driver}) wymagała autoryzacji oraz przeprowadzenie procesu instalacji przez osobę upoważnioną. Ze względu na to zostało przygotowane specjalne środowisko pozwalające na testowanie pakietów \gls*{rpm} przed ich instalacją w~środowisku docelowym. Dodatkowo uprawnienia autorów w~środowisku docelowym są ograniczone ze względu na możliwości instalacji dodatkowych pakietów, czy tez modułów. Nie jest możliwe również budowanie komponentów w~środowisku docelowym, restart maszyny produkcyjnej, czy też ładowanie/usuwanie modułów spoza listy określonej przed administratorów. Wszystkie te czynniki negatywnie wpłynęły na czas, który był wymagany w~celu wykonania testów w~środowisku produkcyjnym oraz wykonane zmiany w~projekcie.
 
 
-\section{Wersje kompilatorów i~interpreterów}
+\subsection{Wersje kompilatorów i~interpreterów}
 Dostępne wersje kompilatorów i~interpreterów stanowią jeden z~kluczowych czynników, który należy uwzględnić podczas wprowadzania zmian w~istniejącym systemie, ponieważ definiują one możliwy do wykorzystania podzbiór technologii. W~kontekście systemu \gls*{ggss} ograniczenia te dotyczą przede wszystkim kompilatora języka C++ oraz interpretera języka Python. \par
 
 Dostępna w~ramach infrastruktury projektu wersja kompilatora języka C++ to \textbf{g++ (GCC) 4.8.5}. Wspiera ona w~pełni standard C++11, czyli funkcjonalności takie, jak referencje do r-wartości, wyrażenia lambda czy zakresowa pętla for \cite{GCC48}. Wersja ta nie wspiera niestety nowszych wydań języka (C++14/17). \par
 
-Domyślną wersją Pythona jest \textbf{Python 2.7.5}, jednak dostępny jest również Python 3 (w wersji \textbf{Python 3.6.8}). Z~uwagi na wspomniany wcześniej koniec oficjalnego wsparcia dla Pythona 2, który ma nadejść wraz z~początkiem 2020 roku, naturalnym jest więc wybór wersji 3. Infrastruktura projektu posiada jednak znaczące braki jeśli chodzi o~dostępne dla wersji 3 biblioteki zewnętrzne - domyślnie nie jest np. dostępna biblioteka \textit{Beautiful Soup}, służąca do przetwarzania dokumentów w~formacie HTML. Niektóre popularne biblioteki i~frameworki (np. \textit{PyTest} - wykorzystywany do przeprowadzania testów oprogramowania) nie są dostępne dla obu wersji Pythona.
+Domyślną wersją Pythona jest \textbf{Python 2.7.5}, jednak dostępny jest również Python 3 (w wersji \textbf{Python 3.6.8}). Z~uwagi na wspomniany wcześniej koniec oficjalnego wsparcia dla Pythona 2, który ma nadejść wraz z~początkiem 2020 roku, naturalnym jest więc wybór wersji 3. Infrastruktura projektu posiada jednak znaczące braki jeśli chodzi o~dostępne dla wersji 3 biblioteki zewnętrzne - domyślnie nie jest np. dostępna biblioteka \textit{Beautiful Soup}, służąca do przetwarzania dokumentów w~formacie HTML. Niektóre popularne biblioteki i~frameworki (np. \textit{PyTest} \cite{PyTestMain} - wykorzystywany do przeprowadzania testów oprogramowania) nie są dostępne dla obu wersji Pythona.
 
-\section{Wersja narzędzia budującego CMake}
-Dostępna wersja narzędzia \gls*{cmake} stanowiła zdaniem autorów największe ograniczenie w~czasie prac nad projektem. Na maszynach docelowych dostępna jest jedynie stara wersja \textbf{2.8.12.2}. Nowsza wersja (\textbf{3.14.6}) dostępna jest na niektórych z~komputerów, jednak z~uwagi na konieczność zachowania kompatybilności ze wspomnianymi maszynami docelowymi, nie było możliwe jej użycie. Stosowanie wersji o~numerze niższym od \textbf{3.0} skutkuje szeregiem ograniczeń - brakuje w~niej wielu funkcjonalności pozwalających na stosowanie ogólnie przyjętych dziś praktyk, jak np. określenie zakresu wersji narzędzia \gls*{cmake}, w~którym powinna mieścić się używana wersja, by projekt można było bez problemu zbudować, czy wsparcie dla instrukcji \textit{target\_link\_directories} \cite{NewInCMake}.
+\subsection{Wersja narzędzia budującego CMake}
+Dostępna wersja narzędzia \gls*{cmake} stanowiła zdaniem autorów największe ograniczenie w~czasie prac nad projektem. Na maszynach docelowych dostępna jest jedynie stara wersja \textbf{2.8.12.2}. Nowsza wersja (\textbf{3.14.6}) dostępna jest na niektórych z~komputerów, jednak z~uwagi na konieczność zachowania kompatybilności ze wspomnianymi maszynami docelowymi, nie było możliwe jej użycie. Stosowanie wersji o~numerze niższym od \textbf{3.0} skutkuje szeregiem ograniczeń - brakuje w~niej wielu funkcjonalności pozwalających na stosowanie ogólnie przyjętych dziś praktyk, jak np. określenie zakresu wersji narzędzia \gls*{cmake}, w~którym powinna mieścić się używana wersja, by projekt można było bez problemu zbudować, czy wsparcie dla instrukcji \lstinline[language=cmake]{target_link_directories} \cite{NewInCMake}.
 
-\section{Związek projektu z~wersją jądra systemu}
-Ze względu na mocny związek modułu \textbf{ggss-driver} z~jądrem systemu operacyjnego ważnym aspektem pracy jest zapewnienie środowiska deweloperskiego zgodnego z~produkcyjnym pod względem wersji jądra. Okazało się to problematyczne, ponieważ maszyna dostarczona przez administratorów w~celu budowania aplikacji okazała się różnić od maszyny produkcyjnej właśnie pod względem wersji jądra systemu operacyjnego. Z~powodu tego, że mocnym ograniczeniem okazało się jądro systemu nie wystarczyło zastosowanie ogólnodostępnych maszyn budujących w~ramach wewnętrznego portalu opartego o~technologię Gitlab. Ze względu na to autorzy postanowili utworzyć własne środowisko produkcyjne. Rozwiązanie problemu wymagało zastosowania maszyny wirtualnej, z~pełnym dostępem do konta administratora oraz skonfigurowania środowiska konteneryzacyjnego Docker właśnie na tej maszynie, co opisane jest w~rozdziale \ref{sec:wirtDocker}.
+\subsection{Związek projektu z~wersją jądra systemu}
+Ze względu na mocny związek modułu \textit{ggss-driver} z~jądrem systemu operacyjnego ważnym aspektem pracy jest zapewnienie środowiska deweloperskiego zgodnego z~produkcyjnym pod względem wersji jądra. Okazało się to problematyczne, ponieważ maszyna dostarczona przez administratorów w~celu budowania aplikacji okazała się różnić od maszyny produkcyjnej właśnie pod względem wersji jądra systemu operacyjnego. Z~powodu tego, że mocnym ograniczeniem okazało się jądro systemu nie wystarczyło zastosowanie ogólnodostępnych maszyn budujących w~ramach wewnętrznego portalu opartego o~technologię Gitlab. Ze względu na to autorzy postanowili utworzyć własne środowisko produkcyjne. Rozwiązanie problemu wymagało zastosowania maszyny wirtualnej, z~pełnym dostępem do konta administratora oraz skonfigurowania środowiska konteneryzacyjnego Docker właśnie na tej maszynie, co opisane jest w~rozdziale \ref{sec:wirtDocker}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

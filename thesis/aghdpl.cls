@@ -32,7 +32,6 @@
 \RequirePackage{subcaption}
 \RequirePackage{siunitx}
 \RequirePackage{enumerate}
-\RequirePackage{enumitem}
 \RequirePackage[all,defaultlines=2]{nowidow} % Kontrola sierot i wdów - działa lepiej niż \widowpenalty i \clubpenalty
 
 \geometry{lmargin=30mm, rmargin=20mm, tmargin=30mm, bmargin=30mm, foot=10mm, head=10mm}
@@ -242,14 +241,6 @@ Supervisor: & {\itshape \@supervisor}\\
 	% W przypadku podpisów mieszczących się w jednej linii nie stosuj justowania, tylko wyśrodkuj cały podpis.
 	singlelinecheck=on,
 }
-
-
-%---------------------------------------------------------------------------
-% Środowisko do tworzenia opisów symboli użytych w równaniu.
-%---------------------------------------------------------------------------
-
-\SetLabelAlign{parright}{\parbox[t]{\labelwidth}{\raggedleft#1}}
-\setlist[description]{style=multiline, topsep=10pt, align=parright}
 
 % Odstęp po obu stronach półpauzy.
 \newlength{\descriptiondashgap}
