@@ -7,18 +7,18 @@ Ze względu na fakt, że środowisko w~którym osadzony jest program \textit{ggs
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/png/elisa}
 \caption{Informacja o~przeprowadzaniu testów w~systemie ELisA}
 \label{fig:elisa}
-\includegraphics[width=\textwidth]{res/png/elisa}
 \end{figure}
 
 Pliki wykonywalne aplikacji \textit{ggssrunner} wygenerowane zostały za pomocą przygotowanego przez autorów środowiska CI/CD. Zostały one umieszczone na komputerze produkcyjnym. Kolejnym krokiem było zalogowanie się do panelu \textit{WinCC OA} służącego do monitorowania działania detektora ATLAS oraz wybranie panelu odpowiedzialnego za dostarczanie informacji o~systemie \gls*{ggss}. 
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/png/ggssStraw}
 \caption{Panel WinCC OA monitorujący działanie systemu \gls*{ggss}}
 \label{fig:ggss}
-\includegraphics[width=\textwidth]{res/png/ggssStraw}
 \end{figure}
 
 \newpage
@@ -26,9 +26,9 @@ Następnym etapem było przeprowadzenie procesu wyłączania systemu \gls*{ggss}
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/png/ggssConfig}
 \caption{Panel konfiguracyjny systemu \gls*{ggss} podczas działania systemu}
 \label{fig:ggsspanel}
-\includegraphics[width=\textwidth]{res/png/ggssConfig}
 \end{figure}
 
 
@@ -64,9 +64,9 @@ user@host:~$ ./ggss_monitor.sh check_start
 
 \begin{figure}
 \centering
+\includegraphics[width=\textwidth]{res/png/ggssPoStarcie}
 \caption{Panel WinCC OA monitorujący działanie systemu \gls*{ggss} po ponownym uruchomieniu systemu (widoczny w~lewym górnym rogu stan \textit{STARTING})}
 \label{fig:ggssafterstart}
-\includegraphics[width=\textwidth]{res/png/ggssPoStarcie}
 \end{figure}
 
 \newpage
@@ -114,7 +114,7 @@ release (-O3)                                                                   
 \label{tab:wyniki}
 \end{table}
 
-Podczas przeprowadzania testów wersji produkcyjnej zostały wykryte błędy w~działaniu, co zostało zakomunikowane na panelu WinCC OA. Błędy te pojawiły się zarówno na poziomie całego systemu (Rys. \ref{fig:ggssErrorScada}) , jak i~pojedynczej słomki (Rys. \ref{fig:ggssErrorStrawScada}). Pojawienie się błędów było skutkiem zastosowania w~czasie kompilacji flagi optymalizacji \textit{-O3}. Jest to domyślna flaga stosowana przez narzędzie \gls*{cmake} dla wersji produkcyjnej. Podczas kompilacji aplikacji \textit{ggssrunner} w~takiej konfiguracji widoczne były dwa ostrzeżenia, zatem błędy nie były dla autorów zaskoczeniem. Flaga \textit{-O3} oznacza agresywną politykę optymalizacji, co często prowadzi do zmiany zachowania aplikacji. Została więc wprowadzona zmiana w~sposobie kompilacji aplikacji w~wersji produkcyjnej - flaga ta została zastąpiona przez jej łagodniejszy i~stabilniejszy odpowiednik \textit{-O2}, powszechnie wykorzystywany do tworzenia wersji produkcyjnych oprogramowania. Testy wykonane z~użyciem tej flagi nie wyprodukowały żadnych błędów. 
+Podczas przeprowadzania testów wersji produkcyjnej zostały wykryte błędy w~działaniu, co zostało zakomunikowane na panelu WinCC OA. Błędy te pojawiły się zarówno na poziomie całego systemu (Rys. \ref{fig:ggssErrorScada}), jak i~pojedynczej słomki (Rys. \ref{fig:ggssErrorStrawScada}). Pojawienie się błędów było skutkiem zastosowania w~czasie kompilacji flagi optymalizacji \textit{-O3}. Jest to domyślna flaga stosowana przez narzędzie \gls*{cmake} dla wersji produkcyjnej. Podczas kompilacji aplikacji \textit{ggssrunner} w~takiej konfiguracji widoczne były dwa ostrzeżenia, zatem błędy nie były dla autorów zaskoczeniem. Flaga \textit{-O3} oznacza agresywną politykę optymalizacji, co często prowadzi do zmiany zachowania aplikacji. Została więc wprowadzona zmiana w~sposobie kompilacji aplikacji w~wersji produkcyjnej - flaga ta została zastąpiona przez jej łagodniejszy i~stabilniejszy odpowiednik \textit{-O2}, powszechnie wykorzystywany do tworzenia wersji produkcyjnych oprogramowania. Testy wykonane z~użyciem tej flagi nie wyprodukowały żadnych błędów. 
 
 Testy wersji deweloperskiej (w obu konfiguracjach) odbyły się bez problemów - nie zostały wygenerowane żadne błędy ani ostrzeżenia. 
 
@@ -124,15 +124,15 @@ Wyniki przeprowadzonych testów stanowią potwierdzenie poprawności wprowadzony
 
 \begin{figure}
 \centering
+\includegraphics[width=\textwidth]{res/png/ggssError}
 \caption{Błąd w~działaniu aplikacji \textit{ggssrunner} na poziomie całego systemu widoczny w~panelu WinCC OA (czerwone koło w~prawym górnym rogu panelu \gls*{ggss})}
 \label{fig:ggssErrorScada}
-\includegraphics[width=\textwidth]{res/png/ggssError}
 \end{figure}
 
 
 \begin{figure}
 \centering
+\includegraphics[width=\textwidth]{res/png/errStraw}
 \caption{Błąd w~działaniu aplikacji \textit{ggssrunner} na poziomie pojedynczej słomki widoczny w~panelu WinCC OA (czerwone koło obok drugiej słomki)}
 \label{fig:ggssErrorStrawScada}
-\includegraphics[width=\textwidth]{res/png/errStraw}
 \end{figure}

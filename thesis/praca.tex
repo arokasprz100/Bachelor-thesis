@@ -19,6 +19,8 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{float} 
+\usepackage{realboxes}
+\usepackage{xpatch}
 
 %Landscape
 \usepackage{lscape}
@@ -156,6 +158,12 @@
 \captionsetup[lstlisting]{ margin=0pt}
 \captionsetup[figure]{ margin=0pt}
 \captionsetup[table]{ margin=0pt}
+
+
+
+\makeatletter
+\xpretocmd\lstinline{\Colorbox{lgray}\bgroup\appto\lst@DeInit{\egroup}}{}{}
+\makeatother
 
 \usepackage[hidelinks]{hyperref}
 

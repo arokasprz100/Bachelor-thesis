@@ -11,9 +11,9 @@ W ciągu ostatnich kilku lat C++ przechodzi proces intensywnego rozwoju - od 201
 \begin{itemize}
 \item C++11 - wprowadza funkcjonalności takie jak: wsparcie dla wielowątkowości, wyrażenia lambda, referencje do \textit{r-wartości}, biblioteka do obsługi wyrażeń regularnych, dedukcja typów za pomocą słowa kluczowego \textit{auto} czy pętla zakresowa. Standard ten uważany jest za przełom w~rozwoju języka.
 \item C++14 - rozszerza zmiany wprowadzone w~C++11. Nie zawiera tak wielu przełomowych zmian jak poprzedni standard - twórcy skupili się na poprawie błędów oraz rozwoju istniejących rozwiązań \cite{Cpp14Wikipedia}, np. dedukcji typu zwracanego z~funkcji za pomocą słowa kluczowego \textit{auto}.
-\item C++17 - wprowadza m.in. nowe typy danych (np. \textit{std::variant}, \textit{std::byte} i~\textit{std::optional}), algorytmy współbieżne, biblioteka \textit{filesystem} przeznaczona do obsługi systemu plików oraz rozszerzenie mechanizmu dedukcji typów w~szablonach na szablony klas \cite{BartekCodingBlogCpp17}. Standard ten usuwa również pewne elementy uznane za przestarzałe, np. inteligentny wskaźnik \textit{std::auto\_ptr}, zastąpiony w~standardzie C++11 przez inne rozwiązanie.
+\item C++17 - wprowadza m.in. nowe typy danych (np. \lstinline[language=c++]{std::variant}, \lstinline[language=c++]{std::byte} i~\lstinline[language=c++]{std::optional}), algorytmy współbieżne, biblioteka \textit{filesystem} przeznaczona do obsługi systemu plików oraz rozszerzenie mechanizmu dedukcji typów w~szablonach na szablony klas \cite{BartekCodingBlogCpp17}. Standard ten usuwa również pewne elementy uznane za przestarzałe, np. inteligentny wskaźnik \lstinline[language=c++]{std::auto_ptr}, zastąpiony w~standardzie C++11 przez inne rozwiązanie.
 \end{itemize} 
-Zmiany wprowadzane w~nowych standardach pozwalają na tworzenie czytelniejszego kodu, który łatwiej utrzymywać i~rozwijać. Ma to znaczenie zarówno na poziomie pojedynczych instrukcji czy typów danych, jak i~na poziomie architektury projektu. Listingi \ref{lst:cpp03} oraz \ref{lst:cpp11} przedstawiają przykład zmiany, jaka zaszła między standardem C++03, a~C++11. Zaprezentowany kod realizuje w~obu przypadkach iterację po zawartości kontenera typu \textit{std::vector<int>} mającą na celu wypisanie na standardowe wyjście jego zawartości. Przykład ten, pomimo że bardzo prosty, dobrze obrazuje wzrost jakości i~czytelności kodu w~nowym standardzie.
+Zmiany wprowadzane w~nowych standardach pozwalają na tworzenie czytelniejszego kodu, który łatwiej utrzymywać i~rozwijać. Ma to znaczenie zarówno na poziomie pojedynczych instrukcji czy typów danych, jak i~na poziomie architektury projektu. Listingi \ref{lst:cpp03} oraz \ref{lst:cpp11} przedstawiają przykład zmiany, jaka zaszła między standardem C++03, a~C++11. Zaprezentowany kod realizuje w~obu przypadkach iterację po zawartości kontenera typu \lstinline[language=c++]{std::vector<int>} mającą na celu wypisanie na standardowe wyjście jego zawartości. Przykład ten, pomimo że bardzo prosty, dobrze obrazuje wzrost jakości i~czytelności kodu w~nowym standardzie.
 
 \begin{lstlisting}[language=c++,caption={Przykład kodu w~języku C++ napisany z~wykorzystaniem standardu C++03},label={lst:cpp03}]
 // kontener zawierający 6 elementów typu int - inicjalizacja
@@ -100,14 +100,14 @@ complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.a
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/StaticLibFlow}
 \caption{Proces tworzenia biblioteki statycznej z~uwzględnieniem komend koniecznych do wykonania poszczególnych etapów \cite{Compiling}}
 \label{fig:staticlibflow}
-\includegraphics[width=\textwidth]{res/StaticLibFlow}
 \end{figure}
 
-Zawartość powstałego archiwum można zbadać za pomocą komendy \textit{ar -t} - wyświetla ona wszystkie pliki obiektowe wchodzące w~skład danej biblioteki. Istnieje również możliwość wypisania symboli - służy do tego narzędzie \textit{nm}. Użycie tych narzędzi na wykonanym przez autorów przykładzie ilustruje listing \ref{lst:libstat3}. Wynikiem polecenia \textit{nm} są tam dwa symbole, oznaczające dwie udostępnione dla użytkowników biblioteki funkcje (dodawanie i~odejmowanie liczb zespolonych).
+Zawartość powstałego archiwum można zbadać za pomocą komendy \lstinline[language=Cmd]{ar -t} - wyświetla ona wszystkie pliki obiektowe wchodzące w~skład danej biblioteki. Istnieje również możliwość wypisania symboli - służy do tego narzędzie \lstinline[language=Cmd]{nm}. Użycie tych narzędzi na wykonanym przez autorów przykładzie ilustruje listing \ref{lst:libstat3}. Wynikiem polecenia \lstinline[language=Cmd]{nm} są tam dwa symbole, oznaczające dwie udostępnione dla użytkowników biblioteki funkcje (dodawanie i~odejmowanie liczb zespolonych).
 
-\begin{lstlisting}[language=Cmd, caption={Użycie poleceń \textit{ar -t} oraz \textit{nm} na bibliotece statycznej.},label={lst:libstat3}]
+\begin{lstlisting}[language=Cmd, caption={Użycie poleceń \lstinline{ar -t} oraz \lstinline{nm} na bibliotece statycznej.},label={lst:libstat3}]
 user@host:~/complex$ ar -t libcoml.a
 complex_opers.o
 user@host:~/complex$ nm libcoml.a
@@ -123,9 +123,9 @@ Rysunek \ref{fig:staticliblink} przedstawia schematycznie proces dołączania ut
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/StaticLibLink}
 \caption{Proces dołączania biblioteki statycznej do programu z~uwzględnieniem komend koniecznych do wykonania poszczególnych etapów \cite{Compiling}}
 \label{fig:staticliblink}
-\includegraphics[width=\textwidth]{res/StaticLibLink}
 \end{figure}
 
 \begin{itemize}
@@ -185,9 +185,9 @@ Podczas pracy z~bibliotekami współdzielonymi istotne jest przestrzeganie narzu
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/sharedLibName}
 \caption{Elementy poprawnej nazwy biblioteki współdzielonej}
 \label{fig:sharedName}
-\includegraphics[width=\textwidth]{res/sharedLibName}
 \end{figure}
 
 Wersja biblioteki składa się z~trzech liczb \cite{TLDP}: 
@@ -233,9 +233,9 @@ complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.so.
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/sharedLibFlow}
 \caption{Proces tworzenia biblioteki współdzielonej z~uwzględnieniem koniecznych poleceń \cite{Compiling}}
 \label{fig:sharedCreate}
-\includegraphics[width=\textwidth]{res/sharedLibFlow}
 \end{figure}
 
 
@@ -300,7 +300,8 @@ cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
 # Określenie standardu języka C++
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Nazwa oraz wersja projektu
 project(Hello VERSION 1.0)
@@ -350,7 +351,7 @@ if __name__=="__main__":
 Python funkcjonuje w~dwóch wersjach: Python 2 oraz 3. Wersje te nie są ze sobą w~pełni kompatybilne, tzn. pewne funkcjonalności Pythona 2 nie są dostępne w~Pythonie 3 i~odwrotnie. Różnice znaleźć można również np. w~domyślnym sposobie kodowania łańcuchów znakowych (ASCII w~Pythonie 2, Unicode w~Pythonie 3) oraz w~wyniku dzielenia (za pomocą operatora \textit{/}) dwóch liczb całkowitych (w Pythonie 2 wynikiem jest liczba całkowita, w~Pythonie 3 liczba zmiennoprzecinkowa typu \textit{float}) \cite{Python2vs3}. Ponadto zakończenie oficjalnego wsparcia Pythona w~wersji 2 przewidziane jest na styczeń 2020 roku \cite{Python2Countdown} - co w~momencie pisania niniejszej pracy (grudzień 2019) jest terminem niedalekim i~miało kluczowe znaczenie w~czasie podejmowania pewnych decyzji projektowych.
 
 \subsubsection*{Zewnętrzne biblioteki}
-Jedną z~największych zalet Pythona jest bardzo duża liczba bibliotek zewnętrznych tworzonych przez społeczność Pythona. Rozbudowują one język o~wiele nowych funkcjonalności, np. przetwarzanie plików HTML czy wykonywanie obliczeń numerycznych. W~niniejszej pracy zastosowanych zostało kilka tego typu bibliotek, m.in. \textit{Beautiful Soup} do wspomnianego wyżej przetwarzania dokumentów w~formacie HTML. Omówienie ich działania na przykładach znaleźć można w~dalszej części pracy - przy opisie konkretnego ich zastosowania. 
+Jedną z~największych zalet Pythona jest bardzo duża liczba bibliotek zewnętrznych tworzonych przez społeczność Pythona. Rozbudowują one język o~wiele nowych funkcjonalności, np. przetwarzanie plików HTML czy wykonywanie obliczeń numerycznych. W~niniejszej pracy zastosowanych zostało kilka tego typu bibliotek, m.in. \textit{Beautiful Soup} \cite{BeautifulSoup} do wspomnianego wyżej przetwarzania dokumentów w~formacie HTML. Omówienie ich działania na przykładach znaleźć można w~dalszej części pracy - przy opisie konkretnego ich zastosowania. 
 
 
 \section{Powłoka systemu operacyjnego (Bash)}
@@ -487,15 +488,15 @@ Bardzo ważnym aspektem technologii \gls*{git} jest mechanizm gałęzi (ang. \te
 
 \begin{figure} [H]
 \centering
-\caption{Schemat tworzenia rewizja w~ramach nowej gałęzi}
 \includegraphics[width=\textwidth]{res/branch}
+\caption{Schemat tworzenia rewizja w~ramach nowej gałęzi}
 \label{fig:branch}
 \end{figure}
 
 \begin{figure} [H]
 \centering
-\caption{Schemat złączania gałęzi w~ramach polecenie \textbf{git merge}}
 \includegraphics[width=\textwidth]{res/branchMerge}
+\caption{Schemat złączania gałęzi w~ramach polecenie \textbf{git merge}}
 \label{fig:branch2}
 \end{figure}
 
@@ -574,10 +575,10 @@ FROM cern/cc7-base:latest
 RUN yum -y install gcc-c++
 \end{lstlisting}
 
-Zasadniczą różnicą między konteneryzacją, a~wirtualizacją, jest używanie jądra systemu operacyjnego gospodarza w~celu zapewnienia wymaganych funkcjonalności. Pomimo tego, że wykorzystywane jest to samo jądro systemu, to kontenery są w~pełni odseparowane od siebie. W~przypadku Linuksa osiągane jest to za pomocą \textbf{cgroups}, które pozwalają na limitowanie zasobów przypadających na grupę, oraz \textbf{przestrzeni nazw}, które służą do separacji procesów. Procesy wykonywane w~ramach przestrzeni nazw "nie widzą" procesów z~poza tej przestrzeni. Ze względu na brak warstwy pośredniej, jaką w~przypadku wirtualizacji jest system operacyjny gościa oraz warstwa integracji tego systemu z~systemem gospodarze, kontenery są znacznie szybsze zarówno w~kwestii tworzenia, uruchamiania, jak i~działania. Minusem natomiast jest przywiązanie do jądra gospodarza, ze względu na to nie jesteśmy w~stanie podmienić wersji jądra w~obrazie, czy też nie jesteśmy w~stanie w~prosty sposób uruchomić systemu operacyjnego z~niezgodnym jądrem (np.: kontener Windows na systemie operacyjnym Linuks). W~przypadku niezgodności jąder wymagana jest dodatkowa warstwa w~postaci maszyny wirtualnej, która zapewni nam odpowiedni rodzaj jądra systemu operacyjnego. Obecnie takie rozwiązanie jest stosowane w~aplikacjach wykorzystujących technologię Docker na Windows, np.: \textit{Docker-for-Windows}. \cite{Kont2} \cite{Kont3}
+Zasadniczą różnicą między konteneryzacją, a~wirtualizacją, jest używanie jądra systemu operacyjnego gospodarza w~celu zapewnienia wymaganych funkcjonalności. Pomimo tego, że wykorzystywane jest to samo jądro systemu, to kontenery są w~pełni odseparowane od siebie. W~przypadku Linuksa osiągane jest to za pomocą \textbf{cgroups}, które pozwalają na limitowanie zasobów przypadających na grupę, oraz \textbf{przestrzeni nazw}, które służą do separacji procesów. Procesy wykonywane w~ramach przestrzeni nazw ,,nie widzą'' procesów z~poza tej przestrzeni. Ze względu na brak warstwy pośredniej, jaką w~przypadku wirtualizacji jest system operacyjny gościa oraz warstwa integracji tego systemu z~systemem gospodarze, kontenery są znacznie szybsze zarówno w~kwestii tworzenia, uruchamiania, jak i~działania. Minusem natomiast jest przywiązanie do jądra gospodarza, ze względu na to nie jesteśmy w~stanie podmienić wersji jądra w~obrazie, czy też nie jesteśmy w~stanie w~prosty sposób uruchomić systemu operacyjnego z~niezgodnym jądrem (np.: kontener Windows na systemie operacyjnym Linuks). W~przypadku niezgodności jąder wymagana jest dodatkowa warstwa w~postaci maszyny wirtualnej, która zapewni nam odpowiedni rodzaj jądra systemu operacyjnego. Obecnie takie rozwiązanie jest stosowane w~aplikacjach wykorzystujących technologię Docker na Windows, np.: \textit{Docker-for-Windows}. \cite{Kont2} \cite{Kont3}
 
 \begin{figure} [H]
 \centering
-\caption{Porównanie klasycznej architektury z~technologiami wirtualizacji oraz konteneryzacji \cite{Kont4}}
 \includegraphics[width=\textwidth]{res/virtualizationAndContenerizatrionComparison}
+\caption{Porównanie klasycznej architektury z~technologiami wirtualizacji oraz konteneryzacji \cite{Kont4}}
 \end{figure}
