@@ -257,15 +257,15 @@ ggssLib/
 \newpage
 
 \begin{figure}
-\caption{Dodanie konstrukcji \textit{extern "{}C"} w~ramach biblioteki \textbf{mca-lib}}
-\label{fig:addExternC}
 \includegraphics[width=\textwidth]{res/png/addExternC}
+\caption{Dodanie konstrukcji \lstinline[language=c++]{extern "C"} w~ramach biblioteki \textbf{mca-lib}}
+\label{fig:addExternC}
 \end{figure}
 
 \begin{figure}
-\caption{Usunięcie konstrukcji \textit{extern "{}C"} w~ramach zewnętrznej biblioteki \textbf{CAENN957}}
-\label{fig:removeExternC}
 \includegraphics[width=\textwidth]{res/png/removeExternC}
+\caption{Usunięcie konstrukcji \lstinline[language=c++]{extern "C"} w~ramach zewnętrznej biblioteki \textbf{CAENN957}}
+\label{fig:removeExternC}
 \end{figure}
 
 \onecolumn
@@ -284,7 +284,7 @@ ggssLib/
 Dodatek \ref{appendix:A3} opisuje procedurę dodawania nowej maszyny jako \textbf{GitLab CI/CD Runner}, czyli jednostka odpowiedzialna za wykonywanie zadań w~ramach funkcjonalności \textbf{GitLab CI/CD}. Instrukcja zakłada, że maszyna posiada zainstalowany system operacyjny \textbf{Linux} w~dystrybucji \textbf{Centos7}. Wynikem wykonanie wszystkich czynności powinno być dodanie maszyny do panelu \textbf{CI/CD>Runners} dla wybranej grupy, co ukazuje Rysunek \ref{fig:runner}. Instrukcja została napisana w~oparciu o~dokumentację \textbf{Docker}\cite{DockerInstall} oraz dokumentację \textbf{GitLab}\cite{RunnerRegister}.
 
 \begin{figure}
+\includegraphics[width=\textwidth]{res/png/runnerAdded}
 \caption{Panel przedstawiający dodane \textbf{GitLab CI/CD Runner} w~ramach projektu.}
 \label{fig:runner}
-\includegraphics[width=\textwidth]{res/png/runnerAdded}
 \end{figure}

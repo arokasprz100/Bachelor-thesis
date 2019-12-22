@@ -30,7 +30,7 @@ Biblioteki, które były zawarte w~ramach projektu, to:
 \item OrtecMcbLib - biblioteka okalająca (ang. wrapper) bibliotekę \textbf{mcaLib}
 \item mcaLib - biblioteka odpowiedzialna za komunikację z~urządzeniem sprzętowym \textbf{(CAEN N957)}
 \item usbrmLib - biblioteka, której zadaniem jest komunikacja z~multiplekserami
-\item daemonLib - biblioteka umożliwiająca uruchamianie aplikacji \textbf{ggss-runner} w~postaci \textbf{daemon}, czyli "w tle" 
+\item daemonLib - biblioteka umożliwiająca uruchamianie aplikacji \textbf{ggss-runner} w~postaci \textbf{daemon}, czyli ,,w tle'' 
 \end{itemize}
 
 \par Aplikacje, które były zawarte w~ramach projektu, to:
@@ -38,7 +38,7 @@ Biblioteki, które były zawarte w~ramach projektu, to:
 \item \_ggss - aplikacja ggssrunner, która odpowiada za człon projektu, jest to główny program wykonywalny
 \item \_dimCS - aplikacja odpowiedzialna za wysyłanie komend, za pomocą technologii \textit{DIM}
 \item \_ggssspector - aplikacja, której zadaniem zapisywanie parametrów pracy, np.: ustawione napięcie, odczytane napięcie, ciśnienie itp
-\item caen\_n957 - aplikacja odpowiadająca za testowanie poprawności działania Analizatora Wielokanałowego oraz jego sterowników
+\item caen\_n957 - aplikacja odpowiadająca za testowanie poprawności działania analizatora wielokanałowego oraz jego sterowników
 \end{itemize}
 
 \par Oprócz opisanych wcześniej katalogów występowały również:
@@ -52,7 +52,7 @@ Biblioteki, które były zawarte w~ramach projektu, to:
 \par Dodatkowo projekt wykorzystywał następujące biblioteki zewnętrzne:
 \begin{itemize}
 \item Boost - biblioteka C++ ogólnego przeznaczenia
-\item GSL (GNU Scietific Library) - biblioteka numeryczna dla języka C oraz C++
+\item GSL (GNU Scientific Library) - biblioteka numeryczna dla języka C oraz C++
 \item DIM - biblioteka wspierająca komunikacja protokołem \textit{DIM}
 \item QT oraz QWT - biblioteki wykorzystywane w~ramach modułu GGSS Spector
 \end{itemize}
@@ -60,9 +60,9 @@ W ramach projektu został również przygotowany panel informacyjno-administracy
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/highLevelArch}
 \caption{Wysokopoziomowa architektura projektu GGSS}
 \label{fig:highLevelArch}
-\includegraphics[width=\textwidth]{res/highLevelArch}
 \end{figure}
 
 W ramach architektury projektu utworzone zostały również pliki \textbf{CMake}, które służyły jako szablon akcji wykorzystywanych wielokrotnie w~pozostałych miejscach, np.: wyszukiwanie odpowiedniej biblioteki.\par 
@@ -203,9 +203,9 @@ Pierwszym krokiem było utworzenie grupy, o~odpowiedniej nazwie (\textbf{atlas-t
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/png/memberManagementPanel}
 \caption{Panel zarządzania członkami zespołu na portalu GitLab}
 \label{fig:memMan}
-\includegraphics[width=\textwidth]{res/png/memberManagementPanel}
 \end{figure}
 
 
@@ -231,9 +231,9 @@ Określenie wydajności pracownika wymaga zastosowania techniki nazywanej sprzę
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/png/newIssue}
 \caption{Formularz tworzenia \textbf{issue} na portalu GitLab}
 \label{fig:newIssue}
-\includegraphics[width=\textwidth]{res/png/newIssue}
 \end{figure}
 
 W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablonów w~języku \textbf{Markdown} i~umieszczenie ich w~odpowiednim repozytorium, natomiast funkcjonalność ta nie została wykorzystana w~trakcie realizacji projektu
@@ -246,8 +246,8 @@ Ważną kwestią dotyczącą \textbf{issues} jest również możliwość śledze
 
 \begin{figure}[H]
 \centering
-\caption{Historia zmian \textbf{issue} na portalu GitLab}
 \includegraphics[width=\textwidth]{res/png/issueOngoing}
+\caption{Historia zmian \textbf{issue} na portalu GitLab}
 \end{figure}
 
 \newpage
@@ -256,17 +256,17 @@ Kolejną ważną funkcjonalnością portalu GitLab wykorzystywaną w~ramach proj
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/png/kanban}
 \caption{Tablica Kanban dla grupy na portalu GitLab}
 \label{fig:kanban}
-\includegraphics[width=\textwidth]{res/png/kanban}
 \end{figure}
 
-Portal GitLab zapewnia również funkcjonalność, która wspiera wykonywanie operacji \textbf{merge} w~ramach technologii \textbf{Git}. Udostępniony jest specjalny widok, który pozwala na połączenie dwóch dowolnych gałęzi, które zostały wcześniej przekazane na platformę. Po wybraniu i~zatwierdzeniu docelowych gałęzi zostaje utworzony \textbf{merge request}, którego zadaniem jest udostępnienie interfejsu zarządzania operacją \textbf{merge} oraz , podobnie jak w~przypadku \textbf{issue}, śledzenie zmian dokonywanych w~trakcie trwania \textbf{merge request}. W~celu wykonania złączenia gałęzi należy taką operację zatwierdzić w~panelu \textbf{merge request} oraz wykonać ją za pomocą specjalnego przycisku \textbf{merge}. Dopiero wtedy zostanie wykonane faktyczne złączenie.\par
+Portal GitLab zapewnia również funkcjonalność, która wspiera wykonywanie operacji \textbf{merge} w~ramach technologii \textbf{Git}. Udostępniony jest specjalny widok, który pozwala na połączenie dwóch dowolnych gałęzi, które zostały wcześniej przekazane na platformę. Po wybraniu i~zatwierdzeniu docelowych gałęzi zostaje utworzony \textbf{merge request}, którego zadaniem jest udostępnienie interfejsu zarządzania operacją \textbf{merge} oraz, podobnie jak w~przypadku \textbf{issue}, śledzenie zmian dokonywanych w~trakcie trwania \textbf{merge request}. W~celu wykonania złączenia gałęzi należy taką operację zatwierdzić w~panelu \textbf{merge request} oraz wykonać ją za pomocą specjalnego przycisku \textbf{merge}. Dopiero wtedy zostanie wykonane faktyczne złączenie.\par
 
 \begin{figure}[H]
 \centering
-\caption{Tworzenie nowego \textbf{merge request}}
 \includegraphics[width=\textwidth]{res/png/newMergeRequest}
+\caption{Tworzenie nowego \textbf{merge request}}
 \end{figure}
 
 Rysunek \ref{fig:mergeRequestPanel} przedstawia panel tworzenia nowego \textbf{merge request}. Możemy w~nim zdefiniować takie parametry, jak:
@@ -281,8 +281,8 @@ Rysunek \ref{fig:mergeRequestPanel} przedstawia panel tworzenia nowego \textbf{m
 
 \begin{figure}
 \centering
-\caption{Panel tworzonego \textbf{merge request}}
 \includegraphics[width=\textwidth]{res/png/panelMergeRequest}
+\caption{Panel tworzonego \textbf{merge request}}
 \label{fig:mergeRequestPanel}
 \end{figure}
 
@@ -313,8 +313,8 @@ Początkowo planowane było utworzenie osobnego repozytorium dla każdej bibliot
 
 \begin{figure}
 \centering
-\caption{Nowa architektura projektu}
 \includegraphics[width=1.5\textwidth]{res/topLevelArchitecture}
+\caption{Nowa architektura projektu}
 \label{fig:topLevArch}
 \end{figure}
 
@@ -349,10 +349,10 @@ Dla nazewnictwa repozytoriów przyjęto następującą konwencję: słowa pisane
 \item \textbf{ggss-runner} (\_ggss)
 \item \textbf{ggss-dim-cs} (\_dimCs)
 \item \color{orangei} \textbf{external-dim-lib} \color{black} - repozytorium odpowiedzialne za przechowywanie archiwum biblioteki \textbf{DIM}, dodatkowo zawiera skrypty obsługujące proces jej budowania
-\item \color{orangei} \textbf{external-n957-lib} \color{black} - repozytorium zawiera pliki biblioteki dostarczanej przez firmę \textbf{CAEN} w~celu obsługi Analizatora Wielokanałowego N957
+\item \color{orangei} \textbf{external-n957-lib} \color{black} - repozytorium zawiera pliki biblioteki dostarczanej przez firmę \textbf{CAEN} w~celu obsługi analizatora wielokanałowego N957
 \item \color{orangei} \textbf{ggss-oper} \color{black} - zawiera skrypty pomocnicze projektu \textbf{GGSS} oraz skrypt odpowiednio je rozmieszczający w~środowisku docelowym
 \item \textbf{mca-n957} (caen\_n957)
-\item \color{orangei} \textbf{external-caen-n957-demo} \color{black} - repozytorium zawierające aplikację dostarczaną przez firmę \textbf{CAEN} w~celu testowania poprawności działania Analizatora Wielokanałowego
+\item \color{orangei} \textbf{external-caen-n957-demo} \color{black} - repozytorium zawierające aplikację dostarczaną przez firmę \textbf{CAEN} w~celu testowania poprawności działania analizatora wielokanałowego
 \item \textbf{ggss-driver} (ggss-driver)
 \item \color{orangei} \textbf{ggss-all} \color{black} - repozytorium zawierające wszystkie aplikacje zawarte w~ramach projektu \textbf{GGSS} oraz skrypty obsługujące budowę całości
 \item \color{orangei} \textbf{aux} \color{black} - repozytorium zawierające elementy związane z~projektem \textbf{GGSS}, ale nie związane z~kodem źródłowym, np.: szablon \textit{.gitlab-ci.yml}, szablon \textit{Dockerfile}.
@@ -362,7 +362,7 @@ W celu utworzenia wyżej opisanej struktury zależności została wykorzystana f
 
 Pierwszym podejściem jakie autorzy chcieli zastosować jest wykorzystanie funkcjonalności flagi \textit{remote}, która pomija sprawdzanie wersji zależności przypisanej za pomocą \textbf{submodułu}, a~zamiast tego pobierana jest zawsze najnowsza wersja. Pozwalałoby to na porzucenie konieczności czasochłonnego aktualizowania dowiązań. 
 
-Drugim, klasycznym podejściem jest pozostawanie przy wersjach "dowiązanych". Wymaga to dodatkowego nakładu pracy w~utrzymaniu aktualnych zależności, natomiast pozwala na "zamrożenie" stabilnej wersji produktu.
+Drugim, klasycznym podejściem jest pozostawanie przy wersjach ,,dowiązanych''. Wymaga to dodatkowego nakładu pracy w~utrzymaniu aktualnych zależności, natomiast pozwala na ,,zamrożenie'' stabilnej wersji produktu.
 
 Ze względu na potrzebę ciągłej sprawności systemu zostało wybrane drugie, stabilne rozwiązanie. Pozwala ono na zachowanie informacji o~wersjach zależności, z~którymi komponent działał poprawnie. Oba podejścia zostały w~prosty sposób ukazane na Rysunku \ref{fig:subRem}.
 
@@ -370,8 +370,8 @@ Ze względu na wielokrotne zagnieżdżenia \textbf{submodułów} w~projekcie zas
 
 \begin{figure}[H]
 \centering
-\caption{Sposób działania \textbf{submodułów}: klasyczny oraz z~flagą \textit{remote}}
 \includegraphics[width=\textwidth]{res/submoduleRemote}
+\caption{Sposób działania \textbf{submodułów}: klasyczny oraz z~flagą \textit{remote}}
 \label{fig:subRem}
 \end{figure}
 
@@ -464,9 +464,9 @@ Plik \textbf{BuildDependencies.cmake} (listing \ref{lst:builddependenciescmake})
 
 \begin{figure}
 \centering
+\includegraphics[width=\textwidth]{res/CMakeOrder.pdf}
 \caption{Działanie przygotowanego systemu budującego (przykład dla biblioteki \textit{caenhv}). Przetwarzanie zależności w~projekcie przypomina przetwarzanie struktury drzewa. Dany moduł dołącza do procesu budowania swoje pod-moduły, które następnie powtarzają tą czynność itd. Widoczna numeracja obrazuje przykładową kolejność przetwarzania zależności przez narzędzie \textit{CMake} (nie należy jej mylić z~kolejnością budowania). Widoczny jest również fakt nieprzetwarzania ponownie raz dołączonych do projektu modułów.}
 \label{fig:cmakeorder}
-\includegraphics[width=\textwidth]{res/CMakeOrder.pdf}
 \end{figure}
 
 
@@ -614,9 +614,9 @@ Proces budowania biblioteki DIM jako części nadrzędnego projektu (czyli za po
 
 \begin{figure}
 \centering
+\includegraphics[height=0.9\textheight]{res/DIMAlgo.pdf}
 \caption{Algorytm budowania biblioteki DIM jako części nadrzędnego projektu}
 \label{fig:dimalgo}
-\includegraphics[height=0.9\textheight]{res/DIMAlgo.pdf}
 \end{figure}
 
 
@@ -716,9 +716,9 @@ Ważną częścią wykonanych prac było przygotowanie środowiska pozwalająceg
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/CICD.pdf}
 \caption{Przykładowy schemat działania podejścia \textit{Continous Integration / Continous Delivery}. Należy zwrócić uwagę, że w~zastosowaniu praktycznym kolejność oraz liczba etapów może być różna od widocznej}
 \label{fig:cicd}
-\includegraphics[width=\textwidth]{res/CICD.pdf}
 \end{figure}
 
 W kontekście systemu GGSS podejście to jest pożądane, z~uwagi na konieczność zachowania poprawności działania systemu pomimo zmian (które aktualnie mają miejsce) w~strukturze jego oprogramowania. Głównym celem jego zastosowania było ułatwienie autorom pracy działania jako zespół. Miało również znacząco przyspieszyć proces testowania aplikacji w~środowisku produkcyjnym poprzez automatyczne tworzenie paczki z~odpowiednią wersją oprogramowania.
@@ -738,9 +738,9 @@ Przed przystąpieniem do opisu sposobu zastosowania narzędzia GitLab CI/CD w~pr
 
 \begin{figure}
 \centering
+\includegraphics[width=\textwidth]{res/Pipeline.pdf}
 \caption{Idea działania \textit{pipeline}. Kolorem czerwonym oznaczone zostały poszczególne etapy (\textit{stages}), natomiast zadania (\textit{jobs}) przedstawione zostały za pomocą ciemnoniebieskich prostokątów. Rysunek przedstawia przykładową strukturę, liczba etapów i~zadań różni się zwykle od pokazanej.}
 \label{fig:pipeline}
-\includegraphics[width=\textwidth]{res/Pipeline.pdf}
 \end{figure}
 
 Wynikiem każdego z~zadań może być tzw. \textbf{artefakt}, czyli możliwe do pobrania archiwum zawierające np. plik wykonywalny z~produktem. Artefakty mogą być również przekazywane między poszczególnymi etapami procesu. 
@@ -826,9 +826,9 @@ Konfiguracja stworzona na potrzeby repozytorium \textit{external-dim-lib} różn
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/png/pipelineDIM}
 \caption{\textit{Pipeline} wygenerowany na potrzeby repozytorium \textit{external-dim-lib}}
 \label{fig:pipelineDIM}
-\includegraphics[width=\textwidth]{res/png/pipelineDIM}
 \end{figure}
 
 Podobnego typu prace zostały wykonane dla większości pozostałych repozytoriów. Z~uwagi na ich powtarzalny charakter nie zostaną one jednak omówione w~niniejszym manuskrypcie. 
@@ -847,9 +847,9 @@ variables:
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=\textwidth]{res/SubmodulesProblem}
 \caption{Uproszczona (ograniczona do jednej gałęzi na repozytorium) ilustracja problemu dotyczącego pobieranej przez mechanizm CI/CD wersji submodułu. Problem polega na podjęciu decyzji, czy powinna zostać pobrana wersja najnowsza (tutaj oznaczona jako \textit{commit\_D}) czy ta aktualnie powiązana z~repozytorium nadrzędnym (\textit{commit\_B})}
 \label{fig:submoduleProblem}
-\includegraphics[width=\textwidth]{res/SubmodulesProblem}
 \end{figure}
 
 \newpage
@@ -896,7 +896,7 @@ build:
 
 Ważną częścią pracy wykonanej przez autorów były zmiany w~systemie budowania i~dystrybucji pakietu \textbf{RPM} zawierającego pliki modułu \textbf{ggss-driver}, czyli:
 \begin{itemize}
-\item \textbf{CAENUSBdrvB.ko} - sterownik do Analizatora Wielokanałowego w~postaci modułu jądra systemu operacyjnego
+\item \textbf{CAENUSBdrvB.ko} - sterownik do analizatora wielokanałowego w~postaci modułu jądra systemu operacyjnego
 \item \textbf{10-CAEN-USB.rules} - zasady działania dla programu udev, ma na celu utworzenie dowiązania symbolicznego o~odpowiednich prawach dostępu w~momencie utworzenia urządzenia odpowiedzialnego za obsługę sterownika
 \item \textbf{99-GGSS.rules} - zasady działania dla programu udev, odpowiadają za utworzenie dowiązań symbolicznych w~momencie podłączenia urządzeń USB o~zadanych atrybutach.
 \item \textbf{CAEN-USB.modules} - plik odpowiedzialny za konfigurację aplikacji \textbf{modules} w~taki sposób, aby sterownik był ładowany automatycznie w~trakcie uruchamiania systemu operacyjnego
@@ -907,7 +907,7 @@ Ważną częścią pracy wykonanej przez autorów były zmiany w~systemie budowa
 Pierwszym krokiem wykonanym w~ramach modułu \textbf{ggss-driver} była zmiana logiki budowania w~celu zapewnienia usuwania plików pomocniczych tworzonych podczas tego procesu, aby zapewnić uporządkowane środowisko deweloperskie. Zostało to osiągnięte za pomocą dodania odpowiedniej właściwości folderowi, który zawierał niepotrzebne dłużej zasoby, w~ramach pliku \textit{CMakeLists.txt}. \par
 Kolejną ważną kwestią było uporządkowanie i~poprawienie niedociągnięć znajdujących się w~pierwotnej wersji pliku \textit{CMakeLists.txt}. W~ramach poprawionej logiki została dodana informacja o~wersji jądra systemu operacyjnego użytego w~celu kompilacji sterownika. Informację tą można wyświetlić za pomocą komendy \textbf{rpm} po zainstalowaniu pakietu w~celu sprawdzenia, czy wersja jądra systemu, za pomocą której został utworzony sterownik, jest zgodna z~wersją jądra na systemie docelowym. Jest to bardzo ważna funkcjonalność ze względu na to, że różnice nawet w~wersji \textbf{minor} potrafią powodować błędy w~działaniu lub kompletnie uniemożliwiać działanie sterownika.
 
-Kolejną poprawką wprowadzoną do pliku \textit{CMakeLists.txt} było generowanie skryptów obsługujących pakiet \textbf{RPM} bezpośrednio do pakietu, a~nie jak to miało miejsce wcześniej, czyli zapisywanych do pliku na dysku twardym, a~dopiero następnie wprowadzanych do pakietu. Dodatkowo logika samych skryptów uległa poprawie, pozbyto się nadmiarowego usuwania plików, które było wykonywane automatycznie przez menadżera pakietów. W~ramach pakietu dodano również bibliotekę \textbf{libCAENN957}, która jest dostarczana przez firmę \textbf{CAEN} i~ma na celu udostępnienie \textbf{API} do obsługi Analizatora Wielokanałowego. Została ona dodana jako wymagany komponent całego pakietu, w~przypadku braku odnalezienia biblioteki proces budowania nie powiedzie się. Repozytorium ją zawierające zostało dodane jako \textbf{submoduł} repozytorium \textbf{ggss-driver}. W~celu zapewnienia odpowiedniej obsługi biblioteki w~systemie docelowym generowany jest plik konfiguracyjny programu \textbf{ld} zawierający ścieżkę instalacyjną biblioteki. W~ramach logiki instalacyjnej program \textbf{ld} jest odświeżany, tak, aby ścieżka z~pliku została zarejestrowana. W~celu poprawnego linkowania biblioteki tworzone jest dowiązanie symboliczne, które nie zawiera numeru wersji w~nazwie (libCAENN957.so -> libCAENN957.so.1.6).
+Kolejną poprawką wprowadzoną do pliku \textit{CMakeLists.txt} było generowanie skryptów obsługujących pakiet \textbf{RPM} bezpośrednio do pakietu, a~nie jak to miało miejsce wcześniej, czyli zapisywanych do pliku na dysku twardym, a~dopiero następnie wprowadzanych do pakietu. Dodatkowo logika samych skryptów uległa poprawie, pozbyto się nadmiarowego usuwania plików, które było wykonywane automatycznie przez menadżera pakietów. W~ramach pakietu dodano również bibliotekę \textbf{libCAENN957}, która jest dostarczana przez firmę \textbf{CAEN} i~ma na celu udostępnienie \textbf{API} do obsługi analizatora wielokanałowego. Została ona dodana jako wymagany komponent całego pakietu, w~przypadku braku odnalezienia biblioteki proces budowania nie powiedzie się. Repozytorium ją zawierające zostało dodane jako \textbf{submoduł} repozytorium \textbf{ggss-driver}. W~celu zapewnienia odpowiedniej obsługi biblioteki w~systemie docelowym generowany jest plik konfiguracyjny programu \textbf{ld} zawierający ścieżkę instalacyjną biblioteki. W~ramach logiki instalacyjnej program \textbf{ld} jest odświeżany, tak, aby ścieżka z~pliku została zarejestrowana. W~celu poprawnego linkowania biblioteki tworzone jest dowiązanie symboliczne, które nie zawiera numeru wersji w~nazwie (libCAENN957.so -> libCAENN957.so.1.6).
 
 Bardzo ważnym aspektem było wprowadzenie obsługi systemu aktualizacja pakietów. W~celu zaktualizowania obecnie zainstalowanego pakietu do nowszej wersji wykonywana jest logika instalacyjna nowego pakietu oraz logika dezinstalacyjna starego pakietu w~następującej kolejności:
 \begin{itemize}
@@ -920,7 +920,7 @@ Bardzo ważnym aspektem było wprowadzenie obsługi systemu aktualizacja pakiet�
 \end{itemize}
 
 
-Ze względu na to, że w~ramach logiki instalacyjnej ładowany jest moduł jądra systemu operacyjnego, a~w~ramach logiki dezinstalacyjnej jest on usuwany wymagane było przeniesienie logiki dezinstalacyjnej starego pakietu przed logikę instalacyjną nowego pakietu, tak, aby po procesie aktualizacji moduł był nadal załadowany. Niestety ww. przebieg procesu aktualizacji uniemożliwiał wykonanie tego w~prosty sposób, ze względu na to, że żadna część logiki nowego pakietu nie jest wykonywana na koniec, dzięki czemu moglibyśmy załadować moduł jądra. W~celu rozwiązania tego problemu, została wykorzystana właściwość parametru textbf{\$1} w~ramach logiki pakietów \textbf{RPM}, czyli:
+Ze względu na to, że w~ramach logiki instalacyjnej ładowany jest moduł jądra systemu operacyjnego, a~w~ramach logiki dezinstalacyjnej jest on usuwany wymagane było przeniesienie logiki dezinstalacyjnej starego pakietu przed logikę instalacyjną nowego pakietu, tak, aby po procesie aktualizacji moduł był nadal załadowany. Niestety ww. przebieg procesu aktualizacji uniemożliwiał wykonanie tego w~prosty sposób, ze względu na to, że żadna część logiki nowego pakietu nie jest wykonywana na koniec, dzięki czemu moglibyśmy załadować moduł jądra. W~celu rozwiązania tego problemu, została wykorzystana właściwość parametru \textbf{\$1} w~ramach logiki pakietów \textbf{RPM}, czyli:
 \begin{itemize}
 \item W~przypadku procesu instalacyjnego, gdy argument \textbf{\$1} przyjmuje wartość \textit{1} oznacza to, że przeprowadzana jest czysta instalacja, natomiast, gdy argument przyjmuje wartość \textit{2} przeprowadzana jest aktualizacja
 \item W~przypadku procesu dezinstalacyjnego, gdy argument \textbf{\$1} przyjmuje wartość \textit{0} oznacza to, że przeprowadza jest dezinstalacja, natomiast, gdy argument przyjmuje wartość \textit{1} przeprowadzana jest aktualizacja
@@ -955,7 +955,7 @@ Ze względu na to, że miejscem docelowym plików, instalowanych przez pakiet, s
 
 Każda zmiana w~pakiecie \textbf{RPM} projektu \textbf{ggss-driver} jest odpowiednio wersjonowana, dla każdej z~nich jest budowany nowy pakiet w~ramach funkcjonalności GitLab CI/CD, który jest udostępniany jako artefakt do pobrania.
 
-W ramach projektu \textbf{GGSS} dystrybuowana jest również aplikacja \textbf{mcaN957} służąca do testowania poprawności działania Analizatora Wielokanałowego. Dostarczana jest ona w~postaci pakietu RPM, do instalacji którego wymagana jest wcześniejsza instalacja pakietu \textbf{ggss-driver}.
+W ramach projektu \textbf{GGSS} dystrybuowana jest również aplikacja \textbf{mcaN957} służąca do testowania poprawności działania analizatora wielokanałowego. Dostarczana jest ona w~postaci pakietu RPM, do instalacji którego wymagana jest wcześniejsza instalacja pakietu \textbf{ggss-driver}.
 
 Utworzony został również pakiet zawierający aplikację \textbf{CAEN-N957-DEMO}, która również służy do testowania poprawności działania ww. urządzenia, natomiast jest ona tworzona przez firmę \textbf{CAEN}. Również ten pakiet wymaga ówczesnej instalacji pakietu \textbf{ggss-driver}.
 
@@ -974,9 +974,9 @@ Ze względu na ograniczone zasoby dostępne w~ramach usługi \textbf{Cern Openst
 
 \begin{figure}[H]
 \centering
+\includegraphics[width=0.6\textwidth]{res/buildComp}
 \caption{Porównanie architektury dla \textbf{ggss-driver} oraz pozostałych repozytoriów}
 \label{fig:buildComp}
-\includegraphics[width=0.6\textwidth]{res/buildComp}
 \end{figure}
 
 \newpage
@@ -1028,9 +1028,9 @@ Przykład listy:
 
 \begin{figure}
 \centering
+\includegraphics[width=\textwidth]{res/MarkdownExample}
 \caption{Przykład zawartości wygenerowanej w~portalu \textit{GitLab} za pomocą języka \textbf{Markdown} na podstawie kodu z~listingu \ref{lst:mdexample}}
 \label{fig:markdownExample}
-\includegraphics[width=\textwidth]{res/MarkdownExample}
 \end{figure}
 
 \newpage
@@ -1047,9 +1047,9 @@ Rys. \ref{fig:markdownHardware} przedstawia fragment zawartości wygenerowanej z
 
 \begin{figure}
 \centering
+\includegraphics[width=\textwidth]{res/HardwareLibs}
 \caption{Fragment instrukcji budowania zestawu bibliotek znajdujących się w~repozytorium \textit{ggss-hardware-libs}}
 \label{fig:markdownHardware}
-\includegraphics[width=\textwidth]{res/HardwareLibs}
 \end{figure}
 
 Oprócz plików \textit{.md} przygotowane zostały również dwa dokumenty opisujące ważne, zdaniem autorów, aspekty utrzymania i~rozwoju projektu GGSS. Dokumenty te zostały dołączone do niniejszej pracy w~formie dodatków (\ref{appendix:A2} oraz \ref{appendix:A3}). Dotyczą one rozszerzania projektu o~nowe moduły (dodatek \ref{appendix:A2} - \textit{Adding modules to the project using existing CMake
@@ -1060,11 +1060,11 @@ templates}) oraz przygotowywania maszyny wirtualnej do pracy jako \textit{runner
 Niniejsza część pracy zawiera opis dwóch problemów niezwiązanych bezpośrednio z~omówionymi dotychczas pracami. W~obu przypadkach ich cechą charakterystyczną było krótkie, jeśli chodzi o~ilość kodu, rozwiązanie, które wymagało jednak od autorów poświęcenia znacznej ilości czasu na zdobycie odpowiedniej wiedzy lub znalezienie źródła powstałego utrudnienia. Ze względu na fakt, iż rozwiązanie tych problemów było niezbędne, by projekt mógł działać poprawnie, autorzy zdecydowali się poświęcić im osobną sekcję niniejszego manuskryptu.
 
 \subsection{Integracja bibliotek napisanych w~języku C z~aplikacją w~C++}
-Biblioteka zawarta w~ramach repozytorium \textbf{external-n957-lib} napisana została w~języku C, co utrudnia poprawne wykorzystanie jej w~projekcie opartym na języku C++. Wynika to ze sposobu działania symboli w~języku C++. Ze względu na istniejące w~nim mechanizmy takie jak: przeładowanie funkcji oraz szablony, są one dekorowane w~celu przechowywania dodatkowych, koniecznych informacji. Zachowanie to jest niezgodne z~zachowaniem w~języku C, gdzie taki mechanizm nie występuje. Powoduje to konieczność specjalnego oznaczenia kodu napisanego w~języku C, a~wykorzystywanego w~języku C++ konstrukcją \textit{extern "{}C"}. W~przeciwnym wypadku, podczas linkowania programu, pojawi się błąd dotyczący niezdefiniowanych referencji do symboli.
+Biblioteka zawarta w~ramach repozytorium \textbf{external-n957-lib} napisana została w~języku C, co utrudnia poprawne wykorzystanie jej w~projekcie opartym na języku C++. Wynika to ze sposobu działania symboli w~języku C++. Ze względu na istniejące w~nim mechanizmy takie jak: przeładowanie funkcji oraz szablony, są one dekorowane w~celu przechowywania dodatkowych, koniecznych informacji. Zachowanie to jest niezgodne z~zachowaniem w~języku C, gdzie taki mechanizm nie występuje. Powoduje to konieczność specjalnego oznaczenia kodu napisanego w~języku C, a~wykorzystywanego w~języku C++ konstrukcją \lstinline[language=c++]{extern "C"}. W~przeciwnym wypadku, podczas linkowania programu, pojawi się błąd dotyczący niezdefiniowanych referencji do symboli.
 
-W początkowej wersji projektu problem ten został rozwiązany poprzez dodanie wyżej wymienionej konstrukcji w~plikach nagłówkowych zewnętrznej biblioteki, co po jej aktualizacji spowodowało zaprzestanie poprawnego budowania się projektu \textbf{GGSS}. Poprawa tego błędu polegała na wykorzystaniu \textit{extern "{}C"} w~miejscu występowania dyrektywy \textit{include} dołączającej wyżej wspomniane pliki nagłówkowe biblioteki, co ilustruje listing \ref{lst:externCC}.
+W początkowej wersji projektu problem ten został rozwiązany poprzez dodanie wyżej wymienionej konstrukcji w~plikach nagłówkowych zewnętrznej biblioteki, co po jej aktualizacji spowodowało zaprzestanie poprawnego budowania się projektu \textbf{GGSS}. Poprawa tego błędu polegała na wykorzystaniu \lstinline[language=c++]{extern "C"} w~miejscu występowania dyrektywy \textit{include} dołączającej wyżej wspomniane pliki nagłówkowe biblioteki, co ilustruje listing \ref{lst:externCC}.
 
-\begin{lstlisting}[language=c++, caption={Wykorzystanie konstrukcji \textit{extern "{}C"} w~celu integracji biblioteki napisanej w~języku C z~komponentem \textbf{mca-lib}}, label={lst:externCC}]
+\begin{lstlisting}[language=c++, caption={Wykorzystanie konstrukcji \lstinline{extern "C"} w~celu integracji biblioteki napisanej w~języku C z~komponentem \textbf{mca-lib}}, label={lst:externCC}]
 extern "C"{ 
     #include <mca/N957Lib.h>
 }
