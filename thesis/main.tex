@@ -203,7 +203,7 @@ Niniejszy rozdział zawiera opis wykonanych przez autorów prac w~ramach projekt
 
 Ze względu na zespołowy charakter pracy bardzo ważną częścią było planowanie oraz zarządzanie projektem. W~celu usprawnienia tego procesu autorzy wykorzystali funkcjonalności dostarczane w~ramach portalu GitLab oraz dobre praktyki programistyczne.
 
-Pierwszym krokiem było utworzenie grupy, o~odpowiedniej nazwie (\textbf{atlas-trt-dcs-ggss}) definiującej projekt, na portalu GitLab udostępnianego w~ramach infrastruktury CERN. Oprócz oczywistej zalety w~postaci identyfikacji przynależności oraz odpowiedzialności za repozytoria zawarte w~ramach takiej grupy dodatkowym atutem jest możliwość wykorzystania systemu rang, w~celu przyznawania odpowiednich uprawnień. Rysunek \ref{fig:memMan} przedstawia panel zarządzania członkami zespołu, widoczne jest pole odpowiedzialne za dodawanie zarejestrowanych w~systemie osób do grupy. W~trakcie dodawania możemy również wybrać jeden z~zdefiniowanych zestawów uprawnień w~postaci rangi (Guest, Reporter, Developer, Maintainer, Owner) oraz datę automatycznego wygaśnięcia członkostwa. Pełny opis uprawnień powiązanych z~rangą dostępny jest w~oficjalnej dokumentacji portalu GitLab \cite{GitLabPermissions}. Poniżej formularza odpowiedzialnego za dodawanie nowych osób do grupy widoczny jest również spis obecnych członków, czas który upłynął od ich dołączenia, ranga, czy też pola oraz przyciski odpowiedzialne za modyfikację ich obecnego statusu w~zespole.
+Pierwszym krokiem było utworzenie grupy, o~odpowiedniej nazwie (\textbf{atlas-trt-dcs-ggss}) definiującej projekt, na portalu GitLab udostępnianym w~ramach infrastruktury CERN. Oprócz oczywistej zalety w~postaci identyfikacji przynależności oraz odpowiedzialności za repozytoria zawarte w~ramach takiej grupy dodatkowym atutem jest możliwość wykorzystania systemu rang, w~celu przyznawania odpowiednich uprawnień. Rysunek \ref{fig:memMan} przedstawia panel zarządzania członkami zespołu, na którym widoczne jest pole odpowiedzialne za dodawanie do grupy zarejestrowanych w~systemie osób. W~trakcie dodawania można również wybrać jeden ze zdefiniowanych zestawów uprawnień w~postaci rangi (\textit{Guest}, \textit{Reporter}, \textit{Developer}, \textit{Maintainer}, \textit{Owner}) oraz datę automatycznego wygaśnięcia członkostwa. Pełny opis uprawnień powiązanych z~rangą dostępny jest w~ramach oficjalnej dokumentacji portalu GitLab \cite{GitLabPermissions}. Poniżej formularza odpowiedzialnego za dodawanie nowych osób do grupy widoczny jest również spis obecnych członków, czas który upłynął od ich dołączenia, ranga, czy też pola oraz przyciski odpowiedzialne za modyfikację ich obecnego statusu w~zespole.
 
 \begin{figure}[H]
 \centering
@@ -213,80 +213,85 @@ Pierwszym krokiem było utworzenie grupy, o~odpowiedniej nazwie (\textbf{atlas-t
 \end{figure}
 
 
-Podstawowym problemem do rozwiązania w~trakcie pracy grupowej jest odpowiedni podział zadań ze względu na ilość oraz trudność. Wykorzystane w~tym celu zostały \textbf{issues} (problemy, zagadnienia). Są one podstawową funkcjonalnością wykorzystywaną do współpracy, planowania, czy też przedstawiania swoich pomysłów lub problemów.
+Podstawowym problemem do rozwiązania w~trakcie pracy grupowej jest odpowiedni podział zadań ze względu na ilość oraz trudność. Wykorzystane w~tym celu zostały \textit{\textbf{issues}} (problemy, zagadnienia). Są one podstawową funkcjonalnością wykorzystywaną do współpracy, planowania, czy też przedstawiania swoich pomysłów lub problemów.
 
-W ramach \textbf{issue} jesteśmy w~stanie precyzyjnie opisać problem, czy też zadanie. Zawdzięczamy to mnogością możliwych do wypełnienia pól, dzięki czemu zarządzanie projektem jest znacznie ułatwione.Na Rysunku \ref{fig:newIssue} widnieje panel w~ramach którego jesteśmy z~stanie zdefiniować:
+W ramach \textit{issue} możliwe jest precyzyjne opisanie problemu czy też zadania. Pozwala na to mnogość możliwych do wypełnienia pól, dzięki czemu zarządzanie projektem jest znacznie ułatwione. Na rysunku \ref{fig:newIssue} widnieje panel pozwalający zdefiniować:
 \begin{itemize}
-\item \textbf{Tytuł} (Title) - krótki opis słowny zawartości
-\item \textbf{Opis} (Description) - pełny opis problemu, zadania, czy też pomysłu, który jest poruszany w~ramach \textbf{issue}
-\item \textbf{Osoba odpowiedzialna} (Assignee) - główna osoba koordynująca lub wykonująca zadanie
-\item \textbf{Termin} (Due date) - data do której należy zamknąć \textbf{issue}, czyli wykonać wszystkie, wymagane w~ramach zadania, akcje
-\item \textbf{Kamień milowy} (Milestone) - pole wynikające z~zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w~stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w~ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powinien zawierać informacje nt. tegoż celu.
-\item \textbf{Etykieta} (Label) - służy przypisaniu do zdania atrybutu. W~przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (Ongoing, To Do), powodu niewykonania zadania (Blocked, Duplicate) oraz oznaczenie zadań z~wysokim priorytetem (Urgent). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwość filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{Kanban Board} (tablica Kanban).
-\item \textbf{Waga} (Weight) - jest to wartość definiująca trudność zadania oraz wymaganą ilość pracy na jego wykonanie. Wartość ta nie jest bezpośrednio przekładana na czas, wymaga ona interpretacji pod względem przypisanej osoby. Dokładniejsze wytłumaczenie zostanie ukazane na przykładzie.
+\item \textbf{Tytuł} (ang. \textit{Title}) - krótki opis słowny zawartości
+\item \textbf{Opis} (ang. ang. \textit{Description}) - pełny opis problemu, zadania, czy też pomysłu, który jest poruszany w~ramach \textit{issue}
+\item \textbf{Osoba odpowiedzialna} (ang. \textit{Assignee}) - główna osoba koordynująca lub wykonująca zadanie
+\item \textbf{Termin} (ang. \textit{Due date}) - data do której należy zamknąć \textit{issue}, czyli wykonać wszystkie, wymagane w~ramach zadania, akcje
+\item \textbf{Kamień milowy} (ang. \textit{Milestone}) - pole wynikające z~zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w~stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w~ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powinien zawierać informacje nt. tegoż celu.
+\item \textbf{Etykieta} (ang. \textit{Label}) - służy przypisaniu do zdania atrybutu. W~przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (\textit{Ongoing}, \textit{To Do}), powodu niewykonania zadania (\textit{Blocked}, \textit{Duplicate}) oraz oznaczenie zadań z~wysokim priorytetem (\textit{Urgent}). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwość filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{tablicy Kanban} (ang. \textit{Kanban Board}).
+\item \textbf{Waga} (ang. \textit{Weight}) - jest to wartość definiująca trudność zadania oraz wymaganą ilość pracy na jego wykonanie. Wartość ta nie jest bezpośrednio przekładana na czas, wymaga ona interpretacji pod względem przypisanej osoby. Dokładniejsze wytłumaczenie zostanie ukazane na przykładzie.
 \end{itemize}
 
-Poniższy przykład pokazuje wykorzystanie wagi \textbf{issue} w~celu oszacowania czasu potrzebnego na jego wykonanie.\par
+Poniższy przykład pokazuje wykorzystanie wagi \textit{issue} w~celu oszacowania czasu potrzebnego na jego wykonanie.\par
+
 Zakładając, że do dyspozycji jest dwóch pracowników, jeden doświadczony, który w~ciągu tygodnia jest w~stanie wykonać pracę o~równowartości wagowej 40, a~drugi niedoświadczony, który w~ciągu tygodnia wykonuję pracę o~równowartości wagowej 20. Aby przełożyć wagę zadania, która wynosi w~przykładzie 8, należy wziąć pod uwagę osobę, która zostanie do tego zadania przydzielona. Zakładając, że ww. pracownicy pracują na pełen etat, czyli 40 godzin tygodniowo, w~przypadku przydzielenia zadania osobie doświadczonej waga 8 przełoży się na 8 rzeczywistych godzin, natomiast w~przypadku osoby niedoświadczonej waga 8 przełoży się na 16 rzeczywistych godzin. \par
 
-Określenie wydajności pracownika wymaga zastosowania techniki nazywanej sprzężeniem zwrotnym. W~pierwszej kolejności zakładamy jakąś arbitralną wartość wydajności pracownika i~na podstawie tej wartości przydzielamy mu odpowiednią ilość zadań z~odpowiednimi wagami. Następnie cyklicznie weryfikujemy (np. co tydzień), czy pracownik jest w~stanie wykonać zadania o~określonej wadze w~danym cyklu. Po każdym cyklu odpowiednio modyfikujemy wartość wydajności pracownika, tak, aby była zbliżona do wartości wydajności osiągniętej za poprzedni okres. Aby zwiększyć poprawność wyznaczania wspomnianej wartości należy wziąć pod uwagę również wcześniejsze okresy, a~nie jedynie ostatni.\par
+Określenie wydajności pracownika wymaga zastosowania techniki nazywanej sprzężeniem zwrotnym. W~pierwszej kolejności zakłada się jakąś arbitralną wartość wydajności pracownika i~na podstawie tej wartości przydziela się mu odpowiednią ilość zadań z~odpowiednimi wagami. Następnie cyklicznie (np. co tydzień) weryfikuje się, czy pracownik jest w~stanie wykonać zadania o~określonej wadze w~danym cyklu. Po każdym cyklu odpowiednio modyfikuje się wartość wydajności pracownika, tak, aby była zbliżona do wartości wydajności osiągniętej za poprzedni okres. Aby zwiększyć poprawność wyznaczania wspomnianej wartości należy wziąć pod uwagę również wcześniejsze okresy, a~nie jedynie ostatni.\par
+
+W celu usprawnienia tworzenia \textit{issue} możliwe jest zdefiniowanie szablonów w~języku Markdown i~umieszczenie ich w~odpowiednim repozytorium, natomiast funkcjonalność ta nie została wykorzystana w~trakcie realizacji projektu.
 
 \newpage
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{res/png/newIssue}
-\caption{Formularz tworzenia \textbf{issue} na portalu GitLab}
+\caption{Formularz tworzenia \textit{issue} na portalu GitLab}
 \label{fig:newIssue}
 \end{figure}
 
-W celu usprawnienia tworzenia \textbf{issue} możliwe jest zdefiniowanie szablonów w~języku \textbf{Markdown} i~umieszczenie ich w~odpowiednim repozytorium, natomiast funkcjonalność ta nie została wykorzystana w~trakcie realizacji projektu
 
 \newpage
 
-Wszystkie prace wykonywane w~ramach projektu były rejestrowane na portalu GitLab w~ramach funkcjonalności \textbf{issues}. Posiadały one odpowiednio przypisane etykiety. Część zadań miała również przypisane wagi, na podstawie których były one odpowiednio przydzielane członkom zespołu. Zadania realizujące większy cel były grupowane w~ramach kamieni milowych.
+Wszystkie prace wykonywane w~ramach projektu były rejestrowane na portalu GitLab w~ramach funkcjonalności \textit{issues}. Posiadały one odpowiednio przypisane etykiety. Część zadań miała również przypisane wagi, na podstawie których były one odpowiednio przydzielane członkom zespołu. Zadania realizujące większy cel były grupowane w~ramach kamieni milowych.
 
-Ważną kwestią dotyczącą \textbf{issues} jest również możliwość śledzenia zmian zachodzących w~ramach nich, która była mocno wykorzystywana w~przypadku problematycznych zadań. Każde \textbf{issue} zapisuje historię zmian dotyczących jego parametrów, jak np. zmiana etykiety. W~ramach zadania można również dodawać komentarze opisujące aktualny stan. \textbf{Issue} na portalu GitLab są również zintegrowane z~wiadomościami definiowanymi w~ramach tworzenia nowej rewizji z~użyciem technologii \gls*{git}, dzięki czemu tworząc nową wersję jesteśmy w~stanie automatycznie zamknąć zadanie, lub dodać referencję do niego co skutkuje odpowiednim wpisem w~historii zadania.
+Ważną kwestią dotyczącą \textit{issues} jest również możliwość śledzenia zmian zachodzących w~ramach nich, która była mocno wykorzystywana w~przypadku problematycznych zadań. Każde \textit{issue} zapisuje historię zmian dotyczących jego parametrów, jak np. zmiana etykiety. W~ramach zadania można również dodawać komentarze opisujące aktualny stan. \textit{Issue} na portalu GitLab są również zintegrowane z~wiadomościami definiowanymi w~ramach tworzenia nowej rewizji z~użyciem technologii \gls*{git}, dzięki czemu tworząc nową wersję jesteśmy w~stanie automatycznie zamknąć zadanie, lub dodać referencję do niego co skutkuje odpowiednim wpisem w~historii zadania.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{res/png/issueOngoing}
-\caption{Historia zmian \textbf{issue} na portalu GitLab}
+\caption{Historia zmian \textit{issue} na portalu GitLab. Widoczna zmiana etykiety, dodanie opisu oraz zmiana statusu.}
 \end{figure}
 
 \newpage
 
-Kolejną ważną funkcjonalnością portalu GitLab wykorzystywaną w~ramach projektu był \textbf{Kanban Board}. Za jego pomocą można w~szybki oraz prosty sposób ocenić etap postępów w~projekcie. W~jednym widoku wyświetlane jest podsumowanie stanów zadań pogrupowanych według etykiet. Z~poziomu widoku tabli możliwa jest również zmiana status zadania za pomocą prostej techniki \textbf{drag and drop} (przeciągnij i~upuść). Każda wyświetlana etykieta posiada krótkie podsumowanie zadań, czyli ich ilość oraz sumę wag przypisanych do tych zadań. Dodatkowo dla każdego zadania wyświetlana jest nazwa repozytorium, w~ramach którego zadanie jest realizowane oraz osoby do niego przypisane, co widoczne jest na Rysunku \ref{fig:kanban}
+Kolejną ważną funkcjonalnością portalu GitLab wykorzystywaną w~ramach projektu był \textit{Kanban Board}. Za jego pomocą można w~szybki oraz prosty sposób ocenić etap postępów w~projekcie. W~jednym widoku wyświetlane jest podsumowanie stanów zadań pogrupowanych według etykiet. Z~poziomu widoku tabli możliwa jest również zmiana status zadania za pomocą prostej techniki ,,przeciąg i~upuść'' (ang \textit{drag and drop}). Każda wyświetlana etykieta posiada krótkie podsumowanie zadań, czyli ich ilość oraz sumę wag przypisanych do tych zadań. Dodatkowo dla każdego zadania wyświetlana jest nazwa repozytorium, w~ramach którego zadanie jest realizowane oraz osoby do niego przypisane, co widoczne jest na rysunku \ref{fig:kanban}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{res/png/kanban}
-\caption{Tablica Kanban dla grupy na portalu GitLab}
+\caption{Tablica Kanban dla grupy na portalu GitLab. Po lewej stronie widoczne podsumowanie dla zadań z etykietą \textit{TO DO}, natomiast po prawej - z etykietą \textit{Ongoing}.}
 \label{fig:kanban}
 \end{figure}
 
-Portal GitLab zapewnia również funkcjonalność, która wspiera wykonywanie operacji \textbf{merge} w~ramach technologii \gls*{git}. Udostępniony jest specjalny widok, który pozwala na połączenie dwóch dowolnych gałęzi, które zostały wcześniej przekazane na platformę. Po wybraniu i~zatwierdzeniu docelowych gałęzi zostaje utworzony \textbf{merge request}, którego zadaniem jest udostępnienie interfejsu zarządzania operacją \textbf{merge} oraz, podobnie jak w~przypadku \textbf{issue}, śledzenie zmian dokonywanych w~trakcie trwania \textbf{merge request}. W~celu wykonania złączenia gałęzi należy taką operację zatwierdzić w~panelu \textbf{merge request} oraz wykonać ją za pomocą specjalnego przycisku \textbf{merge}. Dopiero wtedy zostanie wykonane faktyczne złączenie.\par
+
+Portal GitLab zapewnia również funkcjonalność, która wspiera wykonywanie operacji \textit{\textbf{merge}} w~ramach technologii \gls*{git}. Udostępniony jest specjalny widok, który pozwala na połączenie dwóch dowolnych gałęzi, które zostały wcześniej przekazane na platformę. Po wybraniu i~zatwierdzeniu docelowych gałęzi zostaje utworzony \textit{\textbf{merge request}}, którego zadaniem jest udostępnienie interfejsu zarządzania operacją \textit{merge} oraz, podobnie jak w~przypadku \textit{issue}, śledzenie zmian dokonywanych w~trakcie trwania \textit{merge request}. W~celu wykonania złączenia gałęzi należy taką operację zatwierdzić w~panelu \textit{merge request} oraz wykonać ją za pomocą specjalnego przycisku \textit{merge}. Dopiero wtedy zostanie wykonane faktyczne złączenie.\par
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{res/png/newMergeRequest}
-\caption{Tworzenie nowego \textbf{merge request}}
+\caption{Tworzenie nowego \textit{merge request}. Po lewej stronie widoczny jest \textit{source branch}, czyli gałąź, która zostanie włączona do widocznej po stronie prawej \textit{target branch}.}
 \end{figure}
 
-Rysunek \ref{fig:mergeRequestPanel} przedstawia panel tworzenia nowego \textbf{merge request}. Możemy w~nim zdefiniować takie parametry, jak:
+\newpage
+
+Rysunek \ref{fig:mergeRequestPanel} przedstawia panel tworzenia nowego \textit{merge request}. Można w~nim zdefiniować takie parametry, jak:
 \begin{itemize}
-\item Tytuł (\textit{Title})
-\item Opis (\textit{Description})
-\item Osoba przypisana (\textit{Assignee}), czyli osoba, której zadaniem jest wykonanie operacji \textbf{merge} oraz rozwiązanie ewentualnych konfliktów
-\item Kamień milowy (\textit{Milestone})
-\item Etykiety (\textit{Labels})
-\item Zasady zatwierdzenia (\textit{Approval rules}) - tutaj definiuje się wymagania odnośnie zatwierdzenia przez członków zespołu poprawności wykonanych zmian. Jest to jedna z~praktyk dobrego programowania (\textit{code review}).
+\item \textbf{Tytuł} (ang. \textit{Title})
+\item \textbf{Opis} (ang. \textit{Description})
+\item \textbf{Osoba przypisana} (ang. \textit{Assignee}), czyli osoba, której zadaniem jest wykonanie operacji \textit{merge} oraz rozwiązanie ewentualnych konfliktów
+\item \textbf{Kamień milowy} (ang. \textit{Milestone})
+\item \textbf{Etykiety} (ang. \textit{Labels})
+\item \textbf{Zasady zatwierdzenia} (ang. \textit{Approval rules}) - tutaj definiuje się wymagania odnośnie zatwierdzenia przez członków zespołu poprawności wykonanych zmian. Jest to jedna z~praktyk dobrego programowania (\textit{code review}).
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{res/png/panelMergeRequest}
-\caption{Panel tworzonego \textbf{merge request}}
+\caption{Panel tworzonego \textit{merge request}}
 \label{fig:mergeRequestPanel}
 \end{figure}
 
@@ -302,7 +307,7 @@ W celu uzyskania jak najbardziej przejrzystej architektury autorzy nałożyli na
 \item struktura komponentów powinna zostać zhierarchizowana, czyli każdy komponent powinien zawierać strukturę katalogów oddających jego zależności
 \end{itemize}
 
-Pierwszym krokiem w~celu wykonania ww. celów było zdefiniowanie zależności dla każdego komponentu z~osobna. Na podstawie zależności została utworzona struktura drzewiasta, co ukazuje Rysunek \ref{fig:topLevArch}. Kolorem czerwonym zostały oznaczone repozytoria zawierające biblioteki zewnętrzne, kolorem niebieskim biblioteki utworzone w~ramach projektu \gls*{ggss}, kolorem żółtym aplikacje, kolorem fioletowym pakiety \gls*{rpm}, a~kolorem zielonym repozytoria pomocnicze.
+Pierwszym krokiem w~celu wykonania ww. celów było zdefiniowanie zależności dla każdego komponentu z~osobna. Na podstawie zależności została utworzona struktura drzewiasta, co ukazuje rysunek \ref{fig:topLevArch}. Kolorem czerwonym zostały oznaczone repozytoria zawierające biblioteki zewnętrzne, kolorem niebieskim biblioteki utworzone w~ramach projektu \gls*{ggss}, kolorem żółtym aplikacje, kolorem fioletowym pakiety \gls*{rpm}, a~kolorem zielonym repozytoria pomocnicze.
 
 Początkowo planowane było utworzenie osobnego repozytorium dla każdej biblioteki w~projekcie \gls*{ggss}, natomiast ze względu na dużą ilość bibliotek wewnętrznych zostały one pogrupowane według następujących kryteriów:
 \begin{itemize}
@@ -315,18 +320,20 @@ Początkowo planowane było utworzenie osobnego repozytorium dla każdej bibliot
 
 \begin{landscape}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[width=1.5\textwidth]{res/topLevelArchitecture}
-\caption{Nowa architektura projektu}
+\caption{Nowa, hierarchiczna architektura projektu. Strzałki wskazują zależności w projekcie. Grot strzałki pokazuje na moduł bazowy.}
 \label{fig:topLevArch}
 \end{figure}
 
 \end{landscape}
 
-Dla nazewnictwa repozytoriów przyjęto następującą konwencję: słowa pisane małymi literami rozdzielone znakiem pauzy. Repozytoria zawarte w~ramach projektu oraz ich odpowiedniki z~początkowej architektury przedstawione w~nawiasach, to (kolorem pomarańczowym oznaczono nowe komponenty w~architekturze):
+\newpage
+
+Dla nazewnictwa repozytoriów przyjęto następującą konwencję: słowa pisane małymi literami rozdzielone znakiem pauzy. Repozytoria zawarte w~ramach projektu oraz ich odpowiedniki z~początkowej architektury przedstawione w~nawiasach, to (kolorem pomarańczowym oznaczono nowe komponenty w~architekturze): 
 \begin{itemize}
-\item \color{orangei} \textbf{ggss-misc} \color{black} - zawiera szablony programu \gls*{cmake} oraz pliki nagłówkowe szeroko używane w~projekcie
+\item \color{orangei} \textbf{ggss-misc} \color{black} - zawiera szablony \gls*{cmake} oraz pliki nagłówkowe używane w~projekcie
 \item \color{orangei} \textbf{ggss-util-libs} \color{black} - w~ramach repozytorium zawarte zostały następujące biblioteki:
     \begin{itemize}
     \item \textbf{handle-lib} (handleLib)
@@ -353,29 +360,29 @@ Dla nazewnictwa repozytoriów przyjęto następującą konwencję: słowa pisane
 \item \textbf{ggss-runner} (\_ggss)
 \item \textbf{ggss-dim-cs} (\_dimCs)
 \item \color{orangei} \textbf{external-dim-lib} \color{black} - repozytorium odpowiedzialne za przechowywanie archiwum biblioteki \gls*{dim}, dodatkowo zawiera skrypty obsługujące proces jej budowania
-\item \color{orangei} \textbf{external-n957-lib} \color{black} - repozytorium zawiera pliki biblioteki dostarczanej przez firmę \textbf{CAEN} w~celu obsługi analizatora wielokanałowego N957
+\item \color{orangei} \textbf{external-n957-lib} \color{black} - repozytorium zawiera pliki biblioteki dostarczanej przez firmę CAEN w~celu obsługi analizatora wielokanałowego N957
 \item \color{orangei} \textbf{ggss-oper} \color{black} - zawiera skrypty pomocnicze projektu \gls*{ggss} oraz skrypt odpowiednio je rozmieszczający w~środowisku docelowym
 \item \textbf{mca-n957} (caen\_n957)
-\item \color{orangei} \textbf{external-caen-n957-demo} \color{black} - repozytorium zawierające aplikację dostarczaną przez firmę \textbf{CAEN} w~celu testowania poprawności działania analizatora wielokanałowego
+\item \color{orangei} \textbf{external-caen-n957-demo} \color{black} - repozytorium zawierające aplikację dostarczaną przez firmę CAEN w~celu testowania poprawności działania analizatora wielokanałowego
 \item \textbf{ggss-driver} (ggss-driver)
 \item \color{orangei} \textbf{ggss-all} \color{black} - repozytorium zawierające wszystkie aplikacje zawarte w~ramach projektu \gls*{ggss} oraz skrypty obsługujące budowę całości
 \item \color{orangei} \textbf{aux} \color{black} - repozytorium zawierające elementy związane z~projektem \gls*{ggss}, ale nie związane z~kodem źródłowym, np.: szablon \textit{.gitlab-ci.yml}, szablon \textit{Dockerfile}.
 \end{itemize}
 
-W celu utworzenia wyżej opisanej struktury zależności została wykorzystana funkcjonalność \textbf{submodułów} będąca częścią technologii \gls*{git}. Jest ona narzędziem służącym tworzeniu kompozycji repozytoriów w~dużych projektach. Sposób działania tej funkcjonalności jest podobny do działania dowiązania symbolicznego. \textbf{Submoduł} tak na prawdę jest dowiązaniem wskazującym na konkretną wersję zewnętrznego repozytorium, od którego zależy projekt. Ze względu na precyzję jaką oferuje to rozwiązanie wymagane było przeanalizowanie możliwości wykorzystania w~projekcie. Plusem takiego rozwiązania jest możliwość kontrolowania wersji zewnętrznych zależności, co uodparnia nas na zmianę API. Minusem natomiast jest konieczność ciągłego monitorowania zmian i~aktualizowania dowiązań.
+\newpage
 
-Pierwszym podejściem jakie autorzy chcieli zastosować jest wykorzystanie funkcjonalności flagi \textit{remote}, która pomija sprawdzanie wersji zależności przypisanej za pomocą \textbf{submodułu}, a~zamiast tego pobierana jest zawsze najnowsza wersja. Pozwalałoby to na porzucenie konieczności czasochłonnego aktualizowania dowiązań. 
+W celu utworzenia wyżej opisanej struktury zależności została wykorzystana funkcjonalność \textbf{submodułów} będąca częścią technologii \gls*{git}. Jest ona narzędziem służącym tworzeniu kompozycji repozytoriów w~dużych projektach. Sposób działania tej funkcjonalności jest podobny do działania dowiązania symbolicznego. Submoduł tak na prawdę jest dowiązaniem wskazującym na konkretną wersję zewnętrznego repozytorium, od którego zależy projekt. Ze względu na precyzję jaką oferuje to rozwiązanie wymagane było przeanalizowanie możliwości wykorzystania w~projekcie. Plusem takiego rozwiązania jest możliwość kontrolowania wersji zewnętrznych zależności, co uodparnia nas na zmianę API. Minusem natomiast jest konieczność ciągłego monitorowania zmian i~aktualizowania dowiązań.
+
+Pierwszym podejściem jakie autorzy chcieli zastosować jest wykorzystanie funkcjonalności flagi \lstinline{remote}, która pomija sprawdzanie wersji zależności przypisanej za pomocą submodułu, a~zamiast tego pobierana jest zawsze najnowsza wersja. Pozwalałoby to na porzucenie konieczności czasochłonnego aktualizowania dowiązań. 
 
 Drugim, klasycznym podejściem jest pozostawanie przy wersjach ,,dowiązanych''. Wymaga to dodatkowego nakładu pracy w~utrzymaniu aktualnych zależności, natomiast pozwala na ,,zamrożenie'' stabilnej wersji produktu.
 
-Ze względu na potrzebę ciągłej sprawności systemu zostało wybrane drugie, stabilne rozwiązanie. Pozwala ono na zachowanie informacji o~wersjach zależności, z~którymi komponent działał poprawnie. Oba podejścia zostały w~prosty sposób ukazane na Rysunku \ref{fig:subRem}.
-
-Ze względu na wielokrotne zagnieżdżenia \textbf{submodułów} w~projekcie zastosowana została również flaga \textit{recursive} pozwalająca na pobranie pełnego drzewa zależności na raz. Komendą powszechnie stosowaną w~projekcie w~celu inicjalizacji oraz aktualizacji \textbf{submodułów} jest \textit{git submodule update -{}-init -{}-recursive}.
+Ze względu na potrzebę ciągłej sprawności systemu zostało wybrane drugie, stabilne rozwiązanie. Pozwala ono na zachowanie informacji o~wersjach zależności, z~którymi komponent działał poprawnie. Oba podejścia zostały w~prosty sposób ukazane na rysunku \ref{fig:subRem}. Ze względu na wielokrotne zagnieżdżenia submodułów w~projekcie zastosowana została również flaga \lstinline{recursive} pozwalająca na pobranie pełnego drzewa zależności na raz. Komendą powszechnie stosowaną w~projekcie w~celu inicjalizacji oraz aktualizacji submodułów jest \lstinline{git submodule update --init --recursive}.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{res/submoduleRemote}
-\caption{Sposób działania \textbf{submodułów}: klasyczny oraz z~flagą \textit{remote}}
+\caption{Sposób działania submodułów: klasyczny oraz z~flagą \lstinline{remote}. Repozytorium A jest zależne od repozytorium B. Submoduł w ramach repozytorium A wskazuje na trzecią rewizję repozytorium B.}
 \label{fig:subRem}
 \end{figure}
 
@@ -387,7 +394,7 @@ Ze względu na wielokrotne zagnieżdżenia \textbf{submodułów} w~projekcie zas
 Zmiany wprowadzone w~systemie budowania projektu \gls*{ggss} stanowią dużą cześć wykonanych przez autorów prac. Dotyczą one zarówno przystosowania projektu do nowej architektury, jak i~wprowadzenia mechanizmów ułatwiających przeprowadzenie procesu budowania (np. automatyczne pobieranie zależności zewnętrznych). Niniejsza część pracy podzielona została tematycznie na kilka segmentów dotyczących: koncepcji działania nowego systemu, jego wysokopoziomowej implementacji za pomocą narzędzia \gls*{cmake}, rozwiązywania zależności zewnętrznych oraz implementacji systemu na poziomie pojedynczych komponentów. Nie został tutaj opisany sposób budowania modułu \textit{ggss-driver} - informacje na jego temat znaleźć można w~sekcji \ref{section:driver}.
 
 \subsection{Zarys rozwiązania} 
-Wykonane przez autorów rozwiązanie oparte jest, podobnie jak oryginalny system budowania, na narzędziu \gls*{cmake} w~wersji \textbf{2.8}. Główne założenie wprowadzonych zmian to umożliwienie łatwego zbudowania zarówno każdego z~dostępnych komponentów z~osobna, jak i~projektu jako całość. Każdy moduł projektu posiada więc niezależny od modułów poziomu wyższego plik \textit{CMakeLists.txt} pozwalający na zbudowanie go bez konieczności kompilacji całego systemu. Przygotowany system pozwala na łatwe dodawanie nowych modułów do projektu. Aby to umożliwić przygotowane zostały specjalne szablony (pliki \textit{.cmake}), odpowiedzialne m.in. za tworzenie bibliotek statycznych czy znajdowanie zewnętrznych zależności. Projekt wspiera tzw. \textbf{budowanie out-of-source} - czyli poza katalogiem zawierającym kod źródłowy projektu. Umożliwia to utrzymanie porządku w~strukturze repozytoriów (proces budowania nie generuje w~nich żadnych nowych, potencjalnie niepożądanych plików). Dodatkowo jeśli w~projekcie dana zależność pojawia się wielokrotnie, przygotowany system zbuduje ją tylko raz, co skraca znacznie czas kompilacji oraz sprawia, że wynikowa struktura katalogów jest czytelna i~łatwo się po niej poruszać (przedstawia ją listing \ref{lst:cmakeoutput}). 
+Wykonane przez autorów rozwiązanie oparte jest, podobnie jak oryginalny system budowania, na narzędziu \gls*{cmake} w~wersji \textbf{2.8}. Główne założenie wprowadzonych zmian to umożliwienie łatwego zbudowania zarówno każdego z~dostępnych komponentów z~osobna, jak i~projektu jako całość. Każdy moduł projektu posiada więc niezależny od modułów poziomu wyższego plik \textit{CMakeLists.txt} pozwalający na zbudowanie go bez konieczności kompilacji całego systemu. Przygotowany system pozwala na łatwe dodawanie nowych modułów do projektu. Aby to umożliwić przygotowane zostały specjalne szablony (pliki \textit{.cmake}), odpowiedzialne m.in. za tworzenie bibliotek statycznych czy znajdowanie zewnętrznych zależności. Projekt wspiera tzw. \textbf{budowanie \textit{out-of-source}} - czyli poza katalogiem zawierającym kod źródłowy projektu. Umożliwia to utrzymanie porządku w~strukturze repozytoriów (proces budowania nie generuje w~nich żadnych nowych, potencjalnie niepożądanych plików). Dodatkowo jeśli w~projekcie dana zależność pojawia się wielokrotnie, przygotowany system zbuduje ją tylko raz, co skraca znacznie czas kompilacji oraz sprawia, że wynikowa struktura katalogów jest czytelna i~łatwo się po niej poruszać (przedstawia ją listing \ref{lst:cmakeoutput}). 
 
 \begin{lstlisting}[language=Cmd, caption={Fragment struktury katalogów wygenerowanej przez nowy system budujący projekt (użycie dla repozytorium \textit{ggss-runner}). Dla uproszczenia pominięta została zawartość katalogów \textit{build}. Przykład ilustruje płaską strukturę wynikową ułatwiającą szybkie znalezienie odpowiedniej biblioteki lub pliku wykonywalnego (tutaj \textit{ggss-runner})}, label={lst:cmakeoutput}]
 .
@@ -424,17 +431,17 @@ Wykonane przez autorów rozwiązanie oparte jest, podobnie jak oryginalny system
 \subsection{Szablony CMake}
 W ramach prac nad projektem napisanych zostało kilka plików \textit{.cmake}, stanowiących szablony ułatwiające dodawanie nowych komponentów do aplikacji. Zostały one umieszczone w~repozytorium \textit{ggss-misc}. Lista przygotowanych plików wraz z~ich zastosowaniem:
 \begin{itemize}
-\item \textbf{FindLibraryGSL.cmake} - plik ułatwiający dołączanie biblioteki \textit{GSL} do projektu.
-\item \textbf{FindLibraryCaen.cmake} - plik ułatwiający dołączanie biblioteki \textit{CAENN957} do projektu.
-\item \textbf{FindLibraryBoost.cmake} -  plik ułatwiający dołączanie biblioteki \textit{Boost} do projektu. Pozwala on użytkownikowi na dostosowanie sposobu wykonania tej operacji za pomocą flag. Możliwy jest więc wybór między linkowaniem statycznym i~dynamicznym oraz wybór lokalizacji, w~której biblioteka powinna zostać znaleziona (umożliwia to zastosowanie wersji biblioteki innej niż domyślnie zainstalowana). 
+\item \textbf{FindLibraryGSL.cmake} - plik ułatwiający dołączanie biblioteki GSL do projektu.
+\item \textbf{FindLibraryCaen.cmake} - plik ułatwiający dołączanie biblioteki CAENN957 do projektu.
+\item \textbf{FindLibraryBoost.cmake} -  plik ułatwiający dołączanie biblioteki Boost do projektu. Pozwala on użytkownikowi na dostosowanie sposobu wykonania tej operacji za pomocą flag. Możliwy jest więc wybór między linkowaniem statycznym i~dynamicznym oraz wybór lokalizacji, w~której biblioteka powinna zostać znaleziona (umożliwia to zastosowanie wersji biblioteki innej niż domyślnie zainstalowana). 
 \item \textbf{CheckPlatform.cmake} - wykonanie sprawdzenia platformy, na której budowany jest projekt.
 \item \textbf{BuildLibrary.cmake} - budowanie biblioteki statycznej będącej częścią projektu (listing \ref{lst:buildlibrarycmake}).
 \item \textbf{BuildDependencies.cmake} - obsługa zależności aktualnie budowanej aplikacji lub biblioteki (listing \ref{lst:builddependenciescmake}). 
 \end{itemize}
 
-Omówione zostaną dwa ostatnie z~wymienionych powyżej szablonów. Korzystanie z~nich polega na dołączeniu ich do pliku \textit{CMakelists.txt} za pomocą polecenia \textit{include}, po wcześniejszym zdefiniowaniu wymaganych przez nie zmiennych (np. \textit{target\_name}). Instrukcja użycia tych plików zawarta została w~pliku \textit{README.md} w~repozytorium \textit{ggss-misc}.
+Omówione zostaną dwa ostatnie z~wymienionych powyżej szablonów. Korzystanie z~nich polega na dołączeniu ich do pliku \textit{CMakelists.txt} za pomocą polecenia \lstinline[language=cmake]{include}, po wcześniejszym zdefiniowaniu wymaganych przez nie zmiennych (np. \lstinline{target_name}). Instrukcja użycia tych plików zawarta została w~pliku \textit{README.md} w~repozytorium \textit{ggss-misc}.
 
-Plik \textbf{BuildLibrary.cmake} wykorzystywany jest w~projekcie \gls*{ggss} do budowania bibliotek statycznych (pliki z~rozszerzeniem \textit{.a}). Listing \ref{lst:buildlibrarycmake} przedstawia zawartość tego pliku. W~pierwszej jego części definiowana jest lokalizacja, w~której przeprowadzony zostanie proces budowania (zmienna \textit{BUILD\_OUTPUT\_DIRECTORY}). To właśnie ten fragment umożliwia budowanie \textit{out-of-source}. Następnie określany jest katalog w~którym umieszczona zostanie zbudowana biblioteka (\textit{CMAKE\_ARCHIVE\_OUTPUT\_DIRECTORY}). Komenda \textit{file} odpowiada za wyszukanie wszystkich plików źródłowych i~nagłówkowych będących częścią biblioteki. Samo archiwum zostaje dodane do projektu za pomocą polecenia \textit{add\_library}. Ostatnia linia pliku odpowiada za dodanie stworzonej biblioteki do listy zależności aktualnie tworzonego projektu - dzięki temu biblioteka ta zostanie poprawnie dołączona do potencjalnego projektu nadrzędnego (np. aplikacji).
+Plik \textbf{BuildLibrary.cmake} wykorzystywany jest w~projekcie \gls*{ggss} do budowania bibliotek statycznych (pliki z~rozszerzeniem \textit{.a}). Listing \ref{lst:buildlibrarycmake} przedstawia zawartość tego pliku. W~pierwszej jego części definiowana jest lokalizacja, w~której przeprowadzony zostanie proces budowania (zmienna \lstinline[language=cmake]{BUILD_OUTPUT_DIRECTORY}). To właśnie ten fragment umożliwia budowanie \textit{out-of-source}. Następnie określany jest katalog w~którym umieszczona zostanie zbudowana biblioteka (\lstinline[language=cmake]{CMAKE_ARCHIVE_OUTPUT_DIRECTORY}). Komenda \lstinline[language=cmake]{file} odpowiada za wyszukanie wszystkich plików źródłowych i~nagłówkowych będących częścią biblioteki. Samo archiwum zostaje dodane do projektu za pomocą polecenia \lstinline[language=cmake]{add_library}. Ostatnia linia pliku odpowiada za dodanie stworzonej biblioteki do listy zależności aktualnie tworzonego projektu - dzięki temu biblioteka ta zostanie poprawnie dołączona do potencjalnego projektu nadrzędnego (np. aplikacji).
 
 
 \begin{lstlisting}[language=cmake, caption={Plik \textit{BuildLibrary.cmake} będący częścią systemu budującego projekt \gls*{ggss}. Poszczególne linie odpowiadają m.in. za dodanie nowego projektu, określenie katalogu, w~którym odbędzie się budowanie i~katalogu docelowego, zebranie plików biblioteki oraz dodanie jej do projektu. }, label={lst:buildlibrarycmake}]
@@ -463,7 +470,7 @@ list(APPEND dependency_list ${target_name})
 \end{lstlisting}
 
 
-Plik \textbf{BuildDependencies.cmake} (listing \ref{lst:builddependenciescmake}) odpowiada za przeprowadzenie procesu budowania komponentów, od których jest zależny aktualnie przetwarzany projekt. Jego działanie opiera się na komendzie \textit{add\_subdirectory}, która pozwala na przetworzenie pliku \textit{CMakeLists.txt} budującego daną zależność. Działanie to ilustruje rysunek \ref{fig:cmakeorder}. Dzięki takiemu podejściu budowanie projektu przypomina proces przetwarzania drzewa - moduł nadrzędny dołącza do procesu budowania pliki \textit{CMakeLists.txt} swoich zależności, które następnie wykonują są samą czynność dla swoich zależności itd. Lista modułów podrzędnych względem aktualnie budowanego przechowywana jest w~zmiennej \textit{dependencies}, po której iteruje pętla \textit{foreach}.
+Plik \textbf{BuildDependencies.cmake} (listing \ref{lst:builddependenciescmake}) odpowiada za przeprowadzenie procesu budowania komponentów, od których jest zależny aktualnie przetwarzany projekt. Jego działanie opiera się na komendzie \lstinline[language=cmake]{add_subdirectory}, która pozwala na przetworzenie pliku \textit{CMakeLists.txt} budującego daną zależność. Działanie to ilustruje rysunek \ref{fig:cmakeorder}. Dzięki takiemu podejściu budowanie projektu przypomina proces przetwarzania drzewa - moduł nadrzędny dołącza do procesu budowania pliki \textit{CMakeLists.txt} swoich zależności, które następnie wykonują są samą czynność dla swoich zależności itd. Lista modułów podrzędnych względem aktualnie budowanego przechowywana jest w~zmiennej \lstinline[language=cmake]{dependencies}, po której iteruje pętla \lstinline[language=cmake]{foreach}.
 
 
 \begin{figure}
@@ -474,7 +481,7 @@ Plik \textbf{BuildDependencies.cmake} (listing \ref{lst:builddependenciescmake})
 \end{figure}
 
 
-\begin{lstlisting}[language=cmake, caption={Plik \textit{BuildDependencies.cmake} będący częścią systemu budującego projekt \gls*{ggss}. Zawiera pętlę iterującą po zależnościach aktualnie budowanego modułu. Zależności te dodawane są do systemu budującego za pomocą polecenia \textit{add\_subdirectory}. Dołączone do listingu komentarze stanowią wytłumaczenie działania poszczególnych elementów pliku.}, label={lst:builddependenciescmake}]
+\begin{lstlisting}[language=cmake, caption={Plik \textit{BuildDependencies.cmake} będący częścią systemu budującego projekt \gls*{ggss}. Zawiera pętlę iterującą po zależnościach aktualnie budowanego modułu. Zależności te dodawane są do systemu budującego za pomocą polecenia \lstinline{add\_subdirectory}. Dołączone do listingu komentarze stanowią wytłumaczenie działania poszczególnych elementów pliku.}, label={lst:builddependenciescmake}]
 foreach(dependency ${dependencies})
     
     # pobranie nazwy zależności bez poprzedzającej ją ścieżki
