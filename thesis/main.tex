@@ -914,7 +914,7 @@ build:
 \section{Budowanie i~dystrybucja sterownika oraz aplikacji testującej}
 \label{section:driver}
 
-Ważną częścią pracy wykonanej przez autorów były zmiany w~systemie budowania i~dystrybucji pakietu \gls*{rpm} zawierającego pliki modułu \textbf{ggss-driver}, czyli:
+Ważną częścią pracy wykonanej przez autorów były zmiany w~systemie budowania i~dystrybucji pakietu \gls*{rpm} zawierającego pliki modułu \textit{ggss-driver}, czyli:
 \begin{itemize}
 \item \textbf{CAENUSBdrvB.ko} - sterownik do analizatora wielokanałowego w~postaci modułu jądra systemu operacyjnego
 \item \textbf{10-CAEN-USB.rules} - zasady działania dla programu udev, ma na celu utworzenie dowiązania symbolicznego o~odpowiednich prawach dostępu w~momencie utworzenia urządzenia odpowiedzialnego za obsługę sterownika
@@ -924,10 +924,10 @@ Ważną częścią pracy wykonanej przez autorów były zmiany w~systemie budowa
 \item \textbf{ggss\_usb.conf} - aktualnie używana konfiguracja dla skryptu \textbf{ggss\_conf.py}
 \end{itemize}
 
-Pierwszym krokiem wykonanym w~ramach modułu \textbf{ggss-driver} była zmiana logiki budowania w~celu zapewnienia usuwania plików pomocniczych tworzonych podczas tego procesu, aby zapewnić uporządkowane środowisko deweloperskie. Zostało to osiągnięte za pomocą dodania odpowiedniej właściwości folderowi, który zawierał niepotrzebne dłużej zasoby, w~ramach pliku \textit{CMakeLists.txt}. \par
-Kolejną ważną kwestią było uporządkowanie i~poprawienie niedociągnięć znajdujących się w~pierwotnej wersji pliku \textit{CMakeLists.txt}. W~ramach poprawionej logiki została dodana informacja o~wersji jądra systemu operacyjnego użytego w~celu kompilacji sterownika. Informację tą można wyświetlić za pomocą komendy \gls*{rpm} po zainstalowaniu pakietu w~celu sprawdzenia, czy wersja jądra systemu, za pomocą której został utworzony sterownik, jest zgodna z~wersją jądra na systemie docelowym. Jest to bardzo ważna funkcjonalność ze względu na to, że różnice nawet w~wersji \textbf{minor} potrafią powodować błędy w~działaniu lub kompletnie uniemożliwiać działanie sterownika.
+Pierwszym krokiem wykonanym w~ramach modułu \textit{ggss-driver} była zmiana logiki budowania w~celu zapewnienia usuwania plików pomocniczych tworzonych podczas tego procesu, aby zapewnić uporządkowane środowisko deweloperskie. Zostało to osiągnięte za pomocą dodania odpowiedniej właściwości folderowi, który zawierał niepotrzebne dłużej zasoby, w~ramach pliku \textit{CMakeLists.txt}. \par
+Kolejną ważną kwestią było uporządkowanie i~poprawienie niedociągnięć znajdujących się w~pierwotnej wersji pliku \textit{CMakeLists.txt}. W~ramach poprawionej logiki została dodana informacja o~wersji jądra systemu operacyjnego użytego w~celu kompilacji sterownika. Informację tą można wyświetlić za pomocą komendy \lstinline{rpm} po zainstalowaniu pakietu w~celu sprawdzenia, czy wersja jądra systemu, za pomocą której został utworzony sterownik, jest zgodna z~wersją jądra na systemie docelowym. Jest to bardzo ważna funkcjonalność ze względu na to, że różnice nawet w~wersji \textit{minor} potrafią powodować błędy w~działaniu lub kompletnie uniemożliwiać działanie sterownika.
 
-Kolejną poprawką wprowadzoną do pliku \textit{CMakeLists.txt} było generowanie skryptów obsługujących pakiet \gls*{rpm} bezpośrednio do pakietu, a~nie jak to miało miejsce wcześniej, czyli zapisywanych do pliku na dysku twardym, a~dopiero następnie wprowadzanych do pakietu. Dodatkowo logika samych skryptów uległa poprawie, pozbyto się nadmiarowego usuwania plików, które było wykonywane automatycznie przez menadżera pakietów. W~ramach pakietu dodano również bibliotekę \textbf{libCAENN957}, która jest dostarczana przez firmę \textbf{CAEN} i~ma na celu udostępnienie \textbf{API} do obsługi analizatora wielokanałowego. Została ona dodana jako wymagany komponent całego pakietu, w~przypadku braku odnalezienia biblioteki proces budowania nie powiedzie się. Repozytorium ją zawierające zostało dodane jako \textbf{submoduł} repozytorium \textbf{ggss-driver}. W~celu zapewnienia odpowiedniej obsługi biblioteki w~systemie docelowym generowany jest plik konfiguracyjny programu \textbf{ld} zawierający ścieżkę instalacyjną biblioteki. W~ramach logiki instalacyjnej program \textbf{ld} jest odświeżany, tak, aby ścieżka z~pliku została zarejestrowana. W~celu poprawnego linkowania biblioteki tworzone jest dowiązanie symboliczne, które nie zawiera numeru wersji w~nazwie (libCAENN957.so -> libCAENN957.so.1.6).
+Kolejną poprawką wprowadzoną do pliku \textit{CMakeLists.txt} było generowanie skryptów obsługujących pakiet \gls*{rpm} bezpośrednio do pakietu, a~nie jak to miało miejsce wcześniej, czyli zapisywanych do pliku na dysku twardym, a~dopiero następnie wprowadzanych do pakietu. Dodatkowo logika samych skryptów uległa poprawie, pozbyto się nadmiarowego usuwania plików, które było wykonywane automatycznie przez menadżera pakietów. W~ramach pakietu dodano również bibliotekę libCAENN957, która jest dostarczana przez firmę CAEN i~ma na celu udostępnienie API do obsługi analizatora wielokanałowego. Została ona dodana jako wymagany komponent całego pakietu, w~przypadku braku odnalezienia biblioteki proces budowania nie powiedzie się. Repozytorium ją zawierające zostało dodane jako submoduł repozytorium \textit{ggss-driver}. W~celu zapewnienia odpowiedniej obsługi biblioteki w~systemie docelowym generowany jest plik konfiguracyjny programu \textit{ld} zawierający ścieżkę instalacyjną biblioteki. W~ramach logiki instalacyjnej program \textit{ld} jest odświeżany, tak, aby ścieżka z~pliku została zarejestrowana. W~celu poprawnego linkowania biblioteki tworzone jest dowiązanie symboliczne, które nie zawiera numeru wersji w~nazwie (libCAENN957.so -> libCAENN957.so.1.6).
 
 Bardzo ważnym aspektem było wprowadzenie obsługi systemu aktualizacja pakietów. W~celu zaktualizowania obecnie zainstalowanego pakietu do nowszej wersji wykonywana jest logika instalacyjna nowego pakietu oraz logika dezinstalacyjna starego pakietu w~następującej kolejności:
 \begin{itemize}
@@ -940,14 +940,15 @@ Bardzo ważnym aspektem było wprowadzenie obsługi systemu aktualizacja pakiet�
 \end{itemize}
 
 
-Ze względu na to, że w~ramach logiki instalacyjnej ładowany jest moduł jądra systemu operacyjnego, a~w~ramach logiki dezinstalacyjnej jest on usuwany wymagane było przeniesienie logiki dezinstalacyjnej starego pakietu przed logikę instalacyjną nowego pakietu, tak, aby po procesie aktualizacji moduł był nadal załadowany. Niestety ww. przebieg procesu aktualizacji uniemożliwiał wykonanie tego w~prosty sposób, ze względu na to, że żadna część logiki nowego pakietu nie jest wykonywana na koniec, dzięki czemu moglibyśmy załadować moduł jądra. W~celu rozwiązania tego problemu, została wykorzystana właściwość parametru \textbf{\$1} w~ramach logiki pakietów \gls*{rpm}, czyli:
+Ze względu na to, że w~ramach logiki instalacyjnej ładowany jest moduł jądra systemu operacyjnego, a~w~ramach logiki dezinstalacyjnej jest on usuwany wymagane było przeniesienie logiki dezinstalacyjnej starego pakietu przed logikę instalacyjną nowego pakietu, tak, aby po procesie aktualizacji moduł był nadal załadowany. Niestety ww. przebieg procesu aktualizacji uniemożliwiał wykonanie tego w~prosty sposób, ze względu na to, że żadna część logiki nowego pakietu nie jest wykonywana na koniec, dzięki czemu moglibyśmy załadować moduł jądra. W~celu rozwiązania tego problemu, została wykorzystana właściwość parametru \lstinline{$1} w~ramach logiki pakietów \gls*{rpm}, czyli:
 \begin{itemize}
-\item W~przypadku procesu instalacyjnego, gdy argument \textbf{\$1} przyjmuje wartość \textit{1} oznacza to, że przeprowadzana jest czysta instalacja, natomiast, gdy argument przyjmuje wartość \textit{2} przeprowadzana jest aktualizacja
-\item W~przypadku procesu dezinstalacyjnego, gdy argument \textbf{\$1} przyjmuje wartość \textit{0} oznacza to, że przeprowadza jest dezinstalacja, natomiast, gdy argument przyjmuje wartość \textit{1} przeprowadzana jest aktualizacja
+\item W~przypadku procesu instalacyjnego, gdy argument \lstinline{$1} przyjmuje wartość \textit{1} oznacza to, że przeprowadzana jest czysta instalacja, natomiast, gdy argument przyjmuje wartość \textit{2} przeprowadzana jest aktualizacja
+\item W~przypadku procesu dezinstalacyjnego, gdy argument \lstinline{$1} przyjmuje wartość \textit{0} oznacza to, że przeprowadza jest dezinstalacja, natomiast, gdy argument przyjmuje wartość \textit{1} przeprowadzana jest aktualizacja
 \end{itemize}
 
-Wykorzystując ww. właściwości logikę dezinstalacyjna starego pakietu, w~przypadku wykonywania aktualizacji, została przeniesiona do skryptu odpowiedzialnego za instalację nowego pakietu, przed wykonaniem jakichkolwiek czynności jego dotyczących, co ukazane jest na Listingu \ref{lst:rpmUpgrade}, natomiast skrypt dezinstalacyjny służy jedynie wyświetlaniu informacji o~braku podejmowanych kroków w~jego części procesu (Listing \ref{lst:rpmUpgradePt2}).
+Wykorzystując ww. właściwości logikę dezinstalacyjna starego pakietu, w~przypadku wykonywania aktualizacji, została przeniesiona do skryptu odpowiedzialnego za instalację nowego pakietu, przed wykonaniem jakichkolwiek czynności jego dotyczących, co ukazane jest na Listingu \ref{lst:rpmUpgrade}, natomiast skrypt dezinstalacyjny służy jedynie wyświetlaniu informacji o~braku podejmowanych kroków w~jego części procesu (listing \ref{lst:rpmUpgradePt2}).
 
+\newpage
 \begin{lstlisting}[language=bash, caption={Przykład wykorzystania właściwości argumentów dla skryptu \textit{post-install}}, label={lst:rpmUpgrade}]
 #!/bin/sh
 # [ $1 = 2 ] - upgrade
@@ -970,40 +971,40 @@ fi
 
 \end{lstlisting}
 
-W ramach zmian w~module \textbf{ggss-driver} zostały również poprawione prawa dostępu do plików instalowanych przez pakiet, tak, aby w~systemie docelowym osoby korzystające miały do nich dostęp. 
+W ramach zmian w~module \textit{ggss-driver} zostały również poprawione prawa dostępu do plików instalowanych przez pakiet, tak, aby w~systemie docelowym osoby korzystające miały do nich dostęp. 
 Ze względu na to, że miejscem docelowym plików, instalowanych przez pakiet, są foldery, których ścieżki znajdują się w~strukturze folderów systemowych wymagane było wyłączenie części z~nich z~tworzenia w~procesie instalacyjnym pakietu. Są to następujące katalogi: \textit{/opt}, \textit{/usr/lib/modules}, \textit{/etc/ld.so.conf.d}, \textit{/etc/modules-load.d}, \textit{/etc/udev}, \textit{/etc/udev/rules.d}.
 
-Każda zmiana w~pakiecie \gls*{rpm} projektu \textbf{ggss-driver} jest odpowiednio wersjonowana, dla każdej z~nich jest budowany nowy pakiet w~ramach funkcjonalności GitLab CI/CD, który jest udostępniany jako artefakt do pobrania.
+Każda zmiana w~pakiecie \gls*{rpm} projektu \textit{ggss-driver} jest odpowiednio wersjonowana, dla każdej z~nich jest budowany nowy pakiet w~ramach funkcjonalności GitLab CI/CD, który jest udostępniany jako artefakt do pobrania.
 
-W ramach projektu \gls*{ggss} dystrybuowana jest również aplikacja \textbf{mcaN957} służąca do testowania poprawności działania analizatora wielokanałowego. Dostarczana jest ona w~postaci pakietu \gls*{rpm}, do instalacji którego wymagana jest wcześniejsza instalacja pakietu \textbf{ggss-driver}.
+W ramach projektu \gls*{ggss} dystrybuowana jest również aplikacja \textit{mcaN957} służąca do testowania poprawności działania analizatora wielokanałowego. Dostarczana jest ona w~postaci pakietu \gls*{rpm}, do instalacji którego wymagana jest wcześniejsza instalacja pakietu \textit{ggss-driver}.
 
-Utworzony został również pakiet zawierający aplikację \textbf{CAEN-N957-DEMO}, która również służy do testowania poprawności działania ww. urządzenia, natomiast jest ona tworzona przez firmę \textbf{CAEN}. Również ten pakiet wymaga ówczesnej instalacji pakietu \textbf{ggss-driver}.
+Utworzony został również pakiet zawierający aplikację \textit{CAEN-N957-DEMO}, która również służy do testowania poprawności działania ww. urządzenia, natomiast jest ona tworzona przez firmę CAEN. Również ten pakiet wymaga ówczesnej instalacji pakietu \textit{ggss-driver}.
 
 
 \newpage
 \section{Maszyna wirtualna oraz konteneryzacja}
 \label{sec:wirtDocker}
 
-Ze względu na to, że maszyny dostarczone przed administratorów systemu nie zapewniały odpowiedniej zgodności z~maszyną docelową autorzy musieli zapewnić odpowiednie środowisko produkcyjne w~inny sposób. Pierwszym wykorzystanym pomysłem było użycie ogólnodostępnych \textbf{GitLab CI/CD runner'ów} udostępnianych w~ramach portalu \textbf{GitLab CERN}. Są to współdzielone maszyny wirtualne, w~ramach których uruchamiany jest kontener \textbf{Docker}, na którym wykonywane są polecanie zawarte w~ramach zadań (\textit{.gitlab-ci.yml}) \textbf {GitLab CI/CD}. Niestety rozwiązanie to nie dawało gwarancji zachowania zgodności jąder systemów operacyjnych. Ze względu na wykorzystanie przez \textbf{Docker'a} jądra systemu operacyjnego gospodarza nie można z~poziomu \textbf{kontenera} wykonać zamiany jądra na inną wersję. Biorąc to pod uwagę, jak i~brak możliwości administracyjnych na ww. zasobach autorzy nie mogli w~pełni wykorzystać tego podejścia do otrzymania odpowiedniego środowiska deweloperskiego.
+Ze względu na to, że maszyny dostarczone przed administratorów systemu nie zapewniały odpowiedniej zgodności z~maszyną docelową autorzy musieli zapewnić odpowiednie środowisko produkcyjne w~inny sposób. Pierwszym wykorzystanym pomysłem było użycie ogólnodostępnych \textbf{GitLab CI/CD runner'ów} udostępnianych w~ramach portalu GitLab CERN. Są to współdzielone maszyny wirtualne, w~ramach których uruchamiany jest kontener Docker, na którym wykonywane są polecanie zawarte w~ramach zadań (\textit{.gitlab-ci.yml}) GitLab CI/CD. Niestety rozwiązanie to nie dawało gwarancji zachowania zgodności jąder systemów operacyjnych. Ze względu na wykorzystanie przez Docker'a jądra systemu operacyjnego gospodarza nie można z~poziomu \textbf{kontenera} wykonać zamiany jądra na inną wersję. Biorąc to pod uwagę, jak i~brak możliwości administracyjnych na ww. zasobach autorzy nie mogli w~pełni wykorzystać tego podejścia do otrzymania odpowiedniego środowiska deweloperskiego.
 
-W celu rozwiązania problemu różnych wersji jądra systemu operacyjnego postanowiono utworzyć maszyny wirtualne w~ramach usługi \textbf{Cern Openstack Service} mającej na celu udostępnianie zasobów w~chmurze. Użytkownicy tego rozwiązania posiadają prawa administracyjne na utworzonych instancjach. Dzięki temu mogą one zostać przystosowane w~taki sposób, aby zgadzała się z~konfiguracją środowiskową maszyny docelowej, a~w~szczególności wersji jądra. Aby zwiększyć stabilność oraz powtarzalność środowiska deweloperskiego wykorzystana została technologia \textbf{Docker}, dzięki czemu każde zadanie w~ramach \textbf{GitLab CI/CD} miało zapewnione takie same warunki. Dzięki wykorzystaniu konteneryzacji żadne efekty uboczne zadania nie są w~stanie wpłynąć na inne zadanie. Znacząco zwiększa to niezawodność środowiska deweloperskiego.
+W celu rozwiązania problemu różnych wersji jądra systemu operacyjnego postanowiono utworzyć maszyny wirtualne w~ramach usługi \textit{\textbf{Cern Openstack Service}} mającej na celu udostępnianie zasobów w~chmurze. Użytkownicy tego rozwiązania posiadają prawa administracyjne na utworzonych instancjach. Dzięki temu mogą one zostać przystosowane w~taki sposób, aby zgadzała się z~konfiguracją środowiskową maszyny docelowej, a~w~szczególności wersji jądra. Aby zwiększyć stabilność oraz powtarzalność środowiska deweloperskiego wykorzystana została technologia Docker, dzięki czemu każde zadanie w~ramach GitLab CI/CD miało zapewnione takie same warunki. Dzięki wykorzystaniu konteneryzacji żadne efekty uboczne zadania nie są w~stanie wpłynąć na inne zadanie. Znacząco zwiększa to niezawodność środowiska deweloperskiego.
 
-Ze względu na ograniczone zasoby dostępne w~ramach usługi \textbf{Cern Openstack Service} są one wykorzystywane jedynie w~przypadku repozytorium \textbf{ggss-driver}, ze względu na mocne ograniczenie w~postaci zgodności wersji jądra operacyjnego. Pozostałe repozytoria wykonują swoje zadania w~ramach zasobów współdzielonych na portalu \textbf{GitLab CERN}. Rysunek \ref{fig:buildComp} przedstawia architekturę od strony maszyn wirtualnych oraz kontenerów zastosowaną w~projekcie.
+Ze względu na ograniczone zasoby dostępne w~ramach usługi \textit{Cern Openstack Service} są one wykorzystywane jedynie w~przypadku repozytorium \textit{ggss-driver}, ze względu na mocne ograniczenie w~postaci zgodności wersji jądra operacyjnego. Pozostałe repozytoria wykonują swoje zadania w~ramach zasobów współdzielonych na portalu GitLab CERN. Rysunek \ref{fig:buildComp} przedstawia architekturę od strony maszyn wirtualnych oraz kontenerów zastosowaną w~projekcie.
 
 \newpage
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.6\textwidth]{res/buildComp}
-\caption{Porównanie architektury dla \textbf{ggss-driver} oraz pozostałych repozytoriów}
+\caption{Porównanie architektury dla \textbf{ggss-driver} oraz pozostałych repozytoriów. Dla repozytorium \textit{ggss-driver} widoczna dodatkowa warstwa w postaci zastosowanej maszyny wirtualnej.}
 \label{fig:buildComp}
 \end{figure}
 
 \newpage
 
-W ramach konteneryzacji został przygotowany obraz \textbf{Docker} (atlas-trt-dcs-ggss/ggss-misc/centos7), który umieszczono w~rejestrze obrazów \textbf{gitlab-registry.cern.ch}. Obraz ten zbudowano na podstawie \textbf{Dockerfile} w~ramach którego zostały zawarte wszystkie zależności potrzebne do zbudowania projektu \gls*{ggss}, czyli m.in.: Make, CMake, kompilator C++ oraz C, Python, biblioteki Pythonowe etc. \textbf{Dockerfile} użyty w~tym celu został ukazany na listingu \ref{lst:dockerProd}.
+W ramach konteneryzacji został przygotowany obraz Docker (\textit{atlas-trt-dcs-ggss/ggss-misc/centos7}), który umieszczono w~rejestrze obrazów \textbf{gitlab-registry.cern.ch}. Obraz ten zbudowano na podstawie Dockerfile w~ramach którego zostały zawarte wszystkie zależności potrzebne do zbudowania projektu \gls*{ggss}, czyli m.in.: Make, CMake, kompilator C++ oraz C, Python, biblioteki pythonowe etc. Dockerfile użyty w~tym celu został ukazany na listingu \ref{lst:dockerProd}.
 
-\begin{lstlisting}[language=Dockerfile, caption={\textbf{Dockerfile} dla projektu \gls*{ggss}}, label={lst:dockerProd}]
+\begin{lstlisting}[language=Dockerfile, caption={Dockerfile dla projektu \gls*{ggss}}, label={lst:dockerProd}]
 FROM cern/cc7-base:latest
 
 COPY PYTHON/requirements.txt requirements.txt
@@ -1029,12 +1030,12 @@ RUN pip install -r requirements.txt
 
 \newpage
 \section{Dokumentacja projektu}
-Jednym z~wymagań postawionych przed autorami niniejszej pracy było przygotowanie podstawowej dokumentacji opisującej poszczególne komponenty projektu \gls*{ggss}. Dokumentacja ta miała zostać sporządzona w~języku angielskim, co wynika z~międzynarodowego charakteru zespołu pracującego nad detektorem ATLAS. Przygotowana dokumentacja powinna oferować możliwie niski próg wejścia - powinna ona umożliwić osobie niezaznajomionej z~całym systemem \gls*{ggss} zbudowanie oraz użycie poszczególnych jego komponentów, jak i~całego projektu. Autorzy zrealizowali to zadanie za pomocą plików \textbf{README.md} umieszczonych w~każdym repozytorium projektu oraz dokumentów opisujących sposób wykonania niektórych czynności związanych z~utrzymaniem projektu.
+Jednym z~wymagań postawionych przed autorami niniejszej pracy było przygotowanie podstawowej dokumentacji opisującej poszczególne komponenty projektu \gls*{ggss}. Dokumentacja ta miała zostać sporządzona w~języku angielskim, co wynika z~międzynarodowego charakteru zespołu pracującego nad detektorem ATLAS. Przygotowana dokumentacja powinna oferować możliwie niski próg wejścia - powinna ona umożliwić osobie niezaznajomionej z~całym systemem \gls*{ggss} zbudowanie oraz użycie poszczególnych jego komponentów, jak i~całego projektu. Autorzy zrealizowali to zadanie za pomocą plików \textit{README.md} umieszczonych w~każdym repozytorium projektu oraz dokumentów opisujących sposób wykonania niektórych czynności związanych z~utrzymaniem projektu.
 
 \subsection{Język Markdown}
-Pliki \textit{readme} umieszczane w~serwisach takich jak \textit{GitLab} czy \textit{GitHub} pisane są przy pomocy specjalnego języka znaczników \textbf{Markdown}. Jest to prosty w~użyciu język, konwertowany zwykle do odpowiadającego mu kodu \textit{HTML} \cite{Markdown1}. Listing \ref{lst:mdexample} przedstawia prosty przykład pliku napisanego w~języku \textbf{Markdown}, natomiast Rys. \ref{fig:markdownExample} przedstawia wygenerowaną za jego pomocą zawartość w~portalu \textit{GitLab}.
+Pliki \textit{readme} umieszczane w~serwisach takich jak GitLab czy GitHub pisane są przy pomocy specjalnego języka znaczników \textbf{Markdown}. Jest to prosty w~użyciu język, konwertowany zwykle do odpowiadającego mu kodu HTML \cite{Markdown1}. Listing \ref{lst:mdexample} przedstawia prosty przykład pliku napisanego w~języku Markdown, natomiast rysunek \ref{fig:markdownExample} przedstawia wygenerowaną za jego pomocą zawartość w~portalu GitLab.
 
-\begin{lstlisting}[caption={Przykład prostego pliku napisanego w~języku \textbf{Markdown}}, label={lst:mdexample}]
+\begin{lstlisting}[caption={Przykład prostego pliku napisanego w~języku Markdown}, label={lst:mdexample}]
 # Przykład nagłówka
 
 Ten przykład został wygenerowany na potrzeby pracy inżynierskiej dotyczącej 
@@ -1049,7 +1050,7 @@ Przykład listy:
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{res/MarkdownExample}
-\caption{Przykład zawartości wygenerowanej w~portalu \textit{GitLab} za pomocą języka \textbf{Markdown} na podstawie kodu z~listingu \ref{lst:mdexample}}
+\caption{Przykład zawartości wygenerowanej w~portalu GitLab za pomocą języka Markdown na podstawie kodu z~listingu \ref{lst:mdexample}}
 \label{fig:markdownExample}
 \end{figure}
 
@@ -1063,7 +1064,7 @@ Dla każdego repozytorium w~projekcie wykonany został plik \textit{README.md} z
 \item szczegółowy opis procesu budowania projektu wraz z~gotową komendą umożliwiającą jego zbudowanie 
 \end{itemize}
 
-Rys. \ref{fig:markdownHardware} przedstawia fragment zawartości wygenerowanej za pomocą pliku \textit{README.md} znajdującego się w~repozytorium \textit{ggss-hardware-libs}, opisującej proces budowania bibliotek wchodzących w~skład tego repozytorium. Poza listą kroków opisującą szczegółowo budowanie zestawu bibliotek, instrukcja zawiera również pojedynczą komendę, użycie której wykonuje cały proces bez konieczności dodatkowego wkładu ze strony użytkownika. Takie podejście ma na celu ułatwienie osobom nieznającym struktury projektu szybkie jego zbudowanie. Podobne komendy umieszczone zostały w~repozytoriach zawierających aplikacje wchodzące w~skład systemu \gls*{ggss} (takie jak \textit{ggssrunner}).
+Rys. \ref{fig:markdownHardware} przedstawia fragment zawartości wygenerowanej za pomocą pliku \textit{README.md} znajdującego się w~repozytorium \textit{ggss-hardware-libs}, opisującej proces budowania bibliotek wchodzących w~skład tego repozytorium. Poza listą kroków opisującą szczegółowo budowanie zestawu bibliotek, instrukcja zawiera również pojedynczą komendę, użycie której wykonuje cały proces bez konieczności dodatkowego wkładu ze strony użytkownika. Takie podejście ma na celu ułatwienie osobom nieznającym struktury projektu szybkie jego zbudowanie. Podobne komendy umieszczone zostały w~repozytoriach zawierających aplikacje wchodzące w~skład systemu \gls*{ggss} (takie jak \textit{ggss-runner}).
 
 \begin{figure}
 \centering

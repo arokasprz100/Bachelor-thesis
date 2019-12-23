@@ -9,7 +9,7 @@ Przygotowana przez autorów infrastruktura CI/CD pozwala na łatwe wprowadzenie 
 W swojej obecnej postaci projekt napisany jest w~języku C++ z~elementami standardu C++11. Planowana jest pełna migracja kodu do standardu C++11 lub, jeśli będzie to możliwe (rozwiązany zostanie problem ograniczeń związanych z~infrastrukturą projektu), do standardu C++14 lub C++17. Migracja do nowego standardu oznaczała będzie również wyeliminowanie pewnych zewnętrznych zależności, które dostarczają funkcjonalności będących częścią nowych standardów języka. Dotyczy to przede wszystkim niektórych komponentów biblioteki Boost. Poza zmianami pozwalającymi na modernizację kodu planowane jest również ujednolicenie jego struktury oraz wprowadzenie konwencji dotyczących m.in. nazewnictwa zmiennych czy funkcji. Do tej pory autorom udało się wprowadzić tego typu zmiany w~systemie budowania projektu. 
 
 \section{Automatyzacja procesu publikowania produktu}
-Planowany jest dalszy rozwój przygotowanej przez autorów infrastruktury CI/CD. Poza wspomnianymi już wcześniej zautomatyzowanymi testami oprogramowania, wprowadzone może również zostać automatyczne wersjonowanie wydań projektu. Przydatne może się również okazać przygotowanie skryptu aktualizującego zdalne repozytoria projektu po wprowadzeniu zmian w~kilku submodułach. Wymaga to wykonywania operacji \textit{git add}, \textit{git commit} oraz \textit{git push} dla każdego komponentu zależnego od zmodyfikowanych submodułów i~tak dalej aż do komponentu stanowiącego korzeń projektu. Wykonywanie tej czynności manualnie jest niewydajne, stąd też potrzeba przygotowania skryptu automatyzującego tą czynność.
+Planowany jest dalszy rozwój przygotowanej przez autorów infrastruktury CI/CD. Poza wspomnianymi już wcześniej zautomatyzowanymi testami oprogramowania, wprowadzone może również zostać automatyczne wersjonowanie wydań projektu. Przydatne może się również okazać przygotowanie skryptu aktualizującego zdalne repozytoria projektu po wprowadzeniu zmian w~kilku submodułach. Wymaga to wykonywania operacji \lstinline{git add}, \lstinline{git commit} oraz \lstinline{git push} dla każdego komponentu zależnego od zmodyfikowanych submodułów i~tak dalej aż do komponentu stanowiącego korzeń projektu. Wykonywanie tej czynności manualnie jest niewydajne, stąd też potrzeba przygotowania skryptu automatyzującego tą czynność.
 
 
 \section{Migracja do języka Python 3}
@@ -77,19 +77,20 @@ Arkadiusz Kasprzak & 212 & 6 & 12 \\
 \appendix
 \chapter{Dodatki/Appendixes}
 \label{cha:app}
-Niniejsza część pracy zawiera trzy dodatki dotyczące procesu przygotowywania maszyny wirtualnej do pracy jako tzw. \textit{runner} z~narzędziem \textit{GitLab CI/CD}, procesu dodawania nowych modułów do projektu \gls*{ggss} oraz struktury projektu przed i~po wprowadzeniu przez autorów zmian. Dwa z~dodatków przygotowane zostały w~języku angielskim - powodem tego jest międzynarodowy charakter zespołu pracującego nad detektorem \gls*{trt} oraz fakt, że dodatki te stanowią część dokumentacji znajdującej się w~repozytoriach projektu.
+Niniejsza część pracy zawiera trzy dodatki dotyczące procesu przygotowywania maszyny wirtualnej do pracy jako tzw. \textit{runner} z~narzędziem GitLab CI/CD, procesu dodawania nowych modułów do projektu \gls*{ggss} oraz struktury projektu przed i~po wprowadzeniu przez autorów zmian. Dwa z~dodatków przygotowane zostały w~języku angielskim - powodem tego jest międzynarodowy charakter zespołu pracującego nad detektorem \gls*{trt} oraz fakt, że dodatki te stanowią część dokumentacji znajdującej się w~repozytoriach projektu.
 
 This part of the dissertation contains three appendixes that cover following topics: preparing the virtual machine to work as a~GitLab CI/CD runner, adding new modules to the \gls*{ggss} project using templates created by authors and comparing the project structure before and after changes. Two of the appendixes were written in English - that's due to the international nature of the \gls*{trt} community as well as the fact that those appendixes are a~part of documentation that can be found in project's repositories. 
 
 \section{Porównanie początkowej i~obecnej struktury projektu oraz kodu źródłowego}
 
-Niniejszy dodatek przedstawia porównanie początkowej oraz końcowej struktury projektu \textbf{GGSS}. Listingi \ref{lst:newStructure} oraz \ref{lst:oldStructure} przedstawiają porównanie katalogów na poziomie całego projektu, gdzie tymi samymi kolorami oznaczone zostały odpowiadające sobie komponenty. Kolorem czarnym oznaczone zostały katalogi nieposiadające odpowiedników.
+Niniejszy dodatek przedstawia porównanie początkowej oraz końcowej struktury projektu \gls*{ggss}. Listingi \ref{lst:newStructure} oraz \ref{lst:oldStructure} przedstawiają porównanie katalogów na poziomie całego projektu, gdzie tymi samymi kolorami oznaczone zostały odpowiadające sobie komponenty. Kolorem czarnym oznaczone zostały katalogi nieposiadające odpowiedników.
 
-Listing \ref{lst:newLibStructure} przedstawia strukturę biblioteki \textbf{ggss-lib} po wprowadzonych zmianach. Na listingu \ref{lst:oldLibStructure} przedstawiona została poprzednia struktura tejże biblioteki w~celu ukazania różnic. Takie zmiany zostały wprowadzone w~każdej z~bibliotek wchodzących w~skład projektu \textbf{GGSS}.
+Listing \ref{lst:newLibStructure} przedstawia strukturę biblioteki \textbf{ggss-lib} po wprowadzonych zmianach. Na listingu \ref{lst:oldLibStructure} przedstawiona została poprzednia struktura tejże biblioteki w~celu ukazania różnic. Takie zmiany zostały wprowadzone w~każdej z~bibliotek wchodzących w~skład projektu \gls*{ggss}.
 
 Rysunki \ref{fig:addExternC} i~\ref{fig:removeExternC} przedstawiają jedyne zmiany wprowadzone bezpośrednio w~kodzie źródłowym aplikacji.
 
 \newpage
+
 
 \twocolumn
 
@@ -113,6 +114,7 @@ Rysunki \ref{fig:addExternC} i~\ref{fig:removeExternC} przedstawiają jedyne zmi
 \def\sinopiacolor{\color{sinopia}}
 \def\yellowcolor{\color{salmon}}
 \def\fyellowcolor{\color{fyellow}}
+
 
 \begin{lstlisting}[language=Cmd, caption={Aktualna struktura katalogów}, label={lst:newStructure}, escapechar=@]
 .
