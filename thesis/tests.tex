@@ -36,7 +36,7 @@ Następnym etapem było przeprowadzenie procesu wyłączania systemu \gls*{ggss}
 Po wyłączeniu systemu należało również przerwać działanie poprzedniej wersji aplikacji \textit{ggss-runner} za pomocą skryptu \textit{ggss\_monitor.sh} (listing \ref{lst:ggssstop}). Za pomocą tego skryptu został również potwierdzony stan aplikacji po wyłączeniu.
 
 
-\begin{lstlisting}[language=Cmd, caption={Zatrzymanie działania aplikacji \textit{ggssrunner}}, label={lst:ggssstop}]
+\begin{lstlisting}[language=Cmd, caption={Zatrzymanie działania aplikacji \textit{ggss-runner}}, label={lst:ggssstop}]
 user@host:~$ ./ggss_monitor.sh check
 ggssrunner is running.
 
@@ -52,7 +52,7 @@ ggssrunner is NOT running. /localdisk/ggss/bin/autostartggss.lock exists. Remove
 
 Po wykonaniu wyżej wymienionych czynności podmieniony został plik wykonywalny aplikacji \textit{ggss-runner} na przygotowany przez autorów. Zmiana została wykonana poprzez modyfikacje \textbf{dowiązania symbolicznego}. Następnie aplikacja uruchomiona została ponownie za pomocą skryptu \textit{ggss\_monitor.sh} (listing \ref{lst:ggssstart}) oraz z~poziomu panelu \textit{WinCC OA}.
 
-\begin{lstlisting}[language=Cmd, caption={Ponowne uruchomienie aplikacji \textit{ggssrunner}}, label={lst:ggssstart}]
+\begin{lstlisting}[language=Cmd, caption={Ponowne uruchomienie aplikacji \textit{ggss-runner}}, label={lst:ggssstart}]
 user@host:~$ ./ggss_monitor.sh remove_lock
 Removing lock /localdisk/ggss/bin/autostartggss.lock
 
@@ -65,7 +65,7 @@ user@host:~$ ./ggss_monitor.sh check_start
 
 Dodatkowo użyty został skrypt pozwalający na monitorowanie zużycia zasobów pamięci przez aplikację (listing \ref{lst:ggssmem1}). Sposób użycia oraz fragment generowanego przez ten skrypt wyjścia przedstawia listing \ref{lst:ggssmem2}. 
 
-\begin{lstlisting}[language=bash, caption={Skrypt \textit{check\_mem\_ggssrunner.sh} służacy do monitorowania pamięci używanej przez aplikację \textit{ggssrunner}}, label={lst:ggssmem1}]
+\begin{lstlisting}[language=bash, caption={Skrypt \textit{check\_mem\_ggssrunner.sh} służacy do monitorowania pamięci używanej przez aplikację \textit{ggss-runner}}, label={lst:ggssmem1}]
 #!/bin/bash
 while true
 do
