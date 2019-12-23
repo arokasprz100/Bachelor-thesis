@@ -547,18 +547,26 @@ W celu usprawnienia procesu budowania całego projektu, w~repozytorium \textit{g
 
 Narzędzie \gls*{cmake} definiuje kilka możliwych wersji produktu. Z~perspektywy projektu \gls*{ggss} najważniejsze z~nich to wyżej wspomniana wersja deweloperska (\textit{debug}) oraz produkcyjna (\textit{release}). Tabela \ref{tab:cmaketypes} przedstawia listę flag kompilacji, jaką narzędzie aplikuje w~procesie budowania danej wersji. Konfiguracja \textit{release} została jednak przez autorów zmodyfikowana - flaga \textit{-O3} odpowiada za przeprowadzenie bardzo agresywnej optymalizacji, która sprawia ze produkt przestaje zachowywać się stabilnie. Została więc zastąpiona flagą \textit{-O2} stanowiącą bezpieczniejszą alternatywę. 
 
-\begin{table}[]
+
+
+
+\begin{table*}[htbp]
 \centering
 \caption{Flagi użyte podczas procesu budowania za pomocą narzędzia \gls*{cmake} w~zależności od wybranej konfiguracji. Tabela omawia tylko konfiguracje stosowane w~projekcie (poza nimi dostępne są jeszcze trzy inne). \cite{CMakeOptions}}
-\begin{tabular}{|c|c|}
-\hline
-\rowcolor[HTML]{ECF4FF} 
-\textbf{\begin{tabular}[c]{@{}c@{}}Konfiguracja \\ (debug/release)\end{tabular}} & \textbf{Flagi (gcc)} \\ \hline
-Debug                                                                            & -g                   \\ \hline
-Release                                                                          & -O3 -DNDEBUG         \\ \hline
-\end{tabular}
 \label{tab:cmaketypes}
-\end{table}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Konfiguracja (debug/release) & 
+Flagi (gcc)\\ 
+
+\midrule
+
+debug & -g \\
+release & -O3 -DNDEBUG \\
+
+\bottomrule
+\end{tabular}
+\end{table*}
 
 W celu uproszczenia (z punktu widzenia użytkownika) procesu budowania produktu w~wybranej konfiguracji przygotowany został skrypt \textit{build.py} (fragment widoczny na listingu \ref{lst:buildpy1}) pozwalający na jej łatwe określenie. Skrypt napisany został w~języku Python 3 i~jego działanie opiera się na module \textit{argparse} służącym do przetwarzania argumentów linii poleceń. Po przetworzeniu podanych przez użytkownika informacji skrypt uruchamia proces przetwarzający wspomniany wyżej plik \textit{CMakeLists.txt} w~sposób zgodny z~konfiguracją wybraną przez użytkownika.
 

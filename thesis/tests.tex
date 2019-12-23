@@ -99,20 +99,30 @@ W takim stanie system pozostawiony został na dłuższy (ponad 6 godzin) czas. I
 \section{Wyniki testu}
 Test każdej z~przygotowanych konfiguracji trwał \textbf{ponad 6 godzin}. Tabela \ref{tab:wyniki} przedstawia rezultaty.
 
-\begin{table}[]
-\begin{tabular}{|c|c|c|c|}
-\hline
-\rowcolor[HTML]{ECF4FF} 
-\textbf{\begin{tabular}[c]{@{}c@{}}Konfiguracja \\ (debug/release)\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Sposób linkowania \\ biblioteki Boost\end{tabular}} & \textbf{Wygenerowane błędy}                                                              & \textbf{\begin{tabular}[c]{@{}c@{}}Zaalokowana \\ pamięć\end{tabular}} \\ \hline
-debug                                                                            & statyczne                                                                              & brak                                                                                     & stała                                                                  \\ \hline
-release (-O3)                                                                    & statyczne                                                                              & \begin{tabular}[c]{@{}c@{}}błąd zarejestrowany\\ dla całego systemu \\ GGSS\end{tabular} & stała                                                                  \\ \hline
-release (-O2)                                                                    & statyczne                                                                              & brak                                                                                     & stała                                                                  \\ \hline
-debug                                                                            & dynamiczne                                                                             & brak                                                                                     & stała                                                                  \\ \hline
-release (-O3)                                                                    & dynamiczne                                                                             & \begin{tabular}[c]{@{}c@{}}błąd zarejestrowany\\ dla konkretnej\\ słomki\end{tabular}    & stała                                                                  \\ \hline
-\end{tabular}
+
+
+\begin{table*}[htbp]
+\centering
 \caption{Wyniki testów systemu \gls*{ggss} po wprowadzonych zmianach}
 \label{tab:wyniki}
-\end{table}
+\begin{tabularx}{\textwidth}{@{}XXXX@{}}
+\toprule
+\begin{tabular}[x]{@{}l@{}}Konfiguracja \\(debug/release) \end{tabular} & 
+\begin{tabular}[x]{@{}l@{}}Sposób linkowania \\biblioteki Boost \end{tabular} & 
+Wygenerowane błędy & 
+Zaalokowana pamięć \\ 
+
+\midrule
+
+debug & statyczne & brak & stała \\
+release (-O3) & statyczne & błąd zarejestrowany dla całego systemu GGSS & stała \\
+release (-O2) & statyczne & brak & stała \\
+debug & dynamiczne & brak & stała \\
+release (-O3) & dynamiczne & błąd zarejestrowany dla konkretnej słomki & stała \\
+
+\bottomrule
+\end{tabularx}
+\end{table*}
 
 Podczas przeprowadzania testów wersji produkcyjnej zostały wykryte błędy w~działaniu, co zostało zakomunikowane na panelu WinCC OA. Błędy te pojawiły się zarówno na poziomie całego systemu (Rys. \ref{fig:ggssErrorScada}), jak i~pojedynczej słomki (Rys. \ref{fig:ggssErrorStrawScada}). Pojawienie się błędów było skutkiem zastosowania w~czasie kompilacji flagi optymalizacji \textit{-O3}. Jest to domyślna flaga stosowana przez narzędzie \gls*{cmake} dla wersji produkcyjnej. Podczas kompilacji aplikacji \textit{ggssrunner} w~takiej konfiguracji widoczne były dwa ostrzeżenia, zatem błędy nie były dla autorów zaskoczeniem. Flaga \textit{-O3} oznacza agresywną politykę optymalizacji, co często prowadzi do zmiany zachowania aplikacji. Została więc wprowadzona zmiana w~sposobie kompilacji aplikacji w~wersji produkcyjnej - flaga ta została zastąpiona przez jej łagodniejszy i~stabilniejszy odpowiednik \textit{-O2}, powszechnie wykorzystywany do tworzenia wersji produkcyjnych oprogramowania. Testy wykonane z~użyciem tej flagi nie wyprodukowały żadnych błędów. 
 

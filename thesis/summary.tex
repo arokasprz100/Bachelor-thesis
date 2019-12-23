@@ -19,7 +19,7 @@ Znaczna część skryptów w~projekcie \gls*{ggss} napisana została kilka lat t
 Od początku pracy autorów nad projektem \gls*{ggss} planowane było rozszerzenie jego funkcjonalności o~nowe interfejsy graficzne pozwalające na wygodne przeglądanie gromadzonych danych. Istnieje wiele możliwych sposobów implementacji takich interfejsów. Jednym z~nich jest zastosowanie popularnego \textbf{framework'u Qt}, przeznaczonego do pracy z~językiem C++. 
 
 
-\chapter{Podsumowanie oraz wnioski}
+\chapter{Podsumowanie}
 \label{cha:summary}
 Niniejszy rozdział stanowi podsumowanie prac przeprowadzonych przez autorów nad projektem \gls*{ggss}. Zaprezentowane zostaną statystyki związane z~projektem oraz wkładem autorów w~jego rozwój, jak również zbiór wniosków, wyciągniętych przez autorów podczas prac nad systemem. 
 
@@ -28,43 +28,50 @@ Zadaniem autorów przyjęta podczas prac nad projektem strategia polegająca na 
 Zdaniem autorów wszystkie postawione przed nimi zadania zostały realizowane. Prace nad projektem będą kontynuowane w~dalszym toku studiów podejmowanych przed autorów.
 
 
-
-\begin{table}[]
+\begin{table*}[htbp]
 \centering
 \caption{Ilość linii w~plikach projektu}
 \label{table:stats1}
-\begin{tabular}{|
->{\columncolor[HTML]{ECF4FF}}c |
->{\columncolor[HTML]{ECF4FF}}c |}
-\hline
-\textbf{Typ plików} & \textbf{Ilość linii zawarta we wszystkich plikach danego typu} \\ \hline
-C/C++               & 18 011                                                         \\ \hline
-CMake               & 1 412                                                          \\ \hline
-Python              & 602                                                            \\ \hline
-Markdown            & 557                                                            \\ \hline
-.gitlab-ci.yml      & 430                                                            \\ \hline
-Shell/Bash          & 336                                                            \\ \hline
-Dockerfile          & 56                                                             \\ \hline
-\textbf{RAZEM}      & 21 404                                                         \\ \hline
+\begin{tabular}{@{}lr@{}}
+\toprule
+Typ plików & 
+Ilość linii zawarta we wszystkich plikach danego typu \\
+
+\midrule
+
+C/C++               & 18 011 \\
+CMake               & 1 412 \\
+Python              & 602 \\
+Markdown            & 557 \\
+.gitlab-ci.yml      & 430 \\
+Shell/Bash          & 336 \\
+Dockerfile          & 56 \\
+\textbf{RAZEM}      & 21 404 \\
+
+\bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 
 
-\begin{table}[]
+\begin{table*}[htbp]
 \centering
-\caption{Statystki wkładu autorów w~projekt uzyskane za pomocą portalu GitLab}
+\caption{Statystyki wkładu autorów w~projekt uzyskane za pomocą portalu GitLab}
 \label{table:stats2}
-\begin{tabular}{
->{\columncolor[HTML]{ECF4FF}}c |
->{\columncolor[HTML]{ECF4FF}}c |
->{\columncolor[HTML]{ECF4FF}}c |
->{\columncolor[HTML]{ECF4FF}}c |}
-\cline{2-4}
-\cellcolor[HTML]{FFFFFF}                                                  & \textbf{Ilość commit'ów} & \textbf{\begin{tabular}[c]{@{}c@{}}Ilość wykonanych \\ merge request'ów\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Ilość zamkniętych \\ issue\end{tabular}} \\ \hline
-\multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}\textbf{Jarosław Cierpich}}  & 150                      & 11                                                                                    & 14                                                                          \\ \hline
-\multicolumn{1}{|c|}{\cellcolor[HTML]{ECF4FF}\textbf{Arkadiusz Kasprzak}} & 212                      & 6                                                                                     & 12                                                                          \\ \hline
-\end{tabular}
-\end{table}
+\begin{tabularx}{\textwidth}{@{}XXXX@{}}
+\toprule
+Osoba &
+Ilość commit'ów &
+\begin{tabular}[x]{@{}l@{}}Ilość wykonanych \\merge request'ów \end{tabular}& 
+\begin{tabular}[x]{@{}l@{}}Ilość zamkniętych \\issue \end{tabular}\\
+
+\midrule
+
+Jarosław Cierpich & 150 & 11 & 14 \\
+Arkadiusz Kasprzak & 212 & 6 & 12 \\
+
+\bottomrule
+\end{tabularx}
+\end{table*}
 
 
 \appendix
@@ -190,68 +197,68 @@ Rysunki \ref{fig:addExternC} i~\ref{fig:removeExternC} przedstawiają jedyne zmi
 
 \twocolumn
 
-\begin{lstlisting}[caption={Nowa struktura biblioteki \textbf{ggss-lib}}, label={lst:newLibStructure}]
+\begin{lstlisting}[caption={Nowa struktura biblioteki \textbf{ggss-lib}}, label={lst:newLibStructure}, escapechar=@]
 .
 |-- ggss-software-libs
 |-- ggss-hardware-libs
 |-- external-dim-lib
-|-- CMakeLists.txt
+|-- @\aftergroup\darkgreencolor@CMakeLists.txt@\aftergroup\blackcolor@
 |-- include
 |   `-- ggssLib
-|       |-- ChannelDataForDim.h
-|       |-- ChannelData.h
-|       |-- Channel.h
-|       |-- ChannelParamsForDim.h
-|       |-- DimGgssEventListener.h
-|       |-- GgssDataForDim.h
-|       |-- GgssEventListener.h
-|       |-- GgssEventLoopRunner.h
-|       |-- ggssExceptions.h
-|       |-- ggss.h
-|       |-- GgssParamsForDim.h
-|       `-- ggssParams.h
+|       |-- @\aftergroup\bluecolor@ChannelDataForDim.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@ChannelData.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@Channel.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@ChannelParamsForDim.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@DimGgssEventListener.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@GgssDataForDim.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@GgssEventListener.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@GgssEventLoopRunner.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@ggssExceptions.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@ggss.h@\aftergroup\blackcolor@
+|       |-- @\aftergroup\bluecolor@GgssParamsForDim.h@\aftergroup\blackcolor@
+|       `-- @\aftergroup\bluecolor@ggssParams.h@\aftergroup\blackcolor@
 |-- README.md
 `-- src
-    |-- Channel.cpp
-    |-- ChannelData.cpp
-    |-- ChannelDataForDim.cpp
-    |-- ChannelParamsForDim.cpp
-    |-- DimGgssEventListener.cpp
-    |-- ggss.cpp
-    |-- GgssDataForDim.cpp
-    |-- GgssEventLoopRunner.cpp
-    |-- ggssParams.cpp
-    `-- GgssParamsForDim.cpp
+    |-- @\aftergroup\redcolor@Channel.cpp@\aftergroup\blackcolor@
+    |-- @\aftergroup\redcolor@ChannelData.cpp@\aftergroup\blackcolor@
+    |-- @\aftergroup\redcolor@ChannelDataForDim.cpp@\aftergroup\blackcolor@
+    |-- @\aftergroup\redcolor@ChannelParamsForDim.cpp@\aftergroup\blackcolor@
+    |-- @\aftergroup\redcolor@DimGgssEventListener.cpp@\aftergroup\blackcolor@
+    |-- @\aftergroup\redcolor@ggss.cpp@\aftergroup\blackcolor@
+    |-- @\aftergroup\redcolor@GgssDataForDim.cpp@\aftergroup\blackcolor@
+    |-- @\aftergroup\redcolor@GgssEventLoopRunner.cpp@\aftergroup\blackcolor@
+    |-- @\aftergroup\redcolor@ggssParams.cpp@\aftergroup\blackcolor@
+    `-- @\aftergroup\redcolor@GgssParamsForDim.cpp@\aftergroup\blackcolor@
 
 \end{lstlisting}
 
 \newpage
 
-\begin{lstlisting}[caption={Pierwotna struktura biblioteki \textbf{ggss-lib}}, label={lst:oldLibStructure}]
+\begin{lstlisting}[caption={Pierwotna struktura biblioteki \textbf{ggss-lib}}, label={lst:oldLibStructure}, escapechar=@]
 ggssLib/
-|-- Channel.cpp
-|-- ChannelData.cpp
-|-- ChannelDataForDim.cpp
-|-- ChannelDataForDim.h
-|-- ChannelData.h
-|-- Channel.h
-|-- ChannelParamsForDim.cpp
-|-- ChannelParamsForDim.h
-|-- CMakeLists.txt
-|-- DimGgssEventListener.cpp
-|-- DimGgssEventListener.h
-|-- ggss.cpp
-|-- GgssDataForDim.cpp
-|-- GgssDataForDim.h
-|-- GgssEventListener.h
-|-- GgssEventLoopRunner.cpp
-|-- GgssEventLoopRunner.h
-|-- ggssExceptions.h
-|-- ggss.h
-|-- ggssParams.cpp
-|-- GgssParamsForDim.cpp
-|-- GgssParamsForDim.h
-`-- ggssParams.h
+|-- @\aftergroup\redcolor@Channel.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@ChannelData.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@ChannelDataForDim.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@ChannelDataForDim.h@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@ChannelData.h@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@Channel.h@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@ChannelParamsForDim.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@ChannelParamsForDim.h@\aftergroup\blackcolor@
+|-- @\aftergroup\darkgreencolor@CMakeLists.txt@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@DimGgssEventListener.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@DimGgssEventListener.h@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@ggss.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@GgssDataForDim.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@GgssDataForDim.h@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@GgssEventListener.h@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@GgssEventLoopRunner.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@GgssEventLoopRunner.h@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@ggssExceptions.h@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@ggss.h@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@ggssParams.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\redcolor@GgssParamsForDim.cpp@\aftergroup\blackcolor@
+|-- @\aftergroup\bluecolor@GgssParamsForDim.h@\aftergroup\blackcolor@
+`-- @\aftergroup\bluecolor@ggssParams.h@\aftergroup\blackcolor@
 \end{lstlisting}
 \onecolumn
 \newpage
