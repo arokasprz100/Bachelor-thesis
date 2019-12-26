@@ -1,0 +1,129 @@
+\documentclass[12pt] {article}
+
+%%% Preambuła %%%
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{tabularx}
+
+\usepackage{geometry}
+
+\renewcommand{\arraystretch}{2}
+
+\geometry{a4paper, total={170mm,257mm}, left=20mm, top=20mm,}
+
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+%%% Strona tytułowa %%%
+\title {
+    \large Praca inżynierska \\ Podział wykonanych prac }
+
+\author {Arkadiusz Kasprzak \and Jarosław Cierpich}
+\date{}
+
+
+\begin{document}
+
+
+%%% Strona tytułowa %%%
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section {Prace wykonane w ramach projektu}
+
+\begin{table*}[htbp]
+\centering
+\caption{Podział prac wykonanych w ramach projektu}
+\begin{tabularx}{\textwidth}{@{}XXX@{}}
+\toprule
+Zadanie & 
+Osoba odpowiedzialna & 
+Uwagi \\ 
+
+\midrule
+
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+
+\newpage
+
+\section {Prace wykonane w ramach manuskryptu}
+
+\begin{table*}[htbp]
+\centering
+\caption{Podział prac wykonanych w ramach manuskryptu}
+\begin{tabularx}{\textwidth}{@{}XXX@{}}
+\toprule
+Rozdział/sekcja & 
+Osoba odpowiedzialna & 
+Uwagi \\ 
+
+\midrule
+
+Wstęp & Arkadiusz Kasprzak & \\
+Zastosowane technologie - Język C++ & Arkadiusz Kasprzak & \\
+Zastosowane technologie - Biblioteki & Arkadiusz Kasprzak & \\
+Zastosowane technologie - Narzędzie CMake & Arkadiusz Kasprzak & \\
+Zastosowane technologie - Język Python & Arkadiusz Kasprzak & \\
+Zastosowane technologie - Powłoka systemu operacyjnego (Bash) & Jarosław Cierpich & \\
+Zastosowane technologie - System kontroli wersji Git i portal Gitlab & Jarosław Cierpich & \\
+Zastosowane technologie - Menadżer pakietów RPM & Jarosław Cierpich & \\
+Zastosowane technologie - Technologie wirtualizacji i konteneryzacji & Jarosław Cierpich & \\
+Analiza projektu oraz możliwości jego rozwoju - Stan początkowy & Arkadiusz Kasprzak i Jarosław Cierpich & Jarosław Cierpich: Architektura, Dostarczanie i uruchamianie, Kontrola wersji; Arkadiusz Kasprzak: Budowanie \\
+
+\end{tabularx}
+\end{table*}
+
+\newpage
+
+\begin{table*}[htbp]
+\centering
+\begin{tabularx}{\textwidth}{@{}XXX@{}}
+
+Analiza projektu oraz możliwości jego rozwoju - Stan docelowy & Arkadiusz Kasprzak i Jarosław Cierpich & Ta część pracy tworzona była wspólnie, wkład obu autorów jest porównywalny. \\
+Analiza projektu oraz możliwości jego rozwoju - Ograniczenia dostępnej infrastruktury & Arkadiusz Kasprzak i Jarosław Cierpich & Jarosław Cierpich: Ograniczone uprawnienia w środowisku docelowym, Związek projektu z wersją jądra systemu; Arkadiusz Kasprzak: Wersje kompilatorów i interpreterów, Wersja narzędzia budującego CMake \\
+Wykonane prace - Wykorzystanie funkcjonalności portalu GitLab wspierających zarządzanie projektem & Jarosław Cierpich & \\
+Wykonane prace - Migracja projektu do systemu kontroli wersji Git i zmiany w architekturze & Jarosław Cierpich & \\
+Wykonane prace - Zmiana sposobu budowania aplikacji & Arkadiusz Kasprzak & \\
+Wykonane prace - Zastosowanie podejścia CI/CD & Arkadiusz Kasprzak & \\
+Wykonane prace - Budowanie i dystrybucja sterownika oraz aplikacji testującej & Jarosław Cierpich & \\
+Wykonane prace - Maszyna wirtualna oraz konteneryzacja & Jarosław Cierpich & \\
+Wykonane prace - Dokumentacja projektu & Arkadiusz Kasprzak & \\
+Wykonane prace - Pomniejsze prace & Jarosław Cierpich i Arkadiusz Kasprzak & Ta część pracy tworzona była wspólnie, wkład obu autorów jest porównywalny. \\
+
+\end{tabularx}
+\end{table*}
+
+\newpage
+
+\begin{table}[!htb]
+\centering
+\begin{tabularx}{\textwidth}{@{}XXX@{}}
+
+Testy nowej wersji oprogramowania & Jarosław Cierpich i Arkadiusz Kasprzak & Ta część pracy tworzona była wspólnie, wkład obu autorów jest porównywalny. \\
+Dalsza ścieżka rozwoju projektu & Arkadiusz Kasprzak & \\
+Podsumowanie & Jarosław Cierpich i Arkadiusz Kasprzak & Ta część pracy tworzona była wspólnie, wkład obu autorów jest porównywalny. \\
+Dodatki - Porównanie początkowej i obecnej struktury projektu oraz kodu źródłowego & Jarosław Cierpich i Arkadiusz Kasprzak & Ta część pracy tworzona była wspólnie, wkład obu autorów jest porównywalny. \\
+Dodatki - Adding modules to the projekt using existing CMake templates & Arkadiusz Kasprzak & Dokument Markdown dostępny w ramach repozytorium \textit{ggss-misc} \\
+Dodatki - Preparing the virtual machine to work as a runner & Jarosław Cierpich & Dokument Markdown dostępny w ramach repozytorium \textit{aux} \\
+
+
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+\end{document}
