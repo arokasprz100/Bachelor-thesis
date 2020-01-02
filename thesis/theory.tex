@@ -66,7 +66,7 @@ user@host:~$ tree --charset=ascii
 
 
 \subsection{Rodzaje bibliotek}
-Na systemach z~rodziny UNIX wyróżniamy dwa podstawowy typy bibliotek: \textbf{statyczne} oraz \textbf{współdzielone (shared)}, nazywane również \textbf{dynamicznymi}. Podejścia te znacznie różnią się od siebie. Każde z~nich oferuje pewne zalety względem drugiego, przez co oba pozostają dziś w~użyciu.
+Na systemach z~rodziny UNIX wyróżniamy dwa podstawowy typy bibliotek: \textbf{statyczne} oraz \textbf{współdzielone (ang. \textit{shared})}, nazywane również \textbf{dynamicznymi}. Podejścia te znacznie różnią się od siebie. Każde z~nich oferuje pewne zalety względem drugiego, przez co oba pozostają dziś w~użyciu.
 
 
 %%%%%%%% BIBLIOTEKI STATYCZNE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,7 +79,7 @@ Koncepcja stojąca za bibliotekami statycznymi jest bardzo prosta \cite{Compilin
 \subsubsection*{Tworzenie biblioteki statycznej}
 Rysunek \ref{fig:staticlibflow} przedstawia schematycznie proces tworzenia bibliotek statycznych. Składa się on z~dwóch etapów \cite{Static1}:
 \begin{itemize}
-\item kompilacja plików źródłowych biblioteki do postaci obiektowej za pomocą \textit{gcc} (listing \ref{lst:libstat1}). Wynikiem powinny być pliki o~rozszerzeniu \textit{*.o} odpowiadające wykorzystanym plikom źródłowym.
+\item kompilacja plików źródłowych biblioteki do postaci obiektowej za pomocą \lstinline{gcc} (listing \ref{lst:libstat1}). Wynikiem powinny być pliki o~rozszerzeniu \textit{*.o} odpowiadające wykorzystanym plikom źródłowym.
 
 \begin{lstlisting}[language=Cmd, caption={Kompilacja plików źródłowych biblioteki do postaci obiektowej - polecenie oraz jego wynik},label={lst:libstat1}]
 user@host:~/complex$ gcc -c *.c
@@ -129,9 +129,9 @@ Rysunek \ref{fig:staticliblink} przedstawia schematycznie proces dołączania ut
 \end{figure}
 
 \begin{itemize}
-\item dołączenie do źródeł programu plików nagłówkowych zawierających deklaracje stanowiące interfejs między programem a~biblioteką (dyrektywa \textit{include} - listing \ref{lst:libstat4}).
+\item dołączenie do źródeł programu plików nagłówkowych zawierających deklaracje stanowiące interfejs między programem a~biblioteką (dyrektywa \lstinline{include} - listing \ref{lst:libstat4}).
 
-\begin{lstlisting}[language=c++, caption={Plik \textit{app.c} zawierający dyrektywę \textit{include} dołączającą plik nagłówkowy zawierający deklaracje funkcji z~biblioteki statycznej},label={lst:libstat4}]
+\begin{lstlisting}[language=c++, caption={Plik \textit{app.c} zawierający dyrektywę \lstinline{include} dołączającą plik nagłówkowy zawierający deklaracje funkcji z~biblioteki statycznej},label={lst:libstat4}]
 #include "../complex/complex_opers.h"
 #include <stdio.h>
 
@@ -150,7 +150,7 @@ int main(void) {
 }
 \end{lstlisting}
 
-\item kompilacja plików źródłowych programu do postaci plików obiektowych za pomocą \textit{gcc} (listing \ref{lst:libstat5}). Wynikiem powinien być zestaw plików obiektowych odpowiadający wykorzystanym plikom źródłowym.
+\item kompilacja plików źródłowych programu do postaci plików obiektowych za pomocą \lstinline{gcc} (listing \ref{lst:libstat5}). Wynikiem powinien być zestaw plików obiektowych odpowiadający wykorzystanym plikom źródłowym.
 
 \begin{lstlisting}[language=Cmd, caption={Kompilacja plików źródłowych głównego programu do postaci obiektowej.},label={lst:libstat5}]
 user@host:~/app$ gcc -c *.c
@@ -159,7 +159,7 @@ app.c  app.o
 \end{lstlisting}
 
 
-\item połączenie plików obiektowych i~biblioteki w~plik wykonywalny za pomocą \textit{gcc} (listing \ref{lst:libstat6}). Opcja \lstinline{-L} pozwala określić ścieżkę do dołączanej biblioteki, natomiast \lstinline{-l} - nazwę biblioteki (bez przedrostka \textit{lib} i~rozszerzenie \textit{.a}).
+\item połączenie plików obiektowych i~biblioteki w~plik wykonywalny za pomocą \lstinline{gcc} (listing \ref{lst:libstat6}). Opcja \lstinline{-L} pozwala określić ścieżkę do dołączanej biblioteki, natomiast \lstinline{-l} - nazwę biblioteki (bez przedrostka \textit{lib} i~rozszerzenie \textit{.a}).
 
 \begin{lstlisting}[language=Cmd, caption={Linkowanie plików obiektowych programu z~biblioteką statyczną, wynik uruchomienia programu obrazuący poprawne działanie przykładu.},label={lst:libstat6}]
 user@host:~/app$ gcc -o app app.o -L../complex -lcoml
@@ -192,20 +192,20 @@ Podczas pracy z~bibliotekami współdzielonymi istotne jest przestrzeganie narzu
 
 Wersja biblioteki składa się z~trzech liczb \cite{TLDP}: 
 \begin{itemize}
-\item nadrzędny numer wersji (\textit{major version number}) - różnica na tym poziomie oznacza zmianę interfejsu skutkującą brakiem kompatybilności miedzy wersjami bibliotek
-\item podrzędny numer wersji (\textit{minor version number}) - różnica na tym poziomie oznacza zwykle zachowaną kompatybilność między wersjami biblioteki
-\item numer wydania (\textit{release number}) - opcjonalny
+\item nadrzędny numer wersji (ang. \textit{major version number}) - różnica na tym poziomie oznacza zmianę interfejsu skutkującą brakiem kompatybilności miedzy wersjami bibliotek
+\item podrzędny numer wersji (ang. \textit{minor version number}) - różnica na tym poziomie oznacza zwykle zachowaną kompatybilność między wersjami biblioteki
+\item numer wydania (ang. \textit{release number}) - opcjonalny
 \end{itemize}
 
-Poza nazwą samego pliku bibliotekę współdzieloną określają również dwie inne nazwy \cite{SharedNames}. Pierwsza z~nich to tzw. \textbf{soname}. Stanowi ona podzbiór nazwy przedstawionej na Rys. \ref{fig:sharedName}, bez dwóch ostatnich numerów wersji (przykład: \textit{libname.so.1}). Nazwa \textit{soname} stanowi zwykle nazwę dowiązania symbolicznego do pliku biblioteki. Druga z~nazw to tzw. \textbf{linker name} - stanowi ona nazwę biblioteki bez numeru wersji (tzn. np. \textit{libname.so}).
+Poza nazwą samego pliku bibliotekę współdzieloną określają również dwie inne nazwy \cite{SharedNames}. Pierwsza z~nich to tzw. \textit{\textbf{soname}}. Stanowi ona podzbiór nazwy przedstawionej na Rys. \ref{fig:sharedName}, bez dwóch ostatnich numerów wersji (przykład: \textit{libname.so.1}). Nazwa \textit{soname} stanowi zwykle nazwę dowiązania symbolicznego do pliku biblioteki. Druga z~nazw to tzw. \textit{\textbf{linker name}} - stanowi ona nazwę biblioteki bez numeru wersji (tzn. np. \textit{libname.so}).
 
 
 \subsubsection*{Tworzenie biblioteki współdzielonej}
 Proces tworzenia biblioteki współdzielonej przedstawiony został na Rys. \ref{fig:sharedCreate}. Składa się on z~następujących etapów \cite{Shared1}:
 \begin{itemize}
-\item kompilacja plików źródłowych biblioteki do postaci obiektowej za pomocą \textit{gcc} (listing \ref{lst:socomp}). Konieczne jest zastosowanie flagi \lstinline{-fPIC}, pozwalającej na wygenerowanie tzw. \textbf{Position Independent Code} - jest to taki kod maszynowy, który po załadowaniu do pamięci może być współdzielony przez kilka procesów. Wynikiem tej operacji są pliki obiektowe (\textit{*.o})
+\item kompilacja plików źródłowych biblioteki do postaci obiektowej za pomocą \lstinline{gcc} (listing \ref{lst:socomp}). Konieczne jest zastosowanie flagi \lstinline{-fPIC}, pozwalającej na wygenerowanie tzw. \textit{\textbf{Position Independent Code}} - jest to taki kod maszynowy, który po załadowaniu do pamięci może być współdzielony przez kilka procesów. Wynikiem tej operacji są pliki obiektowe (\textit{*.o})
 
-\begin{lstlisting}[language=bash, language=Cmd, caption={Kompilacja plików źródłowych biblioteki (zastosowanie flagi -fPIC)}, label={lst:socomp}]
+\begin{lstlisting}[language=bash, language=Cmd, caption={Kompilacja plików źródłowych biblioteki (zastosowanie flagi \lstinline{-fPIC})}, label={lst:socomp}]
 user@host:~/complex$ gcc -fPIC -c *.c
 user@host:~/complex$ ls
 complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o
@@ -243,7 +243,7 @@ complex_number.h  complex_opers.c  complex_opers.h  complex_opers.o  libcoml.so.
 Proces dołączania utworzonej biblioteki współdzielonej do programu składa się z~następujących etapów:
 
 \begin{itemize}
-\item dołączenie do źródeł programu plików nagłówkowych zawierających deklaracje stanowiące interfejs między programem a~biblioteką (dyrektywa \textit{include}, identycznie jak w~przypadku biblioteki statycznej)
+\item dołączenie do źródeł programu plików nagłówkowych zawierających deklaracje stanowiące interfejs między programem a~biblioteką (dyrektywa \lstinline{include}, identycznie jak w~przypadku biblioteki statycznej)
 
 \item kompilacja plików źródłowych programu do postaci obiektowej (również analogicznie jak w~przypadku bibliotek statycznych)
 
@@ -257,9 +257,9 @@ app  app.c  app.o
 
 \end{itemize}
 
-Istnieje możliwość wyświetlenia, od jakich bibliotek współdzielonych jest zależny dany plik wykonywalny. Można to osiągnąć za pomocą narzędzie \textit{ldd} \cite{shared2}, co zostało ukazane na listingu \ref{lst:sharedFailed}. Aktualnie stworzona przez autorów biblioteka jest oznaczona jako nie znaleziona (\textit{not found}). Z~tego też powodu próba uruchomienia programu zakończy się niepowodzeniem. 
+Istnieje możliwość wyświetlenia, od jakich bibliotek współdzielonych jest zależny dany plik wykonywalny. Można to osiągnąć za pomocą narzędzie \textit{ldd} \cite{shared2}, co zostało ukazane na listingu \ref{lst:sharedFailed}. Aktualnie stworzona przez autorów biblioteka jest oznaczona jako nie znaleziona (ang. \textit{not found}). Z~tego też powodu próba uruchomienia programu zakończy się niepowodzeniem. 
 
-\begin{lstlisting}[language=bash, language=Cmd, caption={Użycie polecenia \textit{ldd} i~pierwsza, nieudana próba uruchomienia aplikacji zależnej od biblioteki współdzielonej}, label={lst:sharedFailed}]
+\begin{lstlisting}[language=bash, language=Cmd, caption={Użycie narzędzia \textit{ldd} i~pierwsza, nieudana próba uruchomienia aplikacji zależnej od biblioteki współdzielonej}, label={lst:sharedFailed}]
 user@host:~/app$ ldd app
         linux-vdso.so.1 (0x00007fffc16b6000)
         libcoml.so.1 => not found
@@ -292,7 +292,7 @@ Jak wspomniano wyżej działanie narzędzia \gls*{cmake} opiera się na przygoto
 \subsubsection*{Prosty przykład}
 Listing \ref{lst:hello} zawiera przykład prostego pliku \textit{CMakeLists.txt}, pozwalającego na zbudowanie napisanej w~języku C++ obiektowej wersji klasycznego programu \textit{Hello world}. Przykład ilustruje zastosowanie podstawowych poleceń \gls*{cmake} do określenia minimalnej wersji narzędzia, standardu języka C++, wynikowego pliku wykonywalnego oraz potrzebnych plików nagłówkowych. \par
 
-\begin{lstlisting}[language=cmake,caption={Przykład prostego pliku CMakeLists.txt przeznaczonego do budowania programu napisanego w~C++}, label={lst:hello}]
+\begin{lstlisting}[language=cmake,caption={Przykład prostego pliku \textit{CMakeLists.txt} przeznaczonego do budowania programu napisanego w~C++}, label={lst:hello}]
 # Określenie minimalnej wersji CMake
 cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
@@ -346,14 +346,14 @@ if __name__=="__main__":
 \end{lstlisting}
 
 \subsubsection*{Wersje języka Python}
-Python funkcjonuje w~dwóch wersjach: Python 2 oraz 3. Wersje te nie są ze sobą w~pełni kompatybilne, tzn. pewne funkcjonalności Pythona 2 nie są dostępne w~Pythonie 3 i~odwrotnie. Różnice znaleźć można również np. w~domyślnym sposobie kodowania łańcuchów znakowych (ASCII w~Pythonie 2, Unicode w~Pythonie 3) oraz w~wyniku dzielenia (za pomocą operatora \textit{/}) dwóch liczb całkowitych (w Pythonie 2 wynikiem jest liczba całkowita, w~Pythonie 3 liczba zmiennoprzecinkowa typu \textit{float}) \cite{Python2vs3}. Ponadto zakończenie oficjalnego wsparcia Pythona w~wersji 2 przewidziane jest na styczeń 2020 roku \cite{Python2Countdown} - co w~momencie pisania niniejszej pracy (grudzień 2019) jest terminem niedalekim i~miało kluczowe znaczenie w~czasie podejmowania pewnych decyzji projektowych.
+Python funkcjonuje w~dwóch wersjach: Python 2 oraz 3. Wersje te nie są ze sobą w~pełni kompatybilne, tzn. pewne funkcjonalności Pythona 2 nie są dostępne w~Pythonie 3 i~odwrotnie. Różnice znaleźć można również np. w~domyślnym sposobie kodowania łańcuchów znakowych (ASCII w~Pythonie 2, Unicode w~Pythonie 3) oraz w~wyniku dzielenia (za pomocą operatora \lstinline{/}) dwóch liczb całkowitych (w Pythonie 2 wynikiem jest liczba całkowita, w~Pythonie 3 liczba zmiennoprzecinkowa typu \lstinline{float}) \cite{Python2vs3}. Ponadto zakończenie oficjalnego wsparcia Pythona w~wersji 2 przewidziane jest na styczeń 2020 roku \cite{Python2Countdown} - co w~momencie pisania niniejszej pracy (grudzień 2019) jest terminem niedalekim i~miało kluczowe znaczenie w~czasie podejmowania pewnych decyzji projektowych.
 
 \subsubsection*{Zewnętrzne biblioteki}
 Jedną z~największych zalet Pythona jest bardzo duża liczba bibliotek zewnętrznych tworzonych przez społeczność Pythona. Rozbudowują one język o~wiele nowych funkcjonalności, np. przetwarzanie plików HTML czy wykonywanie obliczeń numerycznych. W~niniejszej pracy zastosowanych zostało kilka tego typu bibliotek, m.in. \textit{Beautiful Soup} \cite{BeautifulSoup} do wspomnianego wyżej przetwarzania dokumentów w~formacie HTML. Omówienie ich działania na przykładach znaleźć można w~dalszej części pracy - przy opisie konkretnego ich zastosowania. 
 
 
 \section{Powłoka systemu operacyjnego (Bash)}
-Powłoka systemu jest programem, którego głównym zadaniem jest udostępnienie interfejsu umożliwiającego łatwy dostęp do funkcji systemu operacyjnego. Nazwę \textit{powłoka} zawdzięcza temu, że jest warstwą okalającą system operacyjny. Najczęściej spotykanym rodzajem powłoki są tzw. interfejsy z~wierszem poleceń (ang. command-line interface). Polecenia wprowadzane są do nich w~modzie interaktywnym, tj. wykonywane są one w~momencie wprowadzenia końca linii.
+Powłoka systemu jest programem, którego głównym zadaniem jest udostępnienie interfejsu umożliwiającego łatwy dostęp do funkcji systemu operacyjnego. Nazwę \textit{powłoka} zawdzięcza temu, że jest warstwą okalającą system operacyjny. Najczęściej spotykanym rodzajem powłoki są tzw. interfejsy z~wierszem poleceń (ang. \textit{command-line interface}). Polecenia wprowadzane są do nich w~modzie interaktywnym, tj. wykonywane są one w~momencie wprowadzenia końca linii.
 
 \begin{lstlisting}[language=bash,language=Cmd,caption={Komenda wypisująca tekst na standardowe wyjście wykonana z~linii poleceń}]
 user@host:~$ echo "interfejs z linią poleceń"
@@ -518,7 +518,7 @@ Zastosowanie technologii zarządzania pakietami pozwala znacząco zmniejszyć pr
 \item openSUSE
 \end{itemize}\par
 \gls*{rpm} \cite{RPMMain} jest domyślnym menadżerem pakietów dla ww. dystrybucji. Obsługuje on pakiety w~ramach formatu \textit{.rpm}. Pakiety \textit{.rpm} zawierają w~sobie wiele ważnych elementów. Po pierwsze wewnątrz nich przechowywane są dane aplikacji, czyli: pliki wykonywalne, dokumentacja, testy, konfiguracja.\par 
-Kolejnym ważnym elementem są informacje o~zależnościach, czyli innych wymaganych pakietach, które pozwalają na automatyzację procesu instalacji. W~momencie, gdy któraś z~zależności jest niespełniona menadżer pakietów stara się odnaleźć, w~bazie danych pakietów, odpowiedni wpis, aby \textbf{pobrać} oraz \textbf{zainstalować} brakujące oprogramowanie. Trzecim ważnym elementem jest logika pakietu, która jest podstawą do realizacji akcji wykonywanych przez menadżer pakietów, dostarczona w~postaci skryptów powłoki, np. \gls*{bash}, zaszytych wewnątrz pliku *.rpm.
+Kolejnym ważnym elementem są informacje o~zależnościach, czyli innych wymaganych pakietach, które pozwalają na automatyzację procesu instalacji. W~momencie, gdy któraś z~zależności jest niespełniona menadżer pakietów stara się odnaleźć, w~bazie danych pakietów, odpowiedni wpis, aby \textbf{pobrać} oraz \textbf{zainstalować} brakujące oprogramowanie. Trzecim ważnym elementem jest logika pakietu, która jest podstawą do realizacji akcji wykonywanych przez menadżer pakietów, dostarczona w~postaci skryptów powłoki, np. \gls*{bash}, zaszytych wewnątrz pliku \textit{*.rpm}.
 
 Listing \ref{lst:zawRPM} pokazuje przykładową zawartość pakietu, czyli moduł kernela \textit{modułAplikacji}, plik w~formacie JSON pozwalający na konfigurację aplikacji oraz plik wykonywalny aplikacji, natomiast  listing \ref{lst:skryptRPM} pokazuje przykładową logikę pakietu \gls*{rpm} w~postaci skryptów shell. Skrypty te nie zawierają ani kopiowania, ani usuwania plików zawartych pakiecie, proces ten odbywa się automatycznie na podstawie ścieżek ukazanych na listingu \ref{lst:zawRPM} w~trakcie instalacji/dezinstalacji.
 

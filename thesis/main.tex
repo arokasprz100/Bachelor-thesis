@@ -13,7 +13,7 @@ Rozdział ten opisuje stan początkowy projektu oraz dostępną infrastrukturę 
 \section{Stan początkowy projektu}
 \label{cha:pocz}
 
-Niniejsza cześć pracy została przygotowana w~oparciu o~wiedzę przekazaną przez opiekuna pracy dra hab. inż. Bartosza Mindura \cite{Jinst}, pracę magisterską Pana Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{PluteckiMgr} oraz pracę magisterską Pana Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{ZadrozniakMgr}.
+Niniejsza cześć pracy została przygotowana w~oparciu o~wiedzę przekazaną przez opiekuna pracy dra hab. inż. Bartosza Mindura, prof. AGH \cite{Jinst}, pracę magisterską Pana Przemysława Pluteckiego pt. \textit{Aktualizacja oprogramowania oraz sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{PluteckiMgr} oraz pracę magisterską Pana Pawła Zadrożniaka pt. \textit{Aktualizacja sprzętu elektronicznego dla Systemu Stabilizacji Wzmocnienia Gazowego} \cite{ZadrozniakMgr}.
 
 \subsection{Architektura}
 
@@ -78,9 +78,9 @@ Architektura projektu charakteryzowała się całkowicie płaską strukturą, ni
 \subsection{Budowanie} 
 Projekt w~swojej oryginalnej postaci budowany był za pomocą narzędzia \gls*{cmake} w~wersji \textbf{2.8}. Wyróżnić można było jeden nadrzędny plik \textit{CMakeLists.txt} znajdujący się w~katalogu głównym projektu oraz pomniejsze pliki dla każdego z~modułów.
 
-Nadrzędny plik \textit{CMakeLists.txt} pozwalał na budowanie aplikacji: ggssrunner, dimCS oraz opcjonalnie ggssspector. Zawierał on zmienną \textit{PROJECTS} przechowującą listę zależności, czyli nazwy wszystkich stworzonych w~ramach projektu bibliotek (listing \ref{lst:orig}). Było to jedyne miejsce w~całym systemie budowania określające wewnętrzne zależności w~projekcie.
+Nadrzędny plik \textit{CMakeLists.txt} pozwalał na budowanie aplikacji: ggssrunner, dimCS oraz opcjonalnie ggssspector. Zawierał on zmienną \lstinline{PROJECTS} przechowującą listę zależności, czyli nazwy wszystkich stworzonych w~ramach projektu bibliotek (listing \ref{lst:orig}). Było to jedyne miejsce w~całym systemie budowania określające wewnętrzne zależności w~projekcie.
 
-\begin{lstlisting}[language=cmake, caption={Fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w~katalogu głównym pierwotnej wersji projektu przedstawiający zmienną \textit{PROJECTS} zawierającą listę bibliotek \cite{PluteckiMgr}}, label={lst:orig}]
+\begin{lstlisting}[language=cmake, caption={Fragment oryginalnego pliku \textit{CMakeLists.txt} znajdującego się w~katalogu głównym pierwotnej wersji projektu przedstawiający zmienną \lstinline{PROJECTS} zawierającą listę bibliotek \cite{PluteckiMgr}}, label={lst:orig}]
 set(PROJECTS
     logLib
     xmlLib
@@ -113,7 +113,7 @@ add_library (${dir_name} STATIC ${subdirectory_files})
 set_target_properties (${dir_name} PROPERTIES LINKER_LANGUAGE CXX)
 \end{lstlisting}
 
-Projekt posiadał zatem tylko jeden, z~góry określony sposób budowania - budowanie \textbf{wszystkiego za pomocą głównego pliku CMakeLists.txt}. Pomimo podziału projektu na komponenty (biblioteki) na poziomie architektury nie było możliwości budowania ich osobno (za pomocą dostarczonego systemu). Zaletą takiego podejścia jest jego prostota - pliki \textit{CMakeLists.txt} są krótkie, odwołują się zwykle do jednego szablonu. Istnieje jednak szereg wad takiego rozwiązania. Jedną z~nich jest brak łatwej możliwości identyfikacji wewnętrznych zależności w~projekcie - niemożliwe jest np. wywnioskowanie zależności biblioteki \textit{ThreadLib} od bibliotek \textit{handleLib} i~\textit{logLib}. Jedyną podpowiedzią na ten temat mogłaby być kolejność ich występowania w~zmiennej \textit{PROJECTS} w~głównym pliku \textit{CMakeLists.txt} - taka informacja nie jest jednak informacją pełną i~tego typu rozumowanie nie zawsze byłoby prawdziwe. Innym ograniczeniem tego rozwiązania był brak możliwości łatwego podziału projektu na niezależne repozytoria. Nie było również możliwość zbudowania aplikacji wchodzących w~skład projektu niezależnie od siebie - dedykowane im pliki \textit{CMakeLists.txt} korzystają z~elementów zdefiniowanych w~pliku głównym (np. ze wspomnianej już listy zależności czy ścieżek wskazujących lokalizację plików nagłówkowych). 
+Projekt posiadał zatem tylko jeden, z~góry określony sposób budowania - budowanie \textbf{wszystkiego za pomocą głównego pliku CMakeLists.txt}. Pomimo podziału projektu na komponenty (biblioteki) na poziomie architektury nie było możliwości budowania ich osobno (za pomocą dostarczonego systemu). Zaletą takiego podejścia jest jego prostota - pliki \textit{CMakeLists.txt} są krótkie, odwołują się zwykle do jednego szablonu. Istnieje jednak szereg wad takiego rozwiązania. Jedną z~nich jest brak łatwej możliwości identyfikacji wewnętrznych zależności w~projekcie - niemożliwe jest np. wywnioskowanie zależności biblioteki \textit{ThreadLib} od bibliotek \textit{handleLib} i~\textit{logLib}. Jedyną podpowiedzią na ten temat mogłaby być kolejność ich występowania w~zmiennej \lstinline{PROJECTS} w~głównym pliku \textit{CMakeLists.txt} - taka informacja nie jest jednak informacją pełną i~tego typu rozumowanie nie zawsze byłoby prawdziwe. Innym ograniczeniem tego rozwiązania był brak możliwości łatwego podziału projektu na niezależne repozytoria. Nie było również możliwość zbudowania aplikacji wchodzących w~skład projektu niezależnie od siebie - dedykowane im pliki \textit{CMakeLists.txt} korzystają z~elementów zdefiniowanych w~pliku głównym (np. ze wspomnianej już listy zależności czy ścieżek wskazujących lokalizację plików nagłówkowych). 
 
 Projekt zawierał kilka plików o~rozszerzeniu \textit{.cmake} definiujących szablony możliwe do wykorzystania w~wielu miejscach systemu budującego. Udostępniały one funkcjonalności takie jak: identyfikacja systemu operacyjnego, wyszukanie w~systemie potrzebnych bibliotek zewnętrznych czy przeprowadzenie podstawowych operacji koniecznych do stworzenia biblioteki statycznej. Zawartość jednego z~nich (\textit{LibraryTemplate.cmake}) widoczna jest na listingu \ref{lst:origComponent}.
 
@@ -121,6 +121,8 @@ Projekt zawierał kilka plików o~rozszerzeniu \textit{.cmake} definiujących sz
 \subsection{Dostarczanie i~uruchamianie}
 
 Projekt nie miał automatycznego systemu dostarczania gotowych do użycia plików binarnych, czy też pakietów \gls*{rpm}. Wszystkie akcje prowadzące do utworzenia odpowiednich plików trzeba było wykonywać ręcznie. Nie dostarczono również żadnego systemu regresji, który automatycznie testowałby wprowadzane zmiany. Uruchamianie projektu odbywało się poprzez ręczne umieszczenie plików w~środowisku docelowym, a~następnie uruchomienie aplikacji za pomocą skryptów pomocniczych. Aplikacja była również uruchamiana za pomocą zadania cyklicznego Linux (program crontab). Zadanie to sprawdzało, czy działał proces aplikacji ggssrunner, jeżeli takowy nie istniał oraz nie został utworzony plik .lock, to aplikacja była uruchamiana.
+
+\newpage
 
 \subsection{Kontrola wersji}
 
@@ -217,13 +219,13 @@ Podstawowym problemem do rozwiązania w~trakcie pracy grupowej jest odpowiedni p
 
 W ramach \textit{issue} możliwe jest precyzyjne opisanie problemu czy też zadania. Pozwala na to mnogość możliwych do wypełnienia pól, dzięki czemu zarządzanie projektem jest znacznie ułatwione. Na rysunku \ref{fig:newIssue} widnieje panel pozwalający zdefiniować:
 \begin{itemize}
-\item \textbf{Tytuł} (ang. \textit{Title}) - krótki opis słowny zawartości
-\item \textbf{Opis} (ang. \textit{Description}) - pełny opis problemu, zadania, czy też pomysłu, który jest poruszany w~ramach \textit{issue}
-\item \textbf{Osoba odpowiedzialna} (ang. \textit{Assignee}) - główna osoba koordynująca lub wykonująca zadanie
-\item \textbf{Termin} (ang. \textit{Due date}) - data do której należy zamknąć \textit{issue}, czyli wykonać wszystkie, wymagane w~ramach zadania, akcje
-\item \textbf{Kamień milowy} (ang. \textit{Milestone}) - pole wynikające z~zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w~stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w~ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powinien zawierać informacje nt. tegoż celu.
-\item \textbf{Etykieta} (ang. \textit{Label}) - służy przypisaniu do zdania atrybutu. W~przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (\textit{Ongoing}, \textit{To Do}), powodu niewykonania zadania (\textit{Blocked}, \textit{Duplicate}) oraz oznaczenie zadań z~wysokim priorytetem (\textit{Urgent}). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwość filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{tablicy Kanban} (ang. \textit{Kanban Board}).
-\item \textbf{Waga} (ang. \textit{Weight}) - jest to wartość definiująca trudność zadania oraz wymaganą ilość pracy na jego wykonanie. Wartość ta nie jest bezpośrednio przekładana na czas, wymaga ona interpretacji pod względem przypisanej osoby. Dokładniejsze wytłumaczenie zostanie ukazane na przykładzie.
+\item \textbf{Tytuł} (ang. \textit{title}) - krótki opis słowny zawartości
+\item \textbf{Opis} (ang. \textit{description}) - pełny opis problemu, zadania, czy też pomysłu, który jest poruszany w~ramach \textit{issue}
+\item \textbf{Osoba odpowiedzialna} (ang. \textit{assignee}) - główna osoba koordynująca lub wykonująca zadanie
+\item \textbf{Termin} (ang. \textit{due date}) - data do której należy zamknąć \textit{issue}, czyli wykonać wszystkie, wymagane w~ramach zadania, akcje
+\item \textbf{Kamień milowy} (ang. \textit{milestone}) - pole wynikające z~zastosowania dobrych praktyk programistycznych. Duże cele powinny być podzielone na mniejsze zadania, które można wykonać w~stosunkowo krótkim czasie, dzięki czemu możliwość zmierzenia stopnia wykonania zadania jest większa. Zadania realizowane w~ramach jednego większego celu są powiązane za pomocą kamienia milowego, który powinien zawierać informacje nt. tegoż celu.
+\item \textbf{Etykieta} (ang. \textit{label}) - służy przypisaniu do zdania atrybutu. W~przypadku pracy wykonanej przez autorów etykiety mają na celu określanie stanu realizacji zadania (\textit{Ongoing}, \textit{To Do}), powodu niewykonania zadania (\textit{Blocked}, \textit{Duplicate}) oraz oznaczenie zadań z~wysokim priorytetem (\textit{Urgent}). Etykiety nie mają żadnych ograniczeń co do nazwy, zatem możemy za ich pomocą przypisywać dowolne atrybuty zadaniom. Pozwalają one również na łatwe wyszukiwanie zadań do nich przypisanych, ze względu na możliwość filtrowania według etykiet. Najważniejszą oraz najbardziej przydatną funkcją etykiet jest możliwość utworzenia tzw. \textbf{tablicy Kanban} (ang. \textit{Kanban Board}).
+\item \textbf{Waga} (ang. \textit{weight}) - jest to wartość definiująca trudność zadania oraz wymaganą ilość pracy na jego wykonanie. Wartość ta nie jest bezpośrednio przekładana na czas, wymaga ona interpretacji pod względem przypisanej osoby. Dokładniejsze wytłumaczenie zostanie ukazane na przykładzie.
 \end{itemize}
 
 Poniższy przykład pokazuje wykorzystanie wagi \textit{issue} w~celu oszacowania czasu potrzebnego na jego wykonanie.\par
@@ -280,12 +282,12 @@ Portal GitLab zapewnia również funkcjonalność, która wspiera wykonywanie op
 
 Rysunek \ref{fig:mergeRequestPanel} przedstawia panel tworzenia nowego \textit{merge request}. Można w~nim zdefiniować takie parametry, jak:
 \begin{itemize}
-\item \textbf{Tytuł} (ang. \textit{Title})
-\item \textbf{Opis} (ang. \textit{Description})
-\item \textbf{Osoba przypisana} (ang. \textit{Assignee}), czyli osoba, której zadaniem jest wykonanie operacji \textit{merge} oraz rozwiązanie ewentualnych konfliktów
-\item \textbf{Kamień milowy} (ang. \textit{Milestone})
-\item \textbf{Etykiety} (ang. \textit{Labels})
-\item \textbf{Zasady zatwierdzenia} (ang. \textit{Approval rules}) - tutaj definiuje się wymagania odnośnie zatwierdzenia przez członków zespołu poprawności wykonanych zmian. Jest to jedna z~praktyk dobrego programowania (\textit{code review}).
+\item \textbf{Tytuł} (ang. \textit{title})
+\item \textbf{Opis} (ang. \textit{description})
+\item \textbf{Osoba przypisana} (ang. \textit{assignee}), czyli osoba, której zadaniem jest wykonanie operacji \textit{merge} oraz rozwiązanie ewentualnych konfliktów
+\item \textbf{Kamień milowy} (ang. \textit{milestone})
+\item \textbf{Etykiety} (ang. \textit{labels})
+\item \textbf{Zasady zatwierdzenia} (ang. \textit{approval rules}) - tutaj definiuje się wymagania odnośnie zatwierdzenia przez członków zespołu poprawności wykonanych zmian. Jest to jedna z~praktyk dobrego programowania (\textit{code review}).
 \end{itemize}
 
 \begin{figure}[H]
@@ -553,7 +555,7 @@ endif()
 \subsection{Budowanie aplikacji i~całego projektu} 
 W celu usprawnienia procesu budowania całego projektu, w~repozytorium \textit{ggss-all} umieszczony został specjalny plik \textit{CMakeLists.txt} odpowiedzialny za przeprowadzenie budowania w~ściśle określonej przez użytkownika konfiguracji. Użytkownik może zmieniać m.in. sposób dołączania do projektu biblioteki Boost (statycznie lub dynamicznie) i~wersję budowanego produktu (deweloperska lub produkcyjna). 
 
-Narzędzie \gls*{cmake} definiuje kilka możliwych wersji produktu. Z~perspektywy projektu \gls*{ggss} najważniejsze z~nich to wyżej wspomniana wersja deweloperska (\textit{debug}) oraz produkcyjna (\textit{release}). Tabela \ref{tab:cmaketypes} przedstawia listę flag kompilacji, jaką narzędzie aplikuje w~procesie budowania danej wersji. Konfiguracja \textit{release} została jednak przez autorów zmodyfikowana - flaga \lstinline{-O3} odpowiada za przeprowadzenie bardzo agresywnej optymalizacji, która sprawia ze produkt przestaje zachowywać się stabilnie. Została więc zastąpiona flagą \lstinline{-O2} stanowiącą bezpieczniejszą alternatywę. 
+Narzędzie \gls*{cmake} definiuje kilka możliwych wersji produktu. Z~perspektywy projektu \gls*{ggss} najważniejsze z~nich to wyżej wspomniana wersja deweloperska (ang. \textit{debug}) oraz produkcyjna (ang. \textit{release}). Tabela \ref{tab:cmaketypes} przedstawia listę flag kompilacji, jaką narzędzie aplikuje w~procesie budowania danej wersji. Konfiguracja \textit{release} została jednak przez autorów zmodyfikowana - flaga \lstinline{-O3} odpowiada za przeprowadzenie bardzo agresywnej optymalizacji, która sprawia ze produkt przestaje zachowywać się stabilnie. Została więc zastąpiona flagą \lstinline{-O2} stanowiącą bezpieczniejszą alternatywę. 
 
 
 
@@ -624,7 +626,7 @@ Repozytorium \textit{external-dim-lib} przechowuje wszystkie pliki konieczne do 
 \begin{itemize}
 \item katalog \textbf{dim\_offline} - zawiera archiwum \textit{.zip} z~biblioteką \gls*{dim} w~wersji 20.26.
 \item plik \textbf{CMakeLists.txt} - plik odpowiedzialny za budowanie biblioteki (zarówno w~wersji statycznej jak i~współdzielonej). Za pomocą tego pliku możliwe jest zbudowanie \gls*{dim} bez konieczności dodawania go jako submoduł do innego projektu.
-\item plik \textbf{dim\_build.cmake} - plik, który należy dołączyć do projektu \gls*{cmake} (za pomocą komendy \textit{include}) zależnego od biblioteki \gls*{dim}. Plik ten odpowiedzialny jest za zbudowanie oraz dodanie jej do zależności projektu nadrzędnego.
+\item plik \textbf{dim\_build.cmake} - plik, który należy dołączyć do projektu \gls*{cmake} (za pomocą komendy \lstinline{include}) zależnego od biblioteki \gls*{dim}. Plik ten odpowiedzialny jest za zbudowanie oraz dodanie jej do zależności projektu nadrzędnego.
 \item plik \textbf{dim\_download.py} - skrypt napisany w~języku Python 3 odpowiedzialny za pobieranie najnowszej wersji biblioteki \gls*{dim} z~jej strony internetowej.
 \item plik \textbf{test\_dim\_download.py} - testy jednostkowe do skryptu \textit{dim\_download.py}.
 \item pliki \textbf{requirements.txt} oraz \textbf{venvsetup.sh} - zarządzanie zależnościami wymaganymi przez skrypt pobierający \gls*{dim}.
@@ -712,7 +714,7 @@ ExternalProject_Add(dim_library
 )
 \end{lstlisting}
 
-Proces pobierania nowej wersji biblioteki \gls*{dim} przeprowadzany jest za pomocą skryptu \textit{dim\_download.py}. Wykorzystuje on m.in. moduł \textbf{BeautifulSoup4} do przetwarzania kodu HTML oraz \textbf{requests} \cite{RequestsPython} do pobierania tegoż kodu ze strony internetowej biblioteki. Algorytm działania skryptu jest następujący:
+Proces pobierania nowej wersji biblioteki \gls*{dim} przeprowadzany jest za pomocą skryptu \textit{dim\_download.py}. Wykorzystuje on m.in. moduł \textit{\textbf{BeautifulSoup4}} do przetwarzania kodu HTML oraz \textit{\textbf{requests}} \cite{RequestsPython} do pobierania tegoż kodu ze strony internetowej biblioteki. Algorytm działania skryptu jest następujący:
 \begin{enumerate}
 \item Pobranie kodu HTML ze strony biblioteki \gls*{dim} za pomocą modułu \textit{requests}.
 \item Przetworzenie kodu HTML za pomocą modułu \textit{BeautufilSoup4} (listing \ref{lst:bs4}). Operacja ta ma na celu uzyskanie adresu URL pliku z~biblioteką. Nie jest możliwe podanie tego adresu bezpośrednio w~kodzie skryptu, gdyż zawiera on wersję biblioteki. 
@@ -754,7 +756,7 @@ Autorzy zdecydowali się więc wykorzystać narzędzie CI/CD udostępniane przez
 Początkowo podjęta została decyzja o~zastosowania drugiego z~wyżej wymienionych rozwiązań. Przemawiającym za tym argumentem było potencjalne uproszczenie procedury wdrażania podejścia CI/CD do projektu - w~portalu GitLab włączenie narzędzia Auto DevOps sprowadza się do zaznaczenia jednej opcji w~ustawieniach na poziomie grupy lub repozytorium. Oferuje ono funkcjonalności takie, jak automatyzacja budowania i~testowania projektu czy testy jakości kodu \cite{AutoDevOpsPage}. Podczas prób integracji tego rozwiązania do projektu pojawiło się jednak wiele problemów natury technicznej, związanych m.in. z~niestandardowym sposobem działania projektu \gls*{ggss} czy infrastrukturą tzw. \textit{runner-ów} używaną w~CERN. Ostatecznie pomysł ten został więc porzucony na rzecz manualnej konfiguracji środowiska CI/CD. 
 
 \subsection{Opis działania GitLab CI/CD}
-Przed przystąpieniem do opisu sposobu zastosowania narzędzia GitLab CI/CD w~projekcie \gls*{ggss} przedstawiony zostanie sposób jego działania oraz najważniejsze pojęcia z~nim związane. Manualna konfiguracja polega na umieszczeniu w~repozytorium pliku \textit{.gitlab-ci.yml} zawierającego szczegółowy opis przebiegu całego procesu ciągłej integracji i~dostarczania (w tym konieczne do wykonania komendy). Przebieg ten określa się słowem \textbf{pipeline}. Składa się on z~etapów (ang. \textit{stages}), przy czym każdy etap może zawierać w~sobie kilka równoległych zadań (ang. \textit{jobs}). Idea ta została zilustrowana na rysunku \ref{fig:pipeline}.
+Przed przystąpieniem do opisu sposobu zastosowania narzędzia GitLab CI/CD w~projekcie \gls*{ggss} przedstawiony zostanie sposób jego działania oraz najważniejsze pojęcia z~nim związane. Manualna konfiguracja polega na umieszczeniu w~repozytorium pliku \textit{.gitlab-ci.yml} zawierającego szczegółowy opis przebiegu całego procesu ciągłej integracji i~dostarczania (w tym konieczne do wykonania komendy). Przebieg ten określa się słowem \textit{\textbf{pipeline}}. Składa się on z~etapów (ang. \textit{stages}), przy czym każdy etap może zawierać w~sobie kilka równoległych zadań (ang. \textit{jobs}). Idea ta została zilustrowana na rysunku \ref{fig:pipeline}.
 
 \begin{figure}
 \centering
@@ -767,7 +769,7 @@ Wynikiem każdego z~zadań może być tzw. \textbf{artefakt}, czyli możliwe do 
 
 Zadania składające się na pipeline uruchamiane są przez specjalne narzędzie \textbf{GitLab Runner}. Może on znajdować się na serwerach GitLab lub na skonfigurowanej przez klienta maszynie \cite{CIzGitLab}. Przebieg całego procesu koordynowany jest przez \textbf{GitLab Server} \cite{GitLabPage}.
 
-Jak zostało wspomniane przebieg procesu CI/CD konfigurowany jest za pomocą specjalnego pliku \textit{.gitlab-ci.yml}. Zastosowany format \textit{YAML} (skrót od \textit{YAML Ain't Markup Language} \cite{YAMLWiki}), ze względu na swoją czytelność, pozwala na stosunkowo szybkie przygotowanie funkcjonalnego systemu. Listing \ref{lst:yml1} przedstawia przykład prostego pliku w~tym formacie konfigurującego GitLab CI/CD. Na początku zostaje w~nim określony użyty obraz \textit{Docker'a}, następnie wymienione są poszczególne etapy (klucz \textit{stages} - w~tym przypadku jeden etap: \textit{software\_test}) procesu CI/CD, a~na końcu pojawia się opis zadania (\textit{dim\_software\_test}) należącego do zdefiniowanego etapu. Podczas definicji zadań możliwe jest wyspecyfikowanie mających się wykonać komend (klucz \textit{script}).
+Jak zostało wspomniane przebieg procesu CI/CD konfigurowany jest za pomocą specjalnego pliku \textit{.gitlab-ci.yml}. Zastosowany format \textit{YAML} (skrót od \textit{YAML Ain't Markup Language} \cite{YAMLWiki}), ze względu na swoją czytelność, pozwala na stosunkowo szybkie przygotowanie funkcjonalnego systemu. Listing \ref{lst:yml1} przedstawia przykład prostego pliku w~tym formacie konfigurującego GitLab CI/CD. Na początku zostaje w~nim określony użyty obraz \textit{Docker'a}, następnie wymienione są poszczególne etapy (klucz \lstinline{stages} - w~tym przypadku jeden etap: \textit{software\_test}) procesu CI/CD, a~na końcu pojawia się opis zadania (\textit{dim\_software\_test}) należącego do zdefiniowanego etapu. Podczas definicji zadań możliwe jest wyspecyfikowanie mających się wykonać komend (klucz \lstinline{script}).
 
 \begin{lstlisting}[language=yaml, caption={Przykład prostego pliku \textit{.gitlab-ci.yml} generującego jeden etap procesu CI/CD oraz jedno zadanie w~ramach tego etapu}, label={lst:yml1}]
 image: gitlab-registry.cern.ch/atlas-trt-dcs-ggss/ggss-misc/centos7
@@ -787,10 +789,10 @@ Na potrzeby projektu \gls*{ggss} przygotowane zostało środowisko zapewniające
 
 W ramach repozytorium \textit{ggss-all} przygotowana została konfiguracja budująca aplikacje: \textit{ggss-runner}, \textit{ggss-dim-cs} oraz \textit{mca-n957}. Listing \ref{lst:ggssyml1} przedstawia fragment przygotowanego pliku \textit{.yml}. Plik ten zawiera siedem zadań zdefiniowanych w~ramach etapu \textit{build} (nie ma konieczności bezpośredniej jego definicji, jest to jeden z~trzech, obok \textit{test} i~\textit{deploy}, etapów które mogą zostać, w~razie pojawienia się przypisanego do nich zadania, wygenerowane automatycznie). Zadania te odpowiadają za:
 \begin{itemize}
-\item \textbf{build\_all\_debug\_static\_boost} - zbudowanie wszystkich trzech wymienionych wyżej aplikacji w~wersji deweloperskiej (\textit{debug}) ze statycznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
-\item \textbf{build\_all\_debug\_dynamic\_boost} - zbudowanie wszystkich trzech aplikacji w~wersji deweloperskiej z~dynamicznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
-\item \textbf{build\_all\_release\_static\_boost} oraz \textbf{build\_all\_release\_dynamic\_boost} - analogicznie do dwóch powyższych ale w~wersji produkcyjnej (\textit{release}).
-\item \textbf{build\_only\_ggss\_runner}, \textbf{build\_only\_ggss\_dim\_cs} i~\textbf{build\_only\_mca\_n957} - zbudowanie każdej aplikacji z~osobna, bez produkowania artefaktu, w~wersji debug z~dynamicznie linkowaną biblioteką Boost (konfiguracja domyślna).
+\item \lstinline{build_all_debug_static_boost} - zbudowanie wszystkich trzech wymienionych wyżej aplikacji w~wersji deweloperskiej ze statycznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
+\item \lstinline{build_all_debug_dynamic_boost} - zbudowanie wszystkich trzech aplikacji w~wersji deweloperskiej z~dynamicznie dołączaną biblioteką Boost oraz przygotowanie artefaktu zawierającego wynikowe pliki wykonywalne.
+\item \lstinline{build_all_release_static_boost} oraz \lstinline{build_all_release_dynamic_boost} - analogicznie do dwóch powyższych ale w~wersji produkcyjnej.
+\item \lstinline{build_only_ggss_runner}, \lstinline{build_only_ggss_dim_cs} i~\lstinline{build_only_mca_n957} - zbudowanie każdej aplikacji z~osobna, bez produkowania artefaktu, w~wersji deweloperskiej z~dynamicznie linkowaną biblioteką Boost (konfiguracja domyślna).
 \end{itemize}
 
 \begin{lstlisting}[language=yaml, caption={Fragment pliku \textit{.gitlab-ci.yml} konfigurującego \textit{pipeline} CI/CD dla repozytorium \textit{ggss-all}}, label={lst:ggssyml1}]
@@ -818,7 +820,7 @@ build_all_debug_static_boost:
 
 \end{lstlisting}
 
-Generowane w~repozytorium \textit{ggss-all} artefakty są tymi trafiającymi ostatecznie do środowiska produkcyjnego. Pliki mające trafić do artefaktu specyfikowane są za pomocą klucza \textit{paths} (widoczne na listingu \ref{lst:ggssyml1}). Do przeprowadzenia budowania używany jest specjalnie w~tym celu przygotowany przez autorów obraz, oparty na oficjalnych obrazach dostarczonych przez CERN. Rys. \ref{fig:pipelineall} przedstawia wynikowy \textit{pipeline} oraz dostępnie do pobrania artefakty.
+Generowane w~repozytorium \textit{ggss-all} artefakty są tymi trafiającymi ostatecznie do środowiska produkcyjnego. Pliki mające trafić do artefaktu specyfikowane są za pomocą klucza \lstinline{paths} (widoczne na listingu \ref{lst:ggssyml1}). Do przeprowadzenia budowania używany jest specjalnie w~tym celu przygotowany przez autorów obraz, oparty na oficjalnych obrazach dostarczonych przez CERN. Rys. \ref{fig:pipelineall} przedstawia wynikowy \textit{pipeline} oraz dostępnie do pobrania artefakty.
 
 \begin{figure}[H]
 \centering
@@ -853,7 +855,7 @@ Konfiguracja stworzona na potrzeby repozytorium \textit{external-dim-lib} różn
 
 Podobnego typu prace zostały wykonane dla większości pozostałych repozytoriów. Z~uwagi na ich powtarzalny charakter nie zostaną one jednak omówione w~niniejszym manuskrypcie. 
 
-W przedstawionym przykładzie dotyczącym aplikacji \textit{ggss-runner} (listing \ref{lst:ggssyml1}) znajduje się klucz \textit{before\_script} z~instrukcją pobierającą submoduły projektu. Istnieją dwa wykluczające się sposoby na wykonanie tej czynności. Submoduł może zostać pobrany w~swojej najnowszej wersji znajdującej się na \textbf{zdalnej rewizji} (tak jak w~przytoczonym przykładzie, służy temu opcja \lstinline{--remote}) lub w~wersji \textbf{aktualnie powiązanej z~repozytorium nadrzędnym} (realizację przedstawia listing \ref{lst:ggsscicdsoft}). Oba wymienione podejścia mają swoje wady i~zalety. Rys. \ref{fig:submoduleProblem} stanowi uproszczoną (ograniczoną tylko do jednej gałęzi na repozytorium) ilustrację opisywanego problemu. Pierwszy z~wymienionych sposobów jest wygodniejszy, ponieważ pozwala na dostarczenie i~przetestowanie najnowszej możliwej wersji produktu. Jest to jednak ryzykowne - najnowsza wersja submodułu może nie być kompatybilna z~modułem nadrzędnym (np. mógł zmienić się jej interfejs). Spowoduje to błąd, którego źródło może być trudne do odnalezienia (jeśli programista owej najnowszej wersji nie używał pojawi się sprzeczność w~wynikach otrzymywanych przez niego lokalnie, a~generowanych przez mechanizm CI/CD). Drugie rozwiązanie jest zatem bezpieczniejsze i~gwarantuje stabilność. Autorzy skłaniają się w~większości przypadków do tego właśnie rozwiązania, jednak z~uwagi na zalety pierwszej z~wymienionych opcji, jest ona wciąż używana w~niektórych repozytoriach (np. \textit{ggss-all}). 
+W przedstawionym przykładzie dotyczącym aplikacji \textit{ggss-runner} (listing \ref{lst:ggssyml1}) znajduje się klucz \lstinline{before_script} z~instrukcją pobierającą submoduły projektu. Istnieją dwa wykluczające się sposoby na wykonanie tej czynności. Submoduł może zostać pobrany w~swojej najnowszej wersji znajdującej się na \textbf{zdalnej rewizji} (tak jak w~przytoczonym przykładzie, służy temu opcja \lstinline{--remote}) lub w~wersji \textbf{aktualnie powiązanej z~repozytorium nadrzędnym} (realizację przedstawia listing \ref{lst:ggsscicdsoft}). Oba wymienione podejścia mają swoje wady i~zalety. Rys. \ref{fig:submoduleProblem} stanowi uproszczoną (ograniczoną tylko do jednej gałęzi na repozytorium) ilustrację opisywanego problemu. Pierwszy z~wymienionych sposobów jest wygodniejszy, ponieważ pozwala na dostarczenie i~przetestowanie najnowszej możliwej wersji produktu. Jest to jednak ryzykowne - najnowsza wersja submodułu może nie być kompatybilna z~modułem nadrzędnym (np. mógł zmienić się jej interfejs). Spowoduje to błąd, którego źródło może być trudne do odnalezienia (jeśli programista owej najnowszej wersji nie używał pojawi się sprzeczność w~wynikach otrzymywanych przez niego lokalnie, a~generowanych przez mechanizm CI/CD). Drugie rozwiązanie jest zatem bezpieczniejsze i~gwarantuje stabilność. Autorzy skłaniają się w~większości przypadków do tego właśnie rozwiązania, jednak z~uwagi na zalety pierwszej z~wymienionych opcji, jest ona wciąż używana w~niektórych repozytoriach (np. \textit{ggss-all}). 
 
 \begin{lstlisting}[language=yaml,caption={Fragment pliku \textit{.gitlab-ci.yml} znajdującego się w~repozytorium \textit{ggss-software-libs} pobierający submoduły projektu w~wersji aktualnie powiązanej z~repozytorium nadrzędnym}, label={lst:ggsscicdsoft}]
 image: gitlab-registry.cern.ch/atlas-trt-dcs-ggss/ggss-misc/centos7
@@ -972,7 +974,7 @@ fi
 \end{lstlisting}
 
 W ramach zmian w~module \textit{ggss-driver} zostały również poprawione prawa dostępu do plików instalowanych przez pakiet, tak, aby w~systemie docelowym osoby korzystające miały do nich dostęp. 
-Ze względu na to, że miejscem docelowym plików, instalowanych przez pakiet, są foldery, których ścieżki znajdują się w~strukturze folderów systemowych wymagane było wyłączenie części z~nich z~tworzenia w~procesie instalacyjnym pakietu. Są to następujące katalogi: \textit{/opt}, \textit{/usr/lib/modules}, \textit{/etc/ld.so.conf.d}, \textit{/etc/modules-load.d}, \textit{/etc/udev}, \textit{/etc/udev/rules.d}.
+Ze względu na to, że miejscem docelowym plików, instalowanych przez pakiet, są foldery, których ścieżki znajdują się w~strukturze folderów systemowych wymagane było wyłączenie części z~nich z~tworzenia w~procesie instalacyjnym pakietu. Są to następujące katalogi: \lstinline{/opt}, \lstinline{/usr/lib/modules}, \lstinline{/etc/ld.so.conf.d}, \lstinline{/etc/modules-load.d}, \lstinline{/etc/udev}, \lstinline{/etc/udev/rules.d}.
 
 Każda zmiana w~pakiecie \gls*{rpm} projektu \textit{ggss-driver} jest odpowiednio wersjonowana, dla każdej z~nich jest budowany nowy pakiet w~ramach funkcjonalności GitLab CI/CD, który jest udostępniany jako artefakt do pobrania.
 
@@ -1083,7 +1085,7 @@ Niniejsza część pracy zawiera opis dwóch problemów niezwiązanych bezpośre
 \subsection{Integracja bibliotek napisanych w~języku C z~aplikacją w~C++}
 Biblioteka zawarta w~ramach repozytorium \textbf{external-n957-lib} napisana została w~języku C, co utrudnia poprawne wykorzystanie jej w~projekcie opartym na języku C++. Wynika to ze sposobu działania symboli w~języku C++. Ze względu na istniejące w~nim mechanizmy takie jak: przeładowanie funkcji oraz szablony, są one dekorowane w~celu przechowywania dodatkowych, koniecznych informacji. Zachowanie to jest niezgodne z~zachowaniem w~języku C, gdzie taki mechanizm nie występuje. Powoduje to konieczność specjalnego oznaczenia kodu napisanego w~języku C, a~wykorzystywanego w~języku C++ konstrukcją \lstinline[language=c++]{extern "C"}. W~przeciwnym wypadku, podczas linkowania programu, pojawi się błąd dotyczący niezdefiniowanych referencji do symboli.
 
-W początkowej wersji projektu problem ten został rozwiązany poprzez dodanie wyżej wymienionej konstrukcji w~plikach nagłówkowych zewnętrznej biblioteki, co po jej aktualizacji spowodowało zaprzestanie poprawnego budowania się projektu \gls*{ggss}. Poprawa tego błędu polegała na wykorzystaniu \lstinline[language=c++]{extern "C"} w~miejscu występowania dyrektywy \textit{include} dołączającej wyżej wspomniane pliki nagłówkowe biblioteki, co ilustruje listing \ref{lst:externCC}.
+W początkowej wersji projektu problem ten został rozwiązany poprzez dodanie wyżej wymienionej konstrukcji w~plikach nagłówkowych zewnętrznej biblioteki, co po jej aktualizacji spowodowało zaprzestanie poprawnego budowania się projektu \gls*{ggss}. Poprawa tego błędu polegała na wykorzystaniu \lstinline[language=c++]{extern "C"} w~miejscu występowania dyrektywy \lstinline{include} dołączającej wyżej wspomniane pliki nagłówkowe biblioteki, co ilustruje listing \ref{lst:externCC}.
 
 \begin{lstlisting}[language=c++, caption={Wykorzystanie konstrukcji \lstinline{extern "C"} w~celu integracji biblioteki napisanej w~języku C z~komponentem \textbf{mca-lib}}, label={lst:externCC}]
 extern "C"{ 
