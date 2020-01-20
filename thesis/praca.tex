@@ -398,12 +398,17 @@ Jednocześnie Uczelnia informuje, że zgodnie z art. 15a ww. ustawy o prawie aut
 	\renewcommand{\footrulewidth}{0pt}
 } 
 
+
+
 \includepdfset{pages=-,pagecommand=\thispagestyle{fancy}}
 \includepdf[pages=1, scale=0.9,offset= 0.65cm -1.2cm, pagecommand={}]{res/rec1_op.pdf}
 
-\afterpage{\null\newpage}
-\afterpage{\null\newpage}
-\afterpage{\null\newpage}
+\clearpage\mbox{}\clearpage
+
+\includepdfset{pages=-,pagecommand=\thispagestyle{fancy}}
+\includepdf[pages=1, scale=0.9,offset= 0.65cm -1.2cm, pagecommand={}]{res/rec1_or.pdf}
+
+\clearpage\mbox{}\clearpage
 
 \clearpage
 \setcounter{tocdepth}{2}
